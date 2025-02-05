@@ -10,15 +10,15 @@ screen sizes.
 export default function Navbar() {
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg">
-            <div className="flex justify-between items-center px-12">
+            <div className="flex justify-between items-center px-6 md:px-12">
                 {/* Logo */}
                 <a href="/">
-                    <Image src={Logo} alt="Just Yap!" className="w-40 h-20" />
+                    <Image src={Logo} alt="Just Yap!" className="w-32 h-16 sm:w-40 sm:h-20" />
                 </a>
 
 
-                {/* Links */}
-                <div className="flex justify-center items-center space-x-16">
+                {/* Desktop navigation which only appears for md and above*/}
+                <div className="hidden md:flex justify-center items-center space-x-16">
                     {/* Desktop links */}
                     {
                         navLinks.map((link) => (
@@ -28,8 +28,16 @@ export default function Navbar() {
                   
                     {/* Login button */}
                     <button className="rounded-full bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 text-white px-6 py-1">Login</button>
-
                 </div>
+
+
+                {/* Hamburger menu which only appears for below md */}
+                {/* Hamburger menu button */}
+                <button data-drawer-target="menu-drawer" data-drawer-show="menu-drawer" data-drawer-placement="right" aria-controls="menu-drawer" type="button" className="inline-flex items-center w-10 h-10 justify-center text-yap-brown-900 rounded-lg md:hidden" aria-expanded="false">
+                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button> 
             </div>
 
         </nav>
