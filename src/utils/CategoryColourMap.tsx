@@ -5,7 +5,7 @@ Maps each category to a given colour for visualisation purposes
 */
 
 //TODO: Update colours again
-export const categoryColorMap: Record<Category, string> = {
+export const CategoryColorMap: Record<Category, string> = {
     [Category.Health]: '#32CD32',    
     [Category.Education]: '#FFD700', 
     [Category.Transport]: '#32CD32',    
@@ -16,4 +16,5 @@ export const categoryColorMap: Record<Category, string> = {
     [Category.Recreation]: '#FFD700', 
     [Category.Housing]: '#32CD32',    
     [Category.Food]: '#FFD700', 
+    [Category.Others]: '#32CD32',
   };
