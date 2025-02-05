@@ -33,6 +33,7 @@ export default {
         "yap-gray": {
           100: "#FAF4F4",
           200: "#E2E2E2",
+          800: "#AFAEB5",
           900: "#84838A"
         },
         "yap-black": {

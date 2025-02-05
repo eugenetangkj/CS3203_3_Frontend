@@ -16,11 +16,11 @@ export default function Navbar() {
     const closeDrawer = () => setIsDrawerOpen(false);
     
     return (
-        <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg">
+        <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">
             <div className="flex justify-between items-center px-6 md:px-12">
                 {/* Logo */}
                 <a href="/">
-                    <Image src={Logo} alt="Just Yap!" className="w-32 h-16 sm:w-40 sm:h-20" />
+                    <Image src={Logo} alt="Just Yap!" className="w-28 h-14 sm:w-36 sm:h-18" />
                 </a>
 
 
