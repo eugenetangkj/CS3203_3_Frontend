@@ -6,6 +6,7 @@ import { posts } from "@/constants/posts";
 import { stringToSource } from "@/types/SocialMediaSource";
 import { stringToCategory } from "@/types/Category";
 import PageTitle from "@/components/common/text/PageTitle";
+import { Component } from "@/components/charts/Donutchart";
 
 /** 
 Layout for analytics dashboard which displays insights and trends from posts obtained from social media
@@ -31,6 +32,7 @@ export default function Analytics() {
         
         {/* Analytics visualisation */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-x-4 gap-y-4'>
+            <Component />
             
         </div>
 
