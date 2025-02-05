@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Afacad, Kavoon } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/common/Navbar";
 
 const afacadFont = Afacad({
   variable: "--font-afacad",
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${afacadFont.variable} ${kavoonFont.variable}  antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>

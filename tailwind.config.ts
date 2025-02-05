@@ -11,6 +11,7 @@ export default {
       colors: {
         "yap-brown": {
           100: "#E8CABA", 
+          800: "#A47F6E",
           900: "#8D5F4A"
         },
         "yap-orange": {
