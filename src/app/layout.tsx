@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Afacad, Kavoon } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/common/Navbar";
+import Navbar from "@/components/common/navigation/Navbar";
 
 const afacadFont = Afacad({
   variable: "--font-afacad",
