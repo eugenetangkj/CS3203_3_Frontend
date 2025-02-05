@@ -33,10 +33,10 @@ export default {
         "yap-gray": {
           100: "#FAF4F4",
           200: "#E2E2E2",
-          900: "84838A"
+          900: "#84838A"
         },
         "yap-black": {
-          800: "3D3A39"
+          800: "#3D3A39"
         }
       },
       fontFamily: {

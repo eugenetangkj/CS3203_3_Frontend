@@ -1,8 +1,6 @@
 "use client"
-import { Button, Drawer } from "flowbite-react";
+
 import { useState } from "react";
-
-
 import Image from "next/image";
 import Logo from "../../../../public/logo.svg";
 import { navLinks } from "@/constants/navLinks";
@@ -17,7 +15,6 @@ export default function Navbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
     
-
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg">
             <div className="flex justify-between items-center px-6 md:px-12">
@@ -49,12 +46,9 @@ export default function Navbar() {
                 </button> 
             </div>
 
+
             {/* Right nav drawer for mobile navigation */}
             <RightNavDrawer isDrawerOpen={isDrawerOpen} onClose={closeDrawer} />
-          
-          
-
         </nav>
-
     );
 }
