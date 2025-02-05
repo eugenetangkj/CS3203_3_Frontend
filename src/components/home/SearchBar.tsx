@@ -41,7 +41,7 @@ export default function SearchBar() {
             <div className="absolute top-1 left-1 flex items-center" ref={dropdownRef}>
                 <button
                     onClick={toggleDropdown}
-                    className="rounded border border-transparent py-1 px-1.5 text-center flex items-center transition-all text-slate-600"
+                    className="rounded border border-transparent py-1 px-1.5 text-center flex items-center transition-all text-yap-black-800"
                 >
                     <span className="text-ellipsis overflow-hidden">{selectedOption}</span>
                     <svg
@@ -66,7 +66,7 @@ export default function SearchBar() {
                             <li
                                 key={option}
                                 onClick={() => handleSelect(option)}
-                                className="px-4 py-2 text-yap-gray-900 hover:text-yap-gray-800 cursor-pointer"
+                                className="px-4 py-2 text-sm text-yap-gray-900 hover:bg-gray-100 cursor-pointer"
                             >
                                 {option}
                             </li>

@@ -1,18 +1,25 @@
 import Image from "next/image";
 import SearchBar from "@/components/home/SearchBar";
+import OrderByFilter from "@/components/home/OrderByFilter";
 
 export default function Home() {
   return (
     <div className="px-6 md:px-12 font-afacad mt-32">
       <div className="flex flex-col space-y-8">
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-6">
           {/* Title */}
           <h1 className='text-yap-brown-900 font-bold text-3xl sm:text-4xl xl:text-5xl'>What Singaporeans Are Yapping About</h1>
 
 
           {/* Search and filter */}
-          <div>
+          <div className='flex flex-col space-y-4 md:flex-row md:justify-between md:items-center md:space-y-0'>
             <SearchBar />
+            <OrderByFilter />
+            
+
+
+     
+
           </div>
         </div>
 
@@ -44,9 +51,9 @@ export default function Home() {
 
 
 
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer classNameName="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          classNameName="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -61,7 +68,7 @@ export default function Home() {
           Learn
         </a>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          classNameName="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -76,7 +83,7 @@ export default function Home() {
           Examples
         </a>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          classNameName="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
