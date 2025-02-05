@@ -7,6 +7,7 @@ import { stringToSource } from "@/types/SocialMediaSource";
 import { stringToCategory } from "@/types/Category";
 import Image from "next/image";
 import Yappy from "../../public/graphics/yappy.svg";
+import PageTitle from "@/components/common/text/PageTitle";
 
 /** 
 Layout for home page which displays the list of all posts
@@ -19,8 +20,7 @@ export default function Home() {
         {/* Title and search and filter */}
         <div className="flex flex-col space-y-6">
           {/* Title */}
-          <h1 className='text-yap-brown-900 font-bold text-3xl sm:text-4xl 2xl:text-5xl'>What Singaporeans Are Yapping About</h1>
-
+          <PageTitle pageTitle="What Singaporeans Are Yapping About" />
 
           {/* Search and filter */}
           <div className='flex flex-col space-y-4 lg:flex-row lg:justify-between lg:items-center lg:space-y-0'>
