@@ -3,6 +3,7 @@ import { Afacad, Kavoon } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/navigation/Navbar";
 
+
 const afacadFont = Afacad({
   variable: "--font-afacad",
   subsets: ["latin"],
@@ -26,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${afacadFont.variable} ${kavoonFont.variable}  antialiased`}
-      >
+      <body className={`${afacadFont.variable} ${kavoonFont.variable}  antialiased`}>
         <Navbar />
         {children}
       </body>
