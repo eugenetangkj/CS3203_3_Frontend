@@ -79,7 +79,7 @@ export default function SearchBar() {
             {/* Search Input */}
             <input
             type="text"
-            className="w-full bg-transparent placeholder:text-yap-gray-900 text-yap-black-800 border border-yap-gray-200 rounded-full pl-28 pr-14 py-2 transition duration-200 focus:border-yap-brown-900 focus:ring-1 focus:ring-yap-brown-100 shadow-sm focus:shadow"
+            className="w-full bg-transparent placeholder:text-yap-gray-900 text-yap-black-800 border border-yap-gray-200 rounded-full pl-32 pr-14 py-2 transition duration-200 focus:border-yap-brown-900 focus:ring-1 focus:ring-yap-brown-100 shadow-sm focus:shadow"
             placeholder="Search for post..."
             />
 
