@@ -1,6 +1,3 @@
-
-
-
 /**
 This component represents the footer that is present on all pages.
 */

@@ -1,0 +1,51 @@
+
+import Reddit from "../../../public/socialmedia/reddit.png";
+import Image from "next/image";
+import { Category } from "@/types/Category";
+import { SocialMediaSource } from "@/types/SocialMediaSource";
+
+
+/**
+This component represents a card that displays a post in the home page. It contains the post's title, description,
+category, date of post and source.
+*/
+interface PostCardProps {
+    title: String;
+    category: Category
+    description: String
+    date: String
+    source: SocialMediaSource
+ }
+ 
+export default function PostCard({title, category, description, date, source}: PostCardProps) {
+    return (
+        <a href="#">
+            <div className='flex flex-col space-y-4 rounded-xl bg-yap-gray-100 hover:bg-yap-brown-100 duration-200 p-4'>
+                <div className='space-y-2'>
+                    {/* Title */}
+                    <h6 className='text-yap-brown-900 text-xl sm:text-2xl font-bold line-clamp-2 overflow-hidden'>{ title }</h6>
+
+                    {/* Category */}
+                    <div className='rounded-full bg-yap-green-900 text-white w-fit px-4 py-0.25'>{ category }</div>
+
+
+                </div>
+
+                {/* Description */}
+                <p className='text-yap-black-800 line-clamp-3 sm:line-clamp-5 overflow-hidden'>{ description }</p>
+
+
+                <div className='flex flex-row items-center justify-between'>
+                    {/* Date posted */}
+                    <p className='text-yap-brown-900'>Posted on: { date }</p>
+
+                    {/* Source */}
+                    <Image src={Reddit} alt="Profile image" className="w-8 h-8 rounded-full object-cover" />
+                    
+                </div>
+
+            </div>
+        </a>
+
+    );
+}

@@ -43,7 +43,7 @@ export default function SelectSourceDropdown() {
         {/* Dropdown Button */}
         <button
             onClick={toggleDropdown}
-            className="w-full flex justify-between items-center bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-4 py-1 text-white shadow-sm"
+            className="w-full flex justify-between items-center bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-4 py-0.5 text-white shadow-sm"
         >
             Source
             <svg

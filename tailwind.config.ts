@@ -14,7 +14,8 @@ export default {
     extend: {
       colors: {
         "yap-brown": {
-          100: "#E8CABA", 
+          100: "#FDF2EC",
+          200: "#E8CABA", 
           800: "#A47F6E",
           900: "#8D5F4A"
         },

@@ -1,6 +1,7 @@
 import SearchBar from "@/components/home/SearchBar";
 import OrderByFilter from "@/components/home/OrderByFilter";
 import SelectSourceDropdown from "@/components/home/SelectSourceDropdown";
+import PostCard from "@/components/home/PostCard";
 
 /** 
 Layout for home page which displays the list of all posts
@@ -27,7 +28,9 @@ export default function Home() {
         </div>
 
         {/* Cards for posts */}
-        {/* TODO */}
+        <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-rows-1'>
+          <PostCard />
+        </div>
         
       </div>
     </div>

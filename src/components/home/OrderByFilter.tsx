@@ -39,7 +39,7 @@ export default function OrderByFilter() {
         {/* Dropdown Button */}
         <button
             onClick={toggleDropdown}
-            className="w-full flex justify-between items-center bg-yap-brown-900 rounded-full px-4 py-1 text-white shadow-sm hover:bg-yap-brown-800 duration-200"
+            className="w-full flex justify-between items-center bg-yap-brown-900 rounded-full px-4 py-0.5 text-white shadow-sm hover:bg-yap-brown-800 duration-200"
         >
             Sort by: {selectedOption}
             <svg
