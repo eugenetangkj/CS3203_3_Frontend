@@ -20,7 +20,7 @@ export default function Navbar() {
             <div className="flex justify-between items-center px-6 md:px-12">
                 {/* Logo */}
                 <a href="/">
-                    <Image src={Logo} alt="Just Yap!" className="w-28 h-14 sm:w-36 sm:h-18" />
+                    <Image src={Logo} alt="Just Yap!" className="w-28 h-14 sm:w-32 sm:h-16 2xl:w-36 2xl:h-18" />
                 </a>
 
 

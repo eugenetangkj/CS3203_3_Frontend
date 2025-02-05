@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect } from "react";
 import { sources } from "@/constants/searchFields";
 
-
+/**
+This component represents the dropdown in main page that allows users to select the source of the posts they want to see. 
+*/
 export default function SelectSourceDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState<string[]>(sources);
@@ -18,6 +20,8 @@ export default function SelectSourceDropdown() {
         prev.includes(option)
         ? prev.filter((item) => item !== option) // Remove if already selected
         : [...prev, option] // Add if not selected
+
+        //TODO: Logic change here
     );
     };
 

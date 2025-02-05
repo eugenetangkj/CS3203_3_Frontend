@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Afacad, Kavoon } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/navigation/Navbar";
+import Footer from "@/components/common/navigation/Footer";
 
 
 const afacadFont = Afacad({
@@ -27,9 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${afacadFont.variable} ${kavoonFont.variable}  antialiased`}>
+      <body className={`${afacadFont.variable} ${kavoonFont.variable} antialiased min-h-screen flex flex-col`}>
         <Navbar />
-        {children}
+        <div className='flex-grow'>
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

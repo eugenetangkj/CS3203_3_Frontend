@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { orderByFilters } from "@/constants/searchFields";
 
 
+/**
+This component represents the dropdown which allows users to select how they want to order and sort the posts.
+*/
 export default function OrderByFilter() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(orderByFilters[0]);
