@@ -1,6 +1,6 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import { PieChartWithLabel } from "@/components/charts/PieChartWithLabel";
-import { barChartCustomLabelData, categoriesOverTimeData, sentimentsOfCategories, sentimentsPieChart } from "@/constants/analyticsData";
+import { barChartCustomLabelData, categoriesOverTimeData, sentimentsOfCategories, sentimentsOverTimeData, sentimentsPieChart } from "@/constants/analyticsData";
 import { LineChartMultiple } from "@/components/charts/LineChartMultiple";
 import { BarChartNegative } from "@/components/charts/BarChartNegative";
 import { PieChartLegend } from "@/components/charts/PieChartLegend";
@@ -53,6 +53,14 @@ export default function Analytics() {
             <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Number of Posts by Sentiment Score</h3>
             <PieChartLegend chartData={ sentimentsPieChart } />
           </div>
+
+           {/* Number of posts by sentiments */}
+           <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
+            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Sentiments of Categories Over Time</h3>
+            <LineChartMultiple chartData={ sentimentsOverTimeData } />
+          </div>
+
+
 
 
 
