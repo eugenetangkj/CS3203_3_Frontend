@@ -1,12 +1,6 @@
-import SearchBar from "@/components/home/SearchBar";
-import OrderByFilter from "@/components/home/OrderByFilter";
-import SelectSourceDropdown from "@/components/home/SelectSourceDropdown";
-import PostCard from "@/components/home/PostCard";
-import { posts } from "@/constants/posts";
-import { stringToSource } from "@/types/SocialMediaSource";
-import { stringToCategory } from "@/types/Category";
 import PageTitle from "@/components/common/text/PageTitle";
-import { Component } from "@/components/charts/Donutchart";
+import { PieChartWithLabel } from "@/components/charts/PieChartWithLabel";
+import { pieChartWithLabelData } from "@/constants/analyticsData";
 
 /** 
 Layout for analytics dashboard which displays insights and trends from posts obtained from social media
@@ -32,7 +26,11 @@ export default function Analytics() {
         
         {/* Analytics visualisation */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-x-4 gap-y-4'>
-            <Component />
+          <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-2'>
+            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Number of Posts by Category</h3>
+            <PieChartWithLabel chartData={ pieChartWithLabelData } />
+          </div>
+            
             
         </div>
 
