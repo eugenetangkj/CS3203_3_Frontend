@@ -68,7 +68,7 @@ export default function Analytics() {
 
           {/* Top 5 negative posts */}
           <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-6'>
-            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Top Negative Posts</h3>
+            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Most Negative Posts</h3>
             <TableComponent headers={ mostNegativePostsData['headers']} data={ mostNegativePostsData['data']} />
           </div>
 
