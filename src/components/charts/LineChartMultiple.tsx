@@ -30,7 +30,7 @@ interface LineChartMultipleProps {
 
 export function LineChartMultiple({ chartData }: LineChartMultipleProps) {
   return (
-        <ChartContainer config={chartConfig} className='max-h-[250px] md:max-h-[350px] w-full'>
+        <ChartContainer config={chartConfig} className='max-h-[250px] lg:max-h-[350px] w-full'>
           <LineChart
             accessibilityLayer
             data={chartData}

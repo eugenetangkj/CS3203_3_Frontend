@@ -29,7 +29,7 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
     return (
     <div>
         <CardContent>
-            <ChartContainer config={chartConfig} className='max-h-[250px] md:max-h-[350px] w-full'>
+            <ChartContainer config={chartConfig} className='max-h-[250px] lg:max-h-[350px] w-full'>
                 <BarChart accessibilityLayer data={chartData}>
                 <CartesianGrid vertical={false} />
 

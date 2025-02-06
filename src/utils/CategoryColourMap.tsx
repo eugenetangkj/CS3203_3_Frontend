@@ -9,7 +9,7 @@ export const CategoryColorMap: Record<Category, string> = {
     [Category.Transport]: '#9D67B0',    
     [Category.Employment]: '#7EAAD2', 
     [Category.Environment]: '#92A062',    
-    [Category.Safety]: '#FFD7C2', 
+    [Category.Safety]: '#EEBEA5', 
     [Category.Community]: '#B06781',    
     [Category.Recreation]: '#F89393', 
     [Category.Housing]: '#8D5F4A',    

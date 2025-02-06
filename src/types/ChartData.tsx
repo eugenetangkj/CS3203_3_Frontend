@@ -23,3 +23,13 @@ export interface PieChartLegendPoint {
     value: number;
     fill: string;
 }
+
+/**
+ * Abstraction of chart data that is used to render a bar chart with custom label
+ */
+export interface BarChartCustomLabelPoint {
+    label: string;
+    [key: string]: number | string;
+    fill: string;
+}
+

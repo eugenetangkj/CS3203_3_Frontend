@@ -3,19 +3,34 @@ import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } fr
 import { colourMap } from "./ColourMap";
 
 
-export const pieChartWithLabelData = [
-    { xValue: "Health", yValue: 275, fill: CategoryColorMap.Health },
-    { xValue: "Education", yValue: 200, fill: CategoryColorMap.Education },
-    { xValue: "Transport", yValue: 187, fill: CategoryColorMap.Transport },
-    { xValue: "Employment", yValue: 173, fill: CategoryColorMap.Employment },
-    { xValue: "Environment", yValue: 90, fill: CategoryColorMap.Environment },
-    { xValue: "Safety", yValue: 100, fill: CategoryColorMap.Safety },
-    { xValue: "Community", yValue: 50, fill: CategoryColorMap.Community },
-    { xValue: "Recreation", yValue: 120, fill: CategoryColorMap.Recreation },
-    { xValue: "Housing", yValue: 40, fill: CategoryColorMap.Housing },
-    { xValue: "Food", yValue: 30, fill: CategoryColorMap.Food },
-    { xValue: "Others", yValue: 100, fill: CategoryColorMap.Others },
-]
+// export const pieChartWithLabelData = [
+//     { xValue: "Health", yValue: 275, fill: CategoryColorMap.Health },
+//     { xValue: "Education", yValue: 200, fill: CategoryColorMap.Education },
+//     { xValue: "Transport", yValue: 187, fill: CategoryColorMap.Transport },
+//     { xValue: "Employment", yValue: 173, fill: CategoryColorMap.Employment },
+//     { xValue: "Environment", yValue: 90, fill: CategoryColorMap.Environment },
+//     { xValue: "Safety", yValue: 100, fill: CategoryColorMap.Safety },
+//     { xValue: "Community", yValue: 50, fill: CategoryColorMap.Community },
+//     { xValue: "Recreation", yValue: 120, fill: CategoryColorMap.Recreation },
+//     { xValue: "Housing", yValue: 40, fill: CategoryColorMap.Housing },
+//     { xValue: "Food", yValue: 30, fill: CategoryColorMap.Food },
+//     { xValue: "Others", yValue: 100, fill: CategoryColorMap.Others },
+// ]
+
+export const barChartCustomLabelData = [
+    { label: "Health", "No. of Posts": 100, fill: CategoryColorMap.Health },
+    { label: "Education", "No. of Posts": 150, fill: CategoryColorMap.Education },
+    { label: "Transport", "No. of Posts": 120, fill: CategoryColorMap.Transport },
+    { label: "Employment", "No. of Posts": 80, fill: CategoryColorMap.Employment },
+    { label: "Environment", "No. of Posts": 50, fill: CategoryColorMap.Environment },
+    { label: "Safety", "No. of Posts": 60, fill: CategoryColorMap.Safety },
+    { label: "Community", "No. of Posts": 70, fill: CategoryColorMap.Community },
+    { label: "Recreation", "No. of Posts": 65, fill: CategoryColorMap.Recreation },
+    { label: "Housing", "No. of Posts": 90, fill: CategoryColorMap.Housing },
+    { label: "Food", "No. of Posts": 110, fill: CategoryColorMap.Food },
+    { label: "Others", "No. of Posts": 130, fill: CategoryColorMap.Others },
+  ];
+  
 
 
 
