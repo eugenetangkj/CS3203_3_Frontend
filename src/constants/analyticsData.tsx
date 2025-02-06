@@ -86,3 +86,54 @@ export const sentimentsOverTimeData: LineChartMultiplePoint[] = [
     { month: "Nov 24", Health: 0.5714, Education: 0.1429, Transport: -0.1429, Employment: -0.8571, Environment: -0.3571, Safety: -0.2143, Community: -0.0714, Recreation: -0.0000, Housing: -0.5000, Food: 0.0, Others: 0.0 },
     { month: "Dec 24", Health: 0.7143, Education: 0.2143, Transport: -0.0714, Employment: -0.7857, Environment: -0.2857, Safety: -0.1429, Community: -0.0000, Recreation: -0.9286, Housing: -0.4286, Food: 0.1429, Others: 0.1429 },
 ];
+
+
+export const sentimentBySourceData = {
+    headers: ["Source", "Sentiment"],
+    data: [
+        { source: "Reddit", sentiment: 0.5 },
+        { source: "Just Yap!", sentiment: 0.3 }
+    ]
+}
+
+export const mostNegativePostsData = {
+    headers: ["Title", "Source", "Date", "Category", "Sentiment"],
+    data: [
+        {
+            title: "Public transport delays worsening",
+            source: "Reddit",
+            date: "02-01-2024",
+            category: "Transport",
+            sentiment: -0.95
+        },
+        {
+            title: "Housing prices are unaffordable",
+            source: "Just Yap!",
+            date: "02-03-2024",
+            category: "Housing",
+            sentiment: -0.92
+        },
+        {
+            title: "Long waiting times at public hospitals",
+            source: "Facebook",
+            date: "02-02-2024",
+            category: "Health",
+            sentiment: -0.88
+        },
+        {
+            title: "Noise pollution getting out of control",
+            source: "Twitter",
+            date: "02-04-2024",
+            category: "Environment",
+            sentiment: -0.71
+        },
+        {
+            title: "Job market struggles for fresh graduates",
+            source: "Reddit",
+            date: "02-05-2024",
+            category: "Employment",
+            sentiment: -0.68
+        }
+    ]
+};
+  

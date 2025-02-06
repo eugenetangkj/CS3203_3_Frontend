@@ -1,6 +1,6 @@
 "use client"
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -40,6 +40,7 @@ export function LineChartMultiple({ chartData }: LineChartMultipleProps) {
             }}
           >
             <CartesianGrid vertical={true} />
+            <YAxis />
             <XAxis
               dataKey="month"
               tickLine={false}

@@ -53,7 +53,7 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
                 </BarChart>
             </ChartContainer>
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
+        <CardFooter className="flex-col items-start gap-2 text-base">
         <div className="leading-none text-muted-foreground text-yap-gray-900">
             { footerText }
         </div>
