@@ -1,5 +1,6 @@
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
-import { BarCharNegativePoint, LineChartMultiplePoint } from "@/types/ChartData";
+import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartData";
+import { colourMap } from "./ColourMap";
 
 
 export const pieChartWithLabelData = [
@@ -34,7 +35,7 @@ export const categoriesOverTimeData: LineChartMultiplePoint[] = [
   ];
 
 
-export const sentimentsOfCategories: BarCharNegativePoint[] = [
+export const sentimentsOfCategories: BarChartNegativePoint[] = [
     { xValue: "Health", Sentiment: 0.5 },
     { xValue: "Education", Sentiment: -0.2 },
     { xValue: "Transport", Sentiment: 0.1 },
@@ -47,3 +48,11 @@ export const sentimentsOfCategories: BarCharNegativePoint[] = [
     { xValue: "Food", Sentiment: 0.4 },
     { xValue: "Others", Sentiment: -0.1 }
 ];
+
+
+export const sentimentsPieChart: PieChartLegendPoint[] = [
+    {label: "-1.00 to -0.50", value: 100, fill: colourMap["yap-orange-900"]},
+    {label: "-0.50 to 0.00", value: 200, fill: colourMap["yap-yellow-900"]},
+    {label: "0.00 to 0.50", value: 140, fill: colourMap["yap-brown-900"]},
+    {label: "0.50 to 1.00", value: 150, fill: colourMap["yap-green-900"]}
+]

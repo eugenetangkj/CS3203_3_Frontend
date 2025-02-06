@@ -3,7 +3,7 @@
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, YAxis } from "recharts"
 import { CardContent, CardFooter, } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart"
-import { BarCharNegativePoint } from "@/types/ChartData"
+import { BarChartNegativePoint } from "@/types/ChartData"
 import { colourMap } from "@/constants/ColourMap"
 import { sentimentsRange } from "@/constants/Sentiments"
 
@@ -16,7 +16,7 @@ const chartConfig = {
 
 
 interface BarChartNegativeProps {
-    chartData: BarCharNegativePoint[];
+    chartData: BarChartNegativePoint[];
     footerText: String
 }
 
