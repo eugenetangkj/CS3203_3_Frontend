@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import { PieChartWithLabel } from "@/components/charts/PieChartWithLabel";
 import { pieChartWithLabelData } from "@/constants/analyticsData";
+import { LineChartMultiple } from "@/components/charts/LineChartMultiple";
 
 /** 
 Layout for analytics dashboard which displays insights and trends from posts obtained from social media
@@ -26,10 +27,24 @@ export default function Analytics() {
         
         {/* Analytics visualisation */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-x-4 gap-y-4'>
+          {/* Number of posts by category */}
           <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-2'>
             <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Number of Posts by Category</h3>
             <PieChartWithLabel chartData={ pieChartWithLabelData } />
           </div>
+
+          {/* Number of posts by category over time */}
+          <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-3'>
+            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Number of Posts by Category Over Time</h3>
+            <LineChartMultiple />
+          </div>
+
+        
+
+
+
+
+
             
             
         </div>

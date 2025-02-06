@@ -15,36 +15,6 @@ interface PieChartWithLabelProps {
 }
 
 
-// const chartConfig = {
-//   count: {
-//     label: "Visitors",
-//   },
-//   chrome: {
-//     label: "Chrome",
-//     color: "#92A062",
-//   },
-//   safari: {
-//     label: "Safari",
-//     color: "#4A92FF",
-//   },
-//   firefox: {
-//     label: "Firefox",
-//     color: "hsl(var(--chart-3))",
-//   },
-//   edge: {
-//     label: "Edge",
-//     color: "hsl(var(--chart-4))",
-//   },
-//   other: {
-//     label: "Other",
-//     color: "hsl(var(--chart-5))",
-//   },
-// } satisfies ChartConfig
-
-
-
-
-
 export function PieChartWithLabel({ chartData }: PieChartWithLabelProps) {
   const chartConfig: ChartConfig = {
     yValue: { label: "yValue" },
@@ -60,7 +30,7 @@ export function PieChartWithLabel({ chartData }: PieChartWithLabelProps) {
   return (
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[325px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+          className="mx-auto aspect-square max-h-[350px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
         >
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
