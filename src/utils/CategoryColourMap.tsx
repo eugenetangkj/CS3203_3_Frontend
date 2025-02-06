@@ -6,15 +6,15 @@ Maps each category to a given colour for visualisation purposes
 
 //TODO: Update colours again
 export const CategoryColorMap: Record<Category, string> = {
-    [Category.Health]: '#32CD32',    
-    [Category.Education]: '#FFD700', 
-    [Category.Transport]: '#32CD32',    
-    [Category.Employment]: '#FFD700', 
+    [Category.Health]: '#A06292',    
+    [Category.Education]: '#7662A0', 
+    [Category.Transport]: '#62A07F',    
+    [Category.Employment]: '#4A92FF', 
     [Category.Environment]: '#92A062',    
-    [Category.Safety]: '#FFD700', 
-    [Category.Community]: '#32CD32',    
-    [Category.Recreation]: '#FFD700', 
-    [Category.Housing]: '#32CD32',    
-    [Category.Food]: '#FFD700', 
-    [Category.Others]: '#32CD32',
+    [Category.Safety]: '#FFC64A', 
+    [Category.Community]: '#EE578E',    
+    [Category.Recreation]: '#55CBD2', 
+    [Category.Housing]: '#8D5F4A',    
+    [Category.Food]: '#FF814A', 
+    [Category.Others]: '#D25573',
   };
