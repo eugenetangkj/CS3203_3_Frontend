@@ -10,7 +10,7 @@ import {
 import { LineChartMultiplePoint } from "@/types/ChartData"
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
 
-
+// Turns out not need to visually render the graph correctly
 const chartConfig = {
   desktop: {
     label: "Desktop",
