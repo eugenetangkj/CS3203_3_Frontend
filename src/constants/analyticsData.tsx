@@ -1,5 +1,5 @@
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
-import { LineChartMultiplePoint } from "@/types/ChartData";
+import { BarCharNegativePoint, LineChartMultiplePoint } from "@/types/ChartData";
 
 
 export const pieChartWithLabelData = [
@@ -32,3 +32,18 @@ export const categoriesOverTimeData: LineChartMultiplePoint[] = [
     { month: "Nov 24", Health: 330, Education: 220, Transport: 200, Employment: 130, Environment: 75, Safety: 85, Community: 95, Recreation: 100, Housing: 135, Food: 170, Others: 180 },
     { month: "Dec 24", Health: 350, Education: 230, Transport: 210, Employment: 140, Environment: 80, Safety: 90, Community: 100, Recreation: 105, Housing: 140, Food: 180, Others: 190 },
   ];
+
+
+export const sentimentsOfCategories: BarCharNegativePoint[] = [
+    { xValue: "Health", Sentiment: 0.5 },
+    { xValue: "Education", Sentiment: -0.2 },
+    { xValue: "Transport", Sentiment: 0.1 },
+    { xValue: "Employment", Sentiment: -0.4 },
+    { xValue: "Environment", Sentiment: 0.8 },
+    { xValue: "Safety", Sentiment: -0.7 },
+    { xValue: "Community", Sentiment: 0.3 },
+    { xValue: "Recreation", Sentiment: 0.6 },
+    { xValue: "Housing", Sentiment: -0.5 },
+    { xValue: "Food", Sentiment: 0.4 },
+    { xValue: "Others", Sentiment: -0.1 }
+];
