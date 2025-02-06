@@ -1,6 +1,5 @@
 "use client"
 
-
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 import {
   ChartConfig,
@@ -8,19 +7,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 204, mobile: 140 },
-  { month: "July", desktop: 264, mobile: 150 },
-  { month: "August", desktop: 314, mobile: 190 },
-  { month: "September", desktop: 354, mobile: 250 },
-  { month: "November", desktop: 414, mobile: 208 },
-  { month: "December", desktop: 454, mobile: 300 },
-]
+import { LineChartMultiplePoint } from "@/types/ChartData"
+import { CategoryColorMap } from "@/utils/CategoryColourMap"
+
 
 const chartConfig = {
   desktop: {
@@ -33,9 +22,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function LineChartMultiple() {
+
+interface LineChartMultipleProps {
+    chartData: LineChartMultiplePoint[];
+}
+
+
+export function LineChartMultiple({ chartData }: LineChartMultipleProps) {
   return (
-        <ChartContainer config={chartConfig} className='max-h-[350px] w-full'>
+        <ChartContainer config={chartConfig} className='max-h-[250px] md:max-h-[350px] w-full'>
           <LineChart
             accessibilityLayer
             data={chartData}
@@ -44,29 +39,25 @@ export function LineChartMultiple() {
               right: 12,
             }}
           >
-            <CartesianGrid vertical={false} />
+            <CartesianGrid vertical={true} />
             <XAxis
               dataKey="month"
               tickLine={false}
               axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickMargin={8} 
+              padding={{left: 7}}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line
-              dataKey="desktop"
-              type="monotone"
-              stroke="var(--color-desktop)"
-              strokeWidth={2}
-              dot={false}
-            />
-            <Line
-              dataKey="mobile"
-              type="monotone"
-              stroke="var(--color-mobile)"
-              strokeWidth={2}
-              dot={false}
-            />
+            {Object.entries(CategoryColorMap).map(([category, color]) => (
+                <Line
+                    key={category}
+                    dataKey={category}
+                    type="monotone"
+                    stroke={color}
+                    strokeWidth={2}
+                    dot={false}
+                />
+            ))}
           </LineChart>
         </ChartContainer>
   )
