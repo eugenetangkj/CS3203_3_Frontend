@@ -13,5 +13,10 @@ export const navLinks = [
         route: "/analytics",
         id: "analytics",
         label: "Analytics"
+    },
+    {
+        route: "/manage-categories",
+        id: "manage-categories",
+        label: "Manage Categories"
     }
 ]
