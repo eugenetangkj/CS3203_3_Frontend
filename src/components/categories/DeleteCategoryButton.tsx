@@ -37,6 +37,7 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
             
             //Show successful toast
             toast({
+              variant: "success",
               description: "Category is successfully deleted.",
             })
 

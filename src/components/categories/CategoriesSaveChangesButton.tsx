@@ -27,7 +27,8 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
 
             //Show successful toast
             toast({
-              description: "Changes successfully saved.",
+                variant: "success",
+                description: "Changes successfully saved.",
             })
 
             //Refetch categories

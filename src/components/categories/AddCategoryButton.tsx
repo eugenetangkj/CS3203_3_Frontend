@@ -59,7 +59,8 @@ export function AddCategoryButton({ fetchCategories }: {
 
             //Show successful toast
             toast({
-              description: "Category is successfully added.",
+                variant: "success",
+                description: "Category is successfully added.",
             })
 
             //Refetch categories
