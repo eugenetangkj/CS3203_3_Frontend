@@ -16,7 +16,9 @@ import { useState } from "react"
 import { DestructiveAlert } from "../common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
 
-export function AddCategoryButton() {
+export function AddCategoryButton({ fetchCategories }: {
+  fetchCategories: () => void;
+}) {
 
     //States
     const [name, setName] = useState("")
@@ -38,10 +40,7 @@ export function AddCategoryButton() {
     const { toast } = useToast()
 
 
-
-
-
-
+    //Handles logic for adding a category
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
@@ -62,6 +61,9 @@ export function AddCategoryButton() {
             toast({
               description: "Category is successfully added.",
             })
+
+            //Refetch categories
+            fetchCategories()
             
 
 

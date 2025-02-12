@@ -19,7 +19,7 @@ const kavoonFont = Kavoon({
 
 export const metadata: Metadata = {
   title: "Just Yap!",
-  description: "A platform that aggregates online feedback from social media platforms to inform the decision-making process of authorities.",
+  description: "A platform that aggregates online complaints from social media platforms to inform the decision-making process of authorities.",
 };
 
 export default function RootLayout({

@@ -1,0 +1,65 @@
+"use client"
+
+import PageTitle from "@/components/common/text/PageTitle";
+import { ManageCategoriesTable } from "@/components/categories/ManageCategoriesTable";
+import { getCategories } from "@/services/ServicesHelper";
+import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
+import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+/** 
+Component for managing categories page where the authorities can view, add or delete categories.
+*/
+export default function ManageCategoriesComponent() {
+
+    //States
+    const [categories, setCategories] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+
+    //Triggers fetching of categories from backend
+    const fetchCategories = async () => {
+        setLoading(true);
+        console.log("hello")
+        try {
+            const fetchedCategories = await getCategories(); //Trigger backend API
+            setCategories(fetchedCategories);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    //Calls fetchCategories for the first time that the component mounts
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+
+
+    return (
+        <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
+            <div className="flex flex-col space-y-8">
+
+            {/* Title */}
+            <PageTitle pageTitle="Manage Categories" />
+
+            {/* Add category */}
+            <AddCategoryButton fetchCategories= { fetchCategories } />
+
+            {/* Table of categories */}
+            {
+                loading
+                ?<Skeleton className='w-full h-[100px]' />
+                :  <ManageCategoriesTable initialCategories={ categories } fetchCategories={ fetchCategories } />       
+
+
+            }
+           
+        </div>
+    </div>
+  );
+
+}

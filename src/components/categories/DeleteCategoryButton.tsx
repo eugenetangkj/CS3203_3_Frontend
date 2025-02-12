@@ -15,11 +15,12 @@ This component handles the functionality of deleting a category
 
 interface DeleteCategoryButtonProps {
   title: string;
+  fetchCategories: () => void
 }
 
 
 
-export function DeleteCategoryButton({ title }: DeleteCategoryButtonProps) {
+export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryButtonProps) {
 
     //States
     const [open, setOpen] = useState(false)
@@ -38,6 +39,9 @@ export function DeleteCategoryButton({ title }: DeleteCategoryButtonProps) {
             toast({
               description: "Category is successfully deleted.",
             })
+
+            //Refetch categories
+            fetchCategories()
             
         } catch (error) {
 
