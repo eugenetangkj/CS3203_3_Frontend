@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import { Afacad, Kavoon } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/common/navigation/Navbar";
-import Footer from "@/components/common/navigation/Footer";
+import type { Metadata } from "next"
+import { Afacad, Kavoon } from "next/font/google"
+import "./globals.css"
+import Navbar from "@/components/common/navigation/Navbar"
+import Footer from "@/components/common/navigation/Footer"
+import { Toaster } from "@/components/ui/toaster"
 
 
 const afacadFont = Afacad({
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

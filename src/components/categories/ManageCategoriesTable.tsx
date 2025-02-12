@@ -1,41 +1,17 @@
 "use client"
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+
 import { Trash2Icon } from 'lucide-react';
-
-
-import {
-  AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from "@/components/ui/alert-dialog";
-
-
-
 import { useState } from "react"
-
-
-
-
-
-
+import { useToast } from "@/hooks/use-toast"
+import DeleteCategoryButton from "./DeleteCategoryButton";
 
 
 export const ManageCategoriesTable = ({ initialCategories } : any) => {
-  console.log(initialCategories)
+
+
+
   const [categoryColors, setCategoryColors] = useState(
     initialCategories.reduce((acc: Record<string, string>, category: any) => {
       acc[category.name] = category.colour || "#000000";
@@ -51,13 +27,61 @@ export const ManageCategoriesTable = ({ initialCategories } : any) => {
   };
 
 
+  //Toast management
+  const { toast } = useToast()
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+
 
   //TODO: Update delete category method
   //Might want to consider using an id instead of a name
   const handleDelete = (name: string) => {
-    // setCategories((prevCategories) => prevCategories.filter((category) => category.name !== name));
-    console.log(`Deleted category: ${name}`);
+    try {
+
+
+      //Show successful toast
+      toast({
+        description: "Category is successfully deleted.",
+      })
+
+    } catch (error) {
+
+
+      //Show error toast
+      toast({
+        variant: "destructive",
+        description: "There was a problem deleting the category.",
+      })
+    } finally {
+
+      //Closes the dialog
+      setIsDialogOpen(false);
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
+
+
+
 
 
   return (
@@ -87,49 +111,8 @@ export const ManageCategoriesTable = ({ initialCategories } : any) => {
 
         {/* Delete icon wrapped in an alert dialog*/}
         <TableCell className="text-center">
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Trash2Icon
-                className="w-5 h-5 mx-auto cursor-pointer text-yap-gray-900 hover:text-red-400 duration-200"
-              />
-            </AlertDialogTrigger>
-            <AlertDialogContent className='font-afacad'>
-              <AlertDialogHeader>
-                <AlertDialogTitle className='text-lg'>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription className='text-yap-black-800 text-base'>
-                  This action cannot be undone. The category will be permanently deleted.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className='text-yap-black-800 duration-200'>Cancel</AlertDialogCancel>
-                <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200' onClick={() => handleDelete(category.name)}>
-                  Confirm
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </TableCell>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+          <DeleteCategoryButton title={ category.name } />  
+        </TableCell>  
       </TableRow>
     ))}
   </TableBody>

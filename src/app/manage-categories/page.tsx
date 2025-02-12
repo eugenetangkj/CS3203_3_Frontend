@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import { ManageCategoriesTable } from "@/components/categories/ManageCategoriesTable";
 import { getCategories } from "@/services/ServicesHelper";
+import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
 /** 
 Layout for managing categories page where the authorities can view, add or delete categories.
 */
@@ -23,6 +24,9 @@ export default async function ManageCategoriesPage() {
 
         {/* Title */}
         <PageTitle pageTitle="Manage Categories" />
+
+        {/* Add category */}
+        <AddCategoryButton />
 
         {/* Table of categories */}
         <ManageCategoriesTable initialCategories={initialCategories} />       
