@@ -25,7 +25,7 @@ export default function Navbar() {
 
 
                 {/* Desktop navigation which only appears for md and above*/}
-                <div className="hidden md:flex justify-center items-center space-x-16">
+                <div className="hidden md:flex justify-center items-center space-x-8 lg:space-x-16">
                     {/* Desktop links */}
                     {
                         navLinks.map((link) => (
