@@ -7,6 +7,7 @@ import { getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
 import { Input } from "../ui/input"
 import MultiSelectDropdown from "./MultiSelectDropdown"
 import { Skeleton } from "../ui/skeleton"
+import { Search } from "lucide-react"
 
 const AllComplaintsPageComponent = () => {
     //State for complaints that are currently displayed
@@ -39,10 +40,13 @@ const AllComplaintsPageComponent = () => {
     useEffect(() => {
         setLoading(true)
         //TODO: Make API call to fetch list of categories and sources
-        setAllCategories(["Education", "Environment", "Health"])
+        const categoriesFromApi = ["Education", "Environment", "Health"]
+        const sourcesFromApi = ["Reddit"]
+
+        setAllCategories(categoriesFromApi)
         setAllSources(["Reddit"])
-        setCategoriesSelected(allCategories)
-        setSourcesSelected(allSources)
+        setCategoriesSelected(categoriesFromApi)
+        setSourcesSelected(sourcesFromApi)
         setLoading(false)
     }, [])
 
@@ -50,43 +54,56 @@ const AllComplaintsPageComponent = () => {
 
 
 
-
     // Fetch complaints with pagination, search, and category filter
-    const fetchComplaints = async (page: number, search: string, categories: string[], sourcesSelected: string[]) => {
-        console.log("hello")
+    const fetchComplaints = async () => {
+        //Indicate that we are fetching new complaints
         setLoading(true)
-
-        //Set categories that are selected
-        setCategoriesSelected(categories)
-
-        //Set sources that are selected
-        setSourcesSelected(sourcesSelected)
+        console.log(categoriesSelected)
 
 
         try {
-        //   const response = await fetch(
-        //     `/api/complaints?page=${page}&search=${search}&category=${category}`
-        //   )
-        //   const data = await response.json()
-        let data : any = []
-        if (page == 1) {
-            data = await getComplaintsOne()
-        } else if (page == 2) {
-            data = await getComplaintsTwo()
-
-        }
-        setComplaints(data)
+            //   const response = await fetch(
+            //     `/api/complaints?page=${page}&search=${search}&category=${category}`
+            //   )
+            //   const data = await response.json()
+            let data : any = []
+            if (currentPage == 1) {
+                data = await getComplaintsOne()
+            } else if (currentPage == 2) {
+                data = await getComplaintsTwo()
+            }
+            setComplaints(data)
         } catch (error) {
-        console.error("Error fetching complaints:", error)
+            console.error("Error fetching complaints:", error)
         } finally {
             setLoading(false)
         }
     }
 
-    //Effect to refetch complaints when the page, search, or category filter changes
+
+
+
+
+
+
+    //Function that runs when user searches a given search term
+    const handleSearch = () => {
+        //Should always reset to first page when searching a new keyword
+        if (currentPage == 1) {
+            //Will not cause state to retrigger. Explicitly retrigger it
+            fetchComplaints()
+        } else {
+            //Reset page to 1, automatically trigger fetching of complaints
+            setCurrentPage(1)
+        }
+    }
+
+    //First fetch
     useEffect(() => {
-        fetchComplaints(currentPage, searchQuery, categoriesSelected, sourcesSelected)
-    }, [currentPage, searchQuery, categoriesSelected, sourcesSelected])
+        fetchComplaints()
+    }, [currentPage] )
+
+
 
 
 
@@ -98,25 +115,52 @@ const AllComplaintsPageComponent = () => {
 
 
             {/* Search and filter */}
-            <div className='flex flex-col space-y-4 md:flex-row md:justify-between md:items-center md:space-y-0'> 
+            <div className='flex flex-col space-y-4'> 
                 {/* Search bar for search by title */}
-                <Input type="text" value={searchQuery} onChange={ (e) => setSearchQuery(e.target.value) }
-                    placeholder="Search by title"
-                    className='!text-base border border-yap-gray-200 rounded-full text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 max-w-md xl:max-w-xl'
-                />
+                <div className="relative w-full max-w-md xl:max-w-xl">
+                    {/* Input Field */}
+                    <Input
+                        type="text"
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleSearch();
+                            }
+                          }}
+                        placeholder="Search by title"
+                        className="!text-base border border-yap-gray-200 rounded-full text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-full pr-12 h-12"
+                    />
+
+                    {/* Magnifying Glass Icon */}
+                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-yap-brown-900 rounded-full p-2 cursor-pointer hover:bg-yap-brown-800 duration-200">
+                        <Search className="text-white w-4 h-4" onClick={ handleSearch } />
+                    </div>
+                </div>
+                
+
+
+
+
+
+
+
+
+
+
 
                 <div className='flex flex-row items-center space-x-4'>
+                    <h6 className='text-yap-gray-900'>Filter by</h6>
                     {/* Filter by categories dropdown */}
                     {
                         loading
                         ? <Skeleton className='w-[60px] h-[20px]' />
-                        : <MultiSelectDropdown options={ allCategories }  stateChangeFunction={ setCategoriesSelected } label="Category" />
+                        : <MultiSelectDropdown options={ allCategories } selectedOptions={ categoriesSelected }  stateChangeFunction={ setCategoriesSelected } label="Category" fetchComplaints={ fetchComplaints } />
                     }
                     {/* Filter by sources dropdown */}
                     {
                         loading
                         ? <Skeleton className='w-[60px] h-[20px]' />
-                        : <MultiSelectDropdown options={ allSources }  stateChangeFunction={ setSourcesSelected } label="Source" />
+                        : <MultiSelectDropdown options={ allSources } selectedOptions={ sourcesSelected }  stateChangeFunction={ setSourcesSelected } label="Source" fetchComplaints={ fetchComplaints } />
                     }
                   
                 </div>
