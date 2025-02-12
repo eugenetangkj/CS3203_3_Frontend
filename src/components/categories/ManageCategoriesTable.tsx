@@ -3,15 +3,28 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import { Trash2Icon } from 'lucide-react';
- 
+
+
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+
+
+
 import { useState } from "react"
 
 
@@ -40,6 +53,7 @@ export const ManageCategoriesTable = ({ initialCategories } : any) => {
 
 
   //TODO: Update delete category method
+  //Might want to consider using an id instead of a name
   const handleDelete = (name: string) => {
     // setCategories((prevCategories) => prevCategories.filter((category) => category.name !== name));
     console.log(`Deleted category: ${name}`);
@@ -71,13 +85,51 @@ export const ManageCategoriesTable = ({ initialCategories } : any) => {
           />
         </TableCell>
 
-        {/* Delete icon (Trash can icon) */}
-        <TableCell>
-          <Trash2Icon
-            className="w-5 h-5 mx-auto cursor-pointer text-yap-gray-900 hover:text-red-400 duration-300"
-            onClick={() => handleDelete(category.name)}
-          />
+        {/* Delete icon wrapped in an alert dialog*/}
+        <TableCell className="text-center">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Trash2Icon
+                className="w-5 h-5 mx-auto cursor-pointer text-yap-gray-900 hover:text-red-400 duration-200"
+              />
+            </AlertDialogTrigger>
+            <AlertDialogContent className='font-afacad'>
+              <AlertDialogHeader>
+                <AlertDialogTitle className='text-lg'>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription className='text-yap-black-800 text-base'>
+                  This action cannot be undone. The category will be permanently deleted.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className='text-yap-black-800 duration-200'>Cancel</AlertDialogCancel>
+                <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200' onClick={() => handleDelete(category.name)}>
+                  Confirm
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </TableCell>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
       </TableRow>
     ))}
   </TableBody>
