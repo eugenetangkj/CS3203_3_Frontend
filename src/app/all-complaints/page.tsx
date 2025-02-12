@@ -1,4 +1,5 @@
 import PageTitle from "@/components/common/text/PageTitle";
+import AllComplaintsPageComponent from "@/components/all-complaints/AllComplaintsPageComponent";
 
 
 /** 
@@ -12,12 +13,23 @@ export const metadata = {
 
 
 export default function AllComplaintsPage() {
+
+
+
+
+
+
+
+
   return (
     <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
       <div className="flex flex-col space-y-8">
 
         {/* Title */}
         <PageTitle pageTitle="All Complaints" />
+        <AllComplaintsPageComponent />
+
+      
    
              
                 

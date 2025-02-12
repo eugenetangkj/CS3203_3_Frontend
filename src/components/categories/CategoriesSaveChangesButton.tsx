@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
-import { CategoryInterface } from "@/types/Category";
+import { Category } from "@/types/Category";
 
 
 
@@ -11,7 +11,7 @@ This component represents the save changes button used in category management.
 */
 export function CategoriesSaveChangesButton({ fetchCategories }: {
   fetchCategories: () => void;
-  categories: CategoryInterface[]
+  categories: Category[]
 }) {
 
 

@@ -6,7 +6,7 @@ import { getCategories } from "@/services/ServicesHelper";
 import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
 import { useState, useEffect } from "react";
 import { CategoriesSaveChangesButton } from "@/components/categories/CategoriesSaveChangesButton";
-import { CategoryInterface } from "@/types/Category";
+import { Category } from "@/types/Category";
 import CategoriesTableSkeleton from "@/components/categories/CategoriesTableSkeleton";
 
 /** 
@@ -15,7 +15,7 @@ Component for managing categories page where the authorities can view, add or de
 export default function ManageCategoriesComponent() {
 
     //States
-    const [categories, setCategories] = useState<CategoryInterface[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
 

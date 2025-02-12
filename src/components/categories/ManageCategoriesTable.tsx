@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import DeleteCategoryButton from "./DeleteCategoryButton";
-import { CategoryInterface } from "@/types/Category";
+import { Category } from "@/types/Category";
 
 
 /**
@@ -8,7 +8,7 @@ This component represents the table used in managing categories
  */
 
 export const ManageCategoriesTable = ({ categories, setCategories, fetchCategories }: {
-    categories: CategoryInterface[],
+    categories: Category[],
     setCategories: (newCategories: any) => void,
     fetchCategories: () => void
     }) => {
@@ -16,7 +16,7 @@ export const ManageCategoriesTable = ({ categories, setCategories, fetchCategori
 
     const handleColorChange = (name: string, newColor: string) => {
         setCategories((prevCategories : any) =>
-            prevCategories.map((category: CategoryInterface) =>
+            prevCategories.map((category: Category) =>
             category.name === name ? { ...category, colour: newColor } : category
             )
         );
