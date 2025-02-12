@@ -29,6 +29,7 @@ export default {
   			},
   			'yap-green': {
   				'100': '#CAD2B0',
+				'800': '#ACBA7B',
   				'900': '#92A062'
   			},
   			'yap-gray': {

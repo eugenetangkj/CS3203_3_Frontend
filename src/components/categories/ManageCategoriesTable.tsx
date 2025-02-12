@@ -1,29 +1,27 @@
-"use client"
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useState } from "react"
 import DeleteCategoryButton from "./DeleteCategoryButton";
+import { CategoryInterface } from "@/types/Category";
 
 
-export const ManageCategoriesTable = ({ initialCategories, fetchCategories }: {
-    initialCategories: any[],
+/**
+This component represents the table used in managing categories
+ */
+
+export const ManageCategoriesTable = ({ categories, setCategories, fetchCategories }: {
+    categories: CategoryInterface[],
+    setCategories: (newCategories: any) => void,
     fetchCategories: () => void
     }) => {
 
 
-    const [categoryColors, setCategoryColors] = useState(
-    initialCategories.reduce((acc: Record<string, string>, category: any) => {
-        acc[category.name] = category.colour || "#0k0l00";
-        return acc;
-    }, {} as Record<string, string>)
-    );
-
     const handleColorChange = (name: string, newColor: string) => {
-        setCategoryColors((prev: any) => ({
-        ...prev,
-        [name]: newColor,
-        }));
+        setCategories((prevCategories : any) =>
+            prevCategories.map((category: CategoryInterface) =>
+            category.name === name ? { ...category, colour: newColor } : category
+            )
+        );
     };
+          
 
 
     return (
@@ -37,7 +35,7 @@ export const ManageCategoriesTable = ({ initialCategories, fetchCategories }: {
         </TableHeader>
 
         <TableBody>
-            {initialCategories.map((category: any) => (
+            {categories.map((category: any) => (
                 <TableRow key={category.name}>
                 <TableCell className="text-base text-yap-black-800 pl-0">{category.name}</TableCell>
 
@@ -45,7 +43,7 @@ export const ManageCategoriesTable = ({ initialCategories, fetchCategories }: {
                 <TableCell className="text-center">
                     <input
                     type="color"
-                    value={categoryColors[category.name]}
+                    value={category.colour}
                     onChange={(e) => handleColorChange(category.name, e.target.value)}
                     className="border px-2 py-1 rounded-full w-24"
                     />

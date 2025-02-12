@@ -16,3 +16,9 @@ export const stringToCategory= (input: string): Category | undefined => {
   return Object.values(Category).includes(input as Category) ? (input as Category) : undefined;
 };
   
+
+
+export interface CategoryInterface {
+  name: string;
+  colour: string;
+}

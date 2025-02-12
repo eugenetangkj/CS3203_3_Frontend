@@ -6,6 +6,8 @@ import { getCategories } from "@/services/ServicesHelper";
 import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CategoriesSaveChangesButton } from "@/components/categories/CategoriesSaveChangesButton";
+import { CategoryInterface } from "@/types/Category";
 
 /** 
 Component for managing categories page where the authorities can view, add or delete categories.
@@ -13,7 +15,7 @@ Component for managing categories page where the authorities can view, add or de
 export default function ManageCategoriesComponent() {
 
     //States
-    const [categories, setCategories] = useState<any[]>([]);
+    const [categories, setCategories] = useState<CategoryInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -46,14 +48,23 @@ export default function ManageCategoriesComponent() {
             {/* Title */}
             <PageTitle pageTitle="Manage Categories" />
 
-            {/* Add category */}
-            <AddCategoryButton fetchCategories= { fetchCategories } />
+            {/* Buttons */}
+            <div className='flex flex-row sm:self-end space-x-4'>
+                {/* Add category */}
+                <AddCategoryButton fetchCategories= { fetchCategories } />
+
+                {/* Save changes */}
+                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } />
+
+            </div>
+
+            
 
             {/* Table of categories */}
             {
                 loading
-                ?<Skeleton className='w-full h-[100px]' />
-                :  <ManageCategoriesTable initialCategories={ categories } fetchCategories={ fetchCategories } />       
+                ? <Skeleton className='w-full h-[100px]' />
+                :  <ManageCategoriesTable categories={ categories } setCategories={ setCategories } fetchCategories={ fetchCategories } />       
 
 
             }
