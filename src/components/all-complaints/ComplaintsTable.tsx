@@ -39,7 +39,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/12"></TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/4">Title</TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/3">Description</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Posted On</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Posted</TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Category</TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Source</TableHead>
             </TableRow>

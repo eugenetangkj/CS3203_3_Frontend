@@ -13,12 +13,13 @@ interface MultiSelectDropdownProps {
     stateChangeFunction: (selectedValues: string[]) => void,
     fetchComplaints: () => void
     setSelectedComplaints: React.Dispatch<React.SetStateAction<number[]>>,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
 
 }
 
 
 
-export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, fetchComplaints, setSelectedComplaints} : MultiSelectDropdownProps) {
+export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, fetchComplaints, setSelectedComplaints, setCurrentPage} : MultiSelectDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOptionsLocal, setSelectedOptions] = useState<string[]>(selectedOptions);
     const [previousSelectedOptions, setPreviousSelectedOptions] = useState<string[]>(selectedOptions);
@@ -48,32 +49,6 @@ export default function MultiSelectDropdown({ label, options, selectedOptions, s
     };
 
 
-    // Close dropdown when clicking outside
-    // useEffect(() => {
-    //     function handleClickOutside(event: MouseEvent) {
-    //         if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-    //             setIsOpen(false);
-    //         }
-
-    //     }
-        
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => document.removeEventListener("mousedown", handleClickOutside);
-    //     },
-    // []);
-
-
-    // useEffect(() => {
-    //     if (!isOpen) {
-    //         fetchComplaints(true)
-    //     }
-
-    // }, [isOpen])
-
-
-
-
-    
     return (
         <div className="relative w-fit" ref={dropdownRef}>
         {/* Dropdown Button */}
@@ -85,8 +60,8 @@ export default function MultiSelectDropdown({ label, options, selectedOptions, s
                         //No changes compared to previous selection
                     } else {
                         //Got changes compared to previous selection
-                        fetchComplaints()
                         setSelectedComplaints([])
+                        setCurrentPage(1)
                     }
                 }
             }}
