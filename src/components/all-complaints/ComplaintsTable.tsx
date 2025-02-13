@@ -57,7 +57,10 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
 
                         {/* Title */}
                         <TableCell className="text-base text-yap-black-800 pl-0">
-                            <p className='line-clamp-1'>{ complaint.title }</p>
+                            <a href={ complaint.url }>
+                                <p className='line-clamp-1 underline'>{ complaint.title }</p>
+                            </a>
+                            
                         </TableCell>
 
                         {/* Description */}

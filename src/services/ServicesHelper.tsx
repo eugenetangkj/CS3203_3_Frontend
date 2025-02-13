@@ -31,6 +31,7 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-03",
             category: "Category 1",
             source: "Reddit",
+            url: "#",
         },
         {
             id: 2,
@@ -39,6 +40,7 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-04",
             category: "Category 2",
             source: "Twitter",
+            url: "#",
         },
         {
             id: 3,
@@ -47,6 +49,7 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-05",
             category: "Category 3",
             source: "Facebook",
+            url: "#",
         },
         {
             id: 4,
@@ -55,6 +58,7 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-06",
             category: "Category 4",
             source: "Instagram",
+            url: "#",
         },
         {
             id: 5,
@@ -63,6 +67,7 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-07",
             category: "Category 5",
             source: "Website",
+            url: "#",
         },
     ]
 }
@@ -76,6 +81,7 @@ export async function getComplaintsTwo() {
                 postedOn: "2024-02-03",
                 category: "Category 6",
                 source: "Reddit",
+                url: "#",
             },
             {
                 id: 7,
@@ -84,6 +90,7 @@ export async function getComplaintsTwo() {
                 postedOn: "2024-02-04",
                 category: "Category 7",
                 source: "Twitter",
+                url: "#",
             },
             {
                 id: 8,
@@ -92,6 +99,7 @@ export async function getComplaintsTwo() {
                 postedOn: "2024-02-05",
                 category: "Category 8",
                 source: "Facebook",
+                url: "#",
             },
             {
                 id: 9,
@@ -100,6 +108,7 @@ export async function getComplaintsTwo() {
                 postedOn: "2024-02-06",
                 category: "Category 9",
                 source: "Instagram",
+                url: "#",
             },
             {
                 id: 10,
@@ -108,6 +117,7 @@ export async function getComplaintsTwo() {
                 postedOn: "2024-02-07",
                 category: "Category 10",
                 source: "Website",
+                url: "#",
             },
         ]
     }

@@ -21,10 +21,12 @@ export default {
   			},
   			'yap-orange': {
   				'100': '#FFAF91',
+				'800': '#FFA077',
   				'900': '#FF814A'
   			},
   			'yap-yellow': {
   				'100': '#FEECC2',
+				'800': '#FFD67C',
   				'900': '#FFC64A'
   			},
   			'yap-green': {

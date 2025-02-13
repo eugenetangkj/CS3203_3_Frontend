@@ -125,7 +125,7 @@ export function AddCategoryButton({ fetchCategories }: {
     >
 
       <DialogTrigger asChild>
-        <Button className="bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 text-white self-end rounded-full">Add Category</Button>
+        <Button className="bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white self-end rounded-full">Add Category</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] font-afacad">
         <DialogHeader>

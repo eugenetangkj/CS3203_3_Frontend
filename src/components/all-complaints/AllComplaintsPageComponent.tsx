@@ -157,7 +157,7 @@ const AllComplaintsPageComponent = () => {
                 
 
 
-                {/* Filter and delete */}
+                {/* Filter, deselect and delete */}
                 <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'>
                     {/* Filter */}
                     <div className='flex flex-row items-center space-x-4'>
@@ -180,14 +180,25 @@ const AllComplaintsPageComponent = () => {
                         }
                     </div>
 
-                    {/* Delete */}
+                    {/* Deselect and delete */}
+                    <div className='flex space-x-2'>
                     {
                         loading
                         ? <Skeleton className='w-[60px] h-[25px]' />
                         : selectedComplaints.length !== 0 
-                        ? <Button className='w-fit rounded-full self-end bg-red-500 hover:bg-red-400'>Delete</Button>
+                        ? <Button className='w-fit rounded-full self-end bg-yap-orange-900 hover:bg-yap-orange-800 duration-200' onClick={ () => setSelectedComplaints([]) }>Deselect</Button>
                         : <></>
                     }
+                    {
+                        loading
+                        ? <Skeleton className='w-[60px] h-[25px]' />
+                        : selectedComplaints.length !== 0 
+                        ? <Button className='w-fit rounded-full self-end bg-red-500 hover:bg-red-400 duration-200'>Delete</Button>
+                        : <></>
+                    }
+
+
+                    </div>
                     
 
 

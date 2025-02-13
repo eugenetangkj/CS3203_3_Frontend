@@ -5,4 +5,5 @@ export interface Complaint {
     postedOn: string,
     category: string,
     source: string,
+    url: string
   }
