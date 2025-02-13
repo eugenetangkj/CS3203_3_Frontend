@@ -37,7 +37,10 @@ export async function getComplaintsOne() {
                 name: "Environment",
                 colour: "#AAAAAA"
             },
-            source: "Reddit",
+            source: {
+                id: "reddit",
+                name: "Reddit"
+            },
             sentiment: 1.0,
             url: "#",
         },
@@ -51,7 +54,10 @@ export async function getComplaintsOne() {
                 name: "Environment",
                 colour: "#AAAAAA"
             },
-            source: "Twitter",
+            source: {
+                id: "reddit",
+                name: "Reddit"
+            },
             sentiment: 1.0,
             url: "#",
         },
@@ -65,7 +71,10 @@ export async function getComplaintsOne() {
                 name: "Environment",
                 colour: "#AAAAAA"
             },
-            source: "Facebook",
+            source: {
+                id: "reddit",
+                name: "Reddit"
+            },
             sentiment: 1.0,
             url: "#",
         },
@@ -76,10 +85,13 @@ export async function getComplaintsOne() {
             postedOn: "2024-02-06",
             category: {
                 id: "environment",
-                name: "environment",
+                name: "Environment",
                 colour: "#AAAAAA"
             },
-            source: "Instagram",
+            source: {
+                id: "reddit",
+                name: "Reddit"
+            },
             sentiment: 1.0,
             url: "#",
         },
@@ -93,7 +105,10 @@ export async function getComplaintsOne() {
                 name: "Environment",
                 colour: "#AAAAAA"
             },
-            source: "Website",
+            source: {
+                id: "reddit",
+                name: "Reddit"
+            },
             sentiment: 1.0,
             url: "#",
         },
@@ -112,7 +127,10 @@ export async function getComplaintsTwo() {
                     name: "Environment",
                     colour: "#AAAAAA"
                 },
-                source: "Reddit",
+                source: {
+                    id: "reddit",
+                    name: "Reddit"
+                },
                 sentiment: 1.0,
                 url: "#",
             },
@@ -126,7 +144,10 @@ export async function getComplaintsTwo() {
                     name: "Environment",
                     colour: "#AAAAAA"
                 },
-                source: "Twitter",
+                source: {
+                    id: "reddit",
+                    name: "Reddit"
+                },
                 sentiment: 1.0,
                 url: "#",
             },
@@ -140,7 +161,10 @@ export async function getComplaintsTwo() {
                     name: "Environment",
                     colour: "#AAAAAA"
                 },
-                source: "Facebook",
+                source: {
+                    id: "reddit",
+                    name: "Reddit"
+                },
                 sentiment: 1.0,
                 url: "#",
             },
@@ -154,7 +178,10 @@ export async function getComplaintsTwo() {
                     name: "Environment",
                     colour: "#AAAAAA"
                 },
-                source: "Instagram",
+                source: {
+                    id: "reddit",
+                    name: "Reddit"
+                },
                 sentiment: 1.0,
                 url: "#",
             },
@@ -168,7 +195,10 @@ export async function getComplaintsTwo() {
                     name: "Environment",
                     colour: "#AAAAAA"
                 },
-                source: "Website",
+                source: {
+                    id: "reddit",
+                    name: "Reddit"
+                },
                 sentiment: 1.0,
                 url: "#",
             },

@@ -40,12 +40,14 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
             toast({
                 variant: "success",
                 description: "Complaint(s) are successfully deleted.",
+                duration: 3000,
             })
         } catch (error) {
             //There is an error in deleting. Show unsuccessful toast.
             toast({
                 variant: "destructive",
                 description: "There was a problem deleting the complaint(s).",
+                duration: 3000,
             })
         } finally {
             //Reset all the parent states

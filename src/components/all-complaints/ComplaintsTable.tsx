@@ -81,7 +81,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
 
                         {/* Source */}
                         <TableCell className="text-base text-yap-black-800 pl-0">
-                            <p className='line-clamp-1'>{ "Source" }</p>
+                            <p className='line-clamp-1'>{ complaint.source.name }</p>
                         </TableCell>
 
                         {/* Sentiment */}

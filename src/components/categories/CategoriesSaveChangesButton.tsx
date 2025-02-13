@@ -29,6 +29,7 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
             toast({
                 variant: "success",
                 description: "Changes successfully saved.",
+                duration: 3000,
             })
 
             //Refetch categories
@@ -43,6 +44,7 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
           toast({
             variant: "destructive",
             description: "There was a problem saving your changes.",
+            duration: 3000,
           })
 
         } finally {

@@ -39,6 +39,7 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
             toast({
               variant: "success",
               description: "Category is successfully deleted.",
+              duration: 3000,
             })
 
             //Refetch categories
@@ -50,6 +51,7 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
           toast({
             variant: "destructive",
             description: "There was a problem deleting the category.",
+            duration: 3000,
           })
 
         } finally {

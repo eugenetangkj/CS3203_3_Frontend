@@ -22,7 +22,6 @@ export default function ManageCategoriesComponent() {
     //Triggers fetching of categories from backend
     const fetchCategories = async () => {
         setLoading(true);
-        console.log("hello")
         try {
             const fetchedCategories = await getCategories(); //Trigger backend API
             setCategories(fetchedCategories);
@@ -59,7 +58,6 @@ export default function ManageCategoriesComponent() {
             </div>
 
             
-
             {/* Table of categories */}
             {
                 loading
@@ -68,7 +66,7 @@ export default function ManageCategoriesComponent() {
                         <CategoriesTableSkeleton key={ index } />
                     ))}
                   </div>
-                :  <ManageCategoriesTable categories={ categories } setCategories={ setCategories } fetchCategories={ fetchCategories } />       
+                :  <ManageCategoriesTable categories={ categories } fetchCategories={ fetchCategories } />       
             }
            
         </div>

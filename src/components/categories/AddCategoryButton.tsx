@@ -61,6 +61,7 @@ export function AddCategoryButton({ fetchCategories }: {
             toast({
                 variant: "success",
                 description: "Category is successfully added.",
+                duration: 3000,
             })
 
             //Refetch categories
@@ -75,6 +76,7 @@ export function AddCategoryButton({ fetchCategories }: {
           toast({
             variant: "destructive",
             description: "There was a problem adding the category.",
+            duration: 3000,
           })
 
         } finally {
