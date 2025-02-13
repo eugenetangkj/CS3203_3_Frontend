@@ -159,7 +159,7 @@ const AllComplaintsPageComponent = () => {
             {/* Search and filter */}
             <div className='flex flex-col space-y-4'> 
                 {/* Search bar for search by title */}
-                <div className="relative w-full max-w-md xl:max-w-xl">
+                <div className="relative w-full max-w-md md:max-w-xl">
                     {/* Input Field */}
                     <Input
                         type="text"
