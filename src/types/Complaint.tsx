@@ -1,4 +1,4 @@
-export interface ComplaintInterface {
+export interface Complaint {
     id: string,
     title: string,
     description: string,

@@ -25,13 +25,15 @@ export async function getComplaintsOne() {
 //   return res.json();
     return [
         {
+            id: 1,
             title: "Sample Title 1",
-            description: "Description for complaint 1.",
+            description: "Description for complaint 1.Description for complaint 1.Description for complaint 1.Description for complaint 1.Description for complaint 2.",
             postedOn: "2024-02-03",
             category: "Category 1",
             source: "Reddit",
         },
         {
+            id: 2,
             title: "Sample Title 2",
             description: "Description for complaint 2.",
             postedOn: "2024-02-04",
@@ -39,6 +41,7 @@ export async function getComplaintsOne() {
             source: "Twitter",
         },
         {
+            id: 3,
             title: "Sample Title 3",
             description: "Description for complaint 3.",
             postedOn: "2024-02-05",
@@ -46,6 +49,7 @@ export async function getComplaintsOne() {
             source: "Facebook",
         },
         {
+            id: 4,
             title: "Sample Title 4",
             description: "Description for complaint 4.",
             postedOn: "2024-02-06",
@@ -53,6 +57,7 @@ export async function getComplaintsOne() {
             source: "Instagram",
         },
         {
+            id: 5,
             title: "Sample Title 5",
             description: "Description for complaint 5.",
             postedOn: "2024-02-07",
@@ -65,6 +70,7 @@ export async function getComplaintsOne() {
 export async function getComplaintsTwo() {
         return [
             {
+                id: 6,
                 title: "Sample Title 6",
                 description: "Description for complaint 6.",
                 postedOn: "2024-02-03",
@@ -72,6 +78,7 @@ export async function getComplaintsTwo() {
                 source: "Reddit",
             },
             {
+                id: 7,
                 title: "Sample Title 7",
                 description: "Description for complaint 7.",
                 postedOn: "2024-02-04",
@@ -79,6 +86,7 @@ export async function getComplaintsTwo() {
                 source: "Twitter",
             },
             {
+                id: 8,
                 title: "Sample Title 8",
                 description: "Description for complaint 8.",
                 postedOn: "2024-02-05",
@@ -86,6 +94,7 @@ export async function getComplaintsTwo() {
                 source: "Facebook",
             },
             {
+                id: 9,
                 title: "Sample Title 9",
                 description: "Description for complaint 9.",
                 postedOn: "2024-02-06",
@@ -93,6 +102,7 @@ export async function getComplaintsTwo() {
                 source: "Instagram",
             },
             {
+                id: 10,
                 title: "Sample Title 10",
                 description: "Description for complaint 10.",
                 postedOn: "2024-02-07",

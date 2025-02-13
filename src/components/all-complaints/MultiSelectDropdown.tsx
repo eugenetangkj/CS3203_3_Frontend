@@ -1,5 +1,6 @@
 "use client";
 
+import { checkIfArraysAreEqual } from "@/utils/HelperFunctions";
 import { useState, useRef, useEffect } from "react";
 
 /**
@@ -11,14 +12,16 @@ interface MultiSelectDropdownProps {
     selectedOptions: string[]
     stateChangeFunction: (selectedValues: string[]) => void,
     fetchComplaints: () => void
+    setSelectedComplaints: React.Dispatch<React.SetStateAction<number[]>>,
 
 }
 
 
 
-export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, fetchComplaints} : MultiSelectDropdownProps) {
+export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, fetchComplaints, setSelectedComplaints} : MultiSelectDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOptionsLocal, setSelectedOptions] = useState<string[]>(selectedOptions);
+    const [previousSelectedOptions, setPreviousSelectedOptions] = useState<string[]>(selectedOptions);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const allOptions = options
 
@@ -78,7 +81,13 @@ export default function MultiSelectDropdown({ label, options, selectedOptions, s
             onClick={ () => {
                 toggleDropdown()
                 if (isOpen) {
-                    fetchComplaints()
+                    if (checkIfArraysAreEqual(previousSelectedOptions, selectedOptionsLocal)) {
+                        //No changes compared to previous selection
+                    } else {
+                        //Got changes compared to previous selection
+                        fetchComplaints()
+                        setSelectedComplaints([])
+                    }
                 }
             }}
             className="w-full flex justify-between items-center bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-4 py-0.5 text-white shadow-sm"

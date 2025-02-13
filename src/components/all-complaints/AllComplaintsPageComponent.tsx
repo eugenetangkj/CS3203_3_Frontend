@@ -1,17 +1,18 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ComplaintsTable } from "./ComplaintsTable"
-import { ComplaintInterface } from "@/types/Complaint"
+import ComplaintsTable from "./ComplaintsTable"
+import { Complaint } from "@/types/Complaint"
 import { getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
 import { Input } from "../ui/input"
 import MultiSelectDropdown from "./MultiSelectDropdown"
 import { Skeleton } from "../ui/skeleton"
 import { Search } from "lucide-react"
+import { Button } from "../ui/button"
 
 const AllComplaintsPageComponent = () => {
     //State for complaints that are currently displayed
-    const [complaints, setComplaints] = useState<ComplaintInterface[]>([])
+    const [complaints, setComplaints] = useState<Complaint[]>([])
 
     //State for pagination
     const [currentPage, setCurrentPage] = useState(1)
@@ -29,8 +30,15 @@ const AllComplaintsPageComponent = () => {
     const [allSources, setAllSources] = useState<string[]>([])
 
 
+    //State for selected complaints
+    const [selectedComplaints, setSelectedComplaints] = useState<number[]>([])
+
+
+
     //State to track whether data is still in the midst of being fetched
     const [loading, setLoading] = useState(true)
+
+
 
 
 
@@ -88,6 +96,8 @@ const AllComplaintsPageComponent = () => {
 
     //Function that runs when user searches a given search term
     const handleSearch = () => {
+        //Should deselect all complaints
+        setSelectedComplaints([])
         //Should always reset to first page when searching a new keyword
         if (currentPage == 1) {
             //Will not cause state to retrigger. Explicitly retrigger it
@@ -97,6 +107,14 @@ const AllComplaintsPageComponent = () => {
             setCurrentPage(1)
         }
     }
+
+   
+
+
+
+
+
+
 
     //First fetch
     useEffect(() => {
@@ -139,30 +157,41 @@ const AllComplaintsPageComponent = () => {
                 
 
 
+                {/* Filter and delete */}
+                <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'>
+                    {/* Filter */}
+                    <div className='flex flex-row items-center space-x-4'>
+                        <h6 className='text-yap-gray-900'>Filter by</h6>
+                        {/* Filter by categories dropdown */}
+                        {
+                            loading
+                            ? <Skeleton className='w-[60px] h-[20px]' />
+                            : <MultiSelectDropdown options={ allCategories } selectedOptions={ categoriesSelected } 
+                            stateChangeFunction={ setCategoriesSelected } label="Category" fetchComplaints={ fetchComplaints }
+                            setSelectedComplaints={ setSelectedComplaints } />
+                        }
+                        {/* Filter by sources dropdown */}
+                        {
+                            loading
+                            ? <Skeleton className='w-[60px] h-[20px]' />
+                            : <MultiSelectDropdown options={ allSources } selectedOptions={ sourcesSelected } 
+                            stateChangeFunction={ setSourcesSelected } label="Source" fetchComplaints={ fetchComplaints }
+                            setSelectedComplaints={ setSelectedComplaints } />
+                        }
+                    </div>
 
-
-
-
-
-
-
-
-
-                <div className='flex flex-row items-center space-x-4'>
-                    <h6 className='text-yap-gray-900'>Filter by</h6>
-                    {/* Filter by categories dropdown */}
+                    {/* Delete */}
                     {
                         loading
-                        ? <Skeleton className='w-[60px] h-[20px]' />
-                        : <MultiSelectDropdown options={ allCategories } selectedOptions={ categoriesSelected }  stateChangeFunction={ setCategoriesSelected } label="Category" fetchComplaints={ fetchComplaints } />
+                        ? <Skeleton className='w-[60px] h-[25px]' />
+                        : selectedComplaints.length !== 0 
+                        ? <Button className='w-fit rounded-full self-end bg-red-500 hover:bg-red-400'>Delete</Button>
+                        : <></>
                     }
-                    {/* Filter by sources dropdown */}
-                    {
-                        loading
-                        ? <Skeleton className='w-[60px] h-[20px]' />
-                        : <MultiSelectDropdown options={ allSources } selectedOptions={ sourcesSelected }  stateChangeFunction={ setSourcesSelected } label="Source" fetchComplaints={ fetchComplaints } />
-                    }
-                  
+                    
+
+
+
                 </div>
 
 
@@ -176,7 +205,7 @@ const AllComplaintsPageComponent = () => {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <ComplaintsTable complaints={complaints} currentPage={currentPage} />
+                <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } />
             )}
 
 

@@ -62,7 +62,7 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Trash2Icon
-              className="w-5 h-5 mx-auto cursor-pointer text-yap-gray-900 hover:text-red-400 duration-200"
+              className="w-5 h-5 mx-auto cursor-pointer text-red-500  hover:text-red-400  duration-200"
             />
           </AlertDialogTrigger>
 
