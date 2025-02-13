@@ -12,7 +12,7 @@ import { Complaint } from "@/types/Complaint";
 This component handles the functionality of deleting complaints
 */
 interface DeleteComplaintsButtonProps {
-    complaintsToDelete: number[]
+    complaintsToDelete: Complaint[]
     resetStates: () => void
 }
 

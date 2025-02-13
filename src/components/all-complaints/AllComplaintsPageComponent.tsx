@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import ComplaintsTable from "./ComplaintsTable"
 import { Complaint } from "@/types/Complaint"
-import { getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
+import { defaultCategories, defaultSources, getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
 import { Input } from "../ui/input"
 import MultiSelectDropdown from "./MultiSelectDropdown"
 import { Skeleton } from "../ui/skeleton"
@@ -11,17 +11,21 @@ import { Search } from "lucide-react"
 import { Button } from "../ui/button"
 import DeleteComplaintsButton from "./DeleteComplaintsButton"
 import ComplaintsTableSkeleton from "./ComplaintsTableSkeleton"
+import { Category } from "@/types/Category"
+import { Source } from "@/types/Source"
+import CategoryFilterDropdown from "./CategoryFilterDropdown"
+import SourceFilterDropdown from "./SourceFilterDropdown"
 
 const AllComplaintsPageComponent = () => {
     //States
     const [complaints, setComplaints] = useState<Complaint[]>([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [searchQuery, setSearchQuery] = useState("")
-    const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
-    const [allCategories, setAllCategories] = useState<string[]>([])
-    const [sourcesSelected, setSourcesSelected] = useState<string[]>([])
-    const [allSources, setAllSources] = useState<string[]>([])
-    const [selectedComplaints, setSelectedComplaints] = useState<number[]>([])
+    const [searchQuery, setSearchQuery] = useState<string>("")
+    const [categoriesSelected, setCategoriesSelected] = useState<Category[]>([])
+    const [allCategories, setAllCategories] = useState<Category[]>([])
+    const [sourcesSelected, setSourcesSelected] = useState<Source[]>([])
+    const [allSources, setAllSources] = useState<Source[]>([])
+    const [selectedComplaints, setSelectedComplaints] = useState<Complaint[]>([])
     const [loading, setLoading] = useState(true)
     const isFirstRender = useRef(true);
     const [totalPages, setTotalPages] = useState<number>()
@@ -31,14 +35,17 @@ const AllComplaintsPageComponent = () => {
     //Initialises list of categories and sources to be displayed in the dropdown
     const initialisation = async () => {
         //TODO: Make API call to fetch list of categories and sources
-        const categoriesFromApi = ["Education", "Environment", "Health"]
-        const sourcesFromApi = ["Reddit"]
+        const categoriesFromApi : Category[] = defaultCategories
+        const sourcesFromApi: Source[] = defaultSources
 
-        setAllCategories(categoriesFromApi)
-        setAllSources(["Reddit"])
-        setCategoriesSelected(categoriesFromApi)
-        setSourcesSelected(sourcesFromApi)
+        //Set states
+        setAllCategories([...categoriesFromApi])
+        setAllSources([...sourcesFromApi])
+        setCategoriesSelected([...categoriesFromApi])
+        setSourcesSelected([...sourcesFromApi])
     }
+
+
 
     //Initialise when the component first gets mounted
     useEffect(() => {
@@ -91,7 +98,7 @@ const AllComplaintsPageComponent = () => {
     const fetchComplaints = async () => {
         //Indicate that we are fetching new complaints
         setLoading(true)
-        console.log(categoriesSelected)
+        console.log("Fetching complaints...", categoriesSelected)
 
 
         try {
@@ -183,17 +190,17 @@ const AllComplaintsPageComponent = () => {
                         {
                             loading
                             ? <Skeleton className='w-[60px] h-[20px]' />
-                            : <MultiSelectDropdown options={ allCategories } selectedOptions={ categoriesSelected } 
-                            stateChangeFunction={ setCategoriesSelected } label="Category" fetchComplaints={ fetchComplaints }
-                            setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage } />
+                            : <CategoryFilterDropdown categoryOptions={ allCategories } selectedCategories={ categoriesSelected } stateChangeFunction={ setCategoriesSelected }
+                                setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
+                                currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
                         }
                         {/* Filter by sources dropdown */}
                         {
                             loading
                             ? <Skeleton className='w-[60px] h-[20px]' />
-                            : <MultiSelectDropdown options={ allSources } selectedOptions={ sourcesSelected } 
-                            stateChangeFunction={ setSourcesSelected } label="Source" fetchComplaints={ fetchComplaints }
-                            setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage } />
+                            : <SourceFilterDropdown sourceOptions={ allSources} selectedSources={ sourcesSelected } stateChangeFunction={ setSourcesSelected }
+                            setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
+                            currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
                         }
                     </div>
 
@@ -232,7 +239,7 @@ const AllComplaintsPageComponent = () => {
             { 
                 loading
                 ? <ComplaintsTableSkeleton />
-                : <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } />
+                : <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories } />
             }
 
 

@@ -1,3 +1,6 @@
+import { Category } from "@/types/Category";
+import { Source } from "@/types/Source";
+
 export const getCategories = async () => {
   // try {
   //   const response = await axios.get('http://localhost:8081/categories');
@@ -29,8 +32,13 @@ export async function getComplaintsOne() {
             title: "Sample Title 1",
             description: "Description for complaint 1.Description for complaint 1.Description for complaint 1.Description for complaint 1.Description for complaint 2.",
             postedOn: "2024-02-03",
-            category: "Category 1",
+            category: {
+                id: "environment",
+                name: "Environment",
+                colour: "#AAAAAA"
+            },
             source: "Reddit",
+            sentiment: 1.0,
             url: "#",
         },
         {
@@ -38,8 +46,13 @@ export async function getComplaintsOne() {
             title: "Sample Title 2",
             description: "Description for complaint 2.",
             postedOn: "2024-02-04",
-            category: "Category 2",
+            category: {
+                id: "environment",
+                name: "Environment",
+                colour: "#AAAAAA"
+            },
             source: "Twitter",
+            sentiment: 1.0,
             url: "#",
         },
         {
@@ -47,8 +60,13 @@ export async function getComplaintsOne() {
             title: "Sample Title 3",
             description: "Description for complaint 3.",
             postedOn: "2024-02-05",
-            category: "Category 3",
+            category: {
+                id: "environment",
+                name: "Environment",
+                colour: "#AAAAAA"
+            },
             source: "Facebook",
+            sentiment: 1.0,
             url: "#",
         },
         {
@@ -56,8 +74,13 @@ export async function getComplaintsOne() {
             title: "Sample Title 4",
             description: "Description for complaint 4.",
             postedOn: "2024-02-06",
-            category: "Category 4",
+            category: {
+                id: "environment",
+                name: "environment",
+                colour: "#AAAAAA"
+            },
             source: "Instagram",
+            sentiment: 1.0,
             url: "#",
         },
         {
@@ -65,8 +88,13 @@ export async function getComplaintsOne() {
             title: "Sample Title 5",
             description: "Description for complaint 5.",
             postedOn: "2024-02-07",
-            category: "Category 5",
+            category: {
+                id: "environment",
+                name: "Environment",
+                colour: "#AAAAAA"
+            },
             source: "Website",
+            sentiment: 1.0,
             url: "#",
         },
     ]
@@ -79,8 +107,13 @@ export async function getComplaintsTwo() {
                 title: "Sample Title 6",
                 description: "Description for complaint 6.",
                 postedOn: "2024-02-03",
-                category: "Category 6",
+                category: {
+                    id: "environment",
+                    name: "Environment",
+                    colour: "#AAAAAA"
+                },
                 source: "Reddit",
+                sentiment: 1.0,
                 url: "#",
             },
             {
@@ -88,8 +121,13 @@ export async function getComplaintsTwo() {
                 title: "Sample Title 7",
                 description: "Description for complaint 7.",
                 postedOn: "2024-02-04",
-                category: "Category 7",
+                category: {
+                    id: "environment",
+                    name: "Environment",
+                    colour: "#AAAAAA"
+                },
                 source: "Twitter",
+                sentiment: 1.0,
                 url: "#",
             },
             {
@@ -97,8 +135,13 @@ export async function getComplaintsTwo() {
                 title: "Sample Title 8",
                 description: "Description for complaint 8.",
                 postedOn: "2024-02-05",
-                category: "Category 8",
+                category: {
+                    id: "environment",
+                    name: "Environment",
+                    colour: "#AAAAAA"
+                },
                 source: "Facebook",
+                sentiment: 1.0,
                 url: "#",
             },
             {
@@ -106,8 +149,13 @@ export async function getComplaintsTwo() {
                 title: "Sample Title 9",
                 description: "Description for complaint 9.",
                 postedOn: "2024-02-06",
-                category: "Category 9",
+                category: {
+                    id: "environment",
+                    name: "Environment",
+                    colour: "#AAAAAA"
+                },
                 source: "Instagram",
+                sentiment: 1.0,
                 url: "#",
             },
             {
@@ -115,9 +163,45 @@ export async function getComplaintsTwo() {
                 title: "Sample Title 10",
                 description: "Description for complaint 10.",
                 postedOn: "2024-02-07",
-                category: "Category 10",
+                category: {
+                    id: "environment",
+                    name: "Environment",
+                    colour: "#AAAAAA"
+                },
                 source: "Website",
+                sentiment: 1.0,
                 url: "#",
             },
         ]
     }
+
+
+
+export const defaultCategories : Category[] = [
+            {
+                id: "healthcare",
+                name: "Healthcare",
+                colour: "#AAAAAA"
+            },
+            {
+                id: "environment",
+                name: "Environment",
+                colour: "#AAAAAA"
+            },
+            {
+                id: "finance",
+                name: "Finance",
+                colour: "#AAAAAA"
+            },
+] 
+
+export const defaultSources : Source[] = [
+    {
+        id: "reddit",
+        name: "Reddit",
+    },
+] 
+
+
+
+
