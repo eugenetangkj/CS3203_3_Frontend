@@ -6,56 +6,32 @@ This file stores the interfaces used to represent data points in charts imported
 /**
  * Interface for a data point used in a BarChartCustomLabel chart.
  * Each data point represents a bar in the chart with a label, a value, and a color.
+ * 
+ * @param label Label for each bar, such as "Healthcare" or "Environment" if the bar chart is used for categories.
+ * @param key Key represents what the value represents while the value is the actual value. For example, "# Complaints": 100.
+ * @param fill Colour hex code to be used for the given bar
  */
 export interface BarChartCustomLabelPoint {
-    //Label for each bar, such as "Healthcare" or "Environment" if the bar chart is used for categories.
     label: string;
-
-    //Represents additional numeric or string properties for the bar chart data.
-    //The key is dynamic and can be any string.
-
     [key: string]: number | string;
-
-    //Colour hex code to be used for the given bar.
     fill: string;
+}
+
+
+/**
+ * Interface for a data point used in a LineChartMultiplePoint chart.
+ * @param month Month to be shown on the x-axis
+ * @param key Key represents what the value represents while the value is the actual value. For example, "# Complaints": 100
+*/
+export interface LineChartMultiplePoint {
+    month: string;
+    [key: string]: number | string;
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-Abstraction of chart data that is used to render a line chart with multiple lines
-*/
-// export interface LineChartMultiplePoint {
-//     month: string;
-//     [key: string]: number | string;
-// }
 
 /**
 Abstraction of chart data that is used to render a barchart

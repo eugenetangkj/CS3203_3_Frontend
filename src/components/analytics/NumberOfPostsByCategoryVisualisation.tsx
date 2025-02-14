@@ -2,12 +2,12 @@
 
 import { BarChartCustomLabel } from "../charts/BarChartCustomLabel"
 import { useEffect, useState } from "react"
-import { makePostRequest, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT} from "@/services/ApiHandler"
 import { START_DATE } from "@/constants/constantValues"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { BarChartCustomLabelPoint } from "@/types/ChartInterface"
-import { barChartCustomLabelData } from "@/constants/analyticsData"
 import { Skeleton } from "../ui/skeleton"
+import axios from "axios"
+import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
 
 
 
@@ -23,7 +23,7 @@ export function NumberOfPostsByCategoryVisualisation() {
     const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>) => {
         return Object.entries(data).map(([key, value]) => ({
           label: key,
-          "No. of Posts": value.count,
+          "# Complaints": value.count,
           fill: "#92A062", //TODO: Change later depending on category
         }));
     };
@@ -32,18 +32,17 @@ export function NumberOfPostsByCategoryVisualisation() {
     const fetchPostsByCategory = async () => {
         setIsLoading(true)
         try {
-            //TODO: Delete logic API here
-            // const apiData = await makePostRequest(GET_POSTS_GROUPED_BY_FIELD_ENDPOINT,
-            //     {
-            //         start_date: START_DATE,
-            //         end_date: getCurrentDateTime(),
-            //         group_by_field: "category"
-            //     }
-            // )
-            // const postsGroupedByCategories = convertToArray(apiData.result)
-            // setDataPoints(postsGroupedByCategories)
-
-            setDataPoints(barChartCustomLabelData)
+            //Call API to fetch posts grouped according to categories
+            const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_GROUPED_BY_FIELD_ENDPOINT
+            const apiData = await axios.post(apiEndPoint,
+                {
+                    "start_date": START_DATE,
+                    "end_date": getCurrentDateTime(),
+                    "group_by_field": "category"
+                }
+            )
+            const postsGroupedByCategories = convertToArray(apiData.data.result)
+            setDataPoints(postsGroupedByCategories)
         } catch (error) {
             setIsThereError(true)
         } finally {
