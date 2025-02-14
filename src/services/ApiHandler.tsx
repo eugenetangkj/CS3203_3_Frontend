@@ -1,14 +1,19 @@
 
 import axios from 'axios';
 
-
 /**
-The handler that handles API calls to interact with the backend.
-
+Handles API calls to interact with the backend.
 */
 
 //Base URL to make API calls
-const API_BASE_URL = process.env.API_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+
+
+//Endpoints from the API contract
+export const GET_POSTS_GROUPED_BY_FIELD_ENDPOINT = 'get_posts_grouped_by_field'
+export const GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT = 'get_posts_grouped_by_field_over_time'
+export const GET_POSTS_GROUPED_BY_SENTIMENT_VALUE = 'get_posts_grouped_by_sentiment_value'
+export const GET_POSTS_SORTED_BY_FIELDS = 'get_posts_sorted_by_fields'
 
 
 //Makes a GET request
@@ -30,11 +35,13 @@ export const makeGetRequest = async (endpoint: string): Promise<any> => {
     }
 }
 
+
 //Makes a POST request
-export const makePostRequest = async (endpoint: string, data: object): Promise<any> => {
+export const makePostRequest = async (endpoint: string, bodyData: object): Promise<any> => {
     try {
         //Perform the POST request with the supplied data
-        const response = await axios.post(`${API_BASE_URL}/${endpoint}`)
+        console.log(bodyData)
+        const response = await axios.post(`${API_BASE_URL}/${endpoint}`, bodyData)
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error)) {

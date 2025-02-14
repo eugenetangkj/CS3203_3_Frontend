@@ -9,7 +9,7 @@ import {
   ChartLegend,
   ChartLegendContent
 } from "@/components/ui/chart"
-import { PieChartLegendPoint } from "@/types/ChartData"
+import { PieChartLegendPoint } from "@/types/ChartInterface"
 
 interface PieChartLegendProps {
     chartData: PieChartLegendPoint[];

@@ -2,6 +2,37 @@ import { Complaint } from "@/types/Complaint";
 import { Source } from "@/types/Source";
 import { Category } from "@/types/Category";
 
+/**
+    Helper functions that are used across different files
+*/
+
+
+//Gets the current datetime in the format of dd-mm-YYYY HH:MM:SS
+export const getCurrentDateTime = (): string => {
+    return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    })
+    .format(new Date())
+    .replace(/\//g, "-");
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Test if an input string is a valid hexadecimal colour code value

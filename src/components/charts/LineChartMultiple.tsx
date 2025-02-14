@@ -7,7 +7,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { LineChartMultiplePoint } from "@/types/ChartData"
+import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
 
 // Turns out not need to visually render the graph correctly
