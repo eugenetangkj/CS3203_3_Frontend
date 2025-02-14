@@ -6,6 +6,7 @@ The analytics dashboard component used in the analytics page, housing the differ
 import AnalyticsDashboardTitle from "./AnalyticsDashboardTitle";
 import { NumberOfPostsByCategoryOverTimeVisualisation } from "./NumberOfPostsByCategoryOverTimeVisualisation";
 import { NumberOfPostsByCategoryVisualisation } from "./NumberOfPostsByCategoryVisualisation";
+import { NumberOfPostsBySentimentVisualisation } from "./NumberOfPostsBySentimentVisualisation";
 import { SentimentsOfCategoriesVisualisation } from "./SentimentsOfCategoriesVisualisation";
 
 
@@ -30,11 +31,11 @@ export default function AnalyticsDashboard() {
                 <SentimentsOfCategoriesVisualisation />
             </div>
 
-          {/* Number of posts by sentiments */}
-          {/* <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
-            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Number of Posts by Sentiment Score</h3>
-            <PieChartLegend chartData={ sentimentsPieChart } />
-          </div> */}
+            {/* Number of posts by sentiments */}
+            <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
+                <AnalyticsDashboardTitle title='Number of Complaints by Sentiment Score' />
+                <NumberOfPostsBySentimentVisualisation />
+            </div>
 
           {/* Number of posts by sentiments */}
           {/* <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>

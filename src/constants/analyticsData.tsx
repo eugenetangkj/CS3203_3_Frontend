@@ -1,6 +1,7 @@
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
 import { LineChartMultiplePoint } from "@/types/ChartInterface";
 import { BarChartNegativePoint } from "@/types/ChartInterface";
+import { PieChartLegendPoint } from "@/types/ChartInterface";
 // import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
 import { colourMap } from "./Colours";
 
@@ -52,12 +53,12 @@ export const sentimentsOfCategories: BarChartNegativePoint[] = [
 ];
 
 
-// export const sentimentsPieChart: PieChartLegendPoint[] = [
-//     {label: "-0.00 to -0.50", value: 100, fill: colourMap["yap-orange-900"]},
-//     {label: "-0.50 to 0.00", value: 200, fill: colourMap["yap-yellow-900"]},
-//     {label: "0.00 to 0.50", value: 140, fill: colourMap["yap-brown-900"]},
-//     {label: "0.50 to 1.00", value: 150, fill: colourMap["yap-green-900"]}
-// ]
+export const sentimentsPieChart: PieChartLegendPoint[] = [
+    {label: "-0.00 to -0.50", value: 100, fill: colourMap["yap-orange-900"]},
+    {label: "-0.50 to 0.00", value: 200, fill: colourMap["yap-yellow-900"]},
+    {label: "0.00 to 0.50", value: 140, fill: colourMap["yap-brown-900"]},
+    {label: "0.50 to 1.00", value: 150, fill: colourMap["yap-green-900"]}
+]
 
 // export const sentimentsOverTimeData: LineChartMultiplePoint[] = [
 //     { month: "Jan 24", Health: -0.0, Education: -0.4286, Transport: -0.7143, Employment: -0.2857, Environment: -0.7143, Safety: -0.5714, Community: -0.4286, Recreation: -0.5000, Housing: -0.1429, Food: -0.8571, Others: -0.5714 },

@@ -41,12 +41,15 @@ export interface BarChartNegativePoint {
 
 
 /**
- * Abstraction of chart data that is used to render a pie chart
- */
-// export interface PieChartLegendPoint {
-//     label: string;
-//     value: number;
-//     fill: string;
-// }
+ * Interface for a data point used in a PieChartLegend chart.
+ * @param label Name of the region, such as 0.00 - 0.50
+ * @param value Value of the region
+ * @param fill Colour of the region
+*/
+export interface PieChartLegendPoint {
+    label: string;
+    value: number;
+    fill: string;
+}
 
 
