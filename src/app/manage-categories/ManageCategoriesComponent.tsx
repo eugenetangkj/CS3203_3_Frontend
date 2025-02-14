@@ -52,8 +52,8 @@ export default function ManageCategoriesComponent() {
                 {/* Add category */}
                 <AddCategoryButton fetchCategories= { fetchCategories } />
 
-                {/* Save changes */}
-                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } />
+                {/* Save changes
+                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } /> */}
 
             </div>
 
