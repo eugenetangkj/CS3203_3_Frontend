@@ -13,7 +13,9 @@ import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT } from "@/c
 import axios from "axios"
 
 
-
+/**
+Represents the visualisation for number of posts by category over time visualisation used in analytics dashboard
+*/
 export function NumberOfPostsByCategoryOverTimeVisualisation() {
 
     //States

@@ -4,15 +4,10 @@ import { Bar, BarChart, CartesianGrid, Cell, LabelList, YAxis } from "recharts"
 import { CardContent, CardFooter, } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
-import { colourMap } from "@/constants/ColourMap"
+import { colourMap } from "@/constants/Colours"
 import { sentimentsRange } from "@/constants/Sentiments"
 
-// Not needed
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-} satisfies ChartConfig
+
 
 
 interface BarChartNegativeProps {
@@ -22,10 +17,13 @@ interface BarChartNegativeProps {
 
 
 export function BarChartNegative({ chartData, footerText }: BarChartNegativeProps) {
-    // Dynamically determine the y-axis label
-    const valueKey = Object.keys(chartData[0]).find(key => key !== "xValue") as string;
+    //Dynamically determine the y-axis label by taking the key that is not called xLabel
+    const valueKey = Object.keys(chartData[0]).find(key => key !== "xLabel") as string;
 
-    // Generate the component
+    //Chart config
+    const chartConfig = {} satisfies ChartConfig
+
+
     return (
     <div>
         <CardContent>
@@ -39,7 +37,7 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
                     content={<ChartTooltipContent hideLabel hideIndicator />}
                 />
                 <Bar dataKey={ valueKey }>
-                    <LabelList position="top" dataKey="xValue" fillOpacity={1} fill={ colourMap['yap-black-800'] } />
+                    <LabelList position="top" dataKey="xLabel" fillOpacity={1} fill={ colourMap['yap-black-800'] } />
                     
                     {chartData.map((item, index) => {
                         return (
@@ -54,10 +52,10 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
             </ChartContainer>
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-base">
-        <div className="leading-none text-muted-foreground text-yap-gray-900">
-            { footerText }
-        </div>
+            <div className="leading-none text-muted-foreground text-yap-gray-900">
+                { footerText }
+            </div>
         </CardFooter>
-        </div>
+    </div>
     )
 }

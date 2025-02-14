@@ -1,7 +1,8 @@
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
 import { LineChartMultiplePoint } from "@/types/ChartInterface";
+import { BarChartNegativePoint } from "@/types/ChartInterface";
 // import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
-import { colourMap } from "./ColourMap";
+import { colourMap } from "./Colours";
 
 export const barChartCustomLabelData = [
     { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
@@ -36,19 +37,19 @@ export const categoriesOverTimeData: LineChartMultiplePoint[] = [
   ];
 
 
-// export const sentimentsOfCategories: BarChartNegativePoint[] = [
-//     { xValue: "Health", Sentiment: 0.5 },
-//     { xValue: "Education", Sentiment: -0.2 },
-//     { xValue: "Transport", Sentiment: 0.1 },
-//     { xValue: "Employment", Sentiment: -0.4 },
-//     { xValue: "Environment", Sentiment: 0.8 },
-//     { xValue: "Safety", Sentiment: -0.7 },
-//     { xValue: "Community", Sentiment: 0.3 },
-//     { xValue: "Recreation", Sentiment: 0.6 },
-//     { xValue: "Housing", Sentiment: -0.5 },
-//     { xValue: "Food", Sentiment: 0.4 },
-//     { xValue: "Others", Sentiment: -0.1 }
-// ];
+export const sentimentsOfCategories: BarChartNegativePoint[] = [
+    { xLabel: "Health", Sentiment: 0.5 },
+    { xLabel: "Education", Sentiment: -0.2 },
+    { xLabel: "Transport", Sentiment: 0.1 },
+    { xLabel: "Employment", Sentiment: -0.4 },
+    { xLabel: "Environment", Sentiment: 0.8 },
+    { xLabel: "Safety", Sentiment: -0.7 },
+    { xLabel: "Community", Sentiment: 0.3 },
+    { xLabel: "Recreation", Sentiment: 0.6 },
+    { xLabel: "Housing", Sentiment: -0.5 },
+    { xLabel: "Food", Sentiment: 0.4 },
+    { xLabel: "Others", Sentiment: -0.1 }
+];
 
 
 // export const sentimentsPieChart: PieChartLegendPoint[] = [

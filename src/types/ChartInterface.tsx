@@ -29,17 +29,15 @@ export interface LineChartMultiplePoint {
 }
 
 
-
-
-
-
 /**
-Abstraction of chart data that is used to render a barchart
+ * Interface for a data point used in a BarChartNegative chart.
+ * @param month Month to be shown on the x-axis
+ * @param key Key represents what the value represents while the value is the actual value. For example, "# Complaints": 100
 */
-// export interface BarChartNegativePoint {
-//     xValue: string;
-//     [key: string]: number | string;
-// }
+export interface BarChartNegativePoint {
+    xLabel: string;
+    [key: string]: number | string;
+}
 
 
 /**

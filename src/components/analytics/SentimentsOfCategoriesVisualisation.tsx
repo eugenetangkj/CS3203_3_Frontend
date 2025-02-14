@@ -1,36 +1,38 @@
 "use client"
 
-import { BarChartCustomLabel } from "../charts/BarChartCustomLabel"
 import { useEffect, useState } from "react"
 import { START_DATE } from "@/constants/constantValues"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
-import { BarChartCustomLabelPoint } from "@/types/ChartInterface"
+import { BarChartNegativePoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { BarChartNegative } from "../charts/BarChartNegative"
 
 
 /**
-Represents the visualisation for number of posts by category visualisation used in analytics dashboard
+Represents the visualisation for sentiments of each category used in analytics dashboard
 */
-export function NumberOfPostsByCategoryVisualisation() {
+export function SentimentsOfCategoriesVisualisation() {
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [dataPoints, setDataPoints] = useState<BarChartCustomLabelPoint[]>([])
+    const [dataPoints, setDataPoints] = useState<BarChartNegativePoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
-    //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>) => {
-        return Object.entries(data).map(([key, value]) => ({
-          label: key,
-          "# Complaints": value.count,
-          fill: "#92A062", //TODO: Change later depending on category
-        }));
+    //Helper function to convert the API object into an array of the format required for the bar chart negative chart
+    const convertToArray = (data: any) => {
+        return Object.keys(data).map((category) => {
+            return {
+                xLabel: category,
+                Sentiment: data[category].avg_sentiment,
+            };
+        });
     };
 
-    //Fetches the API to process the number of posts for each category
+
+    //Fetches the API to process the sentiment for each category
     const fetchPostsByCategory = async () => {
         setIsLoading(true)
         try {
@@ -43,8 +45,9 @@ export function NumberOfPostsByCategoryVisualisation() {
                     "group_by_field": "category"
                 }
             )
-            const postsGroupedByCategories = convertToArray(apiData.data.result)
-            setDataPoints(postsGroupedByCategories)
+            const sentimentsForEachCategory = convertToArray(apiData.data.result)
+            console.log(sentimentsForEachCategory)
+            setDataPoints(sentimentsForEachCategory)
         } catch (error) {
             setIsThereError(true)
         } finally {
@@ -65,6 +68,6 @@ export function NumberOfPostsByCategoryVisualisation() {
         ? <div>Something went wrong. Please try again later.</div>
         : dataPoints.length === 0
         ? <div></div>
-        : (<BarChartCustomLabel chartData={ dataPoints } />)      
+        : <BarChartNegative chartData={ dataPoints } footerText={"* Sentiment score of 1.00 and -1.00 are the most positive and negative respectively."} />
     )
 }

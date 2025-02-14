@@ -6,6 +6,7 @@ The analytics dashboard component used in the analytics page, housing the differ
 import AnalyticsDashboardTitle from "./AnalyticsDashboardTitle";
 import { NumberOfPostsByCategoryOverTimeVisualisation } from "./NumberOfPostsByCategoryOverTimeVisualisation";
 import { NumberOfPostsByCategoryVisualisation } from "./NumberOfPostsByCategoryVisualisation";
+import { SentimentsOfCategoriesVisualisation } from "./SentimentsOfCategoriesVisualisation";
 
 
 export default function AnalyticsDashboard() {
@@ -23,11 +24,11 @@ export default function AnalyticsDashboard() {
                 <NumberOfPostsByCategoryOverTimeVisualisation />
             </div>
 
-          {/* Sentiment of each category */}
-          {/* <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
-            <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900 mb-6'>Sentiment of Categories</h3>
-            <BarChartNegative chartData={ sentimentsOfCategories } footerText={"* Sentiment score of 1.00 and -1.00 are the most positive and negative respectively."} />
-          </div> */}
+            {/* Sentiment of each category */}
+            <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
+                <AnalyticsDashboardTitle title='Sentiment of Categories' />
+                <SentimentsOfCategoriesVisualisation />
+            </div>
 
           {/* Number of posts by sentiments */}
           {/* <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
