@@ -25,7 +25,7 @@ export default function Navbar() {
 
 
                 {/* Desktop navigation which only appears for md and above*/}
-                <div className="hidden md:flex justify-center items-center space-x-16">
+                <div className="hidden md:flex justify-center items-center space-x-8 lg:space-x-16">
                     {/* Desktop links */}
                     {
                         navLinks.map((link) => (
@@ -34,7 +34,7 @@ export default function Navbar() {
                     }
                   
                     {/* Login button */}
-                    <button className="rounded-full bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 text-white px-6 py-1">Login</button>
+                    <button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white px-6 py-1">Login</button>
                 </div>
 
 

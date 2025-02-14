@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import { Afacad, Kavoon } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/common/navigation/Navbar";
-import Footer from "@/components/common/navigation/Footer";
+import type { Metadata } from "next"
+import { Afacad, Kavoon } from "next/font/google"
+import "./globals.css"
+import Navbar from "@/components/common/navigation/Navbar"
+import Footer from "@/components/common/navigation/Footer"
+import { Toaster } from "@/components/ui/toaster"
 
 
 const afacadFont = Afacad({
@@ -18,7 +19,7 @@ const kavoonFont = Kavoon({
 
 export const metadata: Metadata = {
   title: "Just Yap!",
-  description: "A platform that aggregates online feedback from social media platforms to inform the decision-making process of authorities.",
+  description: "A platform that aggregates online complaints from social media platforms to inform the decision-making process of authorities.",
 };
 
 export default function RootLayout({
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

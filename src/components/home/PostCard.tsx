@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import { Category } from "@/types/Category";
+import { CategoryEnum } from "@/types/Category";
 import { SocialMediaSource } from "@/types/SocialMediaSource";
 import { SocialMediaSourceImageMap } from "@/utils/SocialMediaSourceImageMap";
 import { CategoryColorMap } from "@/utils/CategoryColourMap";
@@ -12,7 +12,7 @@ category, date of post and source.
 */
 interface PostCardProps {
     title: String;
-    category: Category | undefined;
+    category: CategoryEnum | undefined;
     description: String;
     date: String;
     source: SocialMediaSource | undefined;
@@ -28,8 +28,8 @@ export default function PostCard({title, category, description, date, source}: P
                         <h6 className='text-yap-brown-900 text-xl sm:text-2xl font-bold line-clamp-2 overflow-hidden'>{ title }</h6>
 
                         {/* Category */}
-                        <div className='rounded-full  text-white w-fit px-4 py-0.25' style={{
-                            backgroundColor: CategoryColorMap[category ?? Category.Others]
+                        <div className='rounded-full  text-white w-fit px-4 py-0.25 text-sm' style={{
+                            backgroundColor: CategoryColorMap[category ?? CategoryEnum.Others]
                         }}>{ category }</div>
                     </div>
 

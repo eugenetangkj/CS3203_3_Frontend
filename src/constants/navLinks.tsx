@@ -1,8 +1,8 @@
 export const navLinks = [
     {
-        route: "/yap",
-        id: "yap",
-        label: "Yap!"
+        route: "/all-complaints",
+        id: "all-complaints",
+        label: "All Complaints"
     },
     {
         route: "/polls",
@@ -13,5 +13,10 @@ export const navLinks = [
         route: "/analytics",
         id: "analytics",
         label: "Analytics"
+    },
+    {
+        route: "/manage-categories",
+        id: "manage-categories",
+        label: "Categories"
     }
 ]
