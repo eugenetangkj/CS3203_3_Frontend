@@ -20,7 +20,7 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
 
 
     //Handles logic for adding a category
-    const handleSaveChanges = async (e: React.FormEvent) => {
+    const handleSaveChanges = async () => {
       
         try {
             //TODO: Make API call
@@ -39,6 +39,7 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
 
 
         } catch (error) {
+          console.log(error)
 
           //Show error toast
           toast({

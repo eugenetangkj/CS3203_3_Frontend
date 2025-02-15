@@ -12,7 +12,7 @@ import { sentimentsRange } from "@/constants/Sentiments"
 
 interface BarChartNegativeProps {
     chartData: BarChartNegativePoint[];
-    footerText: String
+    footerText: string
 }
 
 

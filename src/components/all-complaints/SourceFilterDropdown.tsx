@@ -1,7 +1,7 @@
 "use client";
 
-import { checkIfArraysAreEqual, doesSourceExistInList } from "@/utils/HelperFunctions";
-import { useState, useRef, useEffect } from "react";
+import { doesSourceExistInList } from "@/utils/HelperFunctions";
+import { useState, useRef } from "react";
 import { Complaint } from "@/types/Complaint";
 import { Source } from "@/types/Source";
 import { areSourceListsEqual } from "@/utils/HelperFunctions";
@@ -32,7 +32,7 @@ export default function SourceFilterDropdown({
         //States
         const [isOpen, setIsOpen] = useState(false);
         const [selectedSourcesLocal, setSelectedSourcesLocal] = useState<Source[]>(selectedSources);
-        const [previousSelectedSources, setPreviousSelectedSources] = useState<Source[]>(selectedSources);
+        const [previousSelectedSources] = useState<Source[]>(selectedSources);
         const dropdownRef = useRef<HTMLDivElement>(null);
         const allOptions = sourceOptions
 

@@ -51,6 +51,7 @@ export function SentimentsOfSourcesVisualisation() {
                 data: tableData
             })
         } catch (error) {
+            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)

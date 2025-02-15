@@ -71,6 +71,7 @@ export function AddCategoryButton({ fetchCategories }: {
 
 
         } catch (error) {
+          console.log(error)
 
           //Show error toast
           toast({

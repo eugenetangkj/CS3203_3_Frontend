@@ -61,6 +61,7 @@ export function NumberOfPostsBySentimentVisualisation() {
             console.log(sentimentsForEachCategory)
             setDataPoints(sentimentsForEachCategory)
         } catch (error) {
+            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)

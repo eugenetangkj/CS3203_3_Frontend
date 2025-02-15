@@ -34,6 +34,8 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
     const handleDeleteCategory = async (categoryName: string) => {
         try {
             //TODO: Delete logic API here
+            console.log(open)
+            console.log(categoryName)
             
             //Show successful toast
             toast({
@@ -46,13 +48,14 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
             fetchCategories()
             
         } catch (error) {
+            console.log(error)
 
-          //Show error toast
-          toast({
-            variant: "destructive",
-            description: "There was a problem deleting the category.",
-            duration: 3000,
-          })
+            //Show error toast
+            toast({
+                variant: "destructive",
+                description: "There was a problem deleting the category.",
+                duration: 3000,
+            })
 
         } finally {
             setOpen(false); //Close dialog

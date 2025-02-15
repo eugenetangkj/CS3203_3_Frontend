@@ -11,10 +11,10 @@ This component represents a card that displays a post in the home page. It conta
 category, date of post and source.
 */
 interface PostCardProps {
-    title: String;
+    title: string;
     category: CategoryEnum | undefined;
-    description: String;
-    date: String;
+    description: string;
+    date: string;
     source: SocialMediaSource | undefined;
  }
  

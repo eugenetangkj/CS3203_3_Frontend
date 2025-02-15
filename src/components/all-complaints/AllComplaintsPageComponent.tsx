@@ -5,7 +5,6 @@ import ComplaintsTable from "./ComplaintsTable"
 import { Complaint } from "@/types/Complaint"
 import { defaultCategories, defaultSources, getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
 import { Input } from "../ui/input"
-import MultiSelectDropdown from "./MultiSelectDropdown"
 import { Skeleton } from "../ui/skeleton"
 import { Search } from "lucide-react"
 import { Button } from "../ui/button"
@@ -99,6 +98,7 @@ const AllComplaintsPageComponent = () => {
         //Indicate that we are fetching new complaints
         setLoading(true)
         console.log("Fetching complaints...", categoriesSelected)
+        console.log(searchQuery)
 
 
         try {

@@ -1,16 +1,11 @@
 "use client"
 
-import { BarChartCustomLabel } from "../charts/BarChartCustomLabel"
+
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/constants/constantValues"
-import { getCurrentDateTime, getDateTimeOneYearAgo } from "@/utils/HelperFunctions"
-import { BarChartCustomLabelPoint } from "@/types/ChartInterface"
-import { barChartCustomLabelData, categoriesOverTimeData } from "@/constants/analyticsData"
+import { categoriesOverTimeData } from "@/constants/analyticsData"
 import { Skeleton } from "../ui/skeleton"
 import { LineChartMultiple } from "../charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
-import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 
 
 /**
@@ -25,19 +20,19 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>) => {
-        return Object.entries(data).map(([key, value]) => ({
-          label: key,
-          "# Complaints": value.count,
-          fill: "#92A062", //TODO: Change later depending on category
-        }));
-    };
+    // const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>) => {
+    //     return Object.entries(data).map(([key, value]) => ({
+    //       label: key,
+    //       "# Complaints": value.count,
+    //       fill: "#92A062", //TODO: Change later depending on category
+    //     }));
+    // };
 
     //Fetches the API to process the number of posts for each category over the past 1 year
     const fetchPostsByCategoryOverTime = async () => {
         setIsLoading(true)
         try {
-            const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
+            // const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
             // const apiData = await axios.post(apiEndPoint,
             //     {
             //         "start_date": START_DATE, //TODO: Should be 1 year from now
@@ -52,6 +47,7 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
             setDataPoints(categoriesOverTimeData)
            
         } catch (error) {
+            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)

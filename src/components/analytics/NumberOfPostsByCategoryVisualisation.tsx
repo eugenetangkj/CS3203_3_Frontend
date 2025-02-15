@@ -46,6 +46,7 @@ export function NumberOfPostsByCategoryVisualisation() {
             const postsGroupedByCategories = convertToArray(apiData.data.result)
             setDataPoints(postsGroupedByCategories)
         } catch (error) {
+            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)

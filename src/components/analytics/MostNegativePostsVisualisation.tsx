@@ -1,11 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/constants/constantValues"
-import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT, GET_POSTS_SORTED_BY_FIELDS } from "@/constants/ApiRoutes"
+import { API_BASE_URL, GET_POSTS_SORTED_BY_FIELDS } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
@@ -52,7 +50,7 @@ export function MostNegativePostsVisualisation() {
                 {
                     "keys": ["sentiment"],
                     "ascending_orders": [true],
-                    "limit": 5
+                    "limit": numberOfPostsToFetch
                 }
             )
             const tableData = convertToArray(apiData.data.posts)
@@ -62,6 +60,7 @@ export function MostNegativePostsVisualisation() {
                 data: tableData
             })
         } catch (error) {
+            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)
