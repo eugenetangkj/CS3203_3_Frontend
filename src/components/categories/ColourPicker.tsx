@@ -34,7 +34,7 @@ export function ColourPicker({category} : ColourPickerProps)  {
 
         //Colour did change from previous selection
         try {
-
+            console.log(isLoading)
             setIsLoading(true)
 
         
@@ -52,6 +52,8 @@ export function ColourPicker({category} : ColourPickerProps)  {
                 duration: 3000
             })
         } catch (error) {
+            console.log(error)
+            
             //Display error toast
             toast({
                 variant: "destructive",

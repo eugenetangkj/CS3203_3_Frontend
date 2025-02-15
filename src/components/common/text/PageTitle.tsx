@@ -2,7 +2,7 @@
 This component represennts the title of a page
 */
 interface PageTitleProps {
-    pageTitle: String
+    pageTitle: string
 }
 
 

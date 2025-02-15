@@ -5,6 +5,7 @@ import Image from "next/image";
 import Logo from "../../../../public/logo.svg";
 import { navLinks } from "@/constants/navLinks";
 import RightNavDrawer from "./RightNavDrawer";
+import Link from "next/link";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -19,9 +20,9 @@ export default function Navbar() {
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">
             <div className="flex justify-between items-center px-6 md:px-12">
                 {/* Logo */}
-                <a href="/">
+                <Link href="/">
                     <Image src={Logo} alt="Just Yap!" className="w-28 h-14 sm:w-32 sm:h-16 2xl:w-36 2xl:h-18" />
-                </a>
+                </Link>
 
 
                 {/* Desktop navigation which only appears for md and above*/}

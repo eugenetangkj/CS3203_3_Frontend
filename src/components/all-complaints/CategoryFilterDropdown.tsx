@@ -1,7 +1,7 @@
 "use client";
 
-import { checkIfArraysAreEqual, doesCategoryExistInList } from "@/utils/HelperFunctions";
-import { useState, useRef, useEffect } from "react";
+import { doesCategoryExistInList } from "@/utils/HelperFunctions";
+import { useState, useRef } from "react";
 import { Complaint } from "@/types/Complaint";
 import { Category } from "@/types/Category";
 import { areCategoryListsEqual } from "@/utils/HelperFunctions";
@@ -32,7 +32,7 @@ export default function CategoryFilterDropdown({
         //States
         const [isOpen, setIsOpen] = useState(false);
         const [selectedCategoriesLocal, setSelectedCategoriesLocal] = useState<Category[]>(selectedCategories);
-        const [previousSelectedCategories, setPreviousSelectedCategories] = useState<Category[]>(selectedCategories);
+        const [previousSelectedCategories] = useState<Category[]>(selectedCategories);
         const dropdownRef = useRef<HTMLDivElement>(null);
         const allOptions = categoryOptions
 

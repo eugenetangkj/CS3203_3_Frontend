@@ -49,12 +49,14 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
                 description: "There was a problem deleting the complaint(s).",
                 duration: 3000,
             })
+            console.log(error)
         } finally {
             //Reset all the parent states
             resetStates()
 
             //Reset button states
             setOpen(false)
+            console.log(open)
             setIsDeleting(false)   
         }
     }

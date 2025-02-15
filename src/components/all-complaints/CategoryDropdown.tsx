@@ -9,31 +9,6 @@ import { Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import { Category } from "@/types/Category"
 import { useToast } from "@/hooks/use-toast"
 
-
-
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
-
 /**
 This component represents a dropdown for user to select the category to assign to a complaint
 */
@@ -65,6 +40,7 @@ export function CategoryDropdown({ complaintId, allCategories, initialCategory }
 
 
             //TODO: Call API to update the complaint's category using complaintId and newCategory
+            console.log(complaintId)
 
 
             //Display successful toast
@@ -75,6 +51,7 @@ export function CategoryDropdown({ complaintId, allCategories, initialCategory }
             })
         } catch (error) {
             //Display error toast
+            console.log(error)
             toast({
                 variant: "destructive",
                 description: "There was a problem updating the category.",

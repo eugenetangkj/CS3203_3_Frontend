@@ -1,34 +1,22 @@
 import { CategoryColorMap } from "@/utils/CategoryColourMap"
-import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartData";
-import { colourMap } from "./ColourMap";
-
-
-// export const pieChartWithLabelData = [
-//     { xValue: "Health", yValue: 275, fill: CategoryColorMap.Health },
-//     { xValue: "Education", yValue: 200, fill: CategoryColorMap.Education },
-//     { xValue: "Transport", yValue: 187, fill: CategoryColorMap.Transport },
-//     { xValue: "Employment", yValue: 173, fill: CategoryColorMap.Employment },
-//     { xValue: "Environment", yValue: 90, fill: CategoryColorMap.Environment },
-//     { xValue: "Safety", yValue: 100, fill: CategoryColorMap.Safety },
-//     { xValue: "Community", yValue: 50, fill: CategoryColorMap.Community },
-//     { xValue: "Recreation", yValue: 120, fill: CategoryColorMap.Recreation },
-//     { xValue: "Housing", yValue: 40, fill: CategoryColorMap.Housing },
-//     { xValue: "Food", yValue: 30, fill: CategoryColorMap.Food },
-//     { xValue: "Others", yValue: 100, fill: CategoryColorMap.Others },
-// ]
+import { LineChartMultiplePoint } from "@/types/ChartInterface";
+import { BarChartNegativePoint } from "@/types/ChartInterface";
+import { PieChartLegendPoint } from "@/types/ChartInterface";
+// import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
+import { colourMap } from "./Colours";
 
 export const barChartCustomLabelData = [
-    { label: "Health", "No. of Posts": 100, fill: CategoryColorMap.Health },
-    { label: "Education", "No. of Posts": 150, fill: CategoryColorMap.Education },
-    { label: "Transport", "No. of Posts": 120, fill: CategoryColorMap.Transport },
-    { label: "Employment", "No. of Posts": 80, fill: CategoryColorMap.Employment },
-    { label: "Environment", "No. of Posts": 50, fill: CategoryColorMap.Environment },
-    { label: "Safety", "No. of Posts": 60, fill: CategoryColorMap.Safety },
-    { label: "Community", "No. of Posts": 70, fill: CategoryColorMap.Community },
-    { label: "Recreation", "No. of Posts": 65, fill: CategoryColorMap.Recreation },
-    { label: "Housing", "No. of Posts": 90, fill: CategoryColorMap.Housing },
-    { label: "Food", "No. of Posts": 110, fill: CategoryColorMap.Food },
-    { label: "Others", "No. of Posts": 130, fill: CategoryColorMap.Others },
+    { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
+    { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
+    { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
+    { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
+    { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
+    { label: "Safety", "# Complaints": 60, fill: CategoryColorMap.Safety },
+    { label: "Community", "# Complaints": 70, fill: CategoryColorMap.Community },
+    { label: "Recreation", "# Complaints": 65, fill: CategoryColorMap.Recreation },
+    { label: "Housing", "# Complaints": 90, fill: CategoryColorMap.Housing },
+    { label: "Food", "# Complaints": 110, fill: CategoryColorMap.Food },
+    { label: "Others", "# Complaints": 130, fill: CategoryColorMap.Others },
   ];
   
 
@@ -51,17 +39,17 @@ export const categoriesOverTimeData: LineChartMultiplePoint[] = [
 
 
 export const sentimentsOfCategories: BarChartNegativePoint[] = [
-    { xValue: "Health", Sentiment: 0.5 },
-    { xValue: "Education", Sentiment: -0.2 },
-    { xValue: "Transport", Sentiment: 0.1 },
-    { xValue: "Employment", Sentiment: -0.4 },
-    { xValue: "Environment", Sentiment: 0.8 },
-    { xValue: "Safety", Sentiment: -0.7 },
-    { xValue: "Community", Sentiment: 0.3 },
-    { xValue: "Recreation", Sentiment: 0.6 },
-    { xValue: "Housing", Sentiment: -0.5 },
-    { xValue: "Food", Sentiment: 0.4 },
-    { xValue: "Others", Sentiment: -0.1 }
+    { xLabel: "Health", Sentiment: 0.5 },
+    { xLabel: "Education", Sentiment: -0.2 },
+    { xLabel: "Transport", Sentiment: 0.1 },
+    { xLabel: "Employment", Sentiment: -0.4 },
+    { xLabel: "Environment", Sentiment: 0.8 },
+    { xLabel: "Safety", Sentiment: -0.7 },
+    { xLabel: "Community", Sentiment: 0.3 },
+    { xLabel: "Recreation", Sentiment: 0.6 },
+    { xLabel: "Housing", Sentiment: -0.5 },
+    { xLabel: "Food", Sentiment: 0.4 },
+    { xLabel: "Others", Sentiment: -0.1 }
 ];
 
 

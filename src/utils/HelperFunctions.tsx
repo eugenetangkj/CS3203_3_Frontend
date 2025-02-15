@@ -2,6 +2,61 @@ import { Complaint } from "@/types/Complaint";
 import { Source } from "@/types/Source";
 import { Category } from "@/types/Category";
 
+/**
+    Helper functions that are used across different files
+*/
+
+
+//Gets the current datetime in the format of dd-mm-YYYY HH:MM:SS
+//Taken from ChatGPT
+export const getCurrentDateTime = (): string => {
+    return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    })
+    .format(new Date())
+    .replace(/\//g, "-") // Replace slashes with hyphens
+    .replace(",", "");  // Remove the comma between date and time
+};
+
+
+//Gets the datetime that is 1 year ago from the current datetime in the
+//format of dd-mm-YYYY HH:MM:SS
+//Taken from ChatGPT
+export const getDateTimeOneYearAgo = (): string => {
+    const now = new Date();
+    now.setFullYear(now.getFullYear() - 1); // Subtract 1 year from the current date
+
+    return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    })
+    .format(now)
+    .replace(/\//g, "-")  // Replace slashes with hyphens
+    .replace(",", "");    // Remove the comma between date and time
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Test if an input string is a valid hexadecimal colour code value

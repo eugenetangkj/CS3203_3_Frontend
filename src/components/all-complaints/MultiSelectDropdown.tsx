@@ -1,7 +1,7 @@
 "use client";
 
 import { checkIfArraysAreEqual } from "@/utils/HelperFunctions";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 /**
 This component represents a multiselect dropdown.
@@ -11,7 +11,6 @@ interface MultiSelectDropdownProps {
     options: string[],
     selectedOptions: string[]
     stateChangeFunction: (selectedValues: string[]) => void,
-    fetchComplaints: () => void
     setSelectedComplaints: React.Dispatch<React.SetStateAction<number[]>>,
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
 
@@ -19,10 +18,10 @@ interface MultiSelectDropdownProps {
 
 
 
-export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, fetchComplaints, setSelectedComplaints, setCurrentPage} : MultiSelectDropdownProps) {
+export default function MultiSelectDropdown({ label, options, selectedOptions, stateChangeFunction, setSelectedComplaints, setCurrentPage} : MultiSelectDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOptionsLocal, setSelectedOptions] = useState<string[]>(selectedOptions);
-    const [previousSelectedOptions, setPreviousSelectedOptions] = useState<string[]>(selectedOptions);
+    const [previousSelectedOptions] = useState<string[]>(selectedOptions);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const allOptions = options
 

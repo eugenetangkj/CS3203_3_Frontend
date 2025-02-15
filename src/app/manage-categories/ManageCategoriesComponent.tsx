@@ -5,7 +5,6 @@ import { ManageCategoriesTable } from "@/components/categories/ManageCategoriesT
 import { getCategories } from "@/services/ServicesHelper";
 import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
 import { useState, useEffect } from "react";
-import { CategoriesSaveChangesButton } from "@/components/categories/CategoriesSaveChangesButton";
 import { Category } from "@/types/Category";
 import CategoriesTableSkeleton from "@/components/categories/CategoriesTableSkeleton";
 
@@ -52,8 +51,8 @@ export default function ManageCategoriesComponent() {
                 {/* Add category */}
                 <AddCategoryButton fetchCategories= { fetchCategories } />
 
-                {/* Save changes */}
-                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } />
+                {/* Save changes
+                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } /> */}
 
             </div>
 
