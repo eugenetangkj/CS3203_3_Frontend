@@ -33,7 +33,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
     return (
         <Table>
             <TableHeader>
-            <TableRow className='hover:bg-transparent font-bold text-yap-brown-900'>
+            <TableRow className='hover:bg-transparent font-bold'>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/12"></TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/4">Title</TableHead>
                 <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/4">Description</TableHead>

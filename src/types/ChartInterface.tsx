@@ -52,4 +52,13 @@ export interface PieChartLegendPoint {
     fill: string;
 }
 
+/**
+ * Interface for the input used to create a classic table for the classic table chart
+ * @param headers The headers to be used in the table
+ * @param data The data to be displayed in the table
+*/
+export interface ClassicTableInput {
+    headers: string[];
+    data: any[];
+}
 

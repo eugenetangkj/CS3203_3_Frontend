@@ -60,20 +60,20 @@ export const sentimentsPieChart: PieChartLegendPoint[] = [
     {label: "0.50 to 1.00", value: 150, fill: colourMap["yap-green-900"]}
 ]
 
-// export const sentimentsOverTimeData: LineChartMultiplePoint[] = [
-//     { month: "Jan 24", Health: -0.0, Education: -0.4286, Transport: -0.7143, Employment: -0.2857, Environment: -0.7143, Safety: -0.5714, Community: -0.4286, Recreation: -0.5000, Housing: -0.1429, Food: -0.8571, Others: -0.5714 },
-//     { month: "Feb 24", Health: -0.2857, Education: -0.1429, Transport: -0.8571, Employment: -0.1429, Environment: -0.8571, Safety: -0.7143, Community: -0.5714, Recreation: -0.6429, Housing: -0.2143, Food: -0.0, Others: -0.7143 },
-//     { month: "Mar 24", Health: -0.4286, Education: -0.2857, Transport: -0.5714, Employment: -0.2143, Environment: -0.6429, Safety: -0.5714, Community: -0.5000, Recreation: -0.4286, Housing: -0.2857, Food: -0.1429, Others: -0.0714 },
-//     { month: "Apr 24", Health: -0.7143, Education: -0.0714, Transport: -0.6429, Employment: -0.0714, Environment: -0.5714, Safety: -0.4286, Community: -0.3571, Recreation: -0.2857, Housing: -0.1429, Food: -0.8571, Others: -0.7857 },
-//     { month: "May 24", Health: -0.1429, Education: -0.2143, Transport: -0.6786, Employment: -0.3571, Environment: -0.7857, Safety: -0.6429, Community: -0.5000, Recreation: -0.5714, Housing: -0.2143, Food: -0.0, Others: -0.8571 },
-//     { month: "Jun 24", Health: -0.2143, Education: -0.2857, Transport: -0.5714, Employment: -0.2857, Environment: -0.7143, Safety: -0.5714, Community: -0.4286, Recreation: -0.3571, Housing: -0.0714, Food: -0.7143, Others: -0.6429 },
-//     { month: "Jul 24", Health: 0.0, Education: -0.1000, Transport: -0.5000, Employment: -0.2143, Environment: -0.6429, Safety: -0.5000, Community: -0.3571, Recreation: -0.2857, Housing: -0.9286, Food: -0.5714, Others: -0.5000 },
-//     { month: "Aug 24", Health: 0.1429, Education: -0.0714, Transport: -0.4286, Employment: -0.0714, Environment: -0.5714, Safety: -0.4286, Community: -0.2857, Recreation: -0.2143, Housing: -0.7857, Food: -0.4286, Others: -0.4286 },
-//     { month: "Sep 24", Health: 0.3571, Education: 0.0, Transport: -0.2857, Employment: -0.0000, Environment: -0.5000, Safety: -0.3571, Community: -0.2143, Recreation: -0.1429, Housing: -0.6429, Food: -0.2857, Others: -0.2857 },
-//     { month: "Oct 24", Health: 0.4286, Education: 0.0714, Transport: -0.2143, Employment: -0.9286, Environment: -0.4286, Safety: -0.2857, Community: -0.1429, Recreation: -0.0714, Housing: -0.5714, Food: -0.1429, Others: -0.1429 },
-//     { month: "Nov 24", Health: 0.5714, Education: 0.1429, Transport: -0.1429, Employment: -0.8571, Environment: -0.3571, Safety: -0.2143, Community: -0.0714, Recreation: -0.0000, Housing: -0.5000, Food: 0.0, Others: 0.0 },
-//     { month: "Dec 24", Health: 0.7143, Education: 0.2143, Transport: -0.0714, Employment: -0.7857, Environment: -0.2857, Safety: -0.1429, Community: -0.0000, Recreation: -0.9286, Housing: -0.4286, Food: 0.1429, Others: 0.1429 },
-// ];
+export const sentimentsOverTimeData: LineChartMultiplePoint[] = [
+    { month: "Jan 24", Health: -0.0, Education: -0.4286, Transport: -0.7143, Employment: -0.2857, Environment: -0.7143, Safety: -0.5714, Community: -0.4286, Recreation: -0.5000, Housing: -0.1429, Food: -0.8571, Others: -0.5714 },
+    { month: "Feb 24", Health: -0.2857, Education: -0.1429, Transport: -0.8571, Employment: -0.1429, Environment: -0.8571, Safety: -0.7143, Community: -0.5714, Recreation: -0.6429, Housing: -0.2143, Food: -0.0, Others: -0.7143 },
+    { month: "Mar 24", Health: -0.4286, Education: -0.2857, Transport: -0.5714, Employment: -0.2143, Environment: -0.6429, Safety: -0.5714, Community: -0.5000, Recreation: -0.4286, Housing: -0.2857, Food: -0.1429, Others: -0.0714 },
+    { month: "Apr 24", Health: -0.7143, Education: -0.0714, Transport: -0.6429, Employment: -0.0714, Environment: -0.5714, Safety: -0.4286, Community: -0.3571, Recreation: -0.2857, Housing: -0.1429, Food: -0.8571, Others: -0.7857 },
+    { month: "May 24", Health: -0.1429, Education: -0.2143, Transport: -0.6786, Employment: -0.3571, Environment: -0.7857, Safety: -0.6429, Community: -0.5000, Recreation: -0.5714, Housing: -0.2143, Food: -0.0, Others: -0.8571 },
+    { month: "Jun 24", Health: -0.2143, Education: -0.2857, Transport: -0.5714, Employment: -0.2857, Environment: -0.7143, Safety: -0.5714, Community: -0.4286, Recreation: -0.3571, Housing: -0.0714, Food: -0.7143, Others: -0.6429 },
+    { month: "Jul 24", Health: 0.0, Education: -0.1000, Transport: -0.5000, Employment: -0.2143, Environment: -0.6429, Safety: -0.5000, Community: -0.3571, Recreation: -0.2857, Housing: -0.9286, Food: -0.5714, Others: -0.5000 },
+    { month: "Aug 24", Health: 0.1429, Education: -0.0714, Transport: -0.4286, Employment: -0.0714, Environment: -0.5714, Safety: -0.4286, Community: -0.2857, Recreation: -0.2143, Housing: -0.7857, Food: -0.4286, Others: -0.4286 },
+    { month: "Sep 24", Health: 0.3571, Education: 0.0, Transport: -0.2857, Employment: -0.0000, Environment: -0.5000, Safety: -0.3571, Community: -0.2143, Recreation: -0.1429, Housing: -0.6429, Food: -0.2857, Others: -0.2857 },
+    { month: "Oct 24", Health: 0.4286, Education: 0.0714, Transport: -0.2143, Employment: -0.9286, Environment: -0.4286, Safety: -0.2857, Community: -0.1429, Recreation: -0.0714, Housing: -0.5714, Food: -0.1429, Others: -0.1429 },
+    { month: "Nov 24", Health: 0.5714, Education: 0.1429, Transport: -0.1429, Employment: -0.8571, Environment: -0.3571, Safety: -0.2143, Community: -0.0714, Recreation: -0.0000, Housing: -0.5000, Food: 0.0, Others: 0.0 },
+    { month: "Dec 24", Health: 0.7143, Education: 0.2143, Transport: -0.0714, Employment: -0.7857, Environment: -0.2857, Safety: -0.1429, Community: -0.0000, Recreation: -0.9286, Housing: -0.4286, Food: 0.1429, Others: 0.1429 },
+];
 
 
 export const sentimentBySourceData = {
