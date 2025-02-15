@@ -30,13 +30,13 @@ export default function AnalyticsDashboard() {
 
             {/* Sentiment of each category */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
-                <AnalyticsDashboardTitle title='Sentiment of Categories' />
+                <AnalyticsDashboardTitle title='Sentiments of Categories' />
                 <SentimentsOfCategoriesVisualisation />
             </div>
 
             {/* Number of posts by sentiments */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
-                <AnalyticsDashboardTitle title='Number of Complaints by Sentiment Score' />
+                <AnalyticsDashboardTitle title='Number of Complaints by Sentiment' />
                 <NumberOfPostsBySentimentVisualisation />
             </div>
 
@@ -48,7 +48,7 @@ export default function AnalyticsDashboard() {
 
             {/* Sentiment by source */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
-                <AnalyticsDashboardTitle title='Sentiment by Source' />
+                <AnalyticsDashboardTitle title='Sentiments of Sources' />
                 <SentimentsOfSourcesVisualisation />
             </div>
 
