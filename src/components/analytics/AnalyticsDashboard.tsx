@@ -19,7 +19,7 @@ export default function AnalyticsDashboard() {
             {/* Number of posts by category */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Category' />
-                {/* <NumberOfPostsByCategoryVisualisation /> */}
+                <NumberOfPostsByCategoryVisualisation />
             </div>
 
             {/* Number of posts by category over time */}
@@ -31,31 +31,31 @@ export default function AnalyticsDashboard() {
             {/* Sentiment of each category */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
                 <AnalyticsDashboardTitle title='Sentiment of Categories' />
-                {/* <SentimentsOfCategoriesVisualisation /> */}
+                <SentimentsOfCategoriesVisualisation />
             </div>
 
             {/* Number of posts by sentiments */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Sentiment Score' />
-                {/* <NumberOfPostsBySentimentVisualisation /> */}
+                <NumberOfPostsBySentimentVisualisation />
             </div>
 
             {/* Number of posts by sentiments */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-3 2xl:col-span-4'>
                 <AnalyticsDashboardTitle title='Sentiments of Categories Over Time' />
-                {/* <LineChartMultiple chartData={ sentimentsOverTimeData } /> */}
+                <LineChartMultiple chartData={ sentimentsOverTimeData } />
             </div>
 
             {/* Sentiment by source */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
                 <AnalyticsDashboardTitle title='Sentiment by Source' />
-                {/* <SentimentsOfSourcesVisualisation /> */}
+                <SentimentsOfSourcesVisualisation />
             </div>
 
             {/* Top 5 negative posts */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-6'>
                 <AnalyticsDashboardTitle title='Most Negative Posts' />
-                {/* <MostNegativePostsVisualisation /> */}
+                <MostNegativePostsVisualisation />
             </div>
 
         </div>
