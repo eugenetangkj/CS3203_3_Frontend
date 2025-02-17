@@ -1,13 +1,13 @@
 "use client"
 
-import { BarChartCustomLabel } from "../charts/BarChartCustomLabel"
 import { useEffect, useState } from "react"
 import { START_DATE } from "@/constants/constantValues"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
-import { BarChartCustomLabelPoint } from "@/types/ChartInterface"
+import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { BarChartMixed } from "../charts/BarChartMixed"
 
 
 /**
@@ -17,7 +17,7 @@ export function NumberOfPostsByCategoryVisualisation() {
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [dataPoints, setDataPoints] = useState<BarChartCustomLabelPoint[]>([])
+    const [dataPoints, setDataPoints] = useState<BarChartMixedPoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
@@ -48,6 +48,7 @@ export function NumberOfPostsByCategoryVisualisation() {
         } catch (error) {
             console.log(error)
             setIsThereError(true)
+            // setDataPoints(barChartCustomLabelData)
         } finally {
             setIsLoading(false)
         }
@@ -66,6 +67,6 @@ export function NumberOfPostsByCategoryVisualisation() {
         ? <div>Something went wrong. Please try again later.</div>
         : dataPoints.length === 0
         ? <div></div>
-        : (<BarChartCustomLabel chartData={ dataPoints } />)      
+        : (<BarChartMixed chartData={ dataPoints } />)      
     )
 }
