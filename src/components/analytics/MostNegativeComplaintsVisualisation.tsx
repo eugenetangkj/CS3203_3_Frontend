@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_POSTS_SORTED_BY_FIELDS } from "@/constants/ApiRoutes"
+import { API_BASE_URL, GET_COMPLAINTS_SORTED_BY_FIELDS as GET_COMPLAINTS_SORTED_BY_FIELDS } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
 
 /**
-Represents the visualisation for the most negative posts shown in the analytics dashboard
+Represents the visualisation for the most negative complaints shown in the analytics dashboard
 */
 export function MostNegativePostsVisualisation() {
     //Constant
-    const numberOfPostsToFetch = 5
+    const numberOfComplaintsToFetch = 5
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -21,7 +21,7 @@ export function MostNegativePostsVisualisation() {
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
-    //Helper function to convert the API object into an array of posts that contain only the required field
+    //Helper function to convert the API object into an array of complaints that contain only the required field
     const convertToArray = (data: Array<any>) => {
         //Map into desired format
         const output = data.map(item => ({
@@ -40,17 +40,17 @@ export function MostNegativePostsVisualisation() {
     };
     
    
-    //Fetches the API to obtain the top 5 most negative posts, which are the posts with the lowest sentiment scores
+    //Fetches the API to obtain the top 5 most negative complaints, which are the complaints with the lowest sentiment scores
     const fetchMostNegativePosts = async () => {
         setIsLoading(true)
         try {
-            //Call API to fetch top 5 most negative posts
-            const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_SORTED_BY_FIELDS
+            //Call API to fetch top 5 most negative complaints
+            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_SORTED_BY_FIELDS
             const apiData = await axios.post(apiEndPoint,
                 {
                     "keys": ["sentiment"],
                     "ascending_orders": [true],
-                    "limit": numberOfPostsToFetch
+                    "limit": numberOfComplaintsToFetch
                 }
             )
             const tableData = convertToArray(apiData.data.posts)

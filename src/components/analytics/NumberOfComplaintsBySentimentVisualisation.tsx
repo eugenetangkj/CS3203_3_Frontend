@@ -6,15 +6,15 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_POSTS_GROUPED_BY_SENTIMENT_VALUE } from "@/constants/ApiRoutes"
+import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE } from "@/constants/ApiRoutes"
 import { colourMap } from "@/constants/Colours"
 import { PieChartLegend } from "../charts/PieChartLegend"
 
 
 /**
-Represents the visualisation for the breakdown of posts according to the sentiment range in which they fall in
+Represents the visualisation for the breakdown of complaints according to the sentiment range in which they fall in
 */
-export function NumberOfPostsBySentimentVisualisation() {
+export function NumberOfComplaintsBySentimentVisualisation() {
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -44,12 +44,12 @@ export function NumberOfPostsBySentimentVisualisation() {
     };
 
 
-    //Fetches the API to process the number of posts within each sentiment range
+    //Fetches the API to process the number of complaints within each sentiment range
     const fetchPostsBySentimentRange = async () => {
         setIsLoading(true)
         try {
-            //Call API to fetch posts grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_GROUPED_BY_SENTIMENT_VALUE
+            //Call API to fetch complaints grouped according to categories
+            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,

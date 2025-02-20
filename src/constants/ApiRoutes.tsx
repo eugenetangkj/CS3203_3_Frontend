@@ -7,10 +7,10 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 
 //Endpoints from the API contract
-export const GET_POSTS_GROUPED_BY_FIELD_ENDPOINT = 'get_posts_grouped_by_field'
-export const GET_POSTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT = 'get_posts_grouped_by_field_over_time'
-export const GET_POSTS_GROUPED_BY_SENTIMENT_VALUE = 'get_posts_grouped_by_sentiment_value'
-export const GET_POSTS_SORTED_BY_FIELDS = 'get_posts_sorted_by_fields'
+export const GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT = 'get_posts_grouped_by_field'
+export const GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT = 'get_posts_grouped_by_field_over_time'
+export const GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE = 'get_posts_grouped_by_sentiment_value'
+export const GET_COMPLAINTS_SORTED_BY_FIELDS = 'get_posts_sorted_by_fields'
 
 
 //Makes a GET request

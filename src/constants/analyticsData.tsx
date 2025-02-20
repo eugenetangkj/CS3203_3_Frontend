@@ -17,6 +17,14 @@ export const barChartCustomLabelData = [
     { label: "Housing", "# Complaints": 90, fill: CategoryColorMap.Housing },
     { label: "Food", "# Complaints": 110, fill: CategoryColorMap.Food },
     { label: "Others", "# Complaints": 130, fill: CategoryColorMap.Others },
+    { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
+    { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
+    { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
+    { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
+    { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
+
+    
+
   ];
   
 

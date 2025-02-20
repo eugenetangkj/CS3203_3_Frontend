@@ -17,6 +17,20 @@ export interface BarChartCustomLabelPoint {
     fill: string;
 }
 
+/**
+ * Interface for a data point used in a BarChartMixed chart.
+ * Each data point represents a bar in the chart with a label, a value, and a color.
+ * 
+ * @param label Label for each bar, such as "Healthcare" or "Environment" if the bar chart is used for categories.
+ * @param key Key represents what the value represents while the value is the actual value. For example, "# Complaints": 100.
+ * @param fill Colour hex code to be used for the given bar
+ */
+export interface BarChartMixedPoint {
+    label: string;
+    [key: string]: number | string;
+    fill: string;
+}
+
 
 /**
  * Interface for a data point used in a LineChartMultiplePoint chart.

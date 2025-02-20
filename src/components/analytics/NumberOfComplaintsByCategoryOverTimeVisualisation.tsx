@@ -9,7 +9,7 @@ import { LineChartMultiplePoint } from "@/types/ChartInterface"
 
 
 /**
-Represents the visualisation for number of posts by category over time visualisation used in analytics dashboard
+Represents the visualisation for number of complaints by category over time visualisation used in analytics dashboard
 */
 export function NumberOfPostsByCategoryOverTimeVisualisation() {
 
@@ -28,7 +28,7 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
     //     }));
     // };
 
-    //Fetches the API to process the number of posts for each category over the past 1 year
+    //Fetches the API to process the number of complaints for each category over the past 1 year
     const fetchPostsByCategoryOverTime = async () => {
         setIsLoading(true)
         try {
@@ -42,8 +42,8 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
             //     }
             // )
             //TODO:Update this
-            // const postsGroupedByCategoriesOverTime = convertToArray(apiData.data.result)
-            // setDataPoints(postsGroupedByCategoriesOverTime)
+            // const complaintsGroupedByCategoriesOverTime = convertToArray(apiData.data.result)
+            // setDataPoints(complaintsGroupedByCategoriesOverTime)
             setDataPoints(categoriesOverTimeData)
            
         } catch (error) {
