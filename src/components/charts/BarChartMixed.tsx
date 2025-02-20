@@ -39,7 +39,7 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
     useEffect(() => {
         // Change maxValue based on screen size
         if (screenWidth <= breakpoints['xs']) {
-            setScalingFactor(4);
+            setScalingFactor(4.25);
         } else if (screenWidth <= breakpoints['sm']) {
             setScalingFactor(3);
         } else if (screenWidth <= breakpoints['md']) {
@@ -47,7 +47,7 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
         } else if (screenWidth <= breakpoints['lg']) {
             setScalingFactor(1.5); 
         } else if (screenWidth <= breakpoints['xl']) {
-            setScalingFactor(3); 
+            setScalingFactor(3.25); 
         } else if (screenWidth <= breakpoints['2xl']) {
             setScalingFactor(2.5); 
         } else {
@@ -92,7 +92,7 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
                 tickMargin={10}
                 axisLine={false}
                 interval={0}
-                width={80}
+                width={120}
              
 
                 />
