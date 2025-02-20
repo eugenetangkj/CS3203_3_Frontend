@@ -2,12 +2,12 @@ import PageTitle from "@/components/common/text/PageTitle";
 import AnalyticsDashboard from "../../components/analytics/AnalyticsDashboard";
 
 /** 
-Layout for analytics dashboard which displays insights and trends from posts obtained from social media
+Layout for analytics dashboard which displays insights and trends from complaints obtained from social media
 */
 
 export const metadata = {
     title: "Analytics Dashboard - Just Yap!",
-    description: "View insights and trends from posts obtained from social media.",
+    description: "View insights and trends from complaints obtained from social media.",
   };
 
 

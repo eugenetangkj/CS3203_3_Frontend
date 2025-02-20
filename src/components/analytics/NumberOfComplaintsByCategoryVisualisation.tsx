@@ -6,14 +6,14 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_POSTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
 import { BarChartMixed } from "../charts/BarChartMixed"
 
 
 /**
-Represents the visualisation for number of posts by category visualisation used in analytics dashboard
+Represents the visualisation for number of complaints by category visualisation used in analytics dashboard
 */
-export function NumberOfPostsByCategoryVisualisation() {
+export function NumberOfComplaintsByCategoryVisualisation() {
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -30,12 +30,12 @@ export function NumberOfPostsByCategoryVisualisation() {
         }));
     };
 
-    //Fetches the API to process the number of posts for each category
+    //Fetches the API to process the number of complaints for each category
     const fetchPostsByCategory = async () => {
         setIsLoading(true)
         try {
-            //Call API to fetch posts grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_POSTS_GROUPED_BY_FIELD_ENDPOINT
+            //Call API to fetch complaints grouped according to categories
+            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,
@@ -43,8 +43,8 @@ export function NumberOfPostsByCategoryVisualisation() {
                     "group_by_field": "category"
                 }
             )
-            const postsGroupedByCategories = convertToArray(apiData.data.result)
-            setDataPoints(postsGroupedByCategories)
+            const complaintsGroupedByCategories = convertToArray(apiData.data.result)
+            setDataPoints(complaintsGroupedByCategories)
         } catch (error) {
             console.log(error)
             setIsThereError(true)

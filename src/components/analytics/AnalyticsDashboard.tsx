@@ -4,14 +4,14 @@ The analytics dashboard component used in the analytics page, housing the differ
 */
 
 import AnalyticsDashboardTitle from "./AnalyticsDashboardTitle";
-import { NumberOfPostsByCategoryOverTimeVisualisation } from "./NumberOfPostsByCategoryOverTimeVisualisation";
-import { NumberOfPostsByCategoryVisualisation } from "./NumberOfPostsByCategoryVisualisation";
-import { NumberOfPostsBySentimentVisualisation } from "./NumberOfPostsBySentimentVisualisation";
+import { NumberOfPostsByCategoryOverTimeVisualisation } from "./NumberOfComplaintsByCategoryOverTimeVisualisation";
+import { NumberOfComplaintsByCategoryVisualisation } from "./NumberOfComplaintsByCategoryVisualisation";
+import { NumberOfComplaintsBySentimentVisualisation } from "./NumberOfComplaintsBySentimentVisualisation";
 import { SentimentsOfCategoriesVisualisation } from "./SentimentsOfCategoriesVisualisation";
 import { LineChartMultiple } from "../charts/LineChartMultiple";
 import { sentimentsOverTimeData } from "@/constants/analyticsData";
 import { SentimentsOfSourcesVisualisation } from "./SentimentsOfSourcesVisualisation";
-import { MostNegativePostsVisualisation } from "./MostNegativePostsVisualisation";
+import { MostNegativePostsVisualisation } from "./MostNegativeComplaintsVisualisation";
 
 export default function AnalyticsDashboard() {
     return (
@@ -19,7 +19,7 @@ export default function AnalyticsDashboard() {
             {/* Number of posts by category */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2 overflow-x-hidden'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Category' />
-                <NumberOfPostsByCategoryVisualisation />
+                <NumberOfComplaintsByCategoryVisualisation />
             </div>
 
             {/* Number of posts by category over time */}
@@ -37,7 +37,7 @@ export default function AnalyticsDashboard() {
             {/* Number of posts by sentiments */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-2'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Sentiment' />
-                <NumberOfPostsBySentimentVisualisation />
+                <NumberOfComplaintsBySentimentVisualisation />
             </div>
 
             {/* Number of posts by sentiments */}
@@ -54,7 +54,7 @@ export default function AnalyticsDashboard() {
 
             {/* Top 5 negative posts */}
             <div className='gap-y-8 bg-yap-gray-100 p-4 rounded-xl col-span-1 lg:col-span-6'>
-                <AnalyticsDashboardTitle title='Most Negative Posts' />
+                <AnalyticsDashboardTitle title='Most Negative Complaints' />
                 <MostNegativePostsVisualisation />
             </div>
 
