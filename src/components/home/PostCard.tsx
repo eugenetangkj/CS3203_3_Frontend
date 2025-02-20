@@ -25,7 +25,7 @@ export default function PostCard({title, category, description, date, source}: P
                 <div className='flex flex-col space-y-4'>
                     <div className='space-y-2'>
                         {/* Title */}
-                        <h6 className='text-yap-brown-900 text-xl sm:text-2xl font-bold line-clamp-2 overflow-hidden'>{ title }</h6>
+                        <h6 className='text-yap-brown-900 text-xl sm:text-2xl line-clamp-2 overflow-hidden'>{ title }</h6>
 
                         {/* Category */}
                         <div className='rounded-full  text-white w-fit px-4 py-0.25 text-sm' style={{

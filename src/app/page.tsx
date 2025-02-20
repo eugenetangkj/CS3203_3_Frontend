@@ -8,6 +8,7 @@ import { stringToCategory } from "@/types/Category";
 import Image from "next/image";
 import Yappy from "../../public/graphics/yappy.svg";
 import PageTitle from "@/components/common/text/PageTitle";
+import ScratchCard from "@/components/polls/ScratchCard";
 
 /** 
 Layout for home page which displays the list of all posts
@@ -39,6 +40,8 @@ export default function Home() {
               description={post.description} date={post.date} source={stringToSource(post.source)} />
           ))}
         </div>
+
+        <ScratchCard />
 
         {/* Duck image */}
         <Image src={Yappy} alt="Yappy Duck" className="self-end w-36 h-36 sm:w-48 sm:h-48" />
