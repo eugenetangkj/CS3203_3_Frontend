@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import PollsSkeleton from "./PollsSkeleton"
 import PageSubtitle from "../common/text/PageSubtitle"
 import { Plus } from "lucide-react"
+import Link from "next/link"
 
 
 /**
@@ -61,14 +62,14 @@ export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps
                         ))}
                         {
                             (pageTitle === "Unpublished Polls")
-                            ? <a href="/polls/create-poll">
+                            ? <Link href="/polls/create-poll">
                                 <button className='rounded-xl bg-transparent hover:bg-yap-brown-100 duration-200 p-4 h-full w-full shadow-none border-2 border-dashed border-yap-brown-900'>
                                     <div className='text-yap-brown-900 flex flex-col space-y-2 justify-center items-center'>
                                         <Plus className='w-12 h-12'/>
                                         <h6 className='text-xl'>Create new poll</h6>
                                     </div>
                                 </button>
-                            </a>
+                            </Link>
                             
                             
                            
