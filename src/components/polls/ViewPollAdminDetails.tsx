@@ -13,9 +13,7 @@ import { capitaliseFirstLetter } from "@/utils/HelperFunctions"
 import { SaveChangesToPollButton } from "./SaveChangesToPollButton"
 import PublishPollButton from "./PublishPollButton"
 import DeletePollButton from "./DeletePollButton"
-
-
-
+import Link from "next/link"
 
 /**
 Represents a page where the admin and citizen can view and edit a poll, depending on the status of the poll.
@@ -58,12 +56,12 @@ export function ViewPollAdminDetails({ currentPoll }: ViewPollAdminDetailsProps)
     return (
         <div className='flex flex-col space-y-4'>
             {/* Navigate back to all polls */}
-            <a href="/polls" className='w-fit'>
+            <Link href="/polls" className='w-fit'>
                 <div className='flex flex-row justify-start items-center space-x-4'>
                     <MoveLeft className='text-yap-brown-900' />
                     <h6 className='text-yap-brown-900'>Back to all polls</h6>
                 </div> 
-            </a>
+            </Link>
 
 
             {/* Action Buttons */}

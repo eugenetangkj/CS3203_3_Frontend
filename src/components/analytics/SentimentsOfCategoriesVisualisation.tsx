@@ -6,7 +6,7 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
 import { BarChartNegative } from "../charts/BarChartNegative"
 
 
@@ -16,7 +16,7 @@ Represents the visualisation for sentiments of each category used in analytics d
 export function SentimentsOfCategoriesVisualisation() {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<BarChartNegativePoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
@@ -34,10 +34,9 @@ export function SentimentsOfCategoriesVisualisation() {
 
     //Fetches the API to process the sentiment for each category
     const fetchComplaintsByCategory = async () => {
-        setIsLoading(true)
         try {
             //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,
@@ -46,13 +45,11 @@ export function SentimentsOfCategoriesVisualisation() {
                 }
             )
             const sentimentsForEachCategory = convertToArray(apiData.data.result)
-            console.log(sentimentsForEachCategory)
             setDataPoints(sentimentsForEachCategory)
         } catch (error) {
-            console.log(error)
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
@@ -63,7 +60,7 @@ export function SentimentsOfCategoriesVisualisation() {
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>

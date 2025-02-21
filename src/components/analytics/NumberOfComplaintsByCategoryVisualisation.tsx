@@ -6,8 +6,11 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, API_BASE_URL_ANALYTICS, CATEGORIES_GET_ALL_ENDPOINT, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
 import { BarChartMixed } from "../charts/BarChartMixed"
+import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
+import { Category } from "@/types/Category"
+import { COLOUR_MAP } from "@/constants/ColourMap"
 
 
 /**
@@ -16,43 +19,50 @@ Represents the visualisation for number of complaints by category visualisation 
 export function NumberOfComplaintsByCategoryVisualisation() {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<BarChartMixedPoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>) => {
-        return Object.entries(data).map(([key, value]) => ({
-          label: key,
-          "# Complaints": value.count,
-          fill: "#92A062", //TODO: Change later depending on category
-        }));
+    const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>, categories: Category[]) => {
+        return Object.entries(data).map(([key, value]) => {
+            const matchingCategory = categories.find(category => category.name === key);
+            return {
+                label: key,
+                "# Complaints": value.count,
+                fill: matchingCategory ? matchingCategory.colour : COLOUR_MAP["yap-green-900"]
+            };
+        });
     };
+
 
     //Fetches the API to process the number of complaints for each category
     const fetchPostsByCategory = async () => {
-        setIsLoading(true)
         try {
-            //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
-            const apiData = await axios.post(apiEndPoint,
+            //Call API
+            const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
                     "start_date": START_DATE,
                     "end_date": getCurrentDateTime(),
                     "group_by_field": "category"
                 }
             )
-            const complaintsGroupedByCategories = convertToArray(apiData.data.result)
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesData = await axios.post(categoriesApiEndPoint)
+            const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
+
+            //Process data
+            const complaintsGroupedByCategories = convertToArray(complaintsData.data.result, categories)
             setDataPoints(complaintsGroupedByCategories)
         } catch (error) {
-            console.log(error)
             setIsThereError(true)
-            // setDataPoints(barChartCustomLabelData)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
+
 
     //Call the API on component mount
     useEffect(() => {
@@ -61,12 +71,12 @@ export function NumberOfComplaintsByCategoryVisualisation() {
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>
         : dataPoints.length === 0
-        ? <div></div>
+        ? <p className='text-base text-yap-black-800'>There is no category to be displayed.</p>
         : (<BarChartMixed chartData={ dataPoints } />)      
     )
 }

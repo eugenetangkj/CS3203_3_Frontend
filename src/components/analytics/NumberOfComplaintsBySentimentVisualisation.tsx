@@ -6,7 +6,7 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT } from "@/constants/ApiRoutes"
 import { COLOUR_MAP } from "@/constants/ColourMap"
 import { PieChartLegend } from "../charts/PieChartLegend"
 
@@ -17,7 +17,7 @@ Represents the visualisation for the breakdown of complaints according to the se
 export function NumberOfComplaintsBySentimentVisualisation() {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<PieChartLegendPoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
@@ -46,10 +46,9 @@ export function NumberOfComplaintsBySentimentVisualisation() {
 
     //Fetches the API to process the number of complaints within each sentiment range
     const fetchPostsBySentimentRange = async () => {
-        setIsLoading(true)
         try {
             //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,
@@ -58,13 +57,12 @@ export function NumberOfComplaintsBySentimentVisualisation() {
                 }
             )
             const sentimentsForEachCategory = convertToArray(apiData.data.result)
-            console.log(sentimentsForEachCategory)
             setDataPoints(sentimentsForEachCategory)
         } catch (error) {
             console.log(error)
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
@@ -75,7 +73,7 @@ export function NumberOfComplaintsBySentimentVisualisation() {
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>

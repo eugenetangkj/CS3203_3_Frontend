@@ -34,11 +34,11 @@ export interface BarChartMixedPoint {
 
 /**
  * Interface for a data point used in a LineChartMultiplePoint chart.
- * @param month Month to be shown on the x-axis
+ * @param date Date to be shown on the x-axis
  * @param key Key represents what the value represents while the value is the actual value. For example, "# Complaints": 100
 */
 export interface LineChartMultiplePoint {
-    month: string;
+    date: string;
     [key: string]: number | string;
 }
 

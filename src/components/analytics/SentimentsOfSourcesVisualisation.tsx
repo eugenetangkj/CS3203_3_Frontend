@@ -5,7 +5,7 @@ import { START_DATE } from "@/constants/constantValues"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
@@ -16,7 +16,7 @@ Represents the visualisation for the overall sentiment of each source shown in t
 export function SentimentsOfSourcesVisualisation() {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [tableDataObject, setTableDataObject] = useState<ClassicTableInput>({headers:[], data:[]})
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
@@ -32,10 +32,9 @@ export function SentimentsOfSourcesVisualisation() {
    
     //Fetches the API to process the number of complaints for each category
     const fetchSentimentsOfSources = async () => {
-        setIsLoading(true)
         try {
             //Call API to fetch complaints grouped according to sources
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,
@@ -54,7 +53,7 @@ export function SentimentsOfSourcesVisualisation() {
             console.log(error)
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
@@ -65,7 +64,7 @@ export function SentimentsOfSourcesVisualisation() {
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>
