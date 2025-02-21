@@ -57,7 +57,7 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
     return (
         <div className='flex flex-col space-y-4'>
             {/* Navigate back to all polls */}
-            <a href="/polls">
+            <a href="/polls" className='w-fit'>
                 <div className='flex flex-row justify-start items-center space-x-4'>
                     <MoveLeft className='text-yap-brown-900' />
                     <h6 className='text-yap-brown-900'>Back to all polls</h6>
@@ -142,25 +142,28 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
                         <PageSubtitle pageSubtitle="Options" />
                         
                         {/* Options available */}
-                        <div className="space-y-3">
-                            {poll.options.map((option, index) => (
-                                <div key={index} className="flex items-center space-x-8">
-                                    <div className="flex items-center space-x-4">
-                                        <div className="w-4 h-4 border-2 border-yap-brown-900 rounded-full"></div>
-                                        <span className="text-yap-black-800">{option}</span>
+                        {
+                            poll.options.length !== 0 &&
+                            <div className="space-y-3">
+                                {poll.options.map((option, index) => (
+                                    <div key={index} className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-4">
+                                            <div className="w-4 h-4 border-2 border-yap-brown-900 rounded-full"></div>
+                                            <span className="text-yap-black-800">{option}</span>
+                                        </div>
+                                        <Trash2Icon
+                                            className='w-5 h-5 cursor-pointer ml-4 text-red-500 hover:text-red-400 duration-200'
+                                            onClick={() => 
+                                                setPoll((prevPoll) => ({
+                                                    ...prevPoll,
+                                                    options: prevPoll.options.filter((_, i) => i !== index)
+                                                }))
+                                            }
+                                        />
                                     </div>
-                                    <Trash2Icon
-                                        className='w-5 h-5 cursor-pointer ml-8 text-red-500 hover:text-red-400 duration-200'
-                                        onClick={() => 
-                                            setPoll((prevPoll) => ({
-                                                ...prevPoll,
-                                                options: prevPoll.options.filter((_, i) => i !== index)
-                                            }))
-                                        }
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        }
 
                         {/* Add option */}
                         <div className='flex flex-row space-x-4'>
@@ -174,7 +177,7 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
                                   handleCreateNewOption();
                                 }
                             }}
-                            className="!text-base border border-yap-gray-200 rounded-xl text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-1/2 lg:w-1/4 pr-12 h-12"
+                            className="!text-base border border-yap-gray-200 rounded-xl text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-3/4 sm:w-1/2 lg:w-1/4 pr-12 h-12"
                             />
 
                             <button 
@@ -187,6 +190,12 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
 
                     </div>
                 }
+
+                {/* Additional information */}
+                <div className='flex flex-col space-y-4'>
+                    <PageSubtitle pageSubtitle="Additional Information" />
+                   
+                </div>
             </div>
         </div>
     )
