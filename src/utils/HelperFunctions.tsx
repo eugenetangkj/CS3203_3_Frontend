@@ -47,6 +47,13 @@ export const getDateTimeOneYearAgo = (): string => {
 };
 
 
+//Capitalises the first character of every word in a given string
+//Taken from https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+export const capitaliseFirstLetter = (val: string) => {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+
 
 
 
