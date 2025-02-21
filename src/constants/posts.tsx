@@ -87,10 +87,10 @@ export const ongoingPolls = [
         reasoning: "",
         type: "mcq",
         options: ["Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: false,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: false,
         status: "published"
     },
     {
@@ -100,10 +100,10 @@ export const ongoingPolls = [
         reasoning: "",
         type: "open-ended",
         options: [],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: true,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: true,
         status: "published"
     },
 ]
@@ -117,10 +117,10 @@ export const pastCitizenPolls = [
         reasoning: "",
         type: "open-ended",
         options: [],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: false,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: false,
         status: "closed"
     },
 ]
@@ -133,10 +133,10 @@ export const unpublishedPolls = [
         reasoning: "",
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: false,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: false,
         status: "unpublished"
     },
     {
@@ -146,10 +146,10 @@ export const unpublishedPolls = [
         reasoning: "",
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: false,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: false,
         status: "unpublished"
     },
     {
@@ -159,10 +159,10 @@ export const unpublishedPolls = [
         reasoning: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
         type: "open-ended",
         options: [],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: true,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: true,
         status: "unpublished"
     },
     {
@@ -172,10 +172,10 @@ export const unpublishedPolls = [
         reasoning: "",
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
-        date_created: "24-01-2024",
-        date_published: "25-01-2024",
-        date_closed: "26-01-2024",
-        is_ai_generated: false,
+        dateCreated: "24-01-2024",
+        datePublished: "25-01-2024",
+        dateClosed: "26-01-2024",
+        isAiGenerated: false,
         status: "unpublished"
     },
 ]

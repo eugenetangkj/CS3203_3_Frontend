@@ -9,10 +9,10 @@ export interface Poll {
     reasoning: string,
     type: string,
     options: string[],
-    date_created: string,
-    date_published: string,
-    date_closed: string,
-    is_ai_generated: boolean,
+    dateCreated: string,
+    datePublished: string,
+    dateClosed: string,
+    isAiGenerated: boolean,
     status: string  
 }
 

@@ -17,10 +17,10 @@ export default function PollCard({ poll }: PollCardProps) {
 
     // Determine date string to display
     const dateStringToDisplay =  poll.status == "published"
-                                 ? "Date published: " + poll.date_published 
+                                 ? "Date published: " + poll.datePublished 
                                  : poll.status == "closed"
-                                 ? "Date closed: " + poll.date_closed
-                                 : "Date created:" + poll.date_created
+                                 ? "Date closed: " + poll.dateClosed
+                                 : "Date created:" + poll.dateCreated
 
 
     // Return component
@@ -53,7 +53,7 @@ export default function PollCard({ poll }: PollCardProps) {
 
                     {/* AI-generated status */}
                     {
-                        (poll.is_ai_generated)
+                        (poll.isAiGenerated)
                         ? <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>

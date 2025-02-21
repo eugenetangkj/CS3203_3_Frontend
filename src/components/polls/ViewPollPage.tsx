@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { POSSIBLE_POLL_TYPES } from "@/types/Poll"
 import { capitaliseFirstLetter } from "@/utils/HelperFunctions"
 import { Button } from "../ui/button"
+import { SaveChangesToPollButton } from "./SaveChangesToPollButton"
 
 
 
@@ -68,7 +69,8 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
             {/* Action Buttons */}
             <div className='self-end flex-row justify-center items-center'>
                 {/* Only show create poll button for new uncreated polls that are not saved in the database yrt */}
-                {poll.id === -1 && <CreatePollButton currentPoll={poll} />}
+                {poll.id === -1 && <CreatePollButton currentPoll={ poll } />}
+                {poll.id !== -1 && poll.status !== "closed" && <SaveChangesToPollButton currentPoll={ poll } />}
             </div>
 
 
@@ -194,7 +196,15 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
                 {/* Additional information */}
                 <div className='flex flex-col space-y-4'>
                     <PageSubtitle pageSubtitle="Additional Information" />
-                   
+
+                    <div className='text-base text-yap-black-800 flex flex-col space-y-4'>
+                        <p><span className='text-yap-brown-900 text-lg'>Status:</span><br/>{ capitaliseFirstLetter(poll.status) }</p>
+                        <p><span className='text-yap-brown-900 text-lg'>Date created</span><br/>{ poll.dateCreated }</p>
+                        { poll.datePublished !== "" && <p><span className='text-yap-brown-900 text-lg'>Date published:</span><br/>{ poll.datePublished }</p>}
+                        { poll.dateClosed !== "" && <p><span className='text-yap-brown-900 text-lg'>Date closed:</span><br/>{ poll.dateClosed }</p>}
+                        <p><span className='text-yap-brown-900 text-lg'>Type:</span><br/>{ poll.isAiGenerated ? "AI-generated 🤖" : "User-generated 🧑" }</p>
+                        { poll.reasoning !== "" && <p><span className='text-yap-brown-900 text-lg'>How did AI design this poll:</span><br/>{ poll.reasoning }</p>}
+                    </div>
                 </div>
             </div>
         </div>

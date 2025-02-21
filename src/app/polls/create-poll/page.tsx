@@ -21,16 +21,16 @@ export default function CreatePollsPage() {
         reasoning: "",
         type: "mcq", //Default to MCQ
         options: [],
-        date_created: getCurrentDateTime(),
-        date_published: "",
-        date_closed: "",
-        is_ai_generated: false,
+        dateCreated: getCurrentDateTime(),
+        datePublished: "",
+        dateClosed: "",
+        isAiGenerated: false,
         status: "unpublished"
     }
     
 
     return (
-        <div className="px-6 md:px-12 font-afacad mt-32">
+        <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
             <div className="flex flex-col space-y-12">
                 <ViewPollPage currentPoll={ currentPoll } />
             </div>
