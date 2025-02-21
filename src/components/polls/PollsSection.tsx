@@ -48,7 +48,7 @@ export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps
 
 
     return (
-        <div className='flex flex-col space-y-8'>
+        <div className='flex flex-col space-y-6'>
             <PageSubtitle pageSubtitle={ pageTitle } />
             {
                 isLoading

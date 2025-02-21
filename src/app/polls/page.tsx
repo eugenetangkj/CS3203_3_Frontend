@@ -2,6 +2,8 @@ import { OngoingPolls } from "@/components/polls/OngoingPolls";
 import { CitizenPastPolls } from "@/components/polls/CitizenPastPolls";
 import { ClosedPolls } from "@/components/polls/ClosedPolls";
 import { UnpublishedPolls } from "@/components/polls/UnpublishedPolls";
+import Image from "next/image";
+import YappyWitch from "../../../public/graphics/yappy-witch.svg";
 
 
 /** 
@@ -19,13 +21,16 @@ export default function PollsPage() {
 
 
     return (
-        <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
+        <div className="px-6 md:px-12 font-afacad mt-32">
             <div className="flex flex-col space-y-12">
                 <OngoingPolls />
                 <CitizenPastPolls />
                 <ClosedPolls />
                 <UnpublishedPolls />
             </div>
+
+            {/* Duck image */}
+            <Image src={YappyWitch} alt="Yappy Witch creating data insights from complaints" className="self-center w-56 h-56 sm:w-64 sm:h-64 2xl:w-72 2xl:h-72 mx-auto mt-16" />
         </div>
     );
 }
