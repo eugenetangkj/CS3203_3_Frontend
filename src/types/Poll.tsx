@@ -15,3 +15,9 @@ export interface Poll {
     is_ai_generated: boolean,
     status: string  
 }
+
+
+/**
+The list of possible Poll question types
+*/
+export const POSSIBLE_POLL_TYPES: string[] = ["mcq", "open-ended"]

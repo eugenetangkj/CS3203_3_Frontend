@@ -9,8 +9,7 @@ import { Plus } from "lucide-react"
 
 
 /**
-Represents a section within the polls page that displays the heading and relevant poll cards
-and 
+Represents a section within the polls page that displays the heading and relevant poll cards.
 */
 interface PollsSectionProps {
     //Method to fetch polls from API
@@ -63,12 +62,17 @@ export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps
                         ))}
                         {
                             (pageTitle === "Unpublished Polls")
-                            ? <button className='rounded-xl bg-transparent hover:bg-yap-brown-100 duration-200 p-4 h-full w-full shadow-none border-2 border-dashed border-yap-brown-900'>
-                                <div className='text-yap-brown-900 flex flex-col space-y-2 justify-center items-center'>
-                                    <Plus className='w-12 h-12'/>
-                                    <h6 className='text-xl'>Create new poll</h6>
-                                </div>
-                            </button>
+                            ? <a href="/polls/create-poll">
+                                <button className='rounded-xl bg-transparent hover:bg-yap-brown-100 duration-200 p-4 h-full w-full shadow-none border-2 border-dashed border-yap-brown-900'>
+                                    <div className='text-yap-brown-900 flex flex-col space-y-2 justify-center items-center'>
+                                        <Plus className='w-12 h-12'/>
+                                        <h6 className='text-xl'>Create new poll</h6>
+                                    </div>
+                                </button>
+                            </a>
+                            
+                            
+                           
                             : <></>      
                         }
                    </div>
