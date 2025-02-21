@@ -6,7 +6,7 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT } from "@/constants/ApiRoutes"
 import { COLOUR_MAP } from "@/constants/ColourMap"
 import { PieChartLegend } from "../charts/PieChartLegend"
 
@@ -49,7 +49,7 @@ export function NumberOfComplaintsBySentimentVisualisation() {
         setIsLoading(true)
         try {
             //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "start_date": START_DATE,

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL, GET_COMPLAINTS_SORTED_BY_FIELDS as GET_COMPLAINTS_SORTED_BY_FIELDS } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT as GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
@@ -45,7 +45,7 @@ export function MostNegativePostsVisualisation() {
         setIsLoading(true)
         try {
             //Call API to fetch top 5 most negative complaints
-            const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_SORTED_BY_FIELDS
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "keys": ["sentiment"],
