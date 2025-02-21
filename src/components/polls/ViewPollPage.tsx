@@ -10,8 +10,9 @@ import { Textarea } from "../ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { POSSIBLE_POLL_TYPES } from "@/types/Poll"
 import { capitaliseFirstLetter } from "@/utils/HelperFunctions"
-import { Button } from "../ui/button"
 import { SaveChangesToPollButton } from "./SaveChangesToPollButton"
+import PublishPollButton from "./PublishPollButton"
+import DeletePollButton from "./DeletePollButton"
 
 
 
@@ -71,6 +72,8 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
                 {/* Only show create poll button for new uncreated polls that are not saved in the database yrt */}
                 {poll.id === -1 && <CreatePollButton currentPoll={ poll } />}
                 {poll.id !== -1 && poll.status !== "closed" && <SaveChangesToPollButton currentPoll={ poll } />}
+                {poll.id !== -1 && poll.status == 'unpublished' && <PublishPollButton currentPoll={ poll } />}
+                {poll.id !== -1 && <DeletePollButton currentPoll={ poll } />}
             </div>
 
 
