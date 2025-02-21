@@ -1,4 +1,4 @@
-import { ViewPollPage } from "@/components/polls/ViewPollPage";
+import { ViewPollAdminDetails } from "@/components/polls/ViewPollAdminDetails";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
 
 
@@ -32,7 +32,7 @@ export default function CreatePollsPage() {
     return (
         <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
             <div className="flex flex-col space-y-12">
-                <ViewPollPage currentPoll={ currentPoll } />
+                <ViewPollAdminDetails currentPoll={ currentPoll } />
             </div>
 
             

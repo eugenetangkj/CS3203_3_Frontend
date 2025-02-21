@@ -25,7 +25,7 @@ export default function PollCard({ poll }: PollCardProps) {
 
     // Return component
     return (
-        <a href="#">
+        <a href={`/polls/${ poll.id }`}>
             <div className='flex flex-col space-y-4 justify-between rounded-xl bg-yap-gray-100 hover:bg-yap-brown-100 duration-200 p-4 h-full'>
                 <div className='flex flex-col space-y-4'>
                     <div className='space-y-2'>

@@ -20,12 +20,12 @@ import DeletePollButton from "./DeletePollButton"
 /**
 Represents a page where the admin and citizen can view and edit a poll, depending on the status of the poll.
 */
-interface ViewPollPageProps {
+interface ViewPollAdminDetailsProps {
     currentPoll: Poll,
 
 }
 
-export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
+export function ViewPollAdminDetails({ currentPoll }: ViewPollAdminDetailsProps) {
 
     //Poll that is maintained within the current page
     const [poll, setPoll] = useState<Poll>(currentPoll)
@@ -127,7 +127,8 @@ export function ViewPollPage({ currentPoll }: ViewPollPageProps) {
                             type: value,
                         }));
                         setCurrentOption('');
-                    }}>
+                    }}
+                    disabled= { poll.status !== 'unpublished' }>
                         <SelectTrigger className="w-[180px] text-yap-black-800 rounded-xl text-base">
                             <SelectValue/>
                         </SelectTrigger>
