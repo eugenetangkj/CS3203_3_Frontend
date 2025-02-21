@@ -16,7 +16,7 @@ export function MostNegativePostsVisualisation() {
     const numberOfComplaintsToFetch = 5
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [tableDataObject, setTableDataObject] = useState<ClassicTableInput>({headers:[], data:[]})
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
@@ -31,6 +31,7 @@ export function MostNegativePostsVisualisation() {
             category: item.category,
             source: item.source,
             sentiment: item.sentiment,
+            url: item.url
         }));
 
         //Sort in asecending order based on sentiment value
@@ -41,8 +42,7 @@ export function MostNegativePostsVisualisation() {
     
    
     //Fetches the API to obtain the top 5 most negative complaints, which are the complaints with the lowest sentiment scores
-    const fetchMostNegativePosts = async () => {
-        setIsLoading(true)
+    const fetchMostNegativeComplaints = async () => {
         try {
             //Call API to fetch top 5 most negative complaints
             const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT
@@ -53,7 +53,8 @@ export function MostNegativePostsVisualisation() {
                     "limit": numberOfComplaintsToFetch
                 }
             )
-            const tableData = convertToArray(apiData.data.posts)
+            console.log(apiData)
+            const tableData = convertToArray(apiData.data.complaints)
             const tableHeaders = ["Title", "Description", "Posted", "Category", "Source", "Sentiment"]
             setTableDataObject({
                 headers: tableHeaders,
@@ -63,18 +64,18 @@ export function MostNegativePostsVisualisation() {
             console.log(error)
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
     //Call the API on component mount
     useEffect(() => {
-        fetchMostNegativePosts()
+        fetchMostNegativeComplaints()
     }, [])
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>

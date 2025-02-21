@@ -19,9 +19,6 @@ export function LineChartMultiple({ chartData, colourMap }: LineChartMultiplePro
     //Chart config
     const chartConfig = { } satisfies ChartConfig
 
-
-    console.log(colourMap)
-
     return (
         <ChartContainer config={chartConfig} className='max-h-[400px] w-full'>
             <LineChart

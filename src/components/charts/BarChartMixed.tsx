@@ -47,7 +47,7 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
         } else if (screenWidth <= breakpoints['lg']) {
             setScalingFactor(1.5); 
         } else if (screenWidth <= breakpoints['xl']) {
-            setScalingFactor(3.25); 
+            setScalingFactor(1.25); 
         } else if (screenWidth <= breakpoints['2xl']) {
             setScalingFactor(2.5); 
         } else {

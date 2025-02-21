@@ -24,7 +24,14 @@ export function ClassicTable({ headers, data }: ClassicTableProps) {
             {data.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                     {headers.map((header, colIndex) => (
-                        <TableCell key={colIndex} className='text-yap-black-800 text-base pl-0'>{row[header.toLowerCase()]}</TableCell>
+                        <TableCell key={colIndex} className='text-yap-black-800 text-base pl-0'>{
+                            (header === "Title")
+                            ? <a href={row['url'] as string} className='underline line-clamp-2' target='_blank'>{row[header.toLowerCase()]}</a>
+                            : (header == "Description")
+                            ? <p className='line-clamp-2'>{row[header.toLowerCase()] === '' ? '[No description]' : row[header.toLowerCase()] }</p>
+                            : <p>{row[header.toLowerCase()]}</p>
+                        } 
+                        </TableCell>
                     ))}
                 </TableRow>
             ))}

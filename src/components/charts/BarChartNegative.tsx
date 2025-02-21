@@ -8,12 +8,19 @@ import { COLOUR_MAP } from "@/constants/ColourMap"
 import { sentimentsRange } from "@/constants/Sentiments"
 
 
-
-
 interface BarChartNegativeProps {
     chartData: BarChartNegativePoint[];
     footerText: string
 }
+
+//Break into multiple lines if got more than 1 word
+const breakLabel = (label: string) => {
+    const words = label.split(' ');
+    if (words.length > 1) {
+        return words.join('\n');
+    }
+    return label;
+};
 
 
 export function BarChartNegative({ chartData, footerText }: BarChartNegativeProps) {
@@ -37,7 +44,7 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
                     content={<ChartTooltipContent hideLabel hideIndicator />}
                 />
                 <Bar dataKey={ valueKey }>
-                    <LabelList position="top" dataKey="xLabel" fillOpacity={1} fill={ COLOUR_MAP['yap-black-800'] } />
+                    <LabelList position="top" dataKey="xLabel" fillOpacity={1} fill={ COLOUR_MAP['yap-black-800'] } formatter={ breakLabel } />
                     
                     {chartData.map((item, index) => {
                         return (

@@ -16,7 +16,7 @@ Represents the visualisation for the overall sentiment of each source shown in t
 export function SentimentsOfSourcesVisualisation() {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [tableDataObject, setTableDataObject] = useState<ClassicTableInput>({headers:[], data:[]})
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
@@ -32,7 +32,6 @@ export function SentimentsOfSourcesVisualisation() {
    
     //Fetches the API to process the number of complaints for each category
     const fetchSentimentsOfSources = async () => {
-        setIsLoading(true)
         try {
             //Call API to fetch complaints grouped according to sources
             const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
@@ -54,7 +53,7 @@ export function SentimentsOfSourcesVisualisation() {
             console.log(error)
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
@@ -65,7 +64,7 @@ export function SentimentsOfSourcesVisualisation() {
 
 
     return (
-        isLoading
+        !hasRanApi
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>

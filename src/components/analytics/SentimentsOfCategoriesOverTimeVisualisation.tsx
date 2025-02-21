@@ -1,5 +1,6 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import { Skeleton } from "../ui/skeleton"
 import { LineChartMultiple } from "../charts/LineChartMultiple"
@@ -11,9 +12,9 @@ import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunct
 
 
 /**
-Represents the visualisation for number of complaints by category over time visualisation used in analytics dashboard
+Represents the visualisation for the sentiments of categorises over time, used in analytics dashboard.
 */
-export function NumberOfPostsByCategoryOverTimeVisualisation() {
+export function SentimentsOfCategoriesOverTimeVisualisation() {
 
     //States
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
@@ -23,10 +24,10 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertApiDataIntoLineChartMultipleData = (monthlyData: { date: string; data: Record<string, { count: number }> }[]): LineChartMultiplePoint[] => {
+    const convertApiDataIntoLineChartMultipleData = (monthlyData: { date: string; data: Record<string, { avg_sentiment: number }> }[]): LineChartMultiplePoint[] => {
         return monthlyData.map(({ date, data }) => ({
             date: date,
-            ...Object.fromEntries(Object.entries(data).map(([category, values]) => [category, values.count]))
+            ...Object.fromEntries(Object.entries(data).map(([category, values]) => [category, values.avg_sentiment]))
         }));
     };
 
@@ -39,12 +40,11 @@ export function NumberOfPostsByCategoryOverTimeVisualisation() {
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
                     "start_date": "01-01-2023 00:00:00", //getDateTimeOneYearAgoAndSetToStart(),
-                    "end_date":  "31-12-2023 23:59:59", //getDateTimeOneMonthAgoAndSetToEnd(),
+                    "end_date":  "31-12-2023 23:59:59", //getDateTimeOneMonthAgoAndSetToEnd()
                     "group_by_field": "category"
                 }
             )
             const processedComplaintsData = convertApiDataIntoLineChartMultipleData(complaintsData.data.result)
-
 
             //Process category colours
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT

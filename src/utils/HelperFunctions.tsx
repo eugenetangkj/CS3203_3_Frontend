@@ -25,13 +25,23 @@ export const getCurrentDateTime = (): string => {
 };
 
 
-//Gets the datetime that is 1 year ago from the current datetime in the
-//format of dd-mm-YYYY HH:MM:SS
-//Taken from ChatGPT
-export const getDateTimeOneYearAgo = (): string => {
-    const now = new Date();
-    now.setFullYear(now.getFullYear() - 1); // Subtract 1 year from the current date
+/**
+Gets the datetime that is 1 year ago from the current datetime in the
+format of dd-mm-YYYY HH:MM:SS Then, set the day and time to the first
+day of that month.
 
+Taken from ChatGPT
+*/
+export const getDateTimeOneYearAgoAndSetToStart = (): string => {
+    //Subtract 1 year
+    const now = new Date();
+    now.setFullYear(now.getFullYear() - 1);
+
+    //Set to very start of the month
+    now.setDate(1);
+    now.setHours(0, 0, 0, 0);
+
+    //Format
     return new Intl.DateTimeFormat("en-GB", {
         day: "2-digit",
         month: "2-digit",
@@ -42,9 +52,43 @@ export const getDateTimeOneYearAgo = (): string => {
         hour12: false,
     })
     .format(now)
+    .replace(/\//g, "-") 
+    .replace(",", "");
+};
+
+/**
+Gets the datetime that is 1 month ago from the current datetime in the
+format of dd-mm-YYYY HH:MM:SS. Then, set the day and time to the last
+day of that month.
+
+Taken from ChatGPT.
+*/
+export const getDateTimeOneMonthAgoAndSetToEnd = (): string => {
+    // Subtract 1 month
+    const now = new Date();
+    now.setMonth(now.getMonth() - 1);
+
+    // Set the date to the very end of the month
+    const lastDayOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    lastDayOfPreviousMonth.setHours(23, 59, 59, 999);
+
+    return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    })
+    .format(lastDayOfPreviousMonth)
     .replace(/\//g, "-")  // Replace slashes with hyphens
     .replace(",", "");    // Remove the comma between date and time
 };
+
+
+
+
 
 
 //Capitalises the first character of every word in a given string
