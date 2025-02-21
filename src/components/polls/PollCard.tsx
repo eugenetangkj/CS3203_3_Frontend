@@ -11,7 +11,7 @@ question type, date and whether it is AI-generated.
 */
 interface PollCardProps {
     poll: Poll
- }
+}
  
 export default function PollCard({ poll }: PollCardProps) {
 
