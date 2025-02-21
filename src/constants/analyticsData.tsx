@@ -3,7 +3,7 @@ import { LineChartMultiplePoint } from "@/types/ChartInterface";
 import { BarChartNegativePoint } from "@/types/ChartInterface";
 import { PieChartLegendPoint } from "@/types/ChartInterface";
 // import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
-import { colourMap } from "./Colours";
+import { COLOUR_MAP } from "./ColourMap";
 
 export const barChartCustomLabelData = [
     { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
@@ -62,10 +62,10 @@ export const sentimentsOfCategories: BarChartNegativePoint[] = [
 
 
 export const sentimentsPieChart: PieChartLegendPoint[] = [
-    {label: "-0.00 to -0.50", value: 100, fill: colourMap["yap-orange-900"]},
-    {label: "-0.50 to 0.00", value: 200, fill: colourMap["yap-yellow-900"]},
-    {label: "0.00 to 0.50", value: 140, fill: colourMap["yap-brown-900"]},
-    {label: "0.50 to 1.00", value: 150, fill: colourMap["yap-green-900"]}
+    {label: "-0.00 to -0.50", value: 100, fill: COLOUR_MAP["yap-orange-900"]},
+    {label: "-0.50 to 0.00", value: 200, fill: COLOUR_MAP["yap-yellow-900"]},
+    {label: "0.00 to 0.50", value: 140, fill: COLOUR_MAP["yap-brown-900"]},
+    {label: "0.50 to 1.00", value: 150, fill: COLOUR_MAP["yap-green-900"]}
 ]
 
 export const sentimentsOverTimeData: LineChartMultiplePoint[] = [

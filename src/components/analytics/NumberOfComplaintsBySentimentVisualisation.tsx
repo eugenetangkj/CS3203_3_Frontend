@@ -7,7 +7,7 @@ import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE } from "@/constants/ApiRoutes"
-import { colourMap } from "@/constants/Colours"
+import { COLOUR_MAP } from "@/constants/ColourMap"
 import { PieChartLegend } from "../charts/PieChartLegend"
 
 
@@ -38,7 +38,7 @@ export function NumberOfComplaintsBySentimentVisualisation() {
             return {
                 label,
                 value: item.count,
-                fill: colourMap[colour] ?? colourMap['yap-green-900']
+                fill: COLOUR_MAP[colour] ?? COLOUR_MAP['yap-green-900']
             };
         });
     };

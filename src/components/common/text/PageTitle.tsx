@@ -1,5 +1,5 @@
 /**
-This component represennts the title of a page
+This component represents the title of a page.
 */
 interface PageTitleProps {
     pageTitle: string
