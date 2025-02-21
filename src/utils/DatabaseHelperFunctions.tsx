@@ -12,3 +12,38 @@ export const convertCategoryDocumentsToObjects = (categories: any[]) : Category[
         colour: category.color
     }));
 }
+
+/**
+Converts a list of Category objects into a colour map.
+
+{
+    "Environment": "#000000"
+    "Healthcare": "#AAAAAA"
+    ...
+}
+*/
+export const convertCategoryObjectsToColourMap = (categories: any[]): Record<string, string> => {
+    return categories.reduce((acc, category) => {
+        acc[category.name] = category.colour;
+        return acc;
+    }, {} as Record<string, string>);
+};
+
+
+/**
+Converts a list of MongoDB Category documents into a colour map.
+
+{
+    "Environment": "#000000"
+    "Healthcare": "#AAAAAA"
+    ...
+}
+*/
+export const convertCategoryDocumentsToColourMap = (documents: { name: string; color: string }[]): Record<string, string> => {
+    return documents.reduce((acc, doc) => {
+        if (doc.name && doc.color) {
+            acc[doc.name] = doc.color;
+        }
+        return acc;
+    }, {} as Record<string, string>);
+}

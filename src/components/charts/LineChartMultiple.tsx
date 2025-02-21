@@ -8,33 +8,34 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
-import { CategoryColorMap } from "@/utils/CategoryColourMap"
 
 interface LineChartMultipleProps {
-    chartData: LineChartMultiplePoint[];
+    chartData: LineChartMultiplePoint[],
+    colourMap: Record<string, string>
 }
 
 
-export function LineChartMultiple({ chartData }: LineChartMultipleProps) {
+export function LineChartMultiple({ chartData, colourMap }: LineChartMultipleProps) {
     //Chart config
     const chartConfig = { } satisfies ChartConfig
 
 
-    
+    console.log(colourMap)
+
     return (
-        <ChartContainer config={chartConfig} className='max-h-[250px] lg:max-h-[350px] w-full'>
+        <ChartContainer config={chartConfig} className='max-h-[400px] w-full'>
             <LineChart
                 accessibilityLayer
                 data={chartData}
                 margin={{
-                left: 12,
+                left: 0,
                 right: 12,
                 }}
             >
                 <CartesianGrid vertical={true} />
                     <YAxis />
                     <XAxis
-                        dataKey="month"
+                        dataKey="date"
                         tickLine={false}
                         axisLine={false}
                         tickMargin={8} 
@@ -42,16 +43,19 @@ export function LineChartMultiple({ chartData }: LineChartMultipleProps) {
                     />
                     <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
-                    { Object.entries(CategoryColorMap).map(([category, color]) => (
+                    {Object.entries(colourMap).map(([category, colour]) => (
                         <Line
                             key={category}
                             dataKey={category}
                             type="monotone"
-                            stroke={color}
+                            stroke={colour}
                             strokeWidth={2}
                             dot={false}
                         />
                     ))}
+
+
+                    
             </LineChart>
             </ChartContainer>
     )
