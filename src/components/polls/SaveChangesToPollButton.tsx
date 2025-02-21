@@ -47,7 +47,7 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
     
     return (
         <Button className='bg-yap-green-900 hover:bg-yap-green-800 duration-200 rounded-full'  onClick={ handleSaveChangesToPoll }>
-            Create Poll
+            Save Changes
         </Button>
     )
 }

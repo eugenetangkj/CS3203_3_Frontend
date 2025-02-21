@@ -195,7 +195,7 @@ export const allPolls = [
         options: ["Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"],
         dateCreated: "24-01-2024",
         datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        dateClosed: "",
         isAiGenerated: false,
         status: "published"
     },
@@ -208,7 +208,7 @@ export const allPolls = [
         options: [],
         dateCreated: "24-01-2024",
         datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        dateClosed: "",
         isAiGenerated: true,
         status: "published"
     },
@@ -233,8 +233,8 @@ export const allPolls = [
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
         dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        datePublished: "",
+        dateClosed: "",
         isAiGenerated: false,
         status: "unpublished"
     },
@@ -246,8 +246,8 @@ export const allPolls = [
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
         dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        datePublished: "",
+        dateClosed: "",
         isAiGenerated: false,
         status: "unpublished"
     },
@@ -259,8 +259,8 @@ export const allPolls = [
         type: "open-ended",
         options: [],
         dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        datePublished: "",
+        dateClosed: "",
         isAiGenerated: true,
         status: "unpublished"
     },
@@ -272,8 +272,8 @@ export const allPolls = [
         type: "mcq",
         options: ["Very satisfied", "Satisfied"],
         dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
+        datePublished: "",
+        dateClosed: "",
         isAiGenerated: false,
         status: "unpublished"
     },

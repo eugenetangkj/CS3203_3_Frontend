@@ -26,15 +26,13 @@ export default function ViewPollComponent({ role, fetchPollWithId }: ViewPollCom
     const pollId = Number(id)
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [poll, setPoll] = useState<Poll>()
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
     //Calls API to fetch the given poll
     const fetchPoll = async () => {
-        setIsLoading(true)
-
         try {
             //Fetch the poll given the ID value
             const pollFromApi = await fetchPollWithId(pollId)
@@ -42,7 +40,7 @@ export default function ViewPollComponent({ role, fetchPollWithId }: ViewPollCom
         } catch (error) {
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
     
@@ -55,7 +53,7 @@ export default function ViewPollComponent({ role, fetchPollWithId }: ViewPollCom
 
 
     return (
-        (isLoading)
+        (!hasRanApi)
         ? <Skeleton className='w-[100px] h-[10px]' />
         : (isThereError)
         ? <div className='text-yap-black-800'>Something went wrong. Please try again later.</div>

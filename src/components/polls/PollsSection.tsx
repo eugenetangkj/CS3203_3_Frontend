@@ -21,22 +21,21 @@ interface PollsSectionProps {
 export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps) {
 
     //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [allPolls, setAllPolls] = useState<Poll[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
+
     //Calls API to fetch ongoing polls
     const fetchAllPolls = async () => {
-        setIsLoading(true)
-
         try {
             const pollsFromApi = await fetchPollsFromApi()
             setAllPolls(pollsFromApi)
         } catch (error) {
             setIsThereError(true)
         } finally {
-            setIsLoading(false)
+            setHasRanApi(true)
         }
     }
 
@@ -50,12 +49,12 @@ export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps
         <div className='flex flex-col space-y-6'>
             <PageSubtitle pageSubtitle={ pageTitle } />
             {
-                isLoading
+                !hasRanApi
                 ? (<PollsSkeleton />)
                 : isThereError
                 ? <div className='text-yap-black-800'>Something went wrong. Please try again later.</div>
                 : allPolls.length === 0
-                ? <div className='text-yap-black-800'>There are no polls.</div>
+                ? <div className='text-yap-black-800'>There is no poll.</div>
                 :  <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-rows-1 gap-x-4 gap-y-4'>
                         {allPolls.map((poll) => (
                             <PollCard key={poll.id} poll={poll} />
