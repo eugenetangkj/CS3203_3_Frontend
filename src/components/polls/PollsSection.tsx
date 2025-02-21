@@ -4,7 +4,8 @@ import { Poll } from "@/types/Poll"
 import PollCard from "./PollCard"
 import { useState, useEffect } from "react"
 import PollsSkeleton from "./PollsSkeleton"
-import PageTitle from "../common/text/PageTitle"
+import PageSubtitle from "../common/text/PageSubtitle"
+import { Plus } from "lucide-react"
 
 
 /**
@@ -18,7 +19,7 @@ interface PollsSectionProps {
 
 }
 
-export function PollsSection({ fetchPollsFromApi }: PollsSectionProps) {
+export function PollsSection({ fetchPollsFromApi, pageTitle }: PollsSectionProps) {
 
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -48,7 +49,7 @@ export function PollsSection({ fetchPollsFromApi }: PollsSectionProps) {
 
     return (
         <div className='flex flex-col space-y-8'>
-            <PageTitle pageTitle="Ongoing Polls" />
+            <PageSubtitle pageSubtitle={ pageTitle } />
             {
                 isLoading
                 ? (<PollsSkeleton />)
@@ -60,6 +61,16 @@ export function PollsSection({ fetchPollsFromApi }: PollsSectionProps) {
                         {allPolls.map((poll) => (
                             <PollCard key={poll.id} poll={poll} />
                         ))}
+                        {
+                            (pageTitle === "Unpublished Polls")
+                            ? <button className='rounded-xl bg-transparent hover:bg-yap-brown-100 duration-200 p-4 h-full w-full shadow-none border-2 border-dashed border-yap-brown-900'>
+                                <div className='text-yap-brown-900 flex flex-col space-y-2 justify-center items-center'>
+                                    <Plus className='w-12 h-12'/>
+                                    <h6 className='text-xl'>Create new poll</h6>
+                                </div>
+                            </button>
+                            : <></>      
+                        }
                    </div>
             }
         </div>
