@@ -9,7 +9,6 @@ import { DestructiveAlert } from "../common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
-import { Category } from "@/types/Category"
 
 /**
 This component represents the button for adding category. It presents a pop-up to allow
@@ -17,10 +16,10 @@ the user to select the name and colour code of a category to be added. Then, it 
 of the category to the database and refreshes the list of categories in the manage categories table.
 */
 interface AddCategoryButtonProps {
-    setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+    fetchCategories: () => void
 }
 
-export function AddCategoryButton({ setCategories }: AddCategoryButtonProps ) {
+export function AddCategoryButton({ fetchCategories }: AddCategoryButtonProps ) {
     //States
     const [name, setName] = useState("")
     const [colour, setColour] = useState("000000")
@@ -70,19 +69,14 @@ export function AddCategoryButton({ setCategories }: AddCategoryButtonProps ) {
 
             if (wasCategoryAddedSuccessfully) {
                 //Successfully added
-                const idOfNewCategory = response.data._id
-
-                //Refresh categories state
-                setCategories((prevCategories) => [
-                    ...prevCategories,
-                    { id: idOfNewCategory, name, colour: colour }
-                ]);
-
                 toast({
                     variant: "success",
                     description: "Category is successfully added.",
                     duration: 3000,
                 })
+
+                //Fetch categories
+                fetchCategories()
             } else {
                 //Error in adding
                 toast({

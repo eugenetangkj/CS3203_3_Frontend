@@ -24,6 +24,7 @@ export default function ManageCategoriesTableAndButtons() {
 
     //Triggers fetching of categories from backend
     const fetchCategories = async () => {
+        setHasRanApi(false)
         try {
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
@@ -48,7 +49,7 @@ export default function ManageCategoriesTableAndButtons() {
             {/* Buttons */}
             <div className='flex flex-row sm:self-end space-x-4'>
                 {/* Add category */}
-                <AddCategoryButton setCategories= { fetchCategories } />
+                <AddCategoryButton fetchCategories= { fetchCategories } />
             </div>
 
             {/* Table of categories */}
@@ -61,7 +62,7 @@ export default function ManageCategoriesTableAndButtons() {
                   </div>
                 : isThereError
                 ? <p className='text-base text-yap-black-800'>{ ERROR_MESSAGE_API }</p>
-                :  <ManageCategoriesTable categories={ categories } setCategories={ fetchCategories } />       
+                :  <ManageCategoriesTable categories={ categories } fetchCategories={ fetchCategories } />       
             }
     </div>
   );

@@ -10,11 +10,11 @@ of categories, allowing the authority to change the colours and delete the categ
 */
 interface ManageCategoriesTableProps {
     categories: Category[],
-    setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+    fetchCategories: () => void
 }
 
 
-export const ManageCategoriesTable = ({ categories, setCategories }: ManageCategoriesTableProps) => {
+export const ManageCategoriesTable = ({ categories, fetchCategories }: ManageCategoriesTableProps) => {
     return (
         <Table>
             <TableHeader>
@@ -37,7 +37,7 @@ export const ManageCategoriesTable = ({ categories, setCategories }: ManageCateg
 
                     {/* Delete icon wrapped in an alert dialog*/}
                     <TableCell className="text-center">
-                        <DeleteCategoryButton title={ category.name } setCategories={ setCategories } />  
+                        <DeleteCategoryButton category={ category } fetchCategories={ fetchCategories } />  
                     </TableCell>  
                     </TableRow>
                 ))}
