@@ -6,6 +6,9 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "../ui/button";
 import { Complaint } from "@/types/Complaint";
+import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
+import { COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
 
 
 /**
@@ -13,10 +16,15 @@ This component handles the functionality of deleting complaints
 */
 interface DeleteComplaintsButtonProps {
     complaintsToDelete: Complaint[]
-    resetStates: () => void
+    setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
+    currentPage: number,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    fetchComplaints: () => void
 }
 
-export default function DeleteComplaintsButton({ complaintsToDelete, resetStates }: DeleteComplaintsButtonProps) {
+const DELETE_COMPLAINT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT
+
+export default function DeleteComplaintsButton({ complaintsToDelete, setSelectedComplaints, currentPage, setCurrentPage, fetchComplaints }: DeleteComplaintsButtonProps) {
 
     //States
     const [open, setOpen] = useState(false)
@@ -33,15 +41,25 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
 
         //Delete complaints
         try {
-            //TODO: Make API call to delete the selected complaints using variable complaintsToDelete
-            console.log(complaintsToDelete)
+            //Make API call to delete selected categories
+            const oidsOfComplaintsToDelete: string[] = complaintsToDelete.map((complaint) => complaint.oid)
+            const response = await axios.post(DELETE_COMPLAINT_API_ENDPOINT, {
+                "oids": oidsOfComplaintsToDelete
+            });
 
-            //Complaints were successfully deleted. Show successful toast.
-            toast({
-                variant: "success",
-                description: "Complaint(s) are successfully deleted.",
-                duration: 3000,
-            })
+            if (response.data.success) {
+                toast({
+                    variant: "success",
+                    description: "Complaint(s) are successfully deleted.",
+                    duration: 3000,
+                })
+            } else {
+                toast({
+                    variant: "destructive",
+                    description: response.data.message,
+                    duration: 3000,
+                })
+            }
         } catch (error) {
             //There is an error in deleting. Show unsuccessful toast.
             toast({
@@ -49,14 +67,19 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
                 description: "There was a problem deleting the complaint(s).",
                 duration: 3000,
             })
-            console.log(error)
         } finally {
-            //Reset all the parent states
-            resetStates()
+            //Reset all the necessary parent states
+            if (currentPage == 1) {
+                setSelectedComplaints([])
+                setCurrentPage(1)
+                fetchComplaints()
+            } else {
+                setSelectedComplaints([])
+                setCurrentPage(1)
+            }
 
             //Reset button states
             setOpen(false)
-            console.log(open)
             setIsDeleting(false)   
         }
     }
@@ -68,8 +91,6 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
             <AlertDialogTrigger asChild>
                 <Button className='w-fit rounded-full self-end bg-red-500 hover:bg-red-400 duration-200'>Delete</Button>
             </AlertDialogTrigger>
-
-
             <AlertDialogContent className='font-afacad'>
               <AlertDialogHeader>
                 <AlertDialogTitle className='text-xl text-yap-black-800'>Are you sure?</AlertDialogTitle>
@@ -86,6 +107,5 @@ export default function DeleteComplaintsButton({ complaintsToDelete, resetStates
             </AlertDialogContent>
           </AlertDialog>
     );
-  
-    
+
 };

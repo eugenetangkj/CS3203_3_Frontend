@@ -3,16 +3,10 @@
 import { useEffect, useState, useRef } from "react"
 import ComplaintsTable from "./ComplaintsTable"
 import { Complaint } from "@/types/Complaint"
-import { defaultCategories, defaultSources, getComplaintsOne, getComplaintsTwo } from "@/services/ServicesHelper"
-import { Input } from "../ui/input"
-import { Skeleton } from "../ui/skeleton"
-import { Search } from "lucide-react"
 import { Button } from "../ui/button"
 import DeleteComplaintsButton from "./DeleteComplaintsButton"
 import ComplaintsTableSkeleton from "./ComplaintsTableSkeleton"
 import { Category } from "@/types/Category"
-import CategoryFilterDropdown from "./CategoryFilterDropdown"
-import SourceFilterDropdown from "./SourceFilterDropdown"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
@@ -24,7 +18,6 @@ import { ALL_CATEGORIES_ID } from "@/constants/ConstantValues"
 //Endpoints
 const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT
 const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
-
 
 //Constants
 const PAGE_SIZE = 50
@@ -41,7 +34,7 @@ const AllComplaintsPageComponent = () => {
     const [categorySelected, setCategorySelected] = useState<Category>(ALL_CATEGORIES_CATEGORY)
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState<number>()
+    const [totalPages, setTotalPages] = useState<number>(0)
     const [totalResults, setTotalResults] = useState<number>()
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [isThereError, setIsThereError] = useState<boolean>(false)
@@ -109,8 +102,6 @@ const AllComplaintsPageComponent = () => {
                 page_number: currentPage,
             });
 
-            console.log(filteredComplaintsData)
-
             const filteredComplaints = convertComplaintDocumentsToObjects(filteredComplaintsData.data.documents)
             setComplaints(filteredComplaints)
 
@@ -126,7 +117,6 @@ const AllComplaintsPageComponent = () => {
         }
     }
 
-    
 
     //Fetch complaints whenever page changes, except the first mount
     useEffect(() => {
@@ -136,50 +126,6 @@ const AllComplaintsPageComponent = () => {
         }
         fetchComplaints();
     }, [currentPage, searchQuery, categorySelected]);
-
-
-    // Fetch complaints with pagination, search, and category filter
-    // const fetchComplaints = async () => {
-    //     //Indicate that we are fetching new complaints
-    //     setHasRanApi(true)
-    //     console.log("Fetching complaints...", categorySelected)
-    //     console.log(searchQuery)
-
-
-    //     try {
-    //         //   const response = await fetch(
-    //         //     `/api/complaints?page=${page}&search=${search}&category=${category}`
-    //         //   )
-    //         //   const data = await response.json()
-    //         let data : any = []
-    //         if (currentPage == 1) {
-    //             data = await getComplaintsOne()
-    //         } else if (currentPage == 2) {
-    //             data = await getComplaintsTwo()
-    //         }
-    //         setComplaints(data)
-
-    //         //TODO: Set total number of pages and number of results
-    //         setTotalPages(2)
-    //         setTotalResults(10)
-    //     } catch (error) {
-    //         console.error("Error fetching complaints:", error)
-    //     } finally {
-    //         setHasRanApi(false)
-    //     }
-    // }
-
-
-
-    //Resets all states
-    // const resetStates = async () => {
-    //     //Reset all the states
-    //     console.log('Reseting states...')
-    //     await initialisation()
-    //     setSearchQuery("")
-    //     setSelectedComplaints([])
-    //     setCurrentPage(1)
-    // }
 
 
     //Actual component
@@ -213,32 +159,28 @@ const AllComplaintsPageComponent = () => {
                     />
 
                     {/* Deselect and delete */}
-                    {/* <div className='flex space-x-2'>
+                    <div className='flex space-x-2'>
                         {
-                            hasRanApi
-                            ? <Skeleton className='w-[60px] h-[25px]' />
-                            : selectedComplaints.length !== 0 
+                            selectedComplaints.length !== 0 
                             ? <Button className='w-fit rounded-full self-end bg-yap-orange-900 hover:bg-yap-orange-800 duration-200'
                                 onClick={ () => setSelectedComplaints([]) }>Deselect</Button>
                             : <></>
                         }
                         {
-                            hasRanApi
-                            ? <Skeleton className='w-[60px] h-[25px]' />
-                            : selectedComplaints.length !== 0 
-                            ? <DeleteComplaintsButton complaintsToDelete={ selectedComplaints } resetStates={ resetStates } />
+                            selectedComplaints.length !== 0 
+                            ? <DeleteComplaintsButton complaintsToDelete={ selectedComplaints }
+                                setSelectedComplaints={ setSelectedComplaints}
+                                currentPage={ currentPage }
+                                setCurrentPage={ setCurrentPage } 
+                                fetchComplaints={ fetchComplaints }
+                              />
                             : <></>
                         }
-                    </div> */}
-                </div>
-
-
-                
-               
+                    </div>
+                </div> 
             </div>
 
 
-            
             {/* Complaints Table */}
             <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories } />
             
@@ -251,14 +193,14 @@ const AllComplaintsPageComponent = () => {
                     <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1} className='cursor-pointer disabled:cursor-not-allowed text-yap-brown-900 bg-yap-gray-100 hover:bg-yap-brown-100 rounded-full px-6 py-1 duration-200'>
                         Previous
                     </button>
-                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={currentPage === totalPages } className='cursor-pointer disabled:cursor-not-allowed text-yap-brown-900 bg-yap-gray-100 hover:bg-yap-brown-100 rounded-full px-6 py-1 duration-200'>
+                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={ currentPage >= totalPages } className='cursor-pointer disabled:cursor-not-allowed text-yap-brown-900 bg-yap-gray-100 hover:bg-yap-brown-100 rounded-full px-6 py-1 duration-200'>
                         Next
                     </button>
                 </div>
 
                 <div className='flex flex-row justify-between w-full'>
                     {/* Page number */}
-                    <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { totalPages }</h6>
+                    <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { totalPages == 0 ? 1 : totalPages  }</h6>
                     <h6 className=' text-yap-brown-900 py-1 self-end'>Total results: { totalResults }</h6>
                 </div>
             </div>  
