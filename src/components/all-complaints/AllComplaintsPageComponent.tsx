@@ -17,6 +17,7 @@ import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_
 import axios from "axios"
 import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { ERROR_MESSAGE_API } from "@/constants/ConstantValues"
+import SearchBar from "./SearchBar"
 
 //Endpoints
 const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT
@@ -24,7 +25,7 @@ const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + 
 
 
 //Constants
-const PAGE_SIZE = 25
+const PAGE_SIZE = 50
 
 
 /**
@@ -42,6 +43,7 @@ const AllComplaintsPageComponent = () => {
     const [totalResults, setTotalResults] = useState<number>()
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [isThereError, setIsThereError] = useState<boolean>(false)
+    const isFirstRender = useRef(true);
 
 
     //Initialisation
@@ -84,16 +86,54 @@ const AllComplaintsPageComponent = () => {
         init();
     }, []);
 
+
+    //Fetch complaints based on current states
+    const fetchComplaints = async () => {
+        setHasRanApi(false)
+        try {
+            //Construct the filter based on the current state
+            const filter: any = {};
+            if (searchQuery.trim() !== "") {
+                filter["$text"] = { "$search": searchQuery };
+            }
+            if (categorySelected) {
+                filter["category"] = categorySelected;
+            }
+
+            // Make the API request with the dynamically built filter
+            const filteredComplaintsData = await axios.post(SEARCH_COMPLAINTS_API_ENDPOINT, {
+                filter,
+                page_size: PAGE_SIZE,
+                page_number: currentPage,
+            });
+
+            console.log(filteredComplaintsData)
+
+            const filteredComplaints = convertComplaintDocumentsToObjects(filteredComplaintsData.data.documents)
+            setComplaints(filteredComplaints)
+
+            //Set pagination information
+            const totalNumberOfComplaints = filteredComplaintsData.data.total_count
+            setTotalResults(totalNumberOfComplaints)
+            const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
+            setTotalPages(totalNumberOfPages)
+        } catch (error) {
+            setIsThereError(true)
+        } finally {
+            setHasRanApi(true)
+        }
+    }
+
     
 
-    //Fetch complaints whenever page changes
-    // useEffect(() => {
-    //     if (isFirstRender.current) {
-    //         isFirstRender.current = false; // Mark the component as mounted
-    //         return; // Skip the first execution
-    //     }
-    //     fetchComplaints();
-    // }, [currentPage]);
+    //Fetch complaints whenever page changes, except the first mount
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false; // Mark the component as mounted
+            return; // Skip the first execution
+        }
+        fetchComplaints();
+    }, [currentPage, searchQuery]);
 
 
     // Fetch complaints with pagination, search, and category filter
@@ -128,20 +168,6 @@ const AllComplaintsPageComponent = () => {
     // }
 
 
-    //Function that runs when user searches a given search term
-    // const handleSearch = () => {
-    //     //Should deselect all complaints
-    //     setSelectedComplaints([])
-    //     //Should always reset to first page when searching a new keyword
-    //     if (currentPage == 1) {
-    //         //Will not cause state to retrigger. Explicitly retrigger it
-    //         fetchComplaints()
-    //     } else {
-    //         //Reset page to 1, automatically trigger fetching of complaints
-    //         setCurrentPage(1)
-    //     }
-    // }
-
 
     //Resets all states
     // const resetStates = async () => {
@@ -164,29 +190,14 @@ const AllComplaintsPageComponent = () => {
 
             {/* Search and filter */}
             <div className='flex flex-col space-y-4'> 
-                {/* Search bar for search by title */}
-                {/* <div className="relative w-full max-w-md md:max-w-xl"> */}
-                    {/* Input Field */}
-                    {/* <Input
-                        type="text"
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              handleSearch();
-                            }
-                          }}
-                        placeholder="Search by title"
-                        className="!text-base border border-yap-gray-200 rounded-full text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-full pr-12 h-12"
-                    /> */}
-
-                    {/* Magnifying Glass Icon */}
-                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-yap-brown-900 rounded-full p-2 cursor-pointer hover:bg-yap-brown-800 duration-200">
-                        {/* <Search className="text-white w-4 h-4" onClick={ handleSearch } />
-                    </div>
-                </div>
-                 */}
-
-
+                {/* Search bar for search by title and description */}
+                <SearchBar currentSearchQuery={ searchQuery }
+                    setSelectedComplaints={ setSelectedComplaints }
+                    currentPage={ currentPage }
+                    setCurrentPage={ setCurrentPage }
+                    setSearchQuery={ setSearchQuery }
+                />
+                
                 {/* Filter, deselect and delete */}
                 {/* <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'> */}
                     {/* Filter */}
@@ -228,7 +239,7 @@ const AllComplaintsPageComponent = () => {
                             : <></>
                         }
                     </div> */}
-                </div>
+                {/* </div> */}
 
 
                 
