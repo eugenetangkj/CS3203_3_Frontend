@@ -1,75 +1,69 @@
 "use client"
 
-import PageTitle from "@/components/common/text/PageTitle";
 import { ManageCategoriesTable } from "@/components/categories/ManageCategoriesTable";
-import { getCategories } from "@/services/ServicesHelper";
 import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
 import { useState, useEffect } from "react";
 import { Category } from "@/types/Category";
 import CategoriesTableSkeleton from "@/components/categories/CategoriesTableSkeleton";
+import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
+import { CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
+import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
+import { ERROR_MESSAGE_API } from "@/constants/ConstantValues";
 
 /** 
-Component for managing categories page where the authorities can view, add or delete categories.
+Component that houses the manage categories table and its associated action buttons
 */
-export default function ManageCategoriesComponent() {
+export default function ManageCategoriesTableAndButtons() {
 
     //States
     const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false);
+    const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
     //Triggers fetching of categories from backend
     const fetchCategories = async () => {
-        setLoading(true);
+        setHasRanApi(false)
         try {
-            const fetchedCategories = await getCategories(); //Trigger backend API
-            setCategories(fetchedCategories);
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesData = await axios.post(categoriesApiEndPoint)
+            const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
+            setCategories(categories);
         } catch (error) {
-            console.error("Error fetching categories:", error);
+            setIsThereError(true)
         } finally {
-            setLoading(false);
+            setHasRanApi(true);
         }
     };
 
 
-    //Calls fetchCategories for the first time that the component mounts
+    //Calls fetchCategories whenever it is first mounted
     useEffect(() => {
-        fetchCategories();
-    }, []);
-
+        fetchCategories()
+    }, [])
 
 
     return (
-        <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
-            <div className="flex flex-col space-y-8">
-
-            {/* Title */}
-            <PageTitle pageTitle="Manage Categories" />
-
+        <div className="flex flex-col space-y-4">
             {/* Buttons */}
             <div className='flex flex-row sm:self-end space-x-4'>
                 {/* Add category */}
                 <AddCategoryButton fetchCategories= { fetchCategories } />
-
-                {/* Save changes
-                <CategoriesSaveChangesButton fetchCategories={ fetchCategories } categories={ categories } /> */}
-
             </div>
 
-            
             {/* Table of categories */}
             {
-                loading
+                !hasRanApi
                 ? <div className='grid grid-cols-6 gap-4'>
                         {Array.from({ length: 5 }).map((_, index) => (
                         <CategoriesTableSkeleton key={ index } />
                     ))}
                   </div>
+                : isThereError
+                ? <p className='text-base text-yap-black-800'>{ ERROR_MESSAGE_API }</p>
                 :  <ManageCategoriesTable categories={ categories } fetchCategories={ fetchCategories } />       
             }
-           
-        </div>
     </div>
   );
-
 }

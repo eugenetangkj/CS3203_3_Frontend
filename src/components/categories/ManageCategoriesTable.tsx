@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import DeleteCategoryButton from "./DeleteCategoryButton";
 import { Category } from "@/types/Category";
-import { ColourPicker } from "./ColourPicker";
+import { CategoryColourPicker } from "./CategoryColourPicker";
 
 
 /**
@@ -32,12 +32,12 @@ export const ManageCategoriesTable = ({ categories, fetchCategories }: ManageCat
 
                     {/* Color input field (color picker) */}
                     <TableCell className="text-center">
-                        <ColourPicker category={ category }/>
+                        <CategoryColourPicker category={ category }/>
                     </TableCell>
 
                     {/* Delete icon wrapped in an alert dialog*/}
                     <TableCell className="text-center">
-                        <DeleteCategoryButton title={ category.name } fetchCategories={ fetchCategories } />  
+                        <DeleteCategoryButton category={ category } fetchCategories={ fetchCategories } />  
                     </TableCell>  
                     </TableRow>
                 ))}

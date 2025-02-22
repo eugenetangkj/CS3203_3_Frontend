@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/constants/constantValues"
+import { START_DATE } from "@/constants/ConstantValues"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
@@ -28,7 +28,8 @@ export function NumberOfComplaintsBySentimentVisualisation() {
             "[-1.00, -0.50)": "yap-orange-900",
             "[-0.50, 0.00)": "yap-yellow-900",
             "[0.00, 0.50)": "yap-brown-900",
-            "[0.50, 1.00)": "yap-green-900"
+            "[0.50, 1.00)": "yap-green-900",
+            "[1.00, 1.50)": "yap-blue-900"
         };
 
         return data.map((item : any) => {

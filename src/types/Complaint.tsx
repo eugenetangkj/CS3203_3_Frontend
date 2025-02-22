@@ -1,13 +1,11 @@
-import { Category } from "./Category"
-import { Source } from "./Source"
-
 export interface Complaint {
+    oid: string,
     id: string,
     title: string,
     description: string,
-    postedOn: string,
-    category: Category,
-    source: Source,
+    date: string,
+    category: string,
+    source: string,
     sentiment: number,
     url: string
 }

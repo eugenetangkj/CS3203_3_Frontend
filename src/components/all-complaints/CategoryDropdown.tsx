@@ -8,22 +8,29 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import { Category } from "@/types/Category"
 import { useToast } from "@/hooks/use-toast"
+import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import { Complaint } from "@/types/Complaint"
 
 /**
 This component represents a dropdown for user to select the category to assign to a complaint
 */
 interface CategoryDropdownProps {
-    complaintId: string,
+    complaint: Complaint,
     allCategories: Category[],
-    initialCategory: Category
+    initialCategory: Category | null
 }
 
+const EMPTY_CATEGORY = {id: "", name: "", colour: ""}
+const UPDATE_COMPLAINT_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_UPDATE_BY_OID_ENDPOINT
 
-export function CategoryDropdown({ complaintId, allCategories, initialCategory }: CategoryDropdownProps) {
+
+export function CategoryDropdown({ complaint, allCategories, initialCategory }: CategoryDropdownProps) {
     //States
     const [open, setOpen] = useState(false)
-    const [currentCategory, setCurrentCategory] = useState<Category>(initialCategory)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [currentCategory, setCurrentCategory] = useState<Category>(initialCategory || EMPTY_CATEGORY)
+    const [isSettingCategory, setIsSettingCategory] = useState<boolean>(false)
+
     
     //Toast management
     const { toast } = useToast()
@@ -31,27 +38,45 @@ export function CategoryDropdown({ complaintId, allCategories, initialCategory }
 
     //Updates the category of a given complaint
     const updateCategory = async (newCategoryName: string)  =>  {
+        setIsSettingCategory(true)
         try {
             //Obtain and set the new category object for local state management
-            setIsLoading(true)
-            const newCategory : Category = allCategories.find(cat => cat.name === newCategoryName) || {id: "", name: "", colour: ""};
+            const newCategory : Category = allCategories.find(cat => cat.name === newCategoryName) || EMPTY_CATEGORY;
             setCurrentCategory(newCategory);
             setOpen(false);
 
 
-            //TODO: Call API to update the complaint's category using complaintId and newCategory
-            console.log(complaintId)
+            //Call API update the complaint's category using complaintId and newCategory
+            const updateComplaintResponse = await axios.post(UPDATE_COMPLAINT_ENDPOINT, 
+                {
+                    "oid": complaint.oid,
+                    "update_document": {
+                        "$set": {
+                            "category": newCategoryName,
+                        }
+                    }
+                }
+            )
+            const isApiSuccessful = updateComplaintResponse.data.success
+            const apiMessage = updateComplaintResponse.data.message
 
-
-            //Display successful toast
-            toast({
-                variant: "success",
-                description: "Category is successfully updated",
-                duration: 3000
-            })
+            if (isApiSuccessful) {
+                //Display successful toast
+                toast({
+                    variant: "success",
+                    description: "Category is successfully updated",
+                    duration: 3000
+                })
+            } else {
+                //Display error toast
+                toast({
+                    variant: "destructive",
+                    description: apiMessage,
+                    duration: 3000
+                })
+            }
         } catch (error) {
             //Display error toast
-            console.log(error)
             toast({
                 variant: "destructive",
                 description: "There was a problem updating the category.",
@@ -59,21 +84,20 @@ export function CategoryDropdown({ complaintId, allCategories, initialCategory }
             })
         } finally {
             //Clean up code
-            setIsLoading(false)
+            setIsSettingCategory(false)
         }
     };
 
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
-            
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
                     className="w-[125px] md:w-[150px] xl:w-[200px] justify-between"
-                    disabled={ isLoading }
+                    disabled={ isSettingCategory }
                 >
                     { currentCategory.name }
                     <ChevronsUpDown className="opacity-50" />

@@ -14,14 +14,14 @@ export const GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT = 'get_complaints_sorted_b
 
 //Endpoints for admin management service (categories)
 export const CATEGORIES_GET_ALL_ENDPOINT = "categories/get_all"
-export const CATEGORIES_GET_BY_OID = "categories/get_by_oid"
-export const CATEGORIES_INSERT_ONE = "categories/insert_one"
-export const CATEGORIES_DELETE_BY_OID = "categories/delete_by_oid"
-export const CATEGORIES_UPDATE_BY_OID = "categories/update_by_oid"
+export const CATEGORIES_GET_BY_OID_ENDPOINT = "categories/get_by_oid"
+export const CATEGORIES_INSERT_ONE_ENDPOINT = "categories/insert_one"
+export const CATEGORIES_DELETE_BY_OID_ENDPOINT = "categories/delete_by_oid"
+export const CATEGORIES_UPDATE_BY_OID_ENDPOINT = "categories/update_by_oid"
 
 //Endpoints for admin management service (complaints)
-export const COMPLAINTS_GET_BY_OID = "complaints/get_by_oid"
-export const COMPLAINTS_DELETE_BY_OID = "complaints/delete_by_oid"
-export const COMPLAINTS_SEARCH = "complaints/search"
-export const COMPLAINTS_DELETE_MANY_BY_OIDS = "complaints/delete_many_by_oids"
-export const COMPLAINTS_UPDATE_BY_OID = "complaints/update_by_oid"
+export const COMPLAINTS_GET_BY_OID_ENDPOINT = "complaints/get_by_oid"
+export const COMPLAINTS_DELETE_BY_OID_ENDPOINT = "complaints/delete_by_oid"
+export const COMPLAINTS_SEARCH_ENDPOINT = "complaints/search"
+export const COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT = "complaints/delete_many_by_oids"
+export const COMPLAINTS_UPDATE_BY_OID_ENDPOINT = "complaints/update_by_oid"
