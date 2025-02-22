@@ -69,7 +69,7 @@ export default function CategoryFilter({ allCategories, categorySelected, setCat
                 <Command>
                     <CommandInput placeholder="Search category..." className="h-9 font-afacad" />
                     <CommandList>
-                    <CommandEmpty>No category found.</CommandEmpty>
+                    <CommandEmpty className='font-afacad text-yap-black-800 pl-3 py-4 text-sm'>No category found.</CommandEmpty>
                     <CommandGroup>
                         {/* All Categories Option */}
                         <CommandItem
