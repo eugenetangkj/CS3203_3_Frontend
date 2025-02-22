@@ -90,10 +90,6 @@ export function AddCategoryButton({ setCategories }: AddCategoryButtonProps ) {
                     description: messageFromApi,
                     duration: 3000,
                 })
-                setIsSubmitting(false)
-                setOpen(false); 
-                resetStates();
-
             }
         } catch (error) {
           //Show error toast
@@ -149,7 +145,8 @@ export function AddCategoryButton({ setCategories }: AddCategoryButtonProps ) {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-6'>{isSubmitting ? "Adding..." : "Add"}</Button>
+                        <Button type="submit" className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-6'
+                            disabled={ isSubmitting }>{isSubmitting ? "Adding..." : "Add"}</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

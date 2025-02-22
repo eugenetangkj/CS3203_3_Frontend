@@ -9,7 +9,7 @@ import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
 import { CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
-import { ERROR_MESSAGE_API } from "@/constants/constantValues";
+import { ERROR_MESSAGE_API } from "@/constants/ConstantValues";
 
 /** 
 Component that houses the manage categories table and its associated action buttons
