@@ -1,10 +1,13 @@
 import { Category } from "@/types/Category"
+import { Complaint } from "@/types/Complaint";
 
 /**
 Helper functions to convert database documents into interfaces used in frontend
 */
 
-//Converts a list of MongoDB Category documents into a list of Category objects
+/**
+Converts a list of MongoDB Category documents into a list of Category objects
+*/
 export const convertCategoryDocumentsToObjects = (categories: any[]) : Category[] => {
     return categories.map(category => ({
         id: category._id.$oid,
@@ -46,4 +49,22 @@ export const convertCategoryDocumentsToColourMap = (documents: { name: string; c
         }
         return acc;
     }, {} as Record<string, string>);
+}
+
+
+/** 
+Converts a list of MongoDB Complaint documents into a list of Complaint objects
+*/
+export const convertComplaintDocumentsToObjects = (complaints: any[]) : Complaint[] => {
+    return complaints.map(complaint => ({
+        oid: complaint._id.$oid,
+        id: complaint.id,
+        title: complaint.title,
+        description: complaint.description,
+        date: complaint.date,
+        category: complaint.category,
+        source: complaint.source,
+        sentiment: complaint.sentiment,
+        url: complaint.url
+    }));
 }

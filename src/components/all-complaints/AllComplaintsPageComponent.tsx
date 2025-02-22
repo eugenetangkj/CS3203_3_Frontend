@@ -11,71 +11,74 @@ import { Button } from "../ui/button"
 import DeleteComplaintsButton from "./DeleteComplaintsButton"
 import ComplaintsTableSkeleton from "./ComplaintsTableSkeleton"
 import { Category } from "@/types/Category"
-import { Source } from "@/types/Source"
 import CategoryFilterDropdown from "./CategoryFilterDropdown"
 import SourceFilterDropdown from "./SourceFilterDropdown"
+import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
+import { ERROR_MESSAGE_API } from "@/constants/ConstantValues"
 
+//Endpoints
+const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT
+const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+
+
+//Constants
+const PAGE_SIZE = 25
+
+
+/**
+This component represents the component to display all complaints. Includes table, search and filter functionality.
+*/
 const AllComplaintsPageComponent = () => {
     //States
     const [complaints, setComplaints] = useState<Complaint[]>([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [searchQuery, setSearchQuery] = useState<string>("")
-    const [categoriesSelected, setCategoriesSelected] = useState<Category[]>([])
-    const [allCategories, setAllCategories] = useState<Category[]>([])
-    const [sourcesSelected, setSourcesSelected] = useState<Source[]>([])
-    const [allSources, setAllSources] = useState<Source[]>([])
     const [selectedComplaints, setSelectedComplaints] = useState<Complaint[]>([])
-    const [loading, setLoading] = useState(true)
-    const isFirstRender = useRef(true);
+    const [allCategories, setAllCategories] = useState<Category[]>([])
+    const [categorySelected, setCategorySelected] = useState<Category>()
+    const [searchQuery, setSearchQuery] = useState<string>("")
+    const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState<number>()
     const [totalResults, setTotalResults] = useState<number>()
+    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
+    const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
-    //Initialises list of categories and sources to be displayed in the dropdown
+    //Initialisation
     const initialisation = async () => {
-        //TODO: Make API call to fetch list of categories and sources
-        const categoriesFromApi : Category[] = defaultCategories
-        const sourcesFromApi: Source[] = defaultSources
+        //Fetch all complaints without any filter
+        const allComplaintsData = await axios.post(SEARCH_COMPLAINTS_API_ENDPOINT, 
+            {
+                "filter": {},
+                "page_size": PAGE_SIZE,
+                "page_number": 1 //Always fetch from first page for initialisation
+            }
+        )
+        const allComplaints = convertComplaintDocumentsToObjects(allComplaintsData.data.documents)
+        setComplaints(allComplaints)
 
-        //Set states
-        setAllCategories([...categoriesFromApi])
-        setAllSources([...sourcesFromApi])
-        setCategoriesSelected([...categoriesFromApi])
-        setSourcesSelected([...sourcesFromApi])
+        //Set pagination information
+        const totalNumberOfComplaints = allComplaintsData.data.total_count
+        setTotalResults(totalNumberOfComplaints)
+        const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
+        setTotalPages(totalNumberOfPages)
+
+        //Fetch all categories available
+        const allCategoriesData = await axios.post(FETCH_ALL_CATEGORIES_API_ENDPOINT)
+        const allCategories = convertCategoryDocumentsToObjects(allCategoriesData.data.documents)
+        setAllCategories(allCategories)
     }
-
 
 
     //Initialise when the component first gets mounted
     useEffect(() => {
         const init = async () => {
-            setLoading(true)
-
-            //Set up states
-            await initialisation();
-            
-
-            //Fetch all data
             try {
-                //   const response = await fetch(
-                //     `/api/complaints?page=${page}&search=${search}&category=${category}`
-                //   )
-                //   const data = await response.json()
-                let data : any = []
-                if (currentPage == 1) {
-                    data = await getComplaintsOne()
-                } else if (currentPage == 2) {
-                    data = await getComplaintsTwo()
-                }
-                setComplaints(data)
-
-                //TODO: Set total number of pages and number of results
-                setTotalPages(2)
-                setTotalResults(10)
+                await initialisation()
             } catch (error) {
-                console.error("Error fetching complaints:", error)
+                setIsThereError(true)
             } finally {
-                setLoading(false)
+                setHasRanApi(true)
             }
         };
         init();
@@ -84,84 +87,87 @@ const AllComplaintsPageComponent = () => {
     
 
     //Fetch complaints whenever page changes
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false; // Mark the component as mounted
-            return; // Skip the first execution
-        }
-        fetchComplaints();
-    }, [currentPage]);
+    // useEffect(() => {
+    //     if (isFirstRender.current) {
+    //         isFirstRender.current = false; // Mark the component as mounted
+    //         return; // Skip the first execution
+    //     }
+    //     fetchComplaints();
+    // }, [currentPage]);
 
 
     // Fetch complaints with pagination, search, and category filter
-    const fetchComplaints = async () => {
-        //Indicate that we are fetching new complaints
-        setLoading(true)
-        console.log("Fetching complaints...", categoriesSelected)
-        console.log(searchQuery)
+    // const fetchComplaints = async () => {
+    //     //Indicate that we are fetching new complaints
+    //     setHasRanApi(true)
+    //     console.log("Fetching complaints...", categorySelected)
+    //     console.log(searchQuery)
 
 
-        try {
-            //   const response = await fetch(
-            //     `/api/complaints?page=${page}&search=${search}&category=${category}`
-            //   )
-            //   const data = await response.json()
-            let data : any = []
-            if (currentPage == 1) {
-                data = await getComplaintsOne()
-            } else if (currentPage == 2) {
-                data = await getComplaintsTwo()
-            }
-            setComplaints(data)
+    //     try {
+    //         //   const response = await fetch(
+    //         //     `/api/complaints?page=${page}&search=${search}&category=${category}`
+    //         //   )
+    //         //   const data = await response.json()
+    //         let data : any = []
+    //         if (currentPage == 1) {
+    //             data = await getComplaintsOne()
+    //         } else if (currentPage == 2) {
+    //             data = await getComplaintsTwo()
+    //         }
+    //         setComplaints(data)
 
-            //TODO: Set total number of pages and number of results
-            setTotalPages(2)
-            setTotalResults(10)
-        } catch (error) {
-            console.error("Error fetching complaints:", error)
-        } finally {
-            setLoading(false)
-        }
-    }
+    //         //TODO: Set total number of pages and number of results
+    //         setTotalPages(2)
+    //         setTotalResults(10)
+    //     } catch (error) {
+    //         console.error("Error fetching complaints:", error)
+    //     } finally {
+    //         setHasRanApi(false)
+    //     }
+    // }
 
 
     //Function that runs when user searches a given search term
-    const handleSearch = () => {
-        //Should deselect all complaints
-        setSelectedComplaints([])
-        //Should always reset to first page when searching a new keyword
-        if (currentPage == 1) {
-            //Will not cause state to retrigger. Explicitly retrigger it
-            fetchComplaints()
-        } else {
-            //Reset page to 1, automatically trigger fetching of complaints
-            setCurrentPage(1)
-        }
-    }
+    // const handleSearch = () => {
+    //     //Should deselect all complaints
+    //     setSelectedComplaints([])
+    //     //Should always reset to first page when searching a new keyword
+    //     if (currentPage == 1) {
+    //         //Will not cause state to retrigger. Explicitly retrigger it
+    //         fetchComplaints()
+    //     } else {
+    //         //Reset page to 1, automatically trigger fetching of complaints
+    //         setCurrentPage(1)
+    //     }
+    // }
 
 
     //Resets all states
-    const resetStates = async () => {
-        //Reset all the states
-        console.log('Reseting states...')
-        await initialisation()
-        setSearchQuery("")
-        setSelectedComplaints([])
-        setCurrentPage(1)
-    }
+    // const resetStates = async () => {
+    //     //Reset all the states
+    //     console.log('Reseting states...')
+    //     await initialisation()
+    //     setSearchQuery("")
+    //     setSelectedComplaints([])
+    //     setCurrentPage(1)
+    // }
 
 
     //Actual component
     return (
-        <div className='flex flex-col space-y-8'>
-
+        (!hasRanApi)
+        ? <ComplaintsTableSkeleton />
+        : isThereError
+        ? <p className='text-base bg-yap-black-800'>{ ERROR_MESSAGE_API }</p>
+        : <div className='flex flex-col space-y-8'>
 
             {/* Search and filter */}
             <div className='flex flex-col space-y-4'> 
                 {/* Search bar for search by title */}
-                <div className="relative w-full max-w-md md:max-w-xl">
+                {/* <div className="relative w-full max-w-md md:max-w-xl"> */}
                     {/* Input Field */}
-                    <Input
+                    {/* <Input
                         type="text"
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyDown={(e) => {
@@ -171,43 +177,43 @@ const AllComplaintsPageComponent = () => {
                           }}
                         placeholder="Search by title"
                         className="!text-base border border-yap-gray-200 rounded-full text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-full pr-12 h-12"
-                    />
+                    /> */}
 
                     {/* Magnifying Glass Icon */}
                     <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-yap-brown-900 rounded-full p-2 cursor-pointer hover:bg-yap-brown-800 duration-200">
-                        <Search className="text-white w-4 h-4" onClick={ handleSearch } />
+                        {/* <Search className="text-white w-4 h-4" onClick={ handleSearch } />
                     </div>
                 </div>
-                
+                 */}
 
 
                 {/* Filter, deselect and delete */}
-                <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'>
+                {/* <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'> */}
                     {/* Filter */}
-                    <div className='flex flex-row items-center space-x-4'>
-                        <h6 className='text-yap-gray-900'>Filter by</h6>
+                    {/* <div className='flex flex-row items-center space-x-4'>
+                        <h6 className='text-yap-gray-900'>Filter by</h6> */}
                         {/* Filter by categories dropdown */}
-                        {
-                            loading
+                        {/* {
+                            hasRanApi
                             ? <Skeleton className='w-[60px] h-[20px]' />
-                            : <CategoryFilterDropdown categoryOptions={ allCategories } selectedCategories={ categoriesSelected } stateChangeFunction={ setCategoriesSelected }
+                            : <CategoryFilterDropdown categoryOptions={ allCategories } selectedCategories={ categorySelected } stateChangeFunction={ setCategorySelected }
                                 setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
                                 currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
-                        }
+                        } */}
                         {/* Filter by sources dropdown */}
-                        {
-                            loading
+                        {/* {
+                            hasRanApi
                             ? <Skeleton className='w-[60px] h-[20px]' />
                             : <SourceFilterDropdown sourceOptions={ allSources} selectedSources={ sourcesSelected } stateChangeFunction={ setSourcesSelected }
                             setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
                             currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
-                        }
-                    </div>
+                        } */}
+                    {/* </div> */}
 
                     {/* Deselect and delete */}
-                    <div className='flex space-x-2'>
+                    {/* <div className='flex space-x-2'>
                         {
-                            loading
+                            hasRanApi
                             ? <Skeleton className='w-[60px] h-[25px]' />
                             : selectedComplaints.length !== 0 
                             ? <Button className='w-fit rounded-full self-end bg-yap-orange-900 hover:bg-yap-orange-800 duration-200'
@@ -215,17 +221,13 @@ const AllComplaintsPageComponent = () => {
                             : <></>
                         }
                         {
-                            loading
+                            hasRanApi
                             ? <Skeleton className='w-[60px] h-[25px]' />
                             : selectedComplaints.length !== 0 
                             ? <DeleteComplaintsButton complaintsToDelete={ selectedComplaints } resetStates={ resetStates } />
                             : <></>
                         }
-                    </div>
-                    
-
-
-
+                    </div> */}
                 </div>
 
 
@@ -236,13 +238,8 @@ const AllComplaintsPageComponent = () => {
 
             
             {/* Complaints Table */}
-            { 
-                loading
-                ? <ComplaintsTableSkeleton />
-                : <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories } />
-            }
-
-
+            <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories } />
+            
 
             {/* Pagination Controls */}
             <div className='flex flex-col space-y-4'>
@@ -259,23 +256,10 @@ const AllComplaintsPageComponent = () => {
 
                 <div className='flex flex-row justify-between w-full'>
                     {/* Page number */}
-                    {
-                        loading
-                        ? <Skeleton className='w-[70px] h-[20px]' />
-                        : <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { totalPages }</h6>
-                    }
-                    {
-                        loading
-                        ? <Skeleton className='w-[70px] h-[20px]' />
-                        : <h6 className=' text-yap-brown-900 py-1 self-end'>Total results: { totalResults }</h6>
-                    }
+                    <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { totalPages }</h6>
+                    <h6 className=' text-yap-brown-900 py-1 self-end'>Total results: { totalResults }</h6>
                 </div>
-
-               
-
-            </div>
-            
-           
+            </div>  
     </div>
   )
 }

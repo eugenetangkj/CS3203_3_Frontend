@@ -56,6 +56,7 @@ export const getDateTimeOneYearAgoAndSetToStart = (): string => {
     .replace(",", "");
 };
 
+
 /**
 Gets the datetime that is 1 month ago from the current datetime in the
 format of dd-mm-YYYY HH:MM:SS. Then, set the day and time to the last
@@ -87,10 +88,6 @@ export const getDateTimeOneMonthAgoAndSetToEnd = (): string => {
 };
 
 
-
-
-
-
 //Capitalises the first character of every word in a given string
 //Taken from https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
 export const capitaliseFirstLetter = (val: string) => {
@@ -98,6 +95,26 @@ export const capitaliseFirstLetter = (val: string) => {
 }
 
 
+/**
+Check if a given Complaint is found in a list of Complaints by comparing the oid value.
+*/
+export const doesComplaintExistInList = (complaints: Complaint[], complaintToCheck: Complaint): boolean => {
+    return complaints.some(c => c.oid === complaintToCheck.oid);
+};
+
+
+/**
+* Find a given Category object from a list of Category objects by matching name
+* 
+* @param categories: List of Category objects to search from
+* @param name: Name of category to use for searching
+* 
+* @return The given Category object is found, else null
+*/
+export const findCategoryObjectFromListGivenName = (categories: Category[], name: string): Category | null => {
+    const foundCategory = categories.find(category => category.name === name);
+    return foundCategory || null;
+}
 
 
 
@@ -129,11 +146,6 @@ export function checkIfArraysAreEqual(arrayOne: any[], arrayTwo: any[]): boolean
     return arrayOne.every(item => setTwo.has(item));
 }
 
-
-//Check if a given Complaint is found in a list of Complaints
-export const doesComplaintExistInList = (complaints: Complaint[], complaintToCheck: Complaint): boolean => {
-    return complaints.some(c => c.id === complaintToCheck.id);
-};
 
 //Check if a given Category is found in a list of Categories
 export const doesCategoryExistInList = (categories: Category[], categoryToCheck: Category): boolean => {
