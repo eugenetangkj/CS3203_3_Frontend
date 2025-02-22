@@ -5,6 +5,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
 import { Trash2Icon } from 'lucide-react';
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
+import { Category } from "@/types/Category";
 
 
 /**
@@ -14,13 +15,13 @@ This component handles the functionality of deleting a category
 
 
 interface DeleteCategoryButtonProps {
-  title: string;
-  fetchCategories: () => void
+  title: string,
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
 
 
-export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryButtonProps) {
+export function DeleteCategoryButton({ title, setCategories }: DeleteCategoryButtonProps) {
 
     //States
     const [open, setOpen] = useState(false)
@@ -44,8 +45,8 @@ export function DeleteCategoryButton({ title, fetchCategories }: DeleteCategoryB
               duration: 3000,
             })
 
-            //Refetch categories
-            fetchCategories()
+            //Refetch categories TODO: Update state
+            // setCategories()
             
         } catch (error) {
             console.log(error)

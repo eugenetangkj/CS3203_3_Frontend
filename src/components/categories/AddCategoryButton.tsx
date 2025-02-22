@@ -1,25 +1,26 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { DestructiveAlert } from "../common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
+import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import { Category } from "@/types/Category"
 
-export function AddCategoryButton({ fetchCategories }: {
-  fetchCategories: () => void;
-}) {
+/**
+This component represents the button for adding category. It presents a pop-up to allow
+the user to select the name and colour code of a category to be added. Then, it allows adding
+of the category to the database and refreshes the list of categories in the manage categories table.
+*/
+interface AddCategoryButtonProps {
+    setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+}
 
+export function AddCategoryButton({ setCategories }: AddCategoryButtonProps ) {
     //States
     const [name, setName] = useState("")
     const [colour, setColour] = useState("000000")
@@ -41,135 +42,117 @@ export function AddCategoryButton({ fetchCategories }: {
 
 
     //Handles logic for adding a category
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleAddCategory = async (e: React.FormEvent) => {
+        //Initialisation
         e.preventDefault()
         setError(null)
     
         //Check that both fields are field up
-        if (!name || !colour) {
-          console.log(colour);
+        if (!name || !colour || name.trim() === '') {
             setError("Please fill in both fields.")
             return
         }
 
+        //Submit to API
         try {
             setIsSubmitting(true);
+            const addCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_INSERT_ONE_ENDPOINT
+            const response = await axios.post(addCategoryApiEndpoint, 
+                {
+                    "document": {
+                        name,
+                        color: colour
+                    }
+                }
+            )
+            const wasCategoryAddedSuccessfully = response.data.success
+            const messageFromApi = response.data.message
 
+            if (wasCategoryAddedSuccessfully) {
+                //Successfully added
+                const idOfNewCategory = response.data._id
 
+                //Refresh categories state
+                setCategories((prevCategories) => [
+                    ...prevCategories,
+                    { id: idOfNewCategory, name, colour: colour }
+                ]);
 
-            //Show successful toast
-            toast({
-                variant: "success",
-                description: "Category is successfully added.",
-                duration: 3000,
-            })
+                toast({
+                    variant: "success",
+                    description: "Category is successfully added.",
+                    duration: 3000,
+                })
+            } else {
+                //Error in adding
+                toast({
+                    variant: "destructive",
+                    description: messageFromApi,
+                    duration: 3000,
+                })
+                setIsSubmitting(false)
+                setOpen(false); 
+                resetStates();
 
-            //Refetch categories
-            fetchCategories()
-            
-
-
-
+            }
         } catch (error) {
-          console.log(error)
-
           //Show error toast
           toast({
             variant: "destructive",
             description: "There was a problem adding the category.",
             duration: 3000,
           })
-
         } finally {
             setIsSubmitting(false)
             setOpen(false); //Close dialog
             resetStates(); //Reset states
         }
+    }
 
-        
-
-
-    
-        // try {
-        //     setIsSubmitting(true);
-      
-        //     const response = await axios.post("http://localhost:8081/categories", {
-        //       name,
-        //       colour,
-        //     });
-      
-        //     if (response.status === 201) {
-        //       setName("");
-        //       setColour("");
-        //       document.getElementById("closeDialog")?.click(); // Close dialog
-        //     } else {
-        //       setError("Something went wrong. Please try again.");
-        //     }
-        //   } catch (error) {
-        //     console.error("Error adding category:", error);
-        //     setError("Failed to add category. Please try again later.");
-        //   } finally {
-        //     setIsSubmitting(false);
-        //   }
-    };
+    return (
+        <Dialog
+            open={open}
+            onOpenChange={(isOpen) => {
+                setOpen(isOpen);
+                if (!isOpen) resetStates() //Reset all states when dialog closes
+            }}
+        >
+            <DialogTrigger asChild>
+                <Button className="bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white self-end rounded-full">Add Category</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] font-afacad">
+                <DialogHeader>
+                    <DialogTitle className='text-xl text-yap-black-800'>Add Category</DialogTitle>
+                    <DialogDescription className='text-base yap-gray-900'>
+                        Add a new category to categorise complaints under.
+                    </DialogDescription>
+                </DialogHeader>
 
 
+                {/* Display error message if any, such as if the user entered a blank category name */}
+                { error && <DestructiveAlert description={ error } />}
 
 
-
-
-  return (
-    <Dialog
-      open={open}
-      onOpenChange={(isOpen) => {
-        setOpen(isOpen);
-        if (!isOpen) resetStates() //Reset all states when dialog closes
-      }}
-    >
-
-      <DialogTrigger asChild>
-        <Button className="bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white self-end rounded-full">Add Category</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] font-afacad">
-        <DialogHeader>
-          <DialogTitle className='text-xl text-yap-black-800'>Add Category</DialogTitle>
-          <DialogDescription className='text-base yap-gray-900'>
-            Add a new category to categorise complaints under.
-          </DialogDescription>
-        </DialogHeader>
-
-
-        {/* Display error message if any */}
-        { error && <DestructiveAlert description={ error } />}
-
-
-
-
-
-
-
-        <form onSubmit={handleSubmit}>
-            <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-left">
-                Name
-                </Label>
-                <Input id="name" placeholder="Environment" className="col-span-3 rounded-full text-yap-black-800 text-base"
-                    value={ name } onChange={(e) => setName(e.target.value)}/>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="colour" className="text-left">
-                Colour Code
-                </Label>
-                <Input id="colour" type="color" className="col-span-3 rounded-full text-yap-black-800 text-base"
-                    value={ colour } onChange={(e) => setColour(e.target.value)} />
-            </div>
-            </div>
-            <DialogFooter>
-            <Button type="submit" className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-6'>{isSubmitting ? "Adding..." : "Add"}</Button>
-            </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+                <form onSubmit={ handleAddCategory }>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-left">Name</Label>
+                            <Input id="name" placeholder="e.g. Environment" className="col-span-3 rounded-full text-yap-black-800 text-base"
+                                value={ name } onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="colour" className="text-left">Colour Code</Label>
+                            <Input id="colour" type="color" className="col-span-3 rounded-full text-yap-black-800 text-base"
+                                value={ colour } onChange={(e) => setColour(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full px-6'>{isSubmitting ? "Adding..." : "Add"}</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
   )
 }
