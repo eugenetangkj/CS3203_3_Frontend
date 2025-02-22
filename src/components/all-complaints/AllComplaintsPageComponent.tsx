@@ -16,8 +16,10 @@ import SourceFilterDropdown from "./SourceFilterDropdown"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
-import { ERROR_MESSAGE_API } from "@/constants/ConstantValues"
+import { ALL_CATEGORIES_CATEGORY, ERROR_MESSAGE_API } from "@/constants/ConstantValues"
 import SearchBar from "./SearchBar"
+import CategoryFilter from "./CategoryFilter"
+import { ALL_CATEGORIES_ID } from "@/constants/ConstantValues"
 
 //Endpoints
 const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT
@@ -36,7 +38,7 @@ const AllComplaintsPageComponent = () => {
     const [complaints, setComplaints] = useState<Complaint[]>([])
     const [selectedComplaints, setSelectedComplaints] = useState<Complaint[]>([])
     const [allCategories, setAllCategories] = useState<Category[]>([])
-    const [categorySelected, setCategorySelected] = useState<Category>()
+    const [categorySelected, setCategorySelected] = useState<Category>(ALL_CATEGORIES_CATEGORY)
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState<number>()
@@ -96,8 +98,8 @@ const AllComplaintsPageComponent = () => {
             if (searchQuery.trim() !== "") {
                 filter["$text"] = { "$search": searchQuery };
             }
-            if (categorySelected) {
-                filter["category"] = categorySelected;
+            if (categorySelected.id !== ALL_CATEGORIES_ID ) {
+                filter["category"] = categorySelected.name;
             }
 
             // Make the API request with the dynamically built filter
@@ -133,7 +135,7 @@ const AllComplaintsPageComponent = () => {
             return; // Skip the first execution
         }
         fetchComplaints();
-    }, [currentPage, searchQuery]);
+    }, [currentPage, searchQuery, categorySelected]);
 
 
     // Fetch complaints with pagination, search, and category filter
@@ -199,27 +201,16 @@ const AllComplaintsPageComponent = () => {
                 />
                 
                 {/* Filter, deselect and delete */}
-                {/* <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'> */}
+                <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'>
                     {/* Filter */}
-                    {/* <div className='flex flex-row items-center space-x-4'>
-                        <h6 className='text-yap-gray-900'>Filter by</h6> */}
-                        {/* Filter by categories dropdown */}
-                        {/* {
-                            hasRanApi
-                            ? <Skeleton className='w-[60px] h-[20px]' />
-                            : <CategoryFilterDropdown categoryOptions={ allCategories } selectedCategories={ categorySelected } stateChangeFunction={ setCategorySelected }
-                                setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
-                                currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
-                        } */}
-                        {/* Filter by sources dropdown */}
-                        {/* {
-                            hasRanApi
-                            ? <Skeleton className='w-[60px] h-[20px]' />
-                            : <SourceFilterDropdown sourceOptions={ allSources} selectedSources={ sourcesSelected } stateChangeFunction={ setSourcesSelected }
-                            setSelectedComplaints={ setSelectedComplaints } setCurrentPage={ setCurrentPage }
-                            currentPage={ currentPage} fetchComplaints={ fetchComplaints } />
-                        } */}
-                    {/* </div> */}
+                    <CategoryFilter allCategories={ allCategories }
+                        categorySelected={ categorySelected }
+                        setCategorySelected={ setCategorySelected }
+                        setSelectedComplaints={ setSelectedComplaints }
+                        currentPage={ currentPage }
+                        setCurrentPage= { setCurrentPage }
+                    
+                    />
 
                     {/* Deselect and delete */}
                     {/* <div className='flex space-x-2'>
@@ -239,7 +230,7 @@ const AllComplaintsPageComponent = () => {
                             : <></>
                         }
                     </div> */}
-                {/* </div> */}
+                </div>
 
 
                 
