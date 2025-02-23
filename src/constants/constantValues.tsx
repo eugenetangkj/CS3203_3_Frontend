@@ -9,6 +9,11 @@ Error message if API call is not successful
 */
 export const ERROR_MESSAGE_API = "Something went wrong. Please try again later."
 
+/**
+String to look out for to determine if the uniqueness property has been violated.
+*/
+export const DUPLICATE_KEY_STRING = "duplicate key error collection"
+
 
 /**
 Category object that represents 'All Categories', used for filtering search results by categories

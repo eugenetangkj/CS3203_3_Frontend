@@ -9,6 +9,7 @@ import { DestructiveAlert } from "../common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
+import { DUPLICATE_KEY_STRING, ERROR_MESSAGE_API } from "@/constants/ConstantValues"
 
 /**
 This component represents the button for adding category. It presents a pop-up to allow
@@ -86,12 +87,18 @@ export function AddCategoryButton({ fetchCategories }: AddCategoryButtonProps ) 
                 })
             }
         } catch (error) {
-          //Show error toast
-          toast({
-            variant: "destructive",
-            description: "There was a problem adding the category.",
-            duration: 3000,
-          })
+            //Show error toast
+            let errorMessage = axios.isAxiosError(error) && error.response?.data?.message
+                                 ? error.response.data.message
+                                 : "There was a problem adding the category.";
+            errorMessage = (errorMessage.includes(DUPLICATE_KEY_STRING))
+                           ? "A category already exists with the same name."
+                           : ERROR_MESSAGE_API
+            toast({
+                variant: "destructive",
+                description: errorMessage,
+                duration: 3000,
+            })
         } finally {
             setIsSubmitting(false)
             setOpen(false); //Close dialog
