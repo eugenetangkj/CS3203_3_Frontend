@@ -86,4 +86,7 @@ body {
   .sign-up-field {
     @apply w-[300px] sm:w-[400px] rounded-full text-base
   }
+  .analytics-dashboard-card {
+    @apply gap-y-8 bg-yap-gray-100 p-4 rounded-xl
+  }
 }
