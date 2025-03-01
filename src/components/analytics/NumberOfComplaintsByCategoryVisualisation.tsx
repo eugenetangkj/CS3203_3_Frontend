@@ -24,7 +24,7 @@ export function NumberOfComplaintsByCategoryVisualisation() {
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
-    //Helper function to convert the API object into an array of the format required for the bar chart custom label
+    //Adapter function to convert the API object into an array of the format required for the bar chart custom label
     const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>, categories: Category[]) => {
         return Object.entries(data).map(([key, value]) => {
             const matchingCategory = categories.find(category => category.name === key);
