@@ -15,18 +15,19 @@ export const metadata = {
 export default function SignUpPage() {
 	return (
     	<div className="px-6 md:px-12 font-afacad mt-32 mb-8">
-      		<div className="flex flex-col justify-between items-center space-y-8">
+      		<div className="flex flex-col justify-between items-center space-y-4">
 				{/* Title */}
 				<PageTitle pageTitle="New here? Join now!" />
 
 				{/* Sign up form */}
 				<SignUpForm />
 
-				{/* Link to sign in instead */}
+
+				{/* Sign in instead */}
 				<h6>Already have an account? <span className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
 					<a href='sign-in'>Sign in</a>
 				</span> here.</h6>
-			
+
       		</div>
     	</div>
   	);

@@ -10,69 +10,53 @@ import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/ConstantValues"
-import { nameFieldValidation, emailFieldValidation, passwordFieldValidation } from "@/utils/FormValidation"
+import { emailFieldValidation } from "@/utils/FormValidation"
+import { useRouter } from "next/navigation";
 
 /**
-This component represents the form for signing up a new account.
+This component represents the form for signing in an existing account
 */
 const formSchema = z.object({
-    name: nameFieldValidation,
     email: emailFieldValidation,
-    password: passwordFieldValidation,
-    confirmPassword: passwordFieldValidation
-}).superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match.",
-        path: ['confirmPassword']
-      });
-    }
-});
+    password: z.string({ message: 'Password cannot be empty.'})
+})
 
 
-export default function SignUpForm() {
+export default function SignInForm() {
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const [isSubmittingForm, setIsSubmittingForm] = useState(false)
 
     //Toggle password visibility
     const togglePasswordVisibility = () => {
         setIsPasswordVisible((prev: boolean) => !prev);
     };
-    const toggleConfirmPasswordVisibility = () => {
-        setIsConfirmPasswordVisible((prev: boolean) => !prev);
-    };
 
     //Toast management
     const { toast } = useToast()
+
+    //Router
+    const router = useRouter()
 
     // Define the form
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: "",
             email: "",
             password: "",
-            confirmPassword: ""
         },
     })
  
     //Handler function after user presses sign up
-    function onSubmit({ name, email, password }: z.infer<typeof formSchema>) {
+    function onSubmit({ email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
         try {
             // TODO: Make API call to register
 
-            //Successful, toast to inform the user that his account has been created, please login
-            toast({
-                variant: "success",
-                description: "Sign up is successful. Please login now.",
-                duration: 3000,
-            })
-            form.reset()
+            //Successful, redirect to home page
+            router.push('/')
+
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -88,21 +72,7 @@ export default function SignUpForm() {
     return (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {/* Name */}
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                    <FormLabel className='text-yap-black-800 text-lg'>Name</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Your name" className='sign-up-field' {...field} />
-                    </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            
             {/* Email */}
             <FormField
               control={form.control}
@@ -140,33 +110,12 @@ export default function SignUpForm() {
             />
 
 
-            {/* Confirm Password */}
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                    <FormLabel className='text-yap-black-800 text-lg'>Confirm Password</FormLabel>
-                    <FormControl>
-                        <div className='flex items-center space-x-2'>
-                            <Input placeholder="Confirm your password" type={isConfirmPasswordVisible ? "text" : "password"} className='sign-up-field' {...field} />
-                            <div className='cursor-pointer text-yap-gray-800' onClick={toggleConfirmPasswordVisibility}>
-                                { isConfirmPasswordVisible ? <EyeClosed /> : <Eye /> }
-                            </div>
-                        </div>
-                    </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-         
-
             {/* Submit button */}
             <Button className='rounded-full bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 w-full text-base'
                 type="submit"
                 disabled={ isSubmittingForm }
                 
-            >{isSubmittingForm ? "Signing up..." : "Sign Up" }</Button>
+            >{isSubmittingForm ? "Signing in..." : "Sign In" }</Button>
           </form>
         </Form>
       )

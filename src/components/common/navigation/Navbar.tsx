@@ -6,6 +6,7 @@ import Logo from "../../../../public/logo.svg";
 import { navLinks } from "@/constants/navLinks";
 import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -35,7 +36,10 @@ export default function Navbar() {
                     }
                   
                     {/* Sign in button */}
-                    <button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white px-6 py-1">Sign In</button>
+                    <a href='sign-in'>
+                        <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
+                    </a>
+                    
                 </div>
 
 
