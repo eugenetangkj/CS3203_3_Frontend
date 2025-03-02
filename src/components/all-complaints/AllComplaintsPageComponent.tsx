@@ -10,10 +10,9 @@ import { Category } from "@/types/Category"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
-import { ALL_CATEGORIES_CATEGORY, ERROR_MESSAGE_API } from "@/constants/ConstantValues"
+import { ALL_CATEGORIES_CATEGORY, ERROR_MESSAGE_API, ALL_CATEGORIES_ID } from  "@/utils/Constants"
 import SearchBar from "./SearchBar"
 import CategoryFilter from "./CategoryFilter"
-import { ALL_CATEGORIES_ID } from "@/constants/ConstantValues"
 
 //Endpoints
 const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT

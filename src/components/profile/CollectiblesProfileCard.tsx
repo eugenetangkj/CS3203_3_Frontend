@@ -1,14 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { User, UserRoleEnum } from "@/types/User"
-import { Skeleton } from "../ui/skeleton"
+import { User } from "@/types/User"
 import Image from "next/image";
-import ProfileImage from "../../../public/graphics/profile-image.svg";
-import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
-import { ALL_COLLECTIBLES } from "@/constants/ConstantValues";
-import { PATH_UNKNOWN_COLLECTIBLE_IMAGE } from "@/constants/ConstantValues";
-
+import { ALL_COLLECTIBLES, PATH_UNKNOWN_COLLECTIBLE_IMAGE } from "@/utils/Constants"
 
 /** 
 This component represents the profile card that contains the collectibles of the user.

@@ -7,7 +7,7 @@ import { Filter, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Category } from "@/types/Category"
 import { cn } from "@/lib/utils"
-import { ALL_CATEGORIES_CATEGORY, ALL_CATEGORIES_NAME, ALL_CATEGORIES_ID } from "@/constants/ConstantValues"
+import { ALL_CATEGORIES_CATEGORY, ALL_CATEGORIES_NAME, ALL_CATEGORIES_ID } from "@/utils/Constants"
 import { Complaint } from "@/types/Complaint"
 
 
