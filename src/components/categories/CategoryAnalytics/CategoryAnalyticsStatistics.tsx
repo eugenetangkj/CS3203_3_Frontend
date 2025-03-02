@@ -2,7 +2,6 @@
 
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Category } from "@/types/Category"
-import { MostNegativePostsVisualisation } from "@/components/analytics/MostNegativeComplaintsVisualisation"
 import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -63,7 +62,7 @@ export default function CategoryAnalyticsStatistics({ category }: CategoryAnalyt
                 <PageSubtitle pageSubtitle="Statistics" />
 
 
-                <div className='flex flex-row justify-start items-center flex-wrap space-x-16'>
+                <div className='flex flex-col justify-start items-center space-y-8 xs:space-y-0 xs:flex-row xs:justify-start xs:flex-wrap xs:space-x-16'>
                     {/* Total number of complaints */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
                         <p className='text-5xl font-bold text-yap-green-900'>{ totalNumberOfComplaints }</p>
