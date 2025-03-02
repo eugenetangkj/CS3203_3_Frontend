@@ -8,6 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import CategoryAnalyticsSummary from "./CategoryAnalyticsSummary"
 import CategoryAnalyticsTrendingKeywords from "./CategoryAnalyticsTrendingKeywords"
 import CategoryAnalyticsTwoColumnText from "./CategoryAnalyticsTwoColumnText"
+import CategoryAnalyticsMostNegativeComplaints from "./CategoryAnalyticsMostNegativeComplaints"
+import CategoryAnalyticsStatistics from "./CategoryAnalyticsStatistics"
 
 /**
 This component represents the body for viewing the analytics of a particular category.
@@ -88,6 +90,13 @@ export default function CategoryAnalyticsBody() {
                         emptyMessage="No suggestions can be generated."
                     />
                 </div>
+
+                {/* Most negative complaints */}
+                <CategoryAnalyticsMostNegativeComplaints category={ currentCategory } />
+
+
+                {/* Statistics */}
+                <CategoryAnalyticsStatistics category={ currentCategory } />
                 
             </div>
 
