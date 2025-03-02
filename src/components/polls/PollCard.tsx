@@ -59,8 +59,8 @@ export default function PollCard({ poll }: PollCardProps) {
                                 <TooltipTrigger asChild>
                                 <Sparkles className='w-8 h-8 fill-yap-yellow-900 stroke-yap-yellow-900'/>
                                 </TooltipTrigger>
-                                <TooltipContent className='bg-yap-brown-900 rounded-full'>
-                                <p className='font-afacad text-white'>This poll is AI-generated.</p>
+                                <TooltipContent className='bg-yap-brown-200 rounded-full'>
+                                <p className='font-afacad text-yap-black-800'>This poll is AI-generated.</p>
                                 </TooltipContent>
                             </Tooltip>
                            </TooltipProvider>

@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import DeleteCategoryButton from "./DeleteCategoryButton";
 import { Category } from "@/types/Category";
 import { CategoryColourPicker } from "./CategoryColourPicker";
-import { ChartLine } from "lucide-react";
+import ViewCategoryAnalyticsButton from "./ViewCategoryAnalyticsButton";
 
 
 /**
@@ -37,8 +37,8 @@ export const ManageCategoriesTable = ({ categories, fetchCategories }: ManageCat
                     </TableCell>
 
                     {/* Delete icon wrapped in an alert dialog*/}
-                    <TableCell className="text-center flex flex-row justify-center space-x-4">
-                        <ChartLine className='text-yap-green-900 cursor-pointer hover:text-yap-green-800 duration-200' />
+                    <TableCell className="text-center flex flex-row justify-center space-x-4 sm:space-x-8">
+                        <ViewCategoryAnalyticsButton category={ category } />
                         <DeleteCategoryButton category={ category } fetchCategories={ fetchCategories } />  
                     </TableCell>  
                     </TableRow>
