@@ -1,7 +1,7 @@
 "use client"
 
 import { Poll } from "@/types/Poll"
-import { MoveLeft, Trash2Icon, PlusIcon } from "lucide-react"
+import { Trash2Icon, PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
 import { CreatePollButton } from "./CreatePollButton"
 import PageSubtitle from "../common/text/PageSubtitle"
@@ -13,7 +13,7 @@ import { capitaliseFirstLetter } from "@/utils/HelperFunctions"
 import { SaveChangesToPollButton } from "./SaveChangesToPollButton"
 import PublishPollButton from "./PublishPollButton"
 import DeletePollButton from "./DeletePollButton"
-import Link from "next/link"
+import BackToPreviousButton from "../common/navigation/BackToPreviousButton"
 
 /**
 Represents a page where the admin and citizen can view and edit a poll, depending on the status of the poll.
@@ -56,12 +56,7 @@ export function ViewPollAdminDetails({ currentPoll }: ViewPollAdminDetailsProps)
     return (
         <div className='flex flex-col space-y-4'>
             {/* Navigate back to all polls */}
-            <Link href="/polls" className='w-fit'>
-                <div className='flex flex-row justify-start items-center space-x-4'>
-                    <MoveLeft className='text-yap-brown-900' />
-                    <h6 className='text-yap-brown-900'>Back to all polls</h6>
-                </div> 
-            </Link>
+            <BackToPreviousButton text='Back to all polls' route='/polls' />
 
 
             {/* Action Buttons */}

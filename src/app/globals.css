@@ -89,4 +89,7 @@ body {
   .analytics-dashboard-card {
     @apply gap-y-8 bg-yap-gray-100 p-4 rounded-xl
   }
+  .paragraph-container {
+    @apply flex flex-col space-y-4
+  }
 }
