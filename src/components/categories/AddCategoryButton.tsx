@@ -9,7 +9,7 @@ import { DestructiveAlert } from "../common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
-import { DUPLICATE_KEY_STRING, ERROR_MESSAGE_API } from "@/constants/ConstantValues"
+import { DUPLICATE_KEY_STRING, ERROR_MESSAGE_API } from "@/utils/Constants"
 
 /**
 This component represents the button for adding category. It presents a pop-up to allow

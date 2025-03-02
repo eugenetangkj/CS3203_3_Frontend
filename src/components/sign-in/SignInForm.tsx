@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/constants/ConstantValues"
+import { ERROR_MESSAGE_API } from "@/utils/Constants"
 import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
 
