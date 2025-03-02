@@ -3,6 +3,7 @@ import { COLOUR_MAP } from "@/constants/ColourMap";
 import { Sparkles } from "lucide-react";
 import { capitaliseFirstLetter as capitaliseFirstLetter } from "@/utils/HelperFunctions";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import AiTooltip from "../common/others/AiTooltip";
 
 
 /**
@@ -54,16 +55,7 @@ export default function PollCard({ poll }: PollCardProps) {
                     {/* AI-generated status */}
                     {
                         (poll.isAiGenerated)
-                        ? <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                <Sparkles className='w-8 h-8 fill-yap-yellow-900 stroke-yap-yellow-900'/>
-                                </TooltipTrigger>
-                                <TooltipContent className='bg-yap-brown-200 rounded-full'>
-                                <p className='font-afacad text-yap-black-800'>This poll is AI-generated.</p>
-                                </TooltipContent>
-                            </Tooltip>
-                           </TooltipProvider>
+                        ? <AiTooltip message='This poll is AI-generated.' />
                         : <></>
                     }
                   

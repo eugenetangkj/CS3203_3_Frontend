@@ -13,13 +13,17 @@ export enum CategoryEnum {
 }
 
 export const stringToCategory= (input: string): CategoryEnum | undefined => {
-  return Object.values(CategoryEnum).includes(input as CategoryEnum) ? (input as CategoryEnum) : undefined;
+    return Object.values(CategoryEnum).includes(input as CategoryEnum) ? (input as CategoryEnum) : undefined;
 };
   
 
 
 export interface Category {
-  id: string,
-  name: string,
-  colour: string
+    id: string,
+    name: string,
+    colour: string
+    summary: string,
+    keywords: string[],
+    concerns: string[],
+    suggestions: string[]
 }
