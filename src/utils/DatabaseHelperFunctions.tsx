@@ -12,7 +12,11 @@ export const convertCategoryDocumentsToObjects = (categories: any[]) : Category[
     return categories.map(category => ({
         id: category._id.$oid,
         name: category.name,
-        colour: category.color
+        colour: category.color,
+        summary: '', //TODO: Update again
+        keywords: [],
+        concerns: [],
+        suggestions: []
     }));
 }
 

@@ -10,6 +10,7 @@ import CategoryAnalyticsTrendingKeywords from "./CategoryAnalyticsTrendingKeywor
 import CategoryAnalyticsTwoColumnText from "./CategoryAnalyticsTwoColumnText"
 import CategoryAnalyticsMostNegativeComplaints from "./CategoryAnalyticsMostNegativeComplaints"
 import CategoryAnalyticsStatistics from "./CategoryAnalyticsStatistics"
+import CategoryAnalyticsGraphs from "./CategoryAnalyticsGraphs"
 
 /**
 This component represents the body for viewing the analytics of a particular category.
@@ -97,6 +98,9 @@ export default function CategoryAnalyticsBody() {
 
                 {/* Statistics */}
                 <CategoryAnalyticsStatistics category={ currentCategory } />
+
+                {/* Graphs */}
+                <CategoryAnalyticsGraphs category={ currentCategory } />
                 
             </div>
 

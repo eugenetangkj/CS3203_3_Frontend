@@ -1,13 +1,11 @@
 "use client"
 
-
 import { useEffect, useState } from "react"
 import { Skeleton } from "../ui/skeleton"
 import { LineChartMultiple } from "../charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
-import { getDateTimeOneMonthAgoAndSetToEnd, getDateTimeOneYearAgoAndSetToStart } from "@/utils/HelperFunctions"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
 
 
