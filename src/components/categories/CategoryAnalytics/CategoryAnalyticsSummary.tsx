@@ -14,10 +14,10 @@ export default function CategoryAnalyticsSummary({ summary }: CategoryAnalyticsS
     return (
         <div className='paragraph-container'>
             <div className='flex flex-row space-x-4 items-center'>
-                <PageSubtitle pageSubtitle="Key Summary" />
+                <PageSubtitle pageSubtitle="Summary" />
                 <AiTooltip message='This summary is AI-generated.' />
             </div>
-            <p>{ summary }</p>
+            <p className='text-yap-black-800'>{ summary }</p>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import { Category } from "@/types/Category"
 import { Skeleton } from "@/components/ui/skeleton"
 import CategoryAnalyticsSummary from "./CategoryAnalyticsSummary"
 import CategoryAnalyticsTrendingKeywords from "./CategoryAnalyticsTrendingKeywords"
+import CategoryAnalyticsTwoColumnText from "./CategoryAnalyticsTwoColumnText"
 
 /**
 This component represents the body for viewing the analytics of a particular category.
@@ -35,10 +36,10 @@ export default function CategoryAnalyticsBody() {
                 id: "1",
                 name: "Financial",
                 colour: "#000000",
-                summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                summary: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 keywords: ["Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5", "Keyword 6"],
-                concerns: ["Concern 1", "Concern 2"],
-                suggestions: ["Suggestion 1", "Suggestion 2"]
+                concerns: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."],
+                suggestions: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."]
             })
         } catch (error) {
             setIsThereError(true)
@@ -62,7 +63,7 @@ export default function CategoryAnalyticsBody() {
         : isThereError || currentCategory == null
         ? <div>Something went wrong in fetching the category.</div>
         : (
-            <div className='flex flex-col space-y-8'>
+            <div className='flex flex-col space-y-12'>
                 {/* Page title */}
                 <PageTitle pageTitle={`Analytics on ${ currentCategory?.name}`} />
 
@@ -71,6 +72,22 @@ export default function CategoryAnalyticsBody() {
 
                 {/* Trending keywords */}
                 <CategoryAnalyticsTrendingKeywords keywords={ currentCategory.keywords } />
+
+                {/* Concerns and suggestions */}
+                <div className='grid grid-row-1 grid-cols-2 gap-12'>
+                    <CategoryAnalyticsTwoColumnText
+                        title="Concerns"
+                        content={ currentCategory.concerns }
+                        aiMessage="The concerns are AI-generated."
+                        emptyMessage="No concerns can be generated."
+                    />
+                    <CategoryAnalyticsTwoColumnText
+                        title="Suggestions"
+                        content={ currentCategory.suggestions }
+                        aiMessage="The suggestions are AI-generated."
+                        emptyMessage="No suggestions can be generated."
+                    />
+                </div>
                 
             </div>
 
