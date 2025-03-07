@@ -13,10 +13,6 @@ export const convertCategoryDocumentsToObjects = (categories: any[]) : Category[
         id: category._id.$oid,
         name: category.name,
         colour: category.color,
-        summary: '', //TODO: Update again
-        keywords: [],
-        concerns: [],
-        suggestions: []
     }));
 }
 

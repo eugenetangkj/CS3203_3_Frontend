@@ -1,8 +1,5 @@
-import Link from "next/link";
-import { MoveLeft } from "lucide-react";
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton";
-import PageTitle from "@/components/common/text/PageTitle";
-import CategoryAnalyticsBody from "@/components/categories/CategoryAnalytics/CategoryAnalyticsBody";
+import CategoryAnalyticsBody from "@/components/categories/category-analytics/CategoryAnalyticsBody";
 
 /** 
 Layout for the page where the admin can view the analytics for a given category.

@@ -22,8 +22,4 @@ export interface Category {
     id: string,
     name: string,
     colour: string
-    summary: string,
-    keywords: string[],
-    concerns: string[],
-    suggestions: string[]
 }
