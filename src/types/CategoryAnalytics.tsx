@@ -4,8 +4,8 @@ export interface CategoryAnalytics {
     suggestions: string[],
     keywords_per_category: string[],
     summary: string,
-    forecasted_score: Number,
-    current_score: Number,
+    forecasted_score: number,
+    current_score: number,
     key_concerns: string[],
     forecasted_label: string
 }

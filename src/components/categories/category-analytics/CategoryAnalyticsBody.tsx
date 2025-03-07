@@ -116,7 +116,7 @@ export default function CategoryAnalyticsBody() {
 
 
                 {/* Statistics */}
-                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } />
+                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } forecastedSentiment={ currentCategoryAnalytics.forecasted_score }/>
 
                 {/* Graphs */}
                 {/* <CategoryAnalyticsGraphs category={ currentCategoryAnalytics } /> */}

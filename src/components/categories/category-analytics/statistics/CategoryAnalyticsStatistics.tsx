@@ -1,11 +1,11 @@
 "use client"
 
 import PageSubtitle from "@/components/common/text/PageSubtitle"
-import { Category } from "@/types/Category"
 import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
+import InfoTooltip from "@/components/common/others/InfoTooltip"
 
 /**
 This component is used to display the numerical statistics of a given category
@@ -14,15 +14,17 @@ in the category analytics page.
 It includes:
 - Number of complaints
 - Sentiment
+- Predicted sentiment
 - ABSA result
 */
 interface CategoryAnalyticsStatisticsProps {
-    categoryName: string
+    categoryName: string,
+    forecastedSentiment: number
 }
 
 
 
-export default function CategoryAnalyticsStatistics({ categoryName }: CategoryAnalyticsStatisticsProps) {
+export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment: predictedSentiment}: CategoryAnalyticsStatisticsProps) {
     //States
     const [hasRanAPi, setHasRanApi] = useState<boolean>(false)
     const [isThereError, setIsThereError] = useState<boolean>(false)
@@ -86,6 +88,16 @@ export default function CategoryAnalyticsStatistics({ categoryName }: CategoryAn
                     <div className='flex flex-col justify-center items-center space-y-2'>
                         <p className={`text-5xl font-bold ${currentSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ currentSentiment }</p>
                         <p className='text-lg text-yap-brown-900'>Current sentiment</p>
+                    </div>
+
+                    {/* Forecasted sentiment */}
+                    <div className='flex flex-col justify-center items-center space-y-2'>
+                        <p className={`text-5xl font-bold ${predictedSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ predictedSentiment }</p>
+                        <div className='flex flex-row items-center space-x-2'>
+                            <p className='text-lg text-yap-brown-900'>Forecasted sentiment</p>
+                            <InfoTooltip message="The forecasted sentiment score for 1 month later." />
+                        </div>
+                        
                     </div>
                 </div>
             </div>
