@@ -9,6 +9,7 @@ import CategoryAnalyticsTrendingKeywords from "./overview/CategoryAnalyticsTrend
 import CategoryAnalyticsTwoColumnText from "./overview/CategoryAnalyticsTwoColumnText"
 import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsMostNegativeComplaints"
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
+import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsContainer"
 import { CategoryAnalytics } from "@/types/CategoryAnalytics"
 import { API_BASE_URL_ANALYTICS, GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT, } from "@/constants/ApiRoutes"
 import axios from "axios"
@@ -119,7 +120,7 @@ export default function CategoryAnalyticsBody() {
                 <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } forecastedSentiment={ currentCategoryAnalytics.forecasted_score }/>
 
                 {/* Graphs */}
-                {/* <CategoryAnalyticsGraphs category={ currentCategoryAnalytics } /> */}
+                <CategoryAnalyticsGraphsContainer categoryName={currentCategoryAnalytics.name } />
                 
             </div>
 
