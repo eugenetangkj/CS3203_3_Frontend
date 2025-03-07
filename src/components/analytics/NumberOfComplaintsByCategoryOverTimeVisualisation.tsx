@@ -7,6 +7,7 @@ import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
+import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 
 
 /**
@@ -37,8 +38,8 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
             const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
-                    "start_date": "01-01-2023 00:00:00", //getDateTimeOneYearAgoAndSetToStart(),
-                    "end_date":  "31-12-2023 23:59:59", //getDateTimeOneMonthAgoAndSetToEnd(),
+                    "start_date": getDateTimeOneYearAgoAndSetToStart(), //"01-01-2023 00:00:00"
+                    "end_date":  getDateTimeOneMonthAgoAndSetToEnd(), //"31-12-2023 23:59:59"
                     "group_by_field": "category"
                 }
             )
