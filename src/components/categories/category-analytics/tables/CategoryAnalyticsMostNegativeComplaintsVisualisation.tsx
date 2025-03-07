@@ -61,7 +61,6 @@ export function CategoryAnalyticsMostNegativePostsVisualisation({ categoryName }
                     }
                 }
             )
-            console.log(apiData)
             const tableData = convertToArray(apiData.data.complaints)
             const tableHeaders = ["Title", "Description", "Posted", "Category", "Source", "Sentiment"]
             setTableDataObject({

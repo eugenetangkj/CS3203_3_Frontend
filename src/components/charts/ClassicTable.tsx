@@ -13,8 +13,8 @@ interface ClassicTableProps {
 export function ClassicTable({ headers, data }: ClassicTableProps) {
     return (
         <Table>
-            <TableHeader className='hover:bg-transparent font-bold'>
-                <TableRow>
+            <TableHeader>
+                <TableRow className='hover:bg-transparent font-bold'>
                 {headers.map((header) => (
                     <TableHead className='text-yap-brown-900 font-bold text-lg pl-0' key={header}>{header}</TableHead>
                 ))}

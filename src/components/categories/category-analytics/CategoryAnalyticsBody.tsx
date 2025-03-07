@@ -8,8 +8,9 @@ import CategoryAnalyticsSummary from "./overview/CategoryAnalyticsSummary"
 import CategoryAnalyticsTrendingKeywords from "./overview/CategoryAnalyticsTrendingKeywords"
 import CategoryAnalyticsTwoColumnText from "./overview/CategoryAnalyticsTwoColumnText"
 import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsMostNegativeComplaints"
+import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
 import { CategoryAnalytics } from "@/types/CategoryAnalytics"
-import { API_BASE_URL_ANALYTICS, GET_CATEGORY_ANALYTICS_BY_NAME, } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT, } from "@/constants/ApiRoutes"
 import axios from "axios"
 
 
@@ -48,7 +49,7 @@ export default function CategoryAnalyticsBody() {
     const fetchCategory = async () => {
         try {
             //Call API to fetch category analytics given the category name
-            const getCategoryAnalyticsEndpoint = API_BASE_URL_ANALYTICS + '/' + GET_CATEGORY_ANALYTICS_BY_NAME
+            const getCategoryAnalyticsEndpoint = API_BASE_URL_ANALYTICS + '/' + GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT
 
             const categoryAnalyticsData = await axios.post(getCategoryAnalyticsEndpoint,
                 {
@@ -115,7 +116,7 @@ export default function CategoryAnalyticsBody() {
 
 
                 {/* Statistics */}
-                {/* <CategoryAnalyticsStatistics category={ currentCategoryAnalytics } /> */}
+                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } />
 
                 {/* Graphs */}
                 {/* <CategoryAnalyticsGraphs category={ currentCategoryAnalytics } /> */}
