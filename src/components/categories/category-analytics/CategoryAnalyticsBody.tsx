@@ -84,7 +84,7 @@ export default function CategoryAnalyticsBody() {
         !hasRanAPi
         ? (<Skeleton className='w-full h-[100px]' />)
         : isThereError || currentCategoryAnalytics == null
-        ? <div>Something went wrong in fetching the category analytics.</div>
+        ? <div>Something went wrong in fetching the category analytics. Check if the analytics exist for the given category.</div>
         : (
             <div className='flex flex-col space-y-12'>
                 {/* Page title */}
