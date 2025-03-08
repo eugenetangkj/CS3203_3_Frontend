@@ -12,8 +12,7 @@ import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
-import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT } from "@/constants/ApiRoutes"
-import { LOCAL_STORAGE_JWT_TOKEN } from "@/constants/Constants"
+import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios"
 
 /**
@@ -65,13 +64,16 @@ export default function SignInForm() {
             )
             const jwtToken = apiResult.data.jwt
 
-            if (jwtToken) {
-                //Valid token was received
-                localStorage.setItem("jwtToken", LOCAL_STORAGE_JWT_TOKEN);
-            }
+            console.log(jwtToken) //Got value here
 
-            //Successful, redirect to home page
-            router.push('/')
+            if (jwtToken) {
+                //Set cookie with JWT token
+                await axios.post('/api/signin', {
+                    "token": jwtToken
+                })
+                //Successful, redirect to home page
+                router.push('/')
+            }
 
         } catch (error) {
             let message = ERROR_MESSAGE_API

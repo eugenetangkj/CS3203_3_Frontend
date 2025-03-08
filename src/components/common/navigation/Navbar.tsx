@@ -1,13 +1,12 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Logo from "../../../../public/logo.svg";
 import { navLinks } from "@/constants/navLinks";
 import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { determineIfIsUserSignedIn } from "@/utils/HelperFunctions";
 import ProfileIconNavbar from "./ProfileIconNavbar";
 
 /**
@@ -18,7 +17,20 @@ screen sizes.
 export default function Navbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
-    const isUserSignedIn = determineIfIsUserSignedIn()
+    const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>(false);
+
+    useEffect(() => {
+        const checkLogin = async () => {
+            const response = await fetch('/api/checkuser', {
+                method: 'POST',
+            });
+            const data = await response.json();
+            setIsUserSignedIn(data);
+        };
+        checkLogin();
+    }, []);
+
+
     
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">

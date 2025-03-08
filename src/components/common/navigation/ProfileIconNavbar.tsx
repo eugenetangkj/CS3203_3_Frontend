@@ -10,10 +10,21 @@ import {
   } from "@/components/ui/dropdown-menu";
 
 
+
 /**
 This component represents the profile icon that appears in the navbar or drawer if the user is signed in.
 */
 export default function ProfileIconNavbar() {
+    
+    //Sign out by deleting the JWT token
+    const handleSignOut = async () => {
+        const response = await fetch('/api/signout', {
+            method: 'POST',
+        });
+        const result = await response.json();
+        console.log(result.message);
+    }
+
 
     return (
             <DropdownMenu modal={false}>
@@ -24,7 +35,9 @@ export default function ProfileIconNavbar() {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <button onClick={ handleSignOut }>Sign Out
+                            </button></DropdownMenuItem>
 
                 </DropdownMenuContent>
             </DropdownMenu>

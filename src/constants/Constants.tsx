@@ -69,6 +69,6 @@ export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.sv
 
 
 /**
-Key in local storage used to store the JWT token 
+Cookie name used to store the JWT token 
 */
-export const LOCAL_STORAGE_JWT_TOKEN = 'jwtToken'
+export const COOKIE_JWT_TOKEN = 'jwtToken'
