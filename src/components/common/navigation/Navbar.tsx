@@ -7,6 +7,8 @@ import { navLinks } from "@/constants/navLinks";
 import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { determineIfIsUserSignedIn } from "@/utils/HelperFunctions";
+import ProfileIconNavbar from "./ProfileIconNavbar";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -16,6 +18,7 @@ screen sizes.
 export default function Navbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
+    const isUserSignedIn = determineIfIsUserSignedIn()
     
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">
@@ -35,11 +38,14 @@ export default function Navbar() {
                         ))
                     }
                   
-                    {/* Sign in button */}
-                    <a href='sign-in'>
-                        <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
-                    </a>
-                    
+                    {/* Sign in button or profile */}
+                    {
+                        (isUserSignedIn)
+                        ? <ProfileIconNavbar />
+                        : <a href='sign-in'>
+                            <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
+                          </a>
+                    }
                 </div>
 
 

@@ -1,6 +1,7 @@
 import { Complaint } from "@/types/Complaint";
 import { Source } from "@/types/Source";
 import { Category } from "@/types/Category";
+import { LOCAL_STORAGE_JWT_TOKEN } from "@/constants/Constants";
 
 /**
     Helper functions that are used across different files
@@ -117,12 +118,15 @@ export const findCategoryObjectFromListGivenName = (categories: Category[], name
 }
 
 
-
-
-
-
-
-
+/**
+ * Determines if the user is currently signed in. It checks for the presence of a JWT token in the local storage
+ * 
+ * @returns true if the user is signed in, else false
+ */
+export const determineIfIsUserSignedIn = (): boolean => {
+    const token = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN);
+    return !!token;
+};
 
 
 
