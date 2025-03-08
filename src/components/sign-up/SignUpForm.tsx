@@ -11,7 +11,8 @@ import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/utils/Constants"
 import { nameFieldValidation, emailFieldValidation, passwordFieldValidation } from "@/utils/FormValidation"
-
+import { API_BASE_URL_USER_MANAGEMENT, SIGNUP_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
 /**
 This component represents the form for signing up a new account.
 */
@@ -60,11 +61,19 @@ export default function SignUpForm() {
     })
  
     //Handler function after user presses sign up
-    function onSubmit({ name, email, password }: z.infer<typeof formSchema>) {
+    async function onSubmit({ name, email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
         try {
             // TODO: Make API call to register
+            const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + SIGNUP_ENDPOINT
+            await axios.post(signupApiEndpoint,
+                {
+                    "name": name,
+                    "email": email,
+                    "password": password
+                }
+            )
 
             //Successful, toast to inform the user that his account has been created, please login
             toast({
@@ -74,9 +83,21 @@ export default function SignUpForm() {
             })
             form.reset()
         } catch (error) {
+            let message = ERROR_MESSAGE_API
+
+            //Axios error
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 409) {
+                    message = error.response?.data?.message;
+                } else {
+                    message = ERROR_MESSAGE_API
+                }
+            }
+
+            //Display error toast
             toast({
                 variant: "destructive",
-                description: ERROR_MESSAGE_API,
+                description: message,
                 duration: 3000,
             })
         } finally {
