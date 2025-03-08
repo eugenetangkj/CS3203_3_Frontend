@@ -6,6 +6,7 @@ import PageTitle from "@/components/common/text/PageTitle"
 import { Skeleton } from "@/components/ui/skeleton"
 import CategoryAnalyticsSummary from "./overview/CategoryAnalyticsSummary"
 import CategoryAnalyticsTrendingKeywords from "./overview/CategoryAnalyticsTrendingKeywords"
+import CategoryAnalyticsAbsaResults from "./overview/CategoryAnalyticsAbsaResults"
 import CategoryAnalyticsTwoColumnText from "./overview/CategoryAnalyticsTwoColumnText"
 import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsMostNegativeComplaints"
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
@@ -42,7 +43,8 @@ export default function CategoryAnalyticsBody() {
             forecasted_score: parseFloat(rawData.forecasted_score),
             current_score: parseFloat(rawData.current_score),
             key_concerns: rawData.key_concerns,
-            forecasted_label: rawData.forecasted_label
+            forecasted_label: rawData.forecasted_label,
+            absa_result: rawData.absa_result
         };
     };
 
@@ -95,6 +97,9 @@ export default function CategoryAnalyticsBody() {
 
                 {/* Trending keywords */}
                 <CategoryAnalyticsTrendingKeywords keywords={ currentCategoryAnalytics.keywords_per_category } />
+
+                {/* ABSA Result */}
+                <CategoryAnalyticsAbsaResults absaResults={ currentCategoryAnalytics.absa_result } />
 
                 {/* Concerns and suggestions */}
                 <div className='grid grid-row-1 grid-cols-2 gap-12'>

@@ -8,4 +8,11 @@ export interface CategoryAnalytics {
     current_score: number,
     key_concerns: string[],
     forecasted_label: string
+    absa_result:  AbsaResult[]
+}
+
+
+export interface AbsaResult {
+    theme: string,
+    sentiment: string
 }
