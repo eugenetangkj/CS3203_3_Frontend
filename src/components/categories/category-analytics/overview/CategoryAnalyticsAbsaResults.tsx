@@ -47,7 +47,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                                     : 'text-yap-brown-900'
                                 }`}> { capitaliseFirstLetter(result.sentiment) }
                                 </p>
-                                <p className='text-xl text-yap-black-800 text-center'>{ result.theme }{ result.theme }</p>
+                                <p className='text-xl text-yap-black-800 text-center'>{ result.theme }</p>
                             </div>
                         ))
                     }
