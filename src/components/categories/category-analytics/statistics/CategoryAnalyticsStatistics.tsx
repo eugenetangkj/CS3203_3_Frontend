@@ -1,21 +1,30 @@
 "use client"
 
 import PageSubtitle from "@/components/common/text/PageSubtitle"
-import { Category } from "@/types/Category"
 import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import InfoTooltip from "@/components/common/others/InfoTooltip"
 
 /**
-This component is used to display the most negative complaints of a given category
+This component is used to display the numerical statistics of a given category
 in the category analytics page.
+
+It includes:
+- Number of complaints
+- Sentiment
+- Predicted sentiment
+- ABSA result
 */
 interface CategoryAnalyticsStatisticsProps {
-    category: Category
+    categoryName: string,
+    forecastedSentiment: number
 }
 
 
 
-export default function CategoryAnalyticsStatistics({ category }: CategoryAnalyticsStatisticsProps) {
+export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment: predictedSentiment}: CategoryAnalyticsStatisticsProps) {
     //States
     const [hasRanAPi, setHasRanApi] = useState<boolean>(false)
     const [isThereError, setIsThereError] = useState<boolean>(false)
@@ -26,15 +35,20 @@ export default function CategoryAnalyticsStatistics({ category }: CategoryAnalyt
     const fetchCategoryStatistics = async () => {
         try {
             //Call API to fetch category statistics given its name
-            
-            //Process data
+            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_STATISTICS_ENDPOINT
+            const apiData = await axios.post(apiEndPoint,
+                {
+                    "filter": {
+                        "category": categoryName
+                    }
+                }
+            )
 
-            //Update state
-            setTotalNumberOfcomplaints(1500)
-            setCurrentSentiment(-0.5)
+            //Update states
+            setTotalNumberOfcomplaints(apiData.data.result['count'])
+            setCurrentSentiment(apiData.data.result['avg_sentiment'])
         } catch (error) {
             setIsThereError(true)
-
         } finally {
             setHasRanApi(true)
 
@@ -62,7 +76,7 @@ export default function CategoryAnalyticsStatistics({ category }: CategoryAnalyt
                 <PageSubtitle pageSubtitle="Statistics" />
 
 
-                <div className='flex flex-col justify-start items-center space-y-8 xs:space-y-0 xs:flex-row xs:justify-start xs:flex-wrap xs:space-x-16'>
+                <div className='flex flex-col justify-start items-center space-y-8 sm:space-y-0 sm:flex-row sm:justify-start sm:flex-wrap sm:space-x-16'>
                     {/* Total number of complaints */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
                         <p className='text-5xl font-bold text-yap-green-900'>{ totalNumberOfComplaints }</p>
@@ -74,6 +88,16 @@ export default function CategoryAnalyticsStatistics({ category }: CategoryAnalyt
                     <div className='flex flex-col justify-center items-center space-y-2'>
                         <p className={`text-5xl font-bold ${currentSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ currentSentiment }</p>
                         <p className='text-lg text-yap-brown-900'>Current sentiment</p>
+                    </div>
+
+                    {/* Forecasted sentiment */}
+                    <div className='flex flex-col justify-center items-center space-y-2'>
+                        <p className={`text-5xl font-bold ${predictedSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ predictedSentiment }</p>
+                        <div className='flex flex-row items-center space-x-2'>
+                            <p className='text-lg text-yap-brown-900'>Forecasted sentiment</p>
+                            <InfoTooltip message="The forecasted sentiment score for 1 month later." />
+                        </div>
+                        
                     </div>
                 </div>
             </div>

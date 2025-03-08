@@ -6,7 +6,7 @@ Handles API calls to interact with the backend.
 export const API_BASE_URL_ANALYTICS = process.env.NEXT_PUBLIC_API_BASE_URL_ANALYTICS
 export const API_BASE_URL_ADMIN_MANAGEMENT = process.env.NEXT_PUBLIC_API_BASE_URL_ADMIN_MANAGEMENT
 
-//Endpoints for analytics service
+//Endpoints for analytics service (analytics dashboard)
 export const GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT = 'get_complaints_grouped_by_field'
 export const GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT = 'get_complaints_grouped_by_field_over_time'
 export const GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT = 'get_complaints_grouped_by_sentiment_value'
@@ -25,3 +25,9 @@ export const COMPLAINTS_DELETE_BY_OID_ENDPOINT = "complaints/delete_by_oid"
 export const COMPLAINTS_SEARCH_ENDPOINT = "complaints/search"
 export const COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT = "complaints/delete_many_by_oids"
 export const COMPLAINTS_UPDATE_BY_OID_ENDPOINT = "complaints/update_by_oid"
+
+
+//Endpoints for analytics service (category analytics)
+export const GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT = "get_category_analytics_by_name"
+export const GET_COMPLAINTS_STATISTICS_ENDPOINT = "get_complaints_statistics"
+export const GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT = "get_complaints_statistics_over_time"
