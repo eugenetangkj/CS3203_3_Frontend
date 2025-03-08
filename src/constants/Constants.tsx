@@ -66,3 +66,9 @@ export const ALL_COLLECTIBLES: Collectible[] = [
 Path for unknown collectible image
 */
 export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.svg"
+
+
+/**
+Key in local storage used to store the JWT token 
+*/
+export const LOCAL_STORAGE_JWT_TOKEN = 'jwtToken'

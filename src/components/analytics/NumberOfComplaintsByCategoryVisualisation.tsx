@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/utils/Constants"
+import { START_DATE } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"

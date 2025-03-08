@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/utils/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { nameFieldValidation, emailFieldValidation, passwordFieldValidation } from "@/utils/FormValidation"
 import { API_BASE_URL_USER_MANAGEMENT, SIGNUP_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
@@ -65,7 +65,7 @@ export default function SignUpForm() {
         setIsSubmittingForm(true)
 
         try {
-            // TODO: Make API call to register
+            //Make API call to sign up
             const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + SIGNUP_ENDPOINT
             await axios.post(signupApiEndpoint,
                 {

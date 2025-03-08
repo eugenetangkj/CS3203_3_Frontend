@@ -2,7 +2,7 @@
 
 import { User } from "@/types/User"
 import Image from "next/image";
-import { ALL_COLLECTIBLES, PATH_UNKNOWN_COLLECTIBLE_IMAGE } from "@/utils/Constants"
+import { ALL_COLLECTIBLES, PATH_UNKNOWN_COLLECTIBLE_IMAGE } from "@/constants/Constants"
 
 /** 
 This component represents the profile card that contains the collectibles of the user.

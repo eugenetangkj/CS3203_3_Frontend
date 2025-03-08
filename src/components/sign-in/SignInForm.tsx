@@ -9,9 +9,12 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/utils/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
+import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT } from "@/constants/ApiRoutes"
+import { LOCAL_STORAGE_JWT_TOKEN } from "@/constants/Constants"
+import axios from "axios"
 
 /**
 This component represents the form for signing in an existing account
@@ -48,19 +51,44 @@ export default function SignInForm() {
     })
  
     //Handler function after user presses sign up
-    function onSubmit({ email, password }: z.infer<typeof formSchema>) {
+    async function onSubmit({ email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
         try {
-            // TODO: Make API call to register
+            //Make API call to login
+            const loginApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + LOGIN_ENDPOINT
+            const apiResult = await axios.post(loginApiEndpoint,
+                {
+                    "email": email,
+                    "password": password
+                }
+            )
+            const jwtToken = apiResult.data.jwt
+
+            if (jwtToken) {
+                //Valid token was received
+                localStorage.setItem("jwtToken", LOCAL_STORAGE_JWT_TOKEN);
+            }
 
             //Successful, redirect to home page
             router.push('/')
 
         } catch (error) {
+            let message = ERROR_MESSAGE_API
+            
+            //Axios error
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 401) {
+                    message = error.response?.data?.message;
+                } else {
+                    message = ERROR_MESSAGE_API
+                }
+            }
+
+            //Display destructive toast
             toast({
                 variant: "destructive",
-                description: ERROR_MESSAGE_API,
+                description: message,
                 duration: 3000,
             })
         } finally {
