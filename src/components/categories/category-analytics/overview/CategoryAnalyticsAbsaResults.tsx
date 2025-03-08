@@ -22,8 +22,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                 <PageSubtitle pageSubtitle="ABSA Results" />
                 <InfoTooltip message='ABSA shows the sentiments of subtopics within the category, based on the complaints.' />
             </div>
-            
-            
+
             {
                 (absaResults.length === 0)
                 ? <p>No ABSA results are found.</p>
@@ -31,7 +30,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                     {
                         absaResults.map((result: AbsaResult) => (
 
-                            <div key={ result.theme } className={`border-2 rounded-xl py-1 px-2 flex flex-col justify-start items-center h-[125px] w-[300px] space-y-6
+                            <div key={ result.theme } className={`border-2 rounded-xl py-1 px-2 flex flex-col justify-start items-center h-[125px] w-[300px] space-y-4
                                 ${
                                     result.sentiment === positive_sentiment
                                     ? 'border-yap-green-900'
@@ -48,15 +47,11 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                                     : 'text-yap-brown-900'
                                 }`}> { capitaliseFirstLetter(result.sentiment) }
                                 </p>
-                                <p className='text-xl text-yap-black-800 text-center'>{ result.theme }</p>
+                                <p className='text-xl text-yap-black-800 text-center'>{ result.theme }{ result.theme }</p>
                             </div>
                         ))
                     }
-                </div>
-                
-                
-                
-              
+                </div> 
             }
         </div>
     )
