@@ -8,6 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/context/AuthContext";
 
 
 
@@ -15,6 +16,7 @@ import {
 This component represents the profile icon that appears in the navbar or drawer if the user is signed in.
 */
 export default function ProfileIconNavbar() {
+    const { isAuthenticated, login, logout } = useAuth();
     
     //Sign out by deleting the JWT token
     const handleSignOut = async () => {
@@ -22,7 +24,7 @@ export default function ProfileIconNavbar() {
             method: 'POST',
         });
         const result = await response.json();
-        console.log(result.message);
+        logout()
     }
 
 

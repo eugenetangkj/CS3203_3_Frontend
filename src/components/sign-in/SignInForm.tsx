@@ -14,6 +14,7 @@ import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
 import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios"
+import { useAuth } from "@/context/AuthContext"
 
 /**
 This component represents the form for signing in an existing account
@@ -25,6 +26,8 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
+    const { isAuthenticated, login, logout } = useAuth();
+
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isSubmittingForm, setIsSubmittingForm] = useState(false)
@@ -71,6 +74,7 @@ export default function SignInForm() {
                 await axios.post('/api/signin', {
                     "token": jwtToken
                 })
+                login()
                 //Successful, redirect to home page
                 router.push('/')
             }

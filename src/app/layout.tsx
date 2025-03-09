@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/common/navigation/Navbar"
 import Footer from "@/components/common/navigation/Footer"
 import { Toaster } from "@/components/ui/toaster"
+import { AuthProvider } from "@/context/AuthContext"
 
 
 const afacadFont = Afacad({
@@ -29,13 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${afacadFont.variable} ${kavoonFont.variable} antialiased min-h-screen flex flex-col`}>
-        <Navbar />
-        <div className='flex-grow'>
-          {children}
-        </div>
-        <Footer />
-        <Toaster />
+        <body className={`${afacadFont.variable} ${kavoonFont.variable} antialiased min-h-screen flex flex-col`}>
+            <AuthProvider>
+                <Navbar />
+                <div className='flex-grow'>
+                    {children}
+                </div>
+                <Footer />
+                <Toaster />
+            </AuthProvider>
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ProfileIconNavbar from "./ProfileIconNavbar";
+import { useAuth } from "@/context/AuthContext";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -15,21 +16,11 @@ navigation. It is mobile responsive, offering a hambuger menu and a drawer for m
 screen sizes.  
 */
 export default function Navbar() {
+    const { isAuthenticated, login, logout } = useAuth();
+
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
-    const [isUserSignedIn, setIsUserSignedIn] = useState<boolean>(false);
-
-    useEffect(() => {
-        const checkLogin = async () => {
-            const response = await fetch('/api/checkuser', {
-                method: 'POST',
-            });
-            const data = await response.json();
-            setIsUserSignedIn(data);
-        };
-        checkLogin();
-    }, []);
-
 
     
     return (
@@ -52,7 +43,7 @@ export default function Navbar() {
                   
                     {/* Sign in button or profile */}
                     {
-                        (isUserSignedIn)
+                        (isAuthenticated)
                         ? <ProfileIconNavbar />
                         : <a href='sign-in'>
                             <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
