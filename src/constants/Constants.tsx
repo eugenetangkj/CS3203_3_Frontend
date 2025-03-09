@@ -89,16 +89,17 @@ export const NAV_LINKS = [
         label: "Polls"
     },
     {
+        route: "/categories",
+        id: "categories",
+        label: "Categories"
+    },
+    {
         route: "/analytics",
         id: "analytics",
         label: "Analytics"
     },
-    {
-        route: "/categories",
-        id: "categories",
-        label: "Categories"
-    }
 ]
+
 
 /**
 Colour map to access common colour values

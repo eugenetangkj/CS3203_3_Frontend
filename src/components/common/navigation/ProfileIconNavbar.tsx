@@ -2,14 +2,7 @@
 
 import Profile from "../../../../public/profile.svg";
 import Image from "next/image";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
 import { SIGNOUT_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
@@ -17,10 +10,8 @@ import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 
-
-
 /**
-This component represents the profile icon that appears in the navbar or drawer if the user is signed in.
+This component represents the profile icon that appears in the navbar if the user is signed in, allowing for viewing profile and signing out
 */
 export default function ProfileIconNavbar() {
     //States
@@ -54,7 +45,6 @@ export default function ProfileIconNavbar() {
         }
     };
   
-
 
     return (
             <DropdownMenu modal={false}>
