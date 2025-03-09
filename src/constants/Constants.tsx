@@ -125,11 +125,11 @@ Default complaints shown in the home page
 export const COMPLAINTS_IN_HOME_PAGE = [
     {
         title: "Why are MRT trains so crowded?",
-        description: "I get that Singapore has a world-class public transport system, but seriously, what's the point if I'm squished like a sardine every morning? We need to rethink how to manage the crowds."
+        description: "I get that Singapore has a world-class public transport system, but what's the point if I'm squished like a sardine every morning? Can we improve capacity or offer alternatives to avoid this daily struggle?"
     }, 
     {
          title: "HDB renovation noise is driving me nuts!",
-        description: "Honestly, is there any way to get some peace at home without feeling like I'm living next to a construction site? Every other day, there's drilling. Implement stricter noise curfews please."
+        description: "Honestly, is there any way to get some peace at home without feeling like I'm living next to a construction site? Please implement stricter noise curfews to protect residents from constant disturbances."
 
     }
 ]

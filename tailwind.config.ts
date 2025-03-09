@@ -96,10 +96,15 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		screens: {
-			xs: '400px'
+			xs: '400px',
+			homesmall: '436px'
+	
 		},
 		height: {
 			'80vh': '80vh'
+		},
+		width: {
+			'90': '90%'
 		}
   	}
   },
