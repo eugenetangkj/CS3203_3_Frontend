@@ -112,3 +112,24 @@ export const COLOUR_MAP: Record<string, string> = {
     'yap-brown-900': '#8D5F4A',
     'yap-blue-900': '#8999EA'
 };
+
+
+/**
+About Just Yap! write-up found in the homepage
+*/
+export const ABOUT_JUST_YAP = 'Just Yap! collects real-time complaints from the r/Singapore subreddit and uses machine learning to filter, categorize, and analyze them by sentiment. It then presents insights through visualizations to help authorities understand public concerns. Additionally, Just Yap! suggests AI-generated polls for authorities to engage citizens on trending issues.'
+
+/**
+Default complaints shown in the home page
+*/
+export const COMPLAINTS_IN_HOME_PAGE = [
+    {
+        title: "Why are MRT trains so crowded?",
+        description: "I get that Singapore has a world-class public transport system, but what's the point if I'm squished like a sardine every morning? Can we improve capacity or offer alternatives to avoid this daily struggle?"
+    }, 
+    {
+         title: "HDB renovation noise is driving me nuts!",
+        description: "Honestly, is there any way to get some peace at home without feeling like I'm living next to a construction site? Please implement stricter noise curfews to protect residents from constant disturbances."
+
+    }
+]
