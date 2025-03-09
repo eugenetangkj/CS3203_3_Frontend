@@ -10,7 +10,7 @@ import { API_BASE_URL_ADMIN_MANAGEMENT, API_BASE_URL_ANALYTICS, CATEGORIES_GET_A
 import { BarChartMixed } from "../charts/BarChartMixed"
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Category } from "@/types/Category"
-import { COLOUR_MAP } from "@/constants/ColourMap"
+import { COLOUR_MAP } from "@/constants/Constants"
 
 
 /**

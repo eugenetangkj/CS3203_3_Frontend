@@ -3,7 +3,7 @@ import { LineChartMultiplePoint } from "@/types/ChartInterface";
 import { BarChartNegativePoint } from "@/types/ChartInterface";
 import { PieChartLegendPoint } from "@/types/ChartInterface";
 // import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
-import { COLOUR_MAP } from "./ColourMap";
+import { COLOUR_MAP } from "./Constants";
 
 export const barChartCustomLabelData = [
     { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },

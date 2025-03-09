@@ -1,6 +1,5 @@
 "use client"
 
-import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import PageSubsectionTitle from "@/components/common/text/PageSubsectionTitle"
@@ -8,8 +7,7 @@ import { LineChartMultiple } from "@/components/charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
-import { COLOUR_MAP } from "@/constants/ColourMap"
-
+import { COLOUR_MAP } from "@/constants/Constants"
 import axios from "axios"
 
 /**
