@@ -30,13 +30,6 @@ export default function SignInForm() {
     const { isAuthenticated, login } = useAuth();
     const router = useRouter();
 
-    //If user is already signed in, he should not access the sign in form again
-    useEffect(() => {
-        if (isAuthenticated) {
-            router.push('/');
-        }
-    }, [isAuthenticated, router]);
-
 
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);

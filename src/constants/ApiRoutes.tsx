@@ -1,5 +1,5 @@
 /**
-Handles API calls to interact with the backend.
+Routes used for API calling
 */
 
 //Base URL to make API calls
