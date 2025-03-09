@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/utils/Constants"
+import { START_DATE } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
@@ -10,7 +10,7 @@ import { API_BASE_URL_ADMIN_MANAGEMENT, API_BASE_URL_ANALYTICS, CATEGORIES_GET_A
 import { BarChartMixed } from "../charts/BarChartMixed"
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Category } from "@/types/Category"
-import { COLOUR_MAP } from "@/constants/ColourMap"
+import { COLOUR_MAP } from "@/constants/Constants"
 
 
 /**

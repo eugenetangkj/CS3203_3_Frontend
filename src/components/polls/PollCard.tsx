@@ -1,5 +1,5 @@
 import { Poll } from "@/types/Poll";
-import { COLOUR_MAP } from "@/constants/ColourMap";
+import { COLOUR_MAP } from "@/constants/Constants";
 import { Sparkles } from "lucide-react";
 import { capitaliseFirstLetter as capitaliseFirstLetter } from "@/utils/HelperFunctions";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"

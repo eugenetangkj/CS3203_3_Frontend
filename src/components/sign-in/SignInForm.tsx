@@ -6,12 +6,15 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/utils/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
+import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios"
+import { useAuth } from "@/context/AuthContext"
 
 /**
 This component represents the form for signing in an existing account
@@ -23,6 +26,11 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
+    //Access the authentication states
+    const { isAuthenticated, login } = useAuth();
+    const router = useRouter();
+
+
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isSubmittingForm, setIsSubmittingForm] = useState(false)
@@ -35,9 +43,7 @@ export default function SignInForm() {
     //Toast management
     const { toast } = useToast()
 
-    //Router
-    const router = useRouter()
-
+   
     // Define the form
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -48,19 +54,50 @@ export default function SignInForm() {
     })
  
     //Handler function after user presses sign up
-    function onSubmit({ email, password }: z.infer<typeof formSchema>) {
+    async function onSubmit({ email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
         try {
-            // TODO: Make API call to register
+            //Make API call to login
+            const loginApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + LOGIN_ENDPOINT
+            const apiResult = await axios.post(loginApiEndpoint,
+                {
+                    "email": email,
+                    "password": password
+                }
+            )
+            const jwtToken = apiResult.data.jwt
 
-            //Successful, redirect to home page
-            router.push('/')
+
+            if (jwtToken) {
+                //Set cookie with JWT token
+                await axios.post(SIGNIN_SERVER_ENDPOINT, {
+                    "token": jwtToken
+                })
+
+                //Update global state
+                login()
+
+                //Successful, redirect to home page
+                router.push('/')
+            }
 
         } catch (error) {
+            let message = ERROR_MESSAGE_API
+            
+            //Axios error
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 401) {
+                    message = error.response?.data?.message;
+                } else {
+                    message = ERROR_MESSAGE_API
+                }
+            }
+
+            //Display destructive toast
             toast({
                 variant: "destructive",
-                description: ERROR_MESSAGE_API,
+                description: message,
                 duration: 3000,
             })
         } finally {

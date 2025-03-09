@@ -33,7 +33,7 @@ export default function ProfileCards() {
                 id: 'id',
                 email: 'sallyfong@gmail.com',
                 name: 'Sally Fong',
-                role: 'citizen',
+                role: 'CITIZEN',
                 collectibles: ['Angry Yappy', 'Complain King']
             })
         } catch (error) {

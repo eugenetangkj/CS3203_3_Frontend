@@ -66,3 +66,49 @@ export const ALL_COLLECTIBLES: Collectible[] = [
 Path for unknown collectible image
 */
 export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.svg"
+
+
+/**
+Cookie name used to store the JWT token 
+*/
+export const COOKIE_JWT_TOKEN = 'jwtToken'
+
+
+/**
+Links to show in the navigation bar
+*/
+export const NAV_LINKS = [
+    {
+        route: "/all-complaints",
+        id: "all-complaints",
+        label: "All Complaints"
+    },
+    {
+        route: "/polls",
+        id: "polls",
+        label: "Polls"
+    },
+    {
+        route: "/categories",
+        id: "categories",
+        label: "Categories"
+    },
+    {
+        route: "/analytics",
+        id: "analytics",
+        label: "Analytics"
+    },
+]
+
+
+/**
+Colour map to access common colour values
+*/
+export const COLOUR_MAP: Record<string, string> = {
+    'yap-black-800': '#3D3A39',
+    'yap-green-900': '#92A062',
+    'yap-orange-900': '#FF814A',
+    'yap-yellow-900': '#FFC64A',
+    'yap-brown-900': '#8D5F4A',
+    'yap-blue-900': '#8999EA'
+};

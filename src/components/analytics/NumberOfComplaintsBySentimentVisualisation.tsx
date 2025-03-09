@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/utils/Constants"
+import { START_DATE } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT } from "@/constants/ApiRoutes"
-import { COLOUR_MAP } from "@/constants/ColourMap"
+import { COLOUR_MAP } from "@/constants/Constants"
 import { PieChartLegend } from "../charts/PieChartLegend"
 
 

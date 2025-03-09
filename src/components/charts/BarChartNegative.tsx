@@ -4,7 +4,7 @@ import { Bar, BarChart, CartesianGrid, Cell, LabelList, YAxis } from "recharts"
 import { CardContent, CardFooter, } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
-import { COLOUR_MAP } from "@/constants/ColourMap"
+import { COLOUR_MAP } from "@/constants/Constants"
 import { sentimentsRange } from "@/constants/Sentiments"
 
 

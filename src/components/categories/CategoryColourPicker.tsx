@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast"
 import { Category } from "@/types/Category"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
-import { ERROR_MESSAGE_API } from "@/utils/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 
 /**
 This component represents a colour picker input for changing the colour associated with a given category.
