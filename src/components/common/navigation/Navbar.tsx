@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Logo from "../../../../public/logo.svg";
-import { navLinks } from "@/constants/navLinks";
+import { NAV_LINKS } from "@/constants/Constants";
 import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,7 @@ export default function Navbar() {
                 <div className="hidden md:flex justify-center items-center space-x-8 lg:space-x-16">
                     {/* Desktop links */}
                     {
-                        navLinks.map((link) => (
+                        NAV_LINKS.map((link) => (
                             <a key={link.id} href={link.route} className='text-yap-brown-900 hover:text-yap-brown-800 duration-200'>{link.label}</a>
                         ))
                     }

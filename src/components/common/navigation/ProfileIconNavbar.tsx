@@ -1,3 +1,5 @@
+"use client"
+
 import Profile from "../../../../public/profile.svg";
 import Image from "next/image";
 import {
@@ -11,6 +13,9 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { SIGNOUT_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
+import { useToast } from "@/hooks/use-toast"
+import { ERROR_MESSAGE_API } from "@/constants/Constants";
+import { useRouter } from "next/navigation";
 
 
 
@@ -18,15 +23,34 @@ import axios from "axios";
 This component represents the profile icon that appears in the navbar or drawer if the user is signed in.
 */
 export default function ProfileIconNavbar() {
-    const { isAuthenticated, login, logout } = useAuth();
+    //States
+    const { logout } = useAuth();
+
+    //Toast management
+    const { toast } = useToast()
+
+    //Router
+    const router = useRouter();
+
+
     
     //Sign out by deleting the JWT token
     const handleSignOut = async () => {
         try {
             await axios.post(SIGNOUT_SERVER_ENDPOINT);
             logout();
+            toast({
+                variant: "success",
+                description: "You have successfully signed out.",
+                duration: 3000,
+            })
+            router.push('/');
         } catch (error) {
-            console.error('Sign-out failed:', error);
+            toast({
+                variant: "destructive",
+                description: ERROR_MESSAGE_API,
+                duration: 3000,
+            })
         }
     };
   
@@ -37,13 +61,15 @@ export default function ProfileIconNavbar() {
                 <DropdownMenuTrigger asChild className='font-afacad text-base text-yap-black-800'>
                     <Image src={Profile} alt="Profile image" className="w-8 h-8 rounded-full object-cover cursor-pointer" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className='font-afacad text-yap-black-800'>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
                     <DropdownMenuItem>
-                        <button onClick={ handleSignOut }>Sign Out
-                            </button></DropdownMenuItem>
+                        <a href='/profile'>Profile</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <button onClick={ handleSignOut }>Sign Out</button>
+                    </DropdownMenuItem>
 
                 </DropdownMenuContent>
             </DropdownMenu>

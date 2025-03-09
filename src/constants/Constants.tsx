@@ -72,3 +72,30 @@ export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.sv
 Cookie name used to store the JWT token 
 */
 export const COOKIE_JWT_TOKEN = 'jwtToken'
+
+
+/**
+Links to show in the navigation bar
+*/
+export const NAV_LINKS = [
+    {
+        route: "/all-complaints",
+        id: "all-complaints",
+        label: "All Complaints"
+    },
+    {
+        route: "/polls",
+        id: "polls",
+        label: "Polls"
+    },
+    {
+        route: "/analytics",
+        id: "analytics",
+        label: "Analytics"
+    },
+    {
+        route: "/categories",
+        id: "categories",
+        label: "Categories"
+    }
+]
