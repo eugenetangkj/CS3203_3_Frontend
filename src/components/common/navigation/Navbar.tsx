@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ProfileIconNavbar from "./ProfileIconNavbar";
 import { useAuth } from "@/context/AuthContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -16,9 +17,8 @@ navigation. It is mobile responsive, offering a hambuger menu and a drawer for m
 screen sizes.  
 */
 export default function Navbar() {
-    const { isAuthenticated, login, logout } = useAuth();
-
-
+    //States
+    const { isAuthenticated, isLoading } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
 
@@ -43,7 +43,9 @@ export default function Navbar() {
                   
                     {/* Sign in button or profile */}
                     {
-                        (isAuthenticated)
+                        (isLoading)
+                        ? (<Skeleton className="w-[50px] h-[20px]" />)
+                        : (isAuthenticated)
                         ? <ProfileIconNavbar />
                         : <a href='sign-in'>
                             <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>

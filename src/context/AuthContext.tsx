@@ -12,6 +12,7 @@ Built with ChatGPT
 */
 interface AuthContextProps {
     isAuthenticated: boolean;
+    isLoading: boolean;
     login: () => void;
     logout: () => void;
 }
@@ -26,6 +27,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true)
 
 
     useEffect(() => {
@@ -38,6 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 setIsAuthenticated(response.data.isAuthenticated);
             } catch (error) {
                 setIsAuthenticated(false);
+            } finally {
+                setIsLoading(false)
             }
         };
         checkAuthStatus();
@@ -49,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     //Provide access to isAuthenticated, login and logout
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
