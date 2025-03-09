@@ -95,6 +95,9 @@ export default {
   		},
 		screens: {
 			xs: '400px'
+		},
+		height: {
+			'80vh': '80vh'
 		}
   	}
   },
