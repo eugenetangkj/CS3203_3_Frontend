@@ -38,3 +38,9 @@ export const GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT = "get_complaints_stat
 export const SIGNUP_ENDPOINT = "signup"
 export const LOGIN_ENDPOINT = "login"
 export const GET_PROFILE_BY_OID_ENDPOINT = "get_profile_by_oid"
+
+
+//Endpoints for cookie setting, on server side
+export const SIGNIN_SERVER_ENDPOINT = '/api/signin'
+export const SIGNOUT_SERVER_ENDPOINT = '/api/signout'
+export const CHECK_USER_AUTH_SERVER_ENDPOINT = '/api/checkuserauth'

@@ -9,6 +9,8 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
+import { SIGNOUT_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
 
 
 
@@ -20,12 +22,14 @@ export default function ProfileIconNavbar() {
     
     //Sign out by deleting the JWT token
     const handleSignOut = async () => {
-        const response = await fetch('/api/signout', {
-            method: 'POST',
-        });
-        const result = await response.json();
-        logout()
-    }
+        try {
+            await axios.post(SIGNOUT_SERVER_ENDPOINT);
+            logout();
+        } catch (error) {
+            console.error('Sign-out failed:', error);
+        }
+    };
+  
 
 
     return (

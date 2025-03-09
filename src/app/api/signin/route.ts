@@ -7,6 +7,8 @@ import { cookies } from "next/headers";
 /**
 API route to set the JWT token in the cookie in the browser header when the user signs in
 
+Adapted from https://nextjs.org/docs/app/api-reference/functions/cookies#setting-a-cookie
+
 */
 export async function POST(request: Request) {
     const { token } = await request.json();

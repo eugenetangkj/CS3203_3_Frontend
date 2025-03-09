@@ -6,13 +6,13 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
-import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios"
 import { useAuth } from "@/context/AuthContext"
 
@@ -26,7 +26,17 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
-    const { isAuthenticated, login, logout } = useAuth();
+    //Access the authentication states
+    const { isAuthenticated, login } = useAuth();
+    const router = useRouter();
+
+    //If user is already signed in, he should not access the sign in form again
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push('/');
+        }
+    }, [isAuthenticated, router]);
+
 
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -40,9 +50,7 @@ export default function SignInForm() {
     //Toast management
     const { toast } = useToast()
 
-    //Router
-    const router = useRouter()
-
+   
     // Define the form
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -67,14 +75,16 @@ export default function SignInForm() {
             )
             const jwtToken = apiResult.data.jwt
 
-            console.log(jwtToken) //Got value here
 
             if (jwtToken) {
                 //Set cookie with JWT token
-                await axios.post('/api/signin', {
+                await axios.post(SIGNIN_SERVER_ENDPOINT, {
                     "token": jwtToken
                 })
+
+                //Update global state
                 login()
+
                 //Successful, redirect to home page
                 router.push('/')
             }

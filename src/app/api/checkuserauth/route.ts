@@ -9,8 +9,8 @@ API route to check if the user is signed in by looking for the existence of the 
 
 */
 export async function POST(request: Request) {
-    const cookieStore = await cookies();
+    const cookieStore = await cookies()
     const hasCookie = cookieStore.has(COOKIE_JWT_TOKEN)
 
-    return NextResponse.json(hasCookie);
+    return NextResponse.json({ isAuthenticated: hasCookie })
 }
