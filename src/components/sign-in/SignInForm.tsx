@@ -67,12 +67,14 @@ export default function SignInForm() {
                 }
             )
             const jwtToken = apiResult.data.jwt
+            const userOid = apiResult.data.oid
 
 
             if (jwtToken) {
                 //Set cookie with JWT token
                 await axios.post(SIGNIN_SERVER_ENDPOINT, {
-                    "token": jwtToken
+                    "token": jwtToken,
+                    "userOid": userOid
                 })
 
                 //Update global state

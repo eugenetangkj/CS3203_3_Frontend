@@ -73,6 +73,11 @@ Cookie name used to store the JWT token
 */
 export const COOKIE_JWT_TOKEN = 'jwtToken'
 
+/**
+Cookie name used to store the user oid
+*/
+export const COOKIE_USER_OID = 'userOid'
+
 
 /**
 Links to show in the navigation bar

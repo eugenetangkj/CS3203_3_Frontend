@@ -1,6 +1,6 @@
 
 import { NextResponse } from "next/server";
-import { COOKIE_JWT_TOKEN } from "@/constants/Constants";
+import { COOKIE_JWT_TOKEN, COOKIE_USER_OID } from "@/constants/Constants";
 import { cookies } from "next/headers";
 
 
@@ -11,7 +11,7 @@ Adapted from https://nextjs.org/docs/app/api-reference/functions/cookies#setting
 
 */
 export async function POST(request: Request) {
-    const { token } = await request.json();
+    const { token, userOid } = await request.json();
 
     if (token) {
         const cookieStore = await cookies()
@@ -21,8 +21,13 @@ export async function POST(request: Request) {
             httpOnly: true,
             path: '/',
         })
-
-        return NextResponse.json({ message: "Token set in cookie" });
+        cookieStore.set({
+            name: COOKIE_USER_OID,
+            value: userOid,
+            httpOnly: true,
+            path: '/',
+        })
+        return NextResponse.json({ message: "Token and user oid set in cookie" });
     } else {
         return NextResponse.json({ message: "Token missing" }, { status: 400 });
     }
