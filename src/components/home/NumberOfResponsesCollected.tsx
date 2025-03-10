@@ -48,7 +48,7 @@ const NumberOfResponsesCollected = () => {
 
     // Handles the number shuffling animation
     const shuffleNumbers = () => {
-        let shuffledNum = setInterval(() => {
+        const shuffledNum = setInterval(() => {
           setDisplayCount(Math.floor(Math.random() * 1000));  // Random number between 0 and 999
         }, 100);  // Update every 100ms to simulate the shuffle
         return shuffledNum;

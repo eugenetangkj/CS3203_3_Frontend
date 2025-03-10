@@ -1,31 +1,27 @@
-import { CategoryColorMap } from "@/utils/CategoryColourMap"
 import { LineChartMultiplePoint } from "@/types/ChartInterface";
 import { BarChartNegativePoint } from "@/types/ChartInterface";
 import { PieChartLegendPoint } from "@/types/ChartInterface";
 // import { BarChartNegativePoint, LineChartMultiplePoint, PieChartLegendPoint } from "@/types/ChartInterface";
 import { COLOUR_MAP } from "./Constants";
 
-export const barChartCustomLabelData = [
-    { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
-    { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
-    { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
-    { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
-    { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
-    { label: "Safety", "# Complaints": 60, fill: CategoryColorMap.Safety },
-    { label: "Community", "# Complaints": 70, fill: CategoryColorMap.Community },
-    { label: "Recreation", "# Complaints": 65, fill: CategoryColorMap.Recreation },
-    { label: "Housing", "# Complaints": 90, fill: CategoryColorMap.Housing },
-    { label: "Food", "# Complaints": 110, fill: CategoryColorMap.Food },
-    { label: "Others", "# Complaints": 130, fill: CategoryColorMap.Others },
-    { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
-    { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
-    { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
-    { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
-    { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
-
-    
-
-  ];
+// export const barChartCustomLabelData = [
+//     { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
+//     { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
+//     { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
+//     { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
+//     { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
+//     { label: "Safety", "# Complaints": 60, fill: CategoryColorMap.Safety },
+//     { label: "Community", "# Complaints": 70, fill: CategoryColorMap.Community },
+//     { label: "Recreation", "# Complaints": 65, fill: CategoryColorMap.Recreation },
+//     { label: "Housing", "# Complaints": 90, fill: CategoryColorMap.Housing },
+//     { label: "Food", "# Complaints": 110, fill: CategoryColorMap.Food },
+//     { label: "Others", "# Complaints": 130, fill: CategoryColorMap.Others },
+//     { label: "Health", "# Complaints": 100, fill: CategoryColorMap.Health },
+//     { label: "Education", "# Complaints": 150, fill: CategoryColorMap.Education },
+//     { label: "Transport", "# Complaints": 120, fill: CategoryColorMap.Transport },
+//     { label: "Employment", "# Complaints": 80, fill: CategoryColorMap.Employment },
+//     { label: "Environment", "# Complaints": 50, fill: CategoryColorMap.Environment },
+//   ];
   
 
 
