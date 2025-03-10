@@ -18,11 +18,12 @@ This component represents the right drawer that is opened by the hamburger menu 
 */
 interface RightNavDrawerProps {
    isDrawerOpen: boolean;
+   isUserAdmin: boolean;
    onClose: () => void;
 }
 
 
-export default function RightNavDrawer({isDrawerOpen, onClose}: RightNavDrawerProps) {
+export default function RightNavDrawer({isDrawerOpen, isUserAdmin, onClose}: RightNavDrawerProps) {
     //States
     const { isAuthenticated, isLoading, logout } = useAuth();
 
@@ -81,7 +82,9 @@ export default function RightNavDrawer({isDrawerOpen, onClose}: RightNavDrawerPr
                 <div className="flex flex-col justify-start space-y-8 ml-4">
                     {
                     NAV_LINKS.map((link) => (
-                            <a key={link.id} href={link.route} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</a>
+                        link.is_admin_only && !isUserAdmin
+                        ? null
+                        : <a key={link.id} href={link.route} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</a>
                     ))
                     }
                 </div>

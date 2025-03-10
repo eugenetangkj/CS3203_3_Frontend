@@ -9,11 +9,18 @@ import axios from "axios";
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants";
 import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from 'react';
 
 /**
 This component represents the profile icon that appears in the navbar if the user is signed in, allowing for viewing profile and signing out
 */
-export default function ProfileIconNavbar() {
+
+interface ProfileIconNavbarProps {
+   setIsUserAdmin: Dispatch<SetStateAction<boolean>>;
+}
+
+
+export default function ProfileIconNavbar({ setIsUserAdmin }: ProfileIconNavbarProps) {
     //States
     const { logout } = useAuth();
 
@@ -35,6 +42,7 @@ export default function ProfileIconNavbar() {
                 description: "You have successfully signed out.",
                 duration: 3000,
             })
+            setIsUserAdmin(false)
             router.push('/');
         } catch (error) {
             toast({
