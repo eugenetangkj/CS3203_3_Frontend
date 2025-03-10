@@ -65,7 +65,7 @@ const NumberOfComplaintsProcessed = () => {
     return (
         <div className="flex flex-col justify-center items-center space-y-2">
             <p className="text-4xl sm:text-5xl 2xl:text-6xl font-bold text-yap-green-900">
-            {isLoading ? displayCount : (count == -1) ? 'Something went wrong.' : count}
+            {isLoading ? displayCount : (count == -1) ? 0 : count}
             </p>
             <p className="2xl:text-xl text-yap-brown-900">complaints processed</p>
         </div>
