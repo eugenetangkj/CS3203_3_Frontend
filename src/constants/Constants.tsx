@@ -73,6 +73,11 @@ Cookie name used to store the JWT token
 */
 export const COOKIE_JWT_TOKEN = 'jwtToken'
 
+/**
+Cookie name used to store the user oid
+*/
+export const COOKIE_USER_OID = 'userOid'
+
 
 /**
 Links to show in the navigation bar
@@ -81,22 +86,26 @@ export const NAV_LINKS = [
     {
         route: "/all-complaints",
         id: "all-complaints",
-        label: "All Complaints"
+        label: "All Complaints",
+        is_admin_only: true,
     },
     {
         route: "/polls",
         id: "polls",
-        label: "Polls"
+        label: "Polls",
+        is_admin_only: false,
     },
     {
         route: "/categories",
         id: "categories",
-        label: "Categories"
+        label: "Categories",
+        is_admin_only: true,
     },
     {
         route: "/analytics",
         id: "analytics",
-        label: "Analytics"
+        label: "Analytics",
+        is_admin_only: true,
     },
 ]
 

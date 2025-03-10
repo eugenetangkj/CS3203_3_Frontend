@@ -6,7 +6,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
@@ -27,7 +27,7 @@ const formSchema = z.object({
 
 export default function SignInForm() {
     //Access the authentication states
-    const { isAuthenticated, login } = useAuth();
+    const { login } = useAuth();
     const router = useRouter();
 
 
@@ -67,12 +67,14 @@ export default function SignInForm() {
                 }
             )
             const jwtToken = apiResult.data.jwt
+            const userOid = apiResult.data.oid
 
 
             if (jwtToken) {
                 //Set cookie with JWT token
                 await axios.post(SIGNIN_SERVER_ENDPOINT, {
-                    "token": jwtToken
+                    "token": jwtToken,
+                    "userOid": userOid
                 })
 
                 //Update global state

@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
 
                 // Update the authentication state based on the server response
-                setIsAuthenticated(response.data.isAuthenticated);
+                setIsAuthenticated(response.data.isAuthenticated)
             } catch (error) {
                 setIsAuthenticated(false);
             } finally {
@@ -48,8 +48,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, []); 
 
 
-    const login = () => setIsAuthenticated(true);
-    const logout = () => setIsAuthenticated(false);
+    const login = () => {
+        setIsAuthenticated(true);
+    }
+    const logout = () => {
+        setIsAuthenticated(false);
+    }
 
     //Provide access to isAuthenticated, login and logout
     return (

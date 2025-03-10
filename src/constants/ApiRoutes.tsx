@@ -40,7 +40,7 @@ export const LOGIN_ENDPOINT = "login"
 export const GET_PROFILE_BY_OID_ENDPOINT = "get_profile_by_oid"
 
 
-//Endpoints for cookie setting, on server side
+//Endpoints for cookie setting and accessing, on server side
 export const SIGNIN_SERVER_ENDPOINT = '/api/signin'
 export const SIGNOUT_SERVER_ENDPOINT = '/api/signout'
 export const CHECK_USER_AUTH_SERVER_ENDPOINT = '/api/checkuserauth'

@@ -18,11 +18,13 @@ This component represents the right drawer that is opened by the hamburger menu 
 */
 interface RightNavDrawerProps {
    isDrawerOpen: boolean;
+   isUserAdmin: boolean;
+   username: string;
    onClose: () => void;
 }
 
 
-export default function RightNavDrawer({isDrawerOpen, onClose}: RightNavDrawerProps) {
+export default function RightNavDrawer({isDrawerOpen, isUserAdmin, username, onClose}: RightNavDrawerProps) {
     //States
     const { isAuthenticated, isLoading, logout } = useAuth();
 
@@ -72,7 +74,7 @@ export default function RightNavDrawer({isDrawerOpen, onClose}: RightNavDrawerPr
                 : (isAuthenticated)
                 ? <div className='flex flex-row space-x-4 items-center ml-4 mb-12'>
                     <Image src={Profile} alt="Profile image" className="w-8 h-8 rounded-full object-cover" />
-                    <p className='font-afacad text-lg text-yap-black-800 items-center'>Name</p>
+                    <p className='font-afacad text-lg text-yap-black-800 items-center'>{ username }</p>
                     </div>
                 : <div className='ml-4 mb-12'></div>
                 }
@@ -81,7 +83,9 @@ export default function RightNavDrawer({isDrawerOpen, onClose}: RightNavDrawerPr
                 <div className="flex flex-col justify-start space-y-8 ml-4">
                     {
                     NAV_LINKS.map((link) => (
-                            <a key={link.id} href={link.route} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</a>
+                        link.is_admin_only && !isUserAdmin
+                        ? null
+                        : <a key={link.id} href={link.route} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</a>
                     ))
                     }
                 </div>

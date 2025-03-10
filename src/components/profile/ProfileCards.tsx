@@ -5,7 +5,9 @@ import { User, UserRoleEnum } from "@/types/User"
 import { Skeleton } from "../ui/skeleton"
 import BasicInformationProfileCard from "./BasicInformationProfileCard";
 import CollectiblesProfileCard from "./CollectiblesProfileCard";
-import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
+import axios from "axios";
+import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+import { CHECK_USER_AUTH_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 
 
 /** 
@@ -19,23 +21,35 @@ export default function ProfileCards() {
 
 
 
+    //Adapter function to convert API response to a User object
+    const mapResponseToUser = (profileData: any): User => {
+        return {
+            id: profileData._id.$oid,
+            email: profileData.email,
+            name: profileData.name,
+            role: profileData.role,
+            collectibles: []  //Just default set to empty array first
+        };
+    };
+
+
     //Calls backend to fetch profile information
     const fetchUser = async () => {
         try {
             //Call API
+            const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
+            const userOid = response.data.userOid
+            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+            const userData = await axios.post(fetchUserProfileApiEndpoint,
+                {
+                    "oid": userOid
+                }
+            )
            
-
-            //Process data
-
-
+            const currentUser = mapResponseToUser(userData.data.profile)
+        
             //Update state
-            setCurrentUser({
-                id: 'id',
-                email: 'sallyfong@gmail.com',
-                name: 'Sally Fong',
-                role: 'CITIZEN',
-                collectibles: ['Angry Yappy', 'Complain King']
-            })
+            setCurrentUser(currentUser)
         } catch (error) {
             setIsThereError(true)
         } finally {
@@ -62,7 +76,7 @@ export default function ProfileCards() {
 
                 {/* Only display collectibles for citizen */}
                 {
-                    currentUser?.role && capitaliseFirstLetter(currentUser?.role) === UserRoleEnum.Citizen && <CollectiblesProfileCard user={currentUser } />
+                    currentUser?.role && currentUser?.role === UserRoleEnum.Citizen && <CollectiblesProfileCard user={ currentUser } />
                 }
             </div>
         )      

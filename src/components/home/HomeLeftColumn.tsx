@@ -31,7 +31,7 @@ export default function HomeLeftColumn() {
             </div>
 
             {/* Explanation of what Just Yap! is */}
-            <p className='text-yap-black-800 text-base 2xl:text-lg'>{ ABOUT_JUST_YAP }</p>
+            <p className='text-yap-black-800 text-base xl:w-4/5 2xl:text-lg'>{ ABOUT_JUST_YAP }</p>
 
 
             {/* Statistics */}

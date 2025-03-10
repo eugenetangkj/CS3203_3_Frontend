@@ -47,7 +47,7 @@ const NumberOfComplaintsProcessed = () => {
 
     // Handles the number shuffling animation
     const shuffleNumbers = () => {
-        let shuffledNum = setInterval(() => {
+        const shuffledNum = setInterval(() => {
           setDisplayCount(Math.floor(Math.random() * 10000));  // Random number between 0 and 9999
         }, 100);  // Update every 100ms to simulate the shuffle
         return shuffledNum;

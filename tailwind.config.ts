@@ -32,6 +32,7 @@ export default {
   				'900': '#FFC64A'
   			},
   			'yap-green': {
+				'50': '#EEF3DD',
   				'100': '#CAD2B0',
 				'800': '#ACBA7B',
   				'900': '#92A062'
