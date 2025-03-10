@@ -58,5 +58,5 @@ export async function middleware(request: Request) {
 // Routes to be protected by the auth middleware
 export const config = {
     //Cannot use variables as properties must be statically parsed at compiled time
-    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories', '/analytics']
+    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics']
 };

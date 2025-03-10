@@ -30,13 +30,13 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                     {
                         absaResults.map((result: AbsaResult) => (
 
-                            <div key={ result.theme } className={`border-2 rounded-xl py-1 px-2 flex flex-col justify-start items-center h-[125px] w-[300px] space-y-4
+                            <div key={ result.theme } className={`border-none rounded-xl py-1 px-2 flex flex-col justify-start items-center h-[125px] w-[300px] space-y-4
                                 ${
                                     result.sentiment === positive_sentiment
-                                    ? 'border-yap-green-900'
+                                    ? 'bg-yap-green-50'
                                     : result.sentiment === negative_sentiment
-                                    ? 'border-yap-orange-900'
-                                    : 'border-yap-brown-900'
+                                    ? 'bg-yap-orange-50'
+                                    : 'bg-yap-brown-100'
                                 }
                             `}>
                                 <p className={`text-base font-bold ${ 
