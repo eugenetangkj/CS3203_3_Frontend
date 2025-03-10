@@ -24,11 +24,14 @@ export default function Navbar() {
     const { isAuthenticated, isLoading } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
+    const [username, setUsername] = useState('')
     const closeDrawer = () => setIsDrawerOpen(false);
+    const [isNavbarLoading, setIsNavbarLoading] = useState<boolean>(true)
 
 
     //Get user's role
     const getUserRole = async() => {
+        setIsNavbarLoading(true)
         try {
             const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
             const userOid = response.data.userOid
@@ -44,11 +47,12 @@ export default function Navbar() {
                     }
                 )
                 setIsUserAdmin(userData.data.profile.role === UserRoleEnum.Admin)
+                setUsername(userData.data.profile.name)
             }
         } catch (error) {
             setIsUserAdmin(false)
         } finally {
-            //Clean up
+            setIsNavbarLoading(false)
         }
     }
 
@@ -56,7 +60,7 @@ export default function Navbar() {
     //Call the API on component mount
     useEffect(() => {
         getUserRole()
-    }, [])
+    }, [isAuthenticated])
 
 
     return (
@@ -72,8 +76,8 @@ export default function Navbar() {
                 <div className="hidden md:flex justify-center items-center space-x-8 lg:space-x-16">
                     {/* Desktop links */}
                     {
-                        (isLoading)
-                        ? null
+                        isNavbarLoading
+                        ? (<Skeleton className="w-[50px] h-[20px]" />)
                         : NAV_LINKS.map((link) => (
                                 link.is_admin_only && !isUserAdmin
                                 ? null
@@ -104,7 +108,7 @@ export default function Navbar() {
 
 
             {/* Right nav drawer for mobile navigation */}
-            <RightNavDrawer isDrawerOpen={isDrawerOpen} isUserAdmin={isUserAdmin} onClose={closeDrawer} />
+            <RightNavDrawer isDrawerOpen={isDrawerOpen} isUserAdmin={isUserAdmin} username={username} onClose={closeDrawer} />
         </nav>
     );
 }

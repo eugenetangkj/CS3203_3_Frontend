@@ -19,11 +19,12 @@ This component represents the right drawer that is opened by the hamburger menu 
 interface RightNavDrawerProps {
    isDrawerOpen: boolean;
    isUserAdmin: boolean;
+   username: string;
    onClose: () => void;
 }
 
 
-export default function RightNavDrawer({isDrawerOpen, isUserAdmin, onClose}: RightNavDrawerProps) {
+export default function RightNavDrawer({isDrawerOpen, isUserAdmin, username, onClose}: RightNavDrawerProps) {
     //States
     const { isAuthenticated, isLoading, logout } = useAuth();
 
@@ -73,7 +74,7 @@ export default function RightNavDrawer({isDrawerOpen, isUserAdmin, onClose}: Rig
                 : (isAuthenticated)
                 ? <div className='flex flex-row space-x-4 items-center ml-4 mb-12'>
                     <Image src={Profile} alt="Profile image" className="w-8 h-8 rounded-full object-cover" />
-                    <p className='font-afacad text-lg text-yap-black-800 items-center'>Name</p>
+                    <p className='font-afacad text-lg text-yap-black-800 items-center'>{ username }</p>
                     </div>
                 : <div className='ml-4 mb-12'></div>
                 }
