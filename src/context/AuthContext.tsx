@@ -12,6 +12,7 @@ Built with ChatGPT
 */
 interface AuthContextProps {
     isAuthenticated: boolean;
+    userOid: string;
     isLoading: boolean;
     login: () => void;
     logout: () => void;
@@ -27,6 +28,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userOid, setUserOid] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -37,9 +39,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
 
                 // Update the authentication state based on the server response
-                setIsAuthenticated(response.data.isAuthenticated);
+                setIsAuthenticated(response.data.isAuthenticated)
+                setIsAuthenticated(response.data.userOid)
             } catch (error) {
                 setIsAuthenticated(false);
+                setUserOid('')
             } finally {
                 setIsLoading(false)
             }
@@ -53,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     //Provide access to isAuthenticated, login and logout
     return (
-        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, userOid: userOid, isLoading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
