@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
 
     const userOid = (hasUserOidCookie)
-                    ? cookieStore.get(COOKIE_USER_OID)
+                    ? cookieStore.get(COOKIE_USER_OID)?.value
                     : ''
 
     return NextResponse.json({ isAuthenticated: hasJwtTokenCookie, userOid: userOid })

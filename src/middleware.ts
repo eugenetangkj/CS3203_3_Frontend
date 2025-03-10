@@ -24,10 +24,10 @@ export async function middleware(request: Request) {
 
     // Get user oid cookie
     const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
-    if (!hasUserOidCookie) {
+    if (!hasUserOidCookie && hasJwtTokenCookie) {
         return NextResponse.redirect(new URL('/', request.url));
     }
-    const userOid = cookieStore.get(COOKIE_USER_OID)
+    const userOid = cookieStore.get(COOKIE_USER_OID)?.value
 
     //Obtain user role
     let userRole = UserRoleEnum.Citizen
