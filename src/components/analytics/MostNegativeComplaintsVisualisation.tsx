@@ -53,7 +53,6 @@ export function MostNegativePostsVisualisation() {
                     "limit": numberOfComplaintsToFetch
                 }
             )
-            console.log(apiData)
             const tableData = convertToArray(apiData.data.complaints)
             const tableHeaders = ["Title", "Description", "Posted", "Category", "Source", "Sentiment"]
             setTableDataObject({
@@ -61,7 +60,6 @@ export function MostNegativePostsVisualisation() {
                 data: tableData
             })
         } catch (error) {
-            console.log(error)
             setIsThereError(true)
         } finally {
             setHasRanApi(true)
