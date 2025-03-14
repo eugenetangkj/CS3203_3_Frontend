@@ -4,13 +4,13 @@ The analytics dashboard component used in the analytics page, housing the differ
 */
 
 import AnalyticsDashboardTitle from "./AnalyticsDashboardTitle";
-import { NumberOfComplaintsByCategoryOverTimeVisualisation } from "./NumberOfComplaintsByCategoryOverTimeVisualisation";
-import { NumberOfComplaintsByCategoryVisualisation } from "./NumberOfComplaintsByCategoryVisualisation";
-import { NumberOfComplaintsBySentimentVisualisation } from "./NumberOfComplaintsBySentimentVisualisation";
-import { SentimentsOfCategoriesVisualisation } from "./SentimentsOfCategoriesVisualisation";
-import { SentimentsOfSourcesVisualisation } from "./SentimentsOfSourcesVisualisation";
-import { MostNegativePostsVisualisation } from "./MostNegativeComplaintsVisualisation";
-import { SentimentsOfCategoriesOverTimeVisualisation } from "./SentimentsOfCategoriesOverTimeVisualisation";
+import { NumberOfComplaintsByCategoryOverTimeVisualisation } from "./visualisations/NumberOfComplaintsByCategoryOverTimeVisualisation";
+import { NumberOfComplaintsByCategoryVisualisation } from "./visualisations/NumberOfComplaintsByCategoryVisualisation";
+import { NumberOfComplaintsBySentimentVisualisation } from "./visualisations/NumberOfComplaintsBySentimentVisualisation";
+import { SentimentsOfCategoriesVisualisation } from "./visualisations/SentimentsOfCategoriesVisualisation";
+import { SentimentsOfSourcesVisualisation } from "./visualisations/SentimentsOfSourcesVisualisation";
+import { MostNegativePostsVisualisation } from "./visualisations/MostNegativeComplaintsVisualisation";
+import { SentimentsOfCategoriesOverTimeVisualisation } from "./visualisations/SentimentsOfCategoriesOverTimeVisualisation";
 
 export default function AnalyticsDashboard() {
     return (

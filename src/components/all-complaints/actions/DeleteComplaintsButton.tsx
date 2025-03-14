@@ -4,7 +4,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Complaint } from "@/types/Complaint";
 import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
 import { COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT } from "@/constants/ApiRoutes";

@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Skeleton } from "../ui/skeleton"
+import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT as GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT } from "@/constants/ApiRoutes"
-import { ClassicTable } from "../charts/ClassicTable"
+import { ClassicTable } from "../../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
 
@@ -53,7 +53,6 @@ export function MostNegativePostsVisualisation() {
                     "limit": numberOfComplaintsToFetch
                 }
             )
-            console.log(apiData)
             const tableData = convertToArray(apiData.data.complaints)
             const tableHeaders = ["Title", "Description", "Posted", "Category", "Source", "Sentiment"]
             setTableDataObject({
@@ -61,7 +60,6 @@ export function MostNegativePostsVisualisation() {
                 data: tableData
             })
         } catch (error) {
-            console.log(error)
             setIsThereError(true)
         } finally {
             setHasRanApi(true)

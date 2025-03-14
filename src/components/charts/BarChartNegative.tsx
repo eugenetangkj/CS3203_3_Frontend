@@ -5,7 +5,7 @@ import { CardContent, CardFooter, } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
 import { COLOUR_MAP } from "@/constants/Constants"
-import { sentimentsRange } from "@/constants/Sentiments"
+import { SENTIMENTS_RANGE } from "@/constants/Constants"
 
 
 interface BarChartNegativeProps {
@@ -38,7 +38,7 @@ export function BarChartNegative({ chartData, footerText }: BarChartNegativeProp
                 <BarChart accessibilityLayer data={chartData}>
                 <CartesianGrid vertical={false} />
 
-                <YAxis domain={ sentimentsRange } />
+                <YAxis domain={ SENTIMENTS_RANGE } />
                 <ChartTooltip
                     cursor={false}
                     content={<ChartTooltipContent hideLabel hideIndicator />}

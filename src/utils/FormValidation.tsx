@@ -25,3 +25,6 @@ export const passwordFieldValidation = z.string({ message: 'Password cannot be e
                                        .regex(/[a-z]/, { message: "Password must contain at least one lowercase letter." })
                                        .regex(/[0-9]/, { message: "Password must contain at least one number." })
                                        .regex(/[^A-Za-z0-9]/, { message: "Password must contain at least one special character (!@#$%^&*)." })
+
+//Validate confirm password field
+export const confirmPasswordFieldValidation = z.string({ message: 'Password cannot be empty.'})

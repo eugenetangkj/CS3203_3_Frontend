@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
-import { DestructiveAlert } from "../common/alert/DestructiveAlert"
+import { DestructiveAlert } from "@/components/common/alert/DestructiveAlert"
 import { useToast } from "@/hooks/use-toast"
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"

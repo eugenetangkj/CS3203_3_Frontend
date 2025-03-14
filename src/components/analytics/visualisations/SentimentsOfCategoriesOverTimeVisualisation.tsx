@@ -1,19 +1,18 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Skeleton } from "../ui/skeleton"
-import { LineChartMultiple } from "../charts/LineChartMultiple"
+import { Skeleton } from "../../ui/skeleton"
+import { LineChartMultiple } from "../../charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 
-
 /**
-Represents the visualisation for number of complaints by category over time visualisation used in analytics dashboard
+Represents the visualisation for the sentiments of categorises over time, used in analytics dashboard.
 */
-export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
+export function SentimentsOfCategoriesOverTimeVisualisation() {
 
     //States
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
@@ -23,10 +22,10 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertApiDataIntoLineChartMultipleData = (monthlyData: { date: string; data: Record<string, { count: number }> }[]): LineChartMultiplePoint[] => {
+    const convertApiDataIntoLineChartMultipleData = (monthlyData: { date: string; data: Record<string, { avg_sentiment: number }> }[]): LineChartMultiplePoint[] => {
         return monthlyData.map(({ date, data }) => ({
             date: date,
-            ...Object.fromEntries(Object.entries(data).map(([category, values]) => [category, values.count]))
+            ...Object.fromEntries(Object.entries(data).map(([category, values]) => [category, values.avg_sentiment]))
         }));
     };
 
@@ -38,13 +37,12 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
             const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
-                    "start_date": getDateTimeOneYearAgoAndSetToStart(), //"01-01-2023 00:00:00"
+                    "start_date": getDateTimeOneYearAgoAndSetToStart(), //"01-01-2023 00:00:00",
                     "end_date":  getDateTimeOneMonthAgoAndSetToEnd(), //"31-12-2023 23:59:59"
                     "group_by_field": "category"
                 }
             )
             const processedComplaintsData = convertApiDataIntoLineChartMultipleData(complaintsData.data.result)
-
 
             //Process category colours
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT

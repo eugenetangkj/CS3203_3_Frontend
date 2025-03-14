@@ -86,10 +86,20 @@ body {
   .sign-up-field {
     @apply w-[300px] sm:w-[400px] rounded-full text-base
   }
+  
   .analytics-dashboard-card {
     @apply gap-y-8 bg-yap-gray-100 p-4 rounded-xl
   }
+
   .paragraph-container {
     @apply flex flex-col space-y-4
+  }
+
+  .table-header {
+    @apply text-yap-brown-900 font-bold text-lg pl-0
+  }
+
+  .table-row {
+    @apply text-base text-yap-black-800 pl-0
   }
 }

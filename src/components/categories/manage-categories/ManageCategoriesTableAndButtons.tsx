@@ -1,10 +1,10 @@
 "use client"
 
-import { ManageCategoriesTable } from "@/components/categories/ManageCategoriesTable";
-import { AddCategoryButton } from "@/components/categories/AddCategoryButton";
+import { ManageCategoriesTable } from "@/components/categories/manage-categories/ManageCategoriesTable";
+import { AddCategoryButton } from "./actions/AddCategoryButton";
 import { useState, useEffect } from "react";
 import { Category } from "@/types/Category";
-import CategoriesTableSkeleton from "@/components/categories/CategoriesTableSkeleton";
+import CategoriesTableSkeleton from "@/components/categories/manage-categories/CategoriesTableSkeleton";
 import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
 import { CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";

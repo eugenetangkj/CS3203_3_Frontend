@@ -1,8 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import DeleteCategoryButton from "./DeleteCategoryButton";
+import DeleteCategoryButton from "./actions/DeleteCategoryButton";
 import { Category } from "@/types/Category";
-import { CategoryColourPicker } from "./CategoryColourPicker";
-import ViewCategoryAnalyticsButton from "./ViewCategoryAnalyticsButton";
+import { CategoryColourPicker } from "./actions/CategoryColourPicker";
+import ViewCategoryAnalyticsButton from "./actions/ViewCategoryAnalyticsButton";
 
 
 /**
