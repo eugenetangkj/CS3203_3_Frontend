@@ -34,7 +34,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
         <Table>
             <TableHeader>
             <TableRow className='hover:bg-transparent font-bold'>
-                <TableHead className="table-header min-w-16"></TableHead>
+                <TableHead className="table-header min-w-16 2xl:min-w-8"></TableHead>
                 <TableHead className="table-header min-w-40">Title</TableHead>
                 <TableHead className="table-header min-w-40 max-w-60">Description</TableHead>
                 <TableHead className="table-header min-w-40">Posted</TableHead>
