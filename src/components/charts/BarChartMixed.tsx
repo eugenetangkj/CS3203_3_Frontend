@@ -5,7 +5,7 @@ import { Bar, BarChart, XAxis, YAxis, LabelList } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { BarChartMixedPoint } from "@/types/ChartInterface";
 import { useState, useEffect } from "react";
-import { breakpoints } from "@/constants/Breakpoints";
+import { BREAKPOINTS } from "@/constants/Constants";
 
 
 
@@ -38,17 +38,17 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
  
     useEffect(() => {
         // Change maxValue based on screen size
-        if (screenWidth <= breakpoints['xs']) {
+        if (screenWidth <= BREAKPOINTS['xs']) {
             setScalingFactor(4.25);
-        } else if (screenWidth <= breakpoints['sm']) {
+        } else if (screenWidth <= BREAKPOINTS['sm']) {
             setScalingFactor(3);
-        } else if (screenWidth <= breakpoints['md']) {
+        } else if (screenWidth <= BREAKPOINTS['md']) {
             setScalingFactor(2); 
-        } else if (screenWidth <= breakpoints['lg']) {
+        } else if (screenWidth <= BREAKPOINTS['lg']) {
             setScalingFactor(1.5); 
-        } else if (screenWidth <= breakpoints['xl']) {
+        } else if (screenWidth <= BREAKPOINTS['xl']) {
             setScalingFactor(2.5); 
-        } else if (screenWidth <= breakpoints['2xl']) {
+        } else if (screenWidth <= BREAKPOINTS['2xl']) {
             setScalingFactor(2.5); 
         } else {
             setScalingFactor(2); 
@@ -93,8 +93,6 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
                 axisLine={false}
                 interval={0}
                 width={120}
-             
-
                 />
                 <XAxis dataKey={ valueKey } type="number" domain={[0, maxValue * scalingFactor]} hide />
                 <ChartTooltip

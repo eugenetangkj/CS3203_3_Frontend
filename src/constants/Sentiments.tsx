@@ -1,1 +1,0 @@
-export const sentimentsRange = [-1, 1]
