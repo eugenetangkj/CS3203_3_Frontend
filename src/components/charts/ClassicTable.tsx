@@ -16,7 +16,8 @@ export function ClassicTable({ headers, data }: ClassicTableProps) {
             <TableHeader>
                 <TableRow className='hover:bg-transparent font-bold'>
                 {headers.map((header) => (
-                    <TableHead className='text-yap-brown-900 font-bold text-lg pl-0' key={header}>{header}</TableHead>
+                    <TableHead className={`text-yap-brown-900 font-bold text-lg pl-0 ${header === "Title" || header === "Description" || header === "Posted" ? "min-w-40 max-w-60" : "min-w-20"}`}
+                        key={header}>{header}</TableHead>
                 ))}
                 </TableRow>
             </TableHeader>

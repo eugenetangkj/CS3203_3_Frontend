@@ -34,13 +34,13 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
         <Table>
             <TableHeader>
             <TableRow className='hover:bg-transparent font-bold'>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/12"></TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/4">Title</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/4">Description</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Posted</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Category</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Source</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 w-1/6">Sentiment</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-16"></TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Title</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40 max-w-60">Description</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Posted</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Category</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-20">Source</TableHead>
+                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-20">Sentiment</TableHead>
             </TableRow>
             </TableHeader>
 
@@ -54,14 +54,14 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
                         </TableCell>
 
                         {/* Title */}
-                        <TableCell className="text-base text-yap-black-800 pl-0">
+                        <TableCell className="text-base text-yap-black-800 pl-0 max-w-60">
                             <a href={ complaint.url } target='_blank'>
                                 <p className='line-clamp-1 underline'>{ complaint.title }</p>
                             </a>
                         </TableCell>
 
                         {/* Description */}
-                        <TableCell className="text-base text-yap-black-800 pl-0">
+                        <TableCell className="text-base text-yap-black-800 pl-0 max-w-40">
                             <p className='line-clamp-1'>{ complaint.description === '' ? '[No description]' : complaint.description }</p>
                         </TableCell>
 
