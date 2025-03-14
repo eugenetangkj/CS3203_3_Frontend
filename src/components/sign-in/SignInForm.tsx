@@ -10,7 +10,7 @@ import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
-import { emailFieldValidation } from "@/utils/FormValidation"
+import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
 import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios"
@@ -21,7 +21,7 @@ This component represents the form for signing in an existing account
 */
 const formSchema = z.object({
     email: emailFieldValidation,
-    password: z.string({ message: 'Password cannot be empty.'})
+    password: confirmPasswordFieldValidation,
 })
 
 

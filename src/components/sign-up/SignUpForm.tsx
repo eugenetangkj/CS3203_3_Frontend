@@ -10,7 +10,7 @@ import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
-import { nameFieldValidation, emailFieldValidation, passwordFieldValidation } from "@/utils/FormValidation"
+import { nameFieldValidation, emailFieldValidation, passwordFieldValidation, confirmPasswordFieldValidation } from "@/utils/FormValidation"
 import { API_BASE_URL_USER_MANAGEMENT, SIGNUP_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 /**
@@ -20,7 +20,7 @@ const formSchema = z.object({
     name: nameFieldValidation,
     email: emailFieldValidation,
     password: passwordFieldValidation,
-    confirmPassword: passwordFieldValidation
+    confirmPassword: confirmPasswordFieldValidation,
 }).superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
