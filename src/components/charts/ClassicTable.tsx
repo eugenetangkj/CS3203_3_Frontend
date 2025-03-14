@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/
   
 
 /**
-This component represents a classic table that is used for visualisation.
+This component represents a classic table that is used for visualisation. Useful for displaying complaints.
 */
 interface ClassicTableProps {
     headers: string[];
@@ -16,7 +16,7 @@ export function ClassicTable({ headers, data }: ClassicTableProps) {
             <TableHeader>
                 <TableRow className='hover:bg-transparent font-bold'>
                 {headers.map((header) => (
-                    <TableHead className={`text-yap-brown-900 font-bold text-lg pl-0 ${header === "Title" || header === "Description" || header === "Posted" ? "min-w-40 max-w-60" : "min-w-20"}`}
+                    <TableHead className={`table-header ${header === "Title" || header === "Description" || header === "Posted" ? "min-w-40 max-w-60" : "min-w-20"}`}
                         key={header}>{header}</TableHead>
                 ))}
                 </TableRow>

@@ -34,13 +34,13 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
         <Table>
             <TableHeader>
             <TableRow className='hover:bg-transparent font-bold'>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-16"></TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Title</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40 max-w-60">Description</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Posted</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-40">Category</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-20">Source</TableHead>
-                <TableHead className="text-yap-brown-900 font-bold text-lg pl-0 min-w-20">Sentiment</TableHead>
+                <TableHead className="table-header min-w-16"></TableHead>
+                <TableHead className="table-header min-w-40">Title</TableHead>
+                <TableHead className="table-header min-w-40 max-w-60">Description</TableHead>
+                <TableHead className="table-header min-w-40">Posted</TableHead>
+                <TableHead className="table-header min-w-40">Category</TableHead>
+                <TableHead className="table-header min-w-20">Source</TableHead>
+                <TableHead className="table-header min-w-20">Sentiment</TableHead>
             </TableRow>
             </TableHeader>
 
