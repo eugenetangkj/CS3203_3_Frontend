@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Skeleton } from "../ui/skeleton"
+import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT as GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT } from "@/constants/ApiRoutes"
-import { ClassicTable } from "../charts/ClassicTable"
+import { ClassicTable } from "../../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
 

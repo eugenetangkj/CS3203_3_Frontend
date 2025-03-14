@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react"
 import { START_DATE } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
-import { Skeleton } from "../ui/skeleton"
+import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
-import { ClassicTable } from "../charts/ClassicTable"
+import { ClassicTable } from "../../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
 

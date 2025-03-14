@@ -3,7 +3,7 @@
 import { Complaint } from "@/types/Complaint";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { CategoryDropdown } from "./CategoryDropdown";
+import { CategoryDropdown } from "./actions/CategoryDropdown";
 import { Category } from "@/types/Category";
 import { doesComplaintExistInList, findCategoryObjectFromListGivenName } from "@/utils/HelperFunctions";
 

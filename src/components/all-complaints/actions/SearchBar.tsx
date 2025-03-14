@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Complaint } from "@/types/Complaint"
-import { Input } from "../ui/input"
+import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 
 /**

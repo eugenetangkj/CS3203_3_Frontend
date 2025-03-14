@@ -1,4 +1,4 @@
-import ManageCategoriesTableAndButtons from "../../components/categories/ManageCategoriesTableAndButtons";
+import ManageCategoriesTableAndButtons from "../../components/categories/manage-categories/ManageCategoriesTableAndButtons";
 import { Metadata } from "next";
 import PageTitle from "@/components/common/text/PageTitle";
 
