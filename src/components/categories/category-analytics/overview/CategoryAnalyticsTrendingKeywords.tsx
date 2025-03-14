@@ -1,5 +1,6 @@
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import AiTooltip from "@/components/common/others/AiTooltip"
+import InfoTooltip from "@/components/common/others/InfoTooltip"
 
 /**
 This component is used to display the trending keywords of a given category
@@ -13,8 +14,12 @@ interface CategoryAnalyticsTrendingKeywordsProps {
 export default function CategoryAnalyticsTrendingKeywords({ keywords }: CategoryAnalyticsTrendingKeywordsProps) {
     return (
         <div className='paragraph-container'>
-            <PageSubtitle pageSubtitle="Trending Keywords" />
-            
+            <div className='flex flex-row gap-2 items-center'>
+                <PageSubtitle pageSubtitle="Trending Keywords" />
+                <InfoTooltip message='These are the top keywords that appear in the complaints.' />
+                <AiTooltip message='The keywords are obtained using AI.' />
+            </div>
+
             {
                 (keywords.length === 0)
                 ? <p>No keywords are found.</p>

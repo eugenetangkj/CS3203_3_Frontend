@@ -1,3 +1,4 @@
+import AiTooltip from "@/components/common/others/AiTooltip"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { AbsaResult } from "@/types/CategoryAnalytics"
@@ -20,7 +21,8 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
         <div className='paragraph-container'>
             <div className='flex flex-row gap-2 items-center'>
                 <PageSubtitle pageSubtitle="ABSA Results" />
-                <InfoTooltip message='ABSA shows the sentiments of subtopics within the category, based on the complaints.' />
+                <InfoTooltip message='ABSA shows the sentiments of themes that emerged within the category, based on the complaints.' />
+                <AiTooltip message='The ABSA results are AI-generated.' />
             </div>
 
             {
@@ -30,7 +32,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                     {
                         absaResults.map((result: AbsaResult) => (
 
-                            <div key={ result.theme } className={`border-none rounded-xl py-1 px-2 flex flex-col justify-start items-center h-[125px] w-[300px] space-y-4
+                            <div key={ result.theme } className={`border-none rounded-xl px-4 py-2 flex flex-col justify-start items-center w-fit space-y-2
                                 ${
                                     result.sentiment === positive_sentiment
                                     ? 'bg-yap-green-50'
@@ -39,7 +41,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                                     : 'bg-yap-brown-100'
                                 }
                             `}>
-                                <p className={`text-base font-bold ${ 
+                                <p className={`text-sm font-bold ${ 
                                     result.sentiment === positive_sentiment
                                     ? 'text-yap-green-900'
                                     : result.sentiment === negative_sentiment
@@ -47,7 +49,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                                     : 'text-yap-brown-900'
                                 }`}> { capitaliseFirstLetter(result.sentiment) }
                                 </p>
-                                <p className='text-xl text-yap-black-800 text-center'>{ result.theme }</p>
+                                <p className='text-base text-yap-black-800 text-center'>{ result.theme }</p>
                             </div>
                         ))
                     }

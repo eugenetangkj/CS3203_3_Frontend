@@ -1,5 +1,5 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Sparkles } from "lucide-react";
+import { Bot } from "lucide-react";
 
 
 /**
@@ -21,7 +21,7 @@ export default function AiTooltip({ message }: AiTooltipProps) {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                <Sparkles className='w-7 h-7 fill-yap-yellow-900 stroke-yap-yellow-900'/>
+                <Bot className='w-7 h-7  stroke-yap-orange-900 hover:stroke-yap-orange-800'/>
                 </TooltipTrigger>
                 <TooltipContent className='bg-yap-brown-200 rounded-full'>
                 <p className='font-afacad text-yap-black-800'>{ message }</p>
