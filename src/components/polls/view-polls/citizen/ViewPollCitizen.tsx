@@ -2,6 +2,11 @@ import { Poll, PollStatusEnum } from "@/types/Poll"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
 import { CitizenPollMcqForm } from "./CitizenPollMcqForm"
 import { determineIfUserIsSignedIn } from "@/utils/AuthChecker"
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+  } from "@/components/ui/alert"
 
 
 /**
@@ -23,6 +28,15 @@ export async function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
             {/* Navigate back to all polls */}
             <BackToPreviousButton text='Back to all polls' route='/polls' />
 
+            {/* Alert to inform user to sign in */}
+            {
+                !isUserSignedIn &&
+                <Alert className='bg-yap-brown-100 border-0'>
+                    <AlertTitle className='text-lg text-yap-brown-900'>We noticed you are not signed in. ⚠️</AlertTitle>
+                    <AlertDescription className='text-base'>Sign in to participate in the polls.</AlertDescription>
+                </Alert>
+            }
+
             {/* Date information */}
             <p className='text-base text-yap-brown-900'>
                 {
@@ -32,9 +46,9 @@ export async function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
                 }
             </p>
 
-
             {/* Question form */}
             <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
+
 
 
         
