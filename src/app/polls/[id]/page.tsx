@@ -1,8 +1,10 @@
 import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
+import { ViewPollCitizen } from "@/components/polls/view-polls/citizen/ViewPollCitizen";
 import ViewPollComponent from "@/components/polls/ViewPollComponent";
 import { allPolls } from "@/constants/posts";
-import { Poll } from "@/types/Poll";
+import { Poll, PollStatusEnum } from "@/types/Poll";
 import { determineIsUserAdmin } from "@/utils/AuthChecker";
+import { redirect } from 'next/navigation'
 
 
 /** 
@@ -42,7 +44,10 @@ export default async function ViewPoll({ params }: any) {
 
     const poll = await fetchPoll()
 
-
+    //Prevent unauthorised access to unpublished polls
+    if (!isUserAdmin && poll.status == PollStatusEnum.Unpublished) {
+        redirect('/polls')
+    }
 
 
     return (
@@ -51,7 +56,7 @@ export default async function ViewPoll({ params }: any) {
                 poll == null
                 ? <div className='text-yap-black-800 text-base'>Something went wrong. We could not fetch the poll.</div>
                 : !isUserAdmin
-                ? <></>
+                ? <ViewPollCitizen currentPoll={ poll } />
                 : <ViewPollAdmin currentPoll={ poll } />
             }
          

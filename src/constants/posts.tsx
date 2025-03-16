@@ -2,7 +2,7 @@
 
 export const pollTemplatesHardCodedData = [
     {
-        id: 1,
+        id: "1",
         question: "Is the current level of government intervention in the NTUC Income-Allianz deal sufficient to protect the interests of Singaporean policyholders?",
         category: "Economy",
         reasoning: "The discussions highlight concerns about the potential negative impact of the Allianz acquisition on NTUC Income's social mission and the adequacy of regulatory oversight.",
@@ -11,7 +11,7 @@ export const pollTemplatesHardCodedData = [
         date_created: '2024-01-05'
     },
     {
-        id: 2,
+        id: "2",
         question: "Should Singapore preschools implement mandatory CCTV monitoring in classrooms to increase transparency and accountability?",
         category: "Education",
         reasoning: "Addresses parental concerns about preschool safety and explores potential solutions in light of reported abuse cases.",
@@ -24,7 +24,7 @@ export const pollTemplatesHardCodedData = [
 
 export const unpublishedPolls = [
     {
-        id: 2,
+        id: "2",
         question: "How satisfied are you with the current state of Singapore's recycling efforts?",
         category: "Environment",
         question_type: "MCQ",
@@ -35,7 +35,7 @@ export const unpublishedPolls = [
         status: "Unpublished"
     },
     {
-        id: 3,
+        id: "3",
         question: "What is your opinion on Japan's release of treated water into the ocean?",
         category: "Environment",
         question_type: "MCQ",
@@ -49,7 +49,7 @@ export const unpublishedPolls = [
 
 export const closedPolls = [
     {
-        id: 4,
+        id: "4",
         question: "How concerned are you about teacher workload and well-being in Singapore's education system?",
         category: "Education",
         question_type: "Open-ended",
@@ -60,7 +60,7 @@ export const closedPolls = [
         status: "Closed"
     },
     {
-        id: 5,
+        id: "5",
         question: "What are your biggest concerns regarding scams in Singapore right now?",
         category: "Public Safety",
         question_type: "Open-ended",
@@ -74,7 +74,7 @@ export const closedPolls = [
 
 export const ongoingPolls = [
     {
-        id: 6,
+        id: "6",
         question: "How concerned are you about data breaches and cyber security vulnerabilities in Singapore's digital services?",
         category: "Technology",
         question_type: "Open-ended",
@@ -85,7 +85,7 @@ export const ongoingPolls = [
         status: "Published"
     },
     {
-        id: 7,
+        id: "7",
         question: "Are social media platforms doing enough to prevent the creation of fake accounts impersonating public figures?",
         category: "Technology",
         question_type: "MCQ",
@@ -101,7 +101,7 @@ export const ongoingPolls = [
 
 export const allPolls = [
     {
-        id: 0,
+        id: "0",
         question: "How satisfied are you with SMRT's response to recent MRT delays?",
         category: "Transport",
         question_type: "MCQ",
@@ -112,7 +112,7 @@ export const allPolls = [
         status: "Published"
     },
     {
-        id: 1,
+        id: "1",
         question: "What improvements would you suggest for the cleanliness and state of hawker centres?",
         category: "Environment",
         question_type: "Open-ended",
@@ -123,7 +123,7 @@ export const allPolls = [
         status: "Unpublished"
     },
     {
-        id: 2,
+        id: "2",
         question: "How satisfied are you with the current state of Singapore's recycling efforts?",
         category: "Environment",
         question_type: "MCQ",
@@ -134,7 +134,7 @@ export const allPolls = [
         status: "Unpublished"
     },
     {
-        id: 3,
+        id: "3",
         question: "What is your opinion on Japan's release of treated water into the ocean?",
         category: "Environment",
         question_type: "MCQ",
@@ -145,7 +145,7 @@ export const allPolls = [
         status: "Unpublished"
     },
     {
-        id: 4,
+        id: "4",
         question: "How concerned are you about teacher workload and well-being in Singapore's education system?",
         category: "Education",
         question_type: "Open-ended",
@@ -156,7 +156,7 @@ export const allPolls = [
         status: "Closed"
     },
     {
-        id: 5,
+        id: "5",
         question: "What are your biggest concerns regarding scams in Singapore right now?",
         category: "Public Safety",
         question_type: "Open-ended",
@@ -167,7 +167,7 @@ export const allPolls = [
         status: "Closed"
     },
     {
-        id: 6,
+        id: "6",
         question: "How concerned are you about data breaches and cyber security vulnerabilities in Singapore's digital services?",
         category: "Technology",
         question_type: "Open-ended",
@@ -178,7 +178,7 @@ export const allPolls = [
         status: "Published"
     },
     {
-        id: 7,
+        id: "7",
         question: "Are social media platforms doing enough to prevent the creation of fake accounts impersonating public figures?",
         category: "Technology",
         question_type: "MCQ",

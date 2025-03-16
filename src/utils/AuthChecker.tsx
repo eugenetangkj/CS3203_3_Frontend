@@ -1,4 +1,4 @@
-import { COOKIE_USER_OID } from "@/constants/Constants";
+import { COOKIE_JWT_TOKEN, COOKIE_USER_OID } from "@/constants/Constants";
 import { cookies } from "next/headers";
 import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import { UserRoleEnum } from "@/types/User";
@@ -33,5 +33,19 @@ export const determineIsUserAdmin = async () => {
     } catch (error) {
     console.error(error)
     return false
+    }
+}
+
+
+//Determines if the user is signed in
+export const determineIfUserIsSignedIn = async () => {
+    try {
+        const cookieStore = await cookies()
+        const hasUserOidCookie = cookieStore.has(COOKIE_JWT_TOKEN)
+        return hasUserOidCookie
+
+    } catch (error) {
+        console.error(error)
+        return false
     }
 }
