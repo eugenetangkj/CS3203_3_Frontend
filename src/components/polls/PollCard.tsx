@@ -34,7 +34,7 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
                 <div className='flex flex-col space-y-4'>
                     <div className='space-y-2'>
                         {/* Question */}
-                        <h6 className='text-yap-brown-900 text-xl 2xl:text-2xl line-clamp-3 overflow-hidden'>{ pollToDisplay.question }</h6>
+                        <h6 className='text-yap-brown-900 text-xl  line-clamp-3 overflow-hidden'>{ pollToDisplay.question }</h6>
 
                         {/* Question Type */}
                         <div className='rounded-full  text-white w-fit px-4 py-0.25 text-sm' style={{

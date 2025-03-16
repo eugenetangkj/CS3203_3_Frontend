@@ -2,6 +2,7 @@ import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { PollTemplate } from "@/types/Poll"
 import { pollTemplatesHardCodedData } from "@/constants/posts"
+import InfoTooltip from "@/components/common/others/InfoTooltip"
 
 /**
 Represents a section within the all polls page that displays the existing poll templates
@@ -22,7 +23,12 @@ export default async function PollTemplatesSection() {
 
     return (
         <div className='flex flex-col space-y-6'>
-            <PageSubtitle pageSubtitle='Poll Templates' />
+            <div className='flex flex-row gap-2 items-center'>
+                <PageSubtitle pageSubtitle='Poll Templates' />
+                <InfoTooltip message='We analyse past complaints and leverage AI to generate poll templates.' />
+            </div>
+  
+            
             {
                 pollTemplates.length === 0
                 ? <div className='text-yap-black-800'>There is no poll template.</div>
