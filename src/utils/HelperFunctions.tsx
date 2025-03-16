@@ -172,3 +172,15 @@ export const determineIsUserAdmin = async () => {
 export const determineIsPollOrPollTemplate = (poll: Poll | PollTemplate): poll is Poll => {
     return !("reasoning" in poll)
 }
+
+
+/**
+ * Checks if a given input is an empty object, {}
+ * 
+ * @param inputObject The object to check
+ * 
+ * @returns true if the object is empty, else false
+ */
+export const determineIsObjectEmpty = (inputObject: any) => {
+    return  (Object.keys(inputObject).length === 0 && inputObject.constructor === Object)
+}
