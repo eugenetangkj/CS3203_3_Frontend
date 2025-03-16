@@ -25,29 +25,11 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
     //Poll that is maintained within the current page
     const [poll, setPoll] = useState<Poll>(currentPoll)
 
-    //Current option that is added
-    const [currentOption, setCurrentOption] = useState<string>('')
 
     //If the current poll object changes, update the state
     useEffect(() => {
         setPoll(currentPoll); 
     }, [currentPoll]);
-
-    // //Handles adding of option
-    // const handleCreateNewOption = () => {
-    //     if (currentOption.trim() === '') {
-    //         //Ignore pure whitespace options
-    //         return
-    //     }
-    //     //Add current option to poll's options
-    //     setPoll((prevPoll) => ({
-    //         ...prevPoll,
-    //         options: [...prevPoll.options, currentOption],
-    //     }));
-
-    //     //Reset current option
-    //     setCurrentOption('')
-    // }
 
 
     return (

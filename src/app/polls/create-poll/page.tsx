@@ -21,7 +21,7 @@ export default function CreatePollsPage() {
         question: "",
         category: "",
         question_type: PollQuestionTypeEnum.MCQ, //Default to MCQ
-        options: ['Option 1'],
+        options: [],
         date_created: getCurrentDateTime(),
         date_published: "",
         date_closed: "",
