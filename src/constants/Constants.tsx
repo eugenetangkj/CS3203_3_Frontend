@@ -161,3 +161,9 @@ export const BREAKPOINTS = {
 Range of values that is allowed for a sentiment value
 */
 export const SENTIMENTS_RANGE = [-1, 1]
+
+
+/**
+The list of possible Poll question types
+*/
+export const POSSIBLE_POLL_QUESTION_TYPES: string[] = ["MCQ", "Open-ended"]

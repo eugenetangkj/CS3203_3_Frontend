@@ -14,6 +14,7 @@ export interface Poll {
     status: string  
 }
 
+
 /**
 An interface that represents a poll template which is AI-generated.
 */
@@ -28,21 +29,14 @@ export interface PollTemplate {
 }
 
 
-
-
-/**
-The list of possible Poll question types
-*/
-export const POSSIBLE_POLL_TYPES: string[] = ["mcq", "open-ended"]
-
-
 /**
 The possible question types available
  */
 export enum PollQuestionTypeEnum {
     MCQ = 'MCQ',
-    OpenEnded = 'OpenEnded',
+    OpenEnded = 'Open-ended',
 }
+
 
 /**
 The possible status available

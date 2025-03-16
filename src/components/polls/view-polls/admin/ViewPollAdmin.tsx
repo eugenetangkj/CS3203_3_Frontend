@@ -8,6 +8,7 @@ import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Input } from "@/components/ui/input"
 import { ViewPollAdminQuestion } from "./ViewPollAdminQuestion"
 import { ViewPollAdminCategory } from "./ViewPollAdminCategory"
+import { ViewPollAdminQuestionType } from "./ViewPollAdminQuestionType"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -70,6 +71,9 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
                 {/* Category */}
                 <ViewPollAdminCategory currentPoll={ poll } setPoll={ setPoll } />
+
+                {/* Question type */}
+                <ViewPollAdminQuestionType currentPoll={ poll } setPoll={ setPoll } />
             </div>
         </div>
     )
