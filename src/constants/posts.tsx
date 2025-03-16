@@ -32,7 +32,7 @@ export const unpublishedPolls = [
         date_created: "2024-01-05",
         date_published: "",
         date_closed: "",
-        status: "unpublished"
+        status: "Unpublished"
     },
     {
         id: 4,
@@ -43,7 +43,7 @@ export const unpublishedPolls = [
         date_created: "2024-01-05",
         date_published: "",
         date_closed: "",
-        status: "unpublished"
+        status: "Unpublished"
     },
 ]
 

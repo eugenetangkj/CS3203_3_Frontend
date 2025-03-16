@@ -43,3 +43,12 @@ export enum PollQuestionTypeEnum {
     MCQ = 'MCQ',
     OpenEnded = 'OpenEnded',
 }
+
+/**
+The possible status available
+*/
+export enum PollStatusEnum {
+    Unpublished = 'Unpublished',
+    Published = 'Published',
+    Closed = 'Closed'
+}

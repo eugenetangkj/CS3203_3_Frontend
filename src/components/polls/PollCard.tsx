@@ -2,6 +2,7 @@ import { Poll, PollTemplate, PollQuestionTypeEnum } from "@/types/Poll";
 import { COLOUR_MAP } from "@/constants/Constants";
 import AiTooltip from "../common/others/AiTooltip";
 import { determineIsPollOrPollTemplate } from "@/utils/HelperFunctions";
+import { PollStatusEnum } from "@/types/Poll";
 
 
 /**
@@ -20,9 +21,9 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
     // Determine date string to display
     const dateStringToDisplay = (!isPoll)
                                 ? "Date created: " + pollToDisplay.date_created
-                                : (isPoll && pollToDisplay.status == "published")
+                                : (isPoll && pollToDisplay.status == PollStatusEnum.Published)
                                 ? "Date published: " + pollToDisplay.date_published 
-                                : (isPoll && pollToDisplay.status == "closed")
+                                : (isPoll && pollToDisplay.status == PollStatusEnum.Closed)
                                 ? "Date closed: " + pollToDisplay.date_published
                                 : "Date created: " + pollToDisplay.date_created
 

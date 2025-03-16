@@ -1,5 +1,7 @@
-import { ViewPollAdminDetails } from "@/components/polls/ViewPollAdminDetails";
+import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
+import { PollQuestionTypeEnum } from "@/types/Poll";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import { PollStatusEnum } from "@/types/Poll";
 
 
 /** 
@@ -14,28 +16,23 @@ export const metadata = {
 
 export default function CreatePollsPage() {
     //Always start with an empty current poll when the user manually creates a new poll
-    const currentPoll = {
+    const emptyPoll = {
         id: -1,
         question: "",
-        description: "",
-        reasoning: "",
-        type: "mcq", //Default to MCQ
+        category: "",
+        question_type: PollQuestionTypeEnum.MCQ, //Default to MCQ
         options: [],
-        dateCreated: getCurrentDateTime(),
-        datePublished: "",
-        dateClosed: "",
-        isAiGenerated: false,
-        status: "unpublished"
+        date_created: getCurrentDateTime(),
+        date_published: "",
+        date_closed: "",
+        status: PollStatusEnum.Unpublished //New polls are unpublished
     }
     
-
     return (
         <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
             <div className="flex flex-col space-y-12">
-                <ViewPollAdminDetails currentPoll={ currentPoll } />
+                <ViewPollAdmin currentPoll={ emptyPoll }/>
             </div>
-
-            
         </div>
     );
 }
