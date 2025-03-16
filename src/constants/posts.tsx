@@ -22,6 +22,49 @@ export const pollTemplatesHardCodedData = [
 ]
 
 
+export const unpublishedPolls = [
+    {
+        id: 3,
+        question: "How satisfied are you with the current state of Singapore's recycling efforts?",
+        category: "Environment",
+        question_type: "MCQ",
+        options: ["Very satisfied", "Satisfied"],
+        date_created: "2024-01-05",
+        date_published: "",
+        date_closed: "",
+        status: "unpublished"
+    },
+    {
+        id: 4,
+        question: "What is your opinion on Japan's release of treated water into the ocean?",
+        category: "Environment",
+        question_type: "MCQ",
+        options: ["Very satisfied", "Satisfied"],
+        date_created: "2024-01-05",
+        date_published: "",
+        date_closed: "",
+        status: "unpublished"
+    },
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const ongoingPolls = [
     {
         id: 1,
@@ -67,65 +110,6 @@ export const pastCitizenPolls = [
         status: "closed"
     },
 ]
-
-export const unpublishedPolls = [
-    {
-        id: 4,
-        question: "How satisfied are you with the current state of Singapore's recycling efforts?",
-        description: "Singapore has made significant strides in promoting recycling and sustainability, but we want to hear your thoughts. How effective do you think the current recycling programs are in your community? Are there areas you feel could be improved to make recycling more accessible or impactful?",
-        reasoning: "",
-        type: "mcq",
-        options: ["Very satisfied", "Satisfied"],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: false,
-        status: "unpublished"
-    },
-    {
-        id: 5,
-        question: "How satisfied are you with the current state of Singapore's recycling efforts?",
-        description: "Singapore has made significant strides in promoting recycling and sustainability, but we want to hear your thoughts. How effective do you think the current recycling programs are in your community? Are there areas you feel could be improved to make recycling more accessible or impactful?",
-        reasoning: "",
-        type: "mcq",
-        options: ["Very satisfied", "Satisfied"],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: false,
-        status: "unpublished"
-    },
-    {
-        id: 6,
-        question: "How do you feel about the availability of green spaces?",
-        description: "Green spaces like parks and gardens are vital for maintaining a healthy and livable environment. We want to know how well you think these spaces are being maintained in your neighborhood. Do you feel there are enough accessible areas to enjoy nature, or are there improvements that could be made?",
-        reasoning: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        type: "open-ended",
-        options: [],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: true,
-        status: "unpublished"
-    },
-    {
-        id: 7,
-        question: "How satisfied are you with the current state of Singapore's recycling efforts?",
-        description: "Singapore has made significant strides in promoting recycling and sustainability, but we want to hear your thoughts. How effective do you think the current recycling programs are in your community? Are there areas you feel could be improved to make recycling more accessible or impactful?",
-        reasoning: "",
-        type: "mcq",
-        options: ["Very satisfied", "Satisfied"],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: false,
-        status: "unpublished"
-    },
-]
-
-
-
-
 
 
 export const allPolls = [

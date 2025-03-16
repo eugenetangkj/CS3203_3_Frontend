@@ -24,7 +24,7 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
                                 ? "Date published: " + pollToDisplay.date_published 
                                 : (isPoll && pollToDisplay.status == "closed")
                                 ? "Date closed: " + pollToDisplay.date_published
-                                : "Date created:" + pollToDisplay.date_created
+                                : "Date created: " + pollToDisplay.date_created
 
 
     // Return component

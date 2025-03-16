@@ -1,10 +1,10 @@
 import { OngoingPolls } from "@/components/polls/OngoingPolls";
 import { ClosedPolls } from "@/components/polls/ClosedPolls";
-import { UnpublishedPolls } from "@/components/polls/UnpublishedPolls";
 import Image from "next/image";
 import YappyWitch from "../../../public/graphics/yappy-witch.svg";
 import { determineIsUserAdmin } from "@/utils/HelperFunctions";
 import PollTemplatesSection from "@/components/polls/all-polls/PollTemplatesSection";
+import UnpublishedPollsSection from "@/components/polls/all-polls/UnpublishedPollsSection";
 
 
 /** 
@@ -26,7 +26,7 @@ export default async function PollsPage() {
             <div className="flex flex-col space-y-12">
                 <OngoingPolls />
                 <ClosedPolls />
-                { isUserAdmin ? <UnpublishedPolls /> : null}
+                { isUserAdmin ? <UnpublishedPollsSection /> : null}
                 { isUserAdmin ? <PollTemplatesSection /> : null}
             </div>
 
