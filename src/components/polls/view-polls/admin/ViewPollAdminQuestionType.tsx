@@ -25,7 +25,7 @@ export function ViewPollAdminQuestionType({ currentPoll, setPoll }: ViewPollAdmi
                     question_type: value,
                 }));
             }} disabled= { currentPoll.status !== PollStatusEnum.Unpublished }>
-                    <SelectTrigger className="w-[180px] text-yap-black-800 rounded-xl">
+                    <SelectTrigger className="w-[180px] text-yap-black-800 rounded-lg">
                         <SelectValue/>
                     </SelectTrigger>
                     <SelectContent>

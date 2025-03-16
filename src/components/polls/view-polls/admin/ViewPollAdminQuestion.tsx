@@ -30,7 +30,7 @@ export function ViewPollAdminQuestion({ currentPoll, setPoll }: ViewPollAdminQue
                 }
                 disabled={ currentPoll.status !== PollStatusEnum.Unpublished }
                 placeholder="Enter the poll question..."
-                className="!text-base border border-yap-gray-200 rounded-xl text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-full pr-12 h-12"
+                className="!text-base border border-yap-gray-200 rounded-lg text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-full pr-12 h-12"
             />
         </div> 
     )

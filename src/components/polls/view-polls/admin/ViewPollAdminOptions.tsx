@@ -79,7 +79,7 @@ export function ViewPollAdminOptions({ currentPoll, setPoll }: ViewPollAdminOpti
                         handleCreateNewOption();
                         }
                     }}
-                    className="!text-base border border-yap-gray-200 rounded-xl text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-3/4 sm:w-1/2 lg:w-1/4 pr-12 h-10"
+                    className="!text-base border border-yap-gray-200 rounded-lg text-yap-black-800 focus:border-yap-brown-900 focus:border-2 focus-visible:ring-0 w-3/4 sm:w-1/2 lg:w-1/4 pr-12 h-10"
                     />
                     <button 
                         onClick={ handleCreateNewOption } 

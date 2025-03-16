@@ -1,6 +1,8 @@
+import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
 import ViewPollComponent from "@/components/polls/ViewPollComponent";
 import { allPolls } from "@/constants/posts";
 import { Poll } from "@/types/Poll";
+import { determineIsUserAdmin } from "@/utils/AuthChecker";
 
 
 /** 
@@ -17,35 +19,42 @@ export const metadata = {
 };
 
 
-export default function ViewPoll() {
-    //TODO: Determine user role by reading from context
-    const userRole = "admin"
+export default async function ViewPoll({ params }: any) {
+    // Determine which poll is the user trying to view
+    const { id } = await params
+
+    //Determine if the user is an admin
+    const isUserAdmin = await determineIsUserAdmin()
 
 
-    //Function that makes API call to fetch the given post
-    const fetchPollWithId = async (id: number) => {
-        "use server"
-        // const apiEndPoint = API_BASE_URL + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
-        // const apiData = await axios.post(apiEndPoint,
-        //     {
-        //         "start_date": START_DATE,
-        //         "end_date": getCurrentDateTime(),
-        //         "group_by_field": "category"
-        //     }
-        // )
-        // const complaintsGroupedByCategories = convertToArray(apiData.data.result)
-        // return complaintsGroupedByCategories
-        return allPolls.find(poll => poll.id === id) as Poll;
+    //TODO: Fetch the given poll
+    const fetchPoll = async() => {
+        // const apiData = apiFetcherPost('', {}) //TODO: Update the endpoint with appropriate arguments
+
+        // if (determineIsObjectEmpty(apiData)) {
+        //     //Cannot fetch API
+        //     return null
+        // }
+
+        //TODO: Process the API data. If got error, return null
+        return allPolls[id]
     }
 
-
+    const poll = await fetchPoll()
 
 
 
 
     return (
         <div className="px-6 md:px-12 font-afacad mt-32 mb-8">
-            <ViewPollComponent role={ userRole } fetchPollWithId={ fetchPollWithId } />
+            {
+                poll == null
+                ? <div className='text-yap-black-800 text-base'>Something went wrong. We could not fetch the poll.</div>
+                : !isUserAdmin
+                ? <></>
+                : <ViewPollAdmin currentPoll={ poll } />
+            }
+         
         </div>
     );
 }
