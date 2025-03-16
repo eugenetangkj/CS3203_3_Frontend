@@ -86,7 +86,7 @@ export default async function ViewPollTemplate({ params }: any) {
                     <p><span className='text-yap-brown-900 text-lg'>Category: </span><br/>{ pollTemplate.category }</p>
                     <p><span className='text-yap-brown-900 text-lg'>Question Type: </span><br/>{ pollTemplate.question_type }</p>
                     <p><span className='text-yap-brown-900 text-lg'>Date created: </span><br/>{ pollTemplate.date_created }</p>
-                    <p><span className='text-yap-brown-900 text-lg'>Why did AI design this poll: </span><br/>{ pollTemplate.reasoning }</p>
+                    <p><span className='text-yap-brown-900 text-lg'>Why did AI design this poll template: </span><br/>{ pollTemplate.reasoning }</p>
                 </div>
             </div>
         </div>
