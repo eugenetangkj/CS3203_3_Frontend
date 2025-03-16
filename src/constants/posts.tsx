@@ -47,52 +47,102 @@ export const unpublishedPolls = [
     },
 ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const closedPolls = [
+    {
+        id: 5,
+        question: "How concerned are you about teacher workload and well-being in Singapore's education system?",
+        category: "Education",
+        question_type: "Open-ended",
+        options: [],
+        date_created: "2024-01-05",
+        date_published: "2024-01-06",
+        date_closed: "2024-01-07",
+        status: "Closed"
+    },
+    {
+        id: 6,
+        question: "What are your biggest concerns regarding scams in Singapore right now?",
+        category: "Public Safety",
+        question_type: "Open-ended",
+        options: [],
+        date_created: "2024-01-05",
+        date_published: "2024-01-06",
+        date_closed: "2024-01-07",
+        status: "Closed"
+    },
+]
 
 export const ongoingPolls = [
     {
-        id: 1,
-        question: "How satisfied are you with SMRT's response to recent MRT delays?",
-        description: "Share your thoughts on how well SMRT handled the recent train disruptions. We want to know how well overall is SMRT really doing so we can help improve the transportation.",
-        reasoning: "",
-        type: "mcq",
-        options: ["Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: false,
-        status: "published"
+        id: 7,
+        question: "How concerned are you about data breaches and cyber security vulnerabilities in Singapore's digital services?",
+        category: "Technology",
+        question_type: "Open-ended",
+        options: [],
+        date_created: "2024-01-05",
+        date_published: "2024-01-06",
+        date_closed: "",
+        status: "Published"
     },
     {
-        id: 2,
-        question: "What improvements would you suggest for the cleanliness and state of hawker centres?",
-        description: "We'd love to hear your ideas on how we can keep our hawker centers clean and well-maintained.",
-        reasoning: "",
-        type: "open-ended",
-        options: [],
-        dateCreated: "24-01-2024",
-        datePublished: "25-01-2024",
-        dateClosed: "26-01-2024",
-        isAiGenerated: true,
-        status: "published"
+        id: 8,
+        question: "Are social media platforms doing enough to prevent the creation of fake accounts impersonating public figures?",
+        category: "Technology",
+        question_type: "MCQ",
+        options: ["Yes", "No", "Unsure"],
+        date_created: "2024-01-05",
+        date_published: "2024-01-06",
+        date_closed: "",
+        status: "Published"
     },
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const ongoingPolls = [
+//     {
+//         id: 1,
+//         question: "How satisfied are you with SMRT's response to recent MRT delays?",
+//         description: "Share your thoughts on how well SMRT handled the recent train disruptions. We want to know how well overall is SMRT really doing so we can help improve the transportation.",
+//         reasoning: "",
+//         type: "mcq",
+//         options: ["Very unsatisfied", "Unsatisfied", "Satisfied", "Very satisfied"],
+//         dateCreated: "24-01-2024",
+//         datePublished: "25-01-2024",
+//         dateClosed: "26-01-2024",
+//         isAiGenerated: false,
+//         status: "published"
+//     },
+//     {
+//         id: 2,
+//         question: "What improvements would you suggest for the cleanliness and state of hawker centres?",
+//         description: "We'd love to hear your ideas on how we can keep our hawker centers clean and well-maintained.",
+//         reasoning: "",
+//         type: "open-ended",
+//         options: [],
+//         dateCreated: "24-01-2024",
+//         datePublished: "25-01-2024",
+//         dateClosed: "26-01-2024",
+//         isAiGenerated: true,
+//         status: "published"
+//     },
+// ]
 
 
 export const pastCitizenPolls = [

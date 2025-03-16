@@ -25,7 +25,7 @@ export default async function PollTemplatesSection() {
         <div className='flex flex-col space-y-6'>
             <div className='flex flex-row gap-2 items-center'>
                 <PageSubtitle pageSubtitle='Poll Templates' />
-                <InfoTooltip message='We analyse past complaints and leverage AI to generate poll templates.' />
+                <InfoTooltip message='We analyse past complaints and leverage AI to suggest possible polls to be created.' />
             </div>
   
             
