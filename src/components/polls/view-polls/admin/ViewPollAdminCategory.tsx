@@ -70,7 +70,7 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={open}
-                                className="w-[125px] md:w-[150px] xl:w-[200px] justify-between text-yap-black-800"
+                                className="w-[150px] md:w-[150px] xl:w-[200px] justify-between text-yap-black-800"
                                 disabled={ currentPoll.status != PollStatusEnum.Unpublished }
                             >
                                 { currentPoll.category === '' ? 'Select a category' : currentPoll.category }

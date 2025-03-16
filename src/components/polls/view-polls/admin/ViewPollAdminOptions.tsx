@@ -43,28 +43,27 @@ export function ViewPollAdminOptions({ currentPoll, setPoll }: ViewPollAdminOpti
             <PageSubtitle pageSubtitle="Options" />
             {
                 currentPoll.options.length !== 0 &&
-                <div className="space-y-3">
+                <div className="pl-3 space-y-3">
                     {/* Existing options */}
-                    <ul className='list-disc pl-5 space-y-4 text-yap-black-800'>
+                    <ul className="space-y-4 text-yap-black-800">
                         {currentPoll.options.map((option, index) => (
-                            <div key={index} className="flex items-center justify-start">
-                                <li className="text-yap-black-800">{option}</li>
-
-                                {/* Only allow editing if the poll is unpublished */}
-                                { currentPoll.status == PollStatusEnum.Unpublished &&
+                            <li key={index} className="flex items-center justify-between gap-4 relative before:content-['•'] before:absolute before:left-[-10px] before:text-yap-black-800 before:text-3xl">
+                                 <span className="pl-4 flex-1 break-words">{option}</span> 
+                                {currentPoll.status === PollStatusEnum.Unpublished && (
                                     <Trash2Icon
-                                        className='w-5 h-5 cursor-pointer ml-4 text-red-500 hover:text-red-400 duration-200'
-                                        onClick={() => 
+                                        className="w-5 h-5 min-w-5 max-w-5 cursor-pointer text-red-500 hover:text-red-400 duration-200"
+                                        onClick={() =>
                                             setPoll((prevPoll) => ({
                                                 ...prevPoll,
-                                                options: prevPoll.options.filter((_, i) => i !== index)
+                                                options: prevPoll.options.filter((_, i) => i !== index),
                                             }))
                                         }
                                     />
-                                }
-                            </div>
+                                )}
+                            </li>
                         ))}
                     </ul>
+
                 </div>
             }
             {/* Add new option */}

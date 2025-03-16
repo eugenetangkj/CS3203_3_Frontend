@@ -10,6 +10,7 @@ import { ViewPollAdminQuestion } from "./ViewPollAdminQuestion"
 import { ViewPollAdminCategory } from "./ViewPollAdminCategory"
 import { ViewPollAdminQuestionType } from "./ViewPollAdminQuestionType"
 import { ViewPollAdminOptions } from "./ViewPollAdminOptions"
+import { ViewPollAdminAboutPoll } from "./ViewPollAdminAboutPoll"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -81,6 +82,9 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
                     poll.question_type === PollQuestionTypeEnum.MCQ &&
                     <ViewPollAdminOptions currentPoll={ poll } setPoll={ setPoll } />
                 }
+
+                {/* Poll Information */}
+                <ViewPollAdminAboutPoll currentPoll={ poll } />
             </div>
         </div>
     )
