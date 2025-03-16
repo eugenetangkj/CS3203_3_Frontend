@@ -21,7 +21,8 @@ export default function AiTooltip({ message }: AiTooltipProps) {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                <Bot className='w-7 h-7  stroke-yap-orange-900 hover:stroke-yap-orange-800'/>
+                <p className='text-xl'>🤖</p>
+                {/* <Bot className='w-7 h-7  stroke-yap-orange-900 hover:stroke-yap-orange-800'/> */}
                 </TooltipTrigger>
                 <TooltipContent className='bg-yap-brown-200 rounded-full'>
                 <p className='font-afacad text-yap-black-800'>{ message }</p>
