@@ -1,4 +1,27 @@
 //TODO: Remove once polls API is set up later
+
+export const pollTemplatesHardCodedData = [
+    {
+        id: 1,
+        question: "Is the current level of government intervention in the NTUC Income-Allianz deal sufficient to protect the interests of Singaporean policyholders?",
+        category: "Economy",
+        reasoning: "The discussions highlight concerns about the potential negative impact of the Allianz acquisition on NTUC Income's social mission and the adequacy of regulatory oversight.",
+        question_type: "Open-ended",
+        options: [],
+        date_created: '2024-01-05'
+    },
+    {
+        id: 2,
+        question: "Should Singapore preschools implement mandatory CCTV monitoring in classrooms to increase transparency and accountability?",
+        category: "Education",
+        reasoning: "Addresses parental concerns about preschool safety and explores potential solutions in light of reported abuse cases.",
+        question_type: "MCQ",
+        options: ["Yes for enhanced safety", "No it infringes on privacy", "Maybe with strict regulations" ],
+        date_created: '2024-01-05'
+    }, 
+]
+
+
 export const ongoingPolls = [
     {
         id: 1,

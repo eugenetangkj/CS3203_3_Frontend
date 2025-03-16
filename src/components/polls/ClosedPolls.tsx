@@ -26,6 +26,7 @@ const fetchClosedPolls = async () => {
 
 export function ClosedPolls() {
     return (
-        <PollsSection fetchPollsFromApi={ fetchClosedPolls } pageTitle="Closed Polls" />
+        <p>Ongoing polls</p>
+        // <PollsSection fetchPollsFromApi={ fetchClosedPolls } pageTitle="Closed Polls" />
     )
 }

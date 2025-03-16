@@ -28,6 +28,7 @@ const fetchOngoingPolls = async () => {
 
 export function OngoingPolls() {
     return (
-        <PollsSection fetchPollsFromApi={ fetchOngoingPolls } pageTitle="Ongoing Polls" />
+        <p>Ongoing Polls</p>
+        // <PollsSection fetchPollsFromApi={ fetchOngoingPolls } pageTitle="Ongoing Polls" />
     )
 }

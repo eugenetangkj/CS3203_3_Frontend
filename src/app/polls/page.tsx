@@ -1,9 +1,10 @@
 import { OngoingPolls } from "@/components/polls/OngoingPolls";
-import { CitizenPastPolls } from "@/components/polls/CitizenPastPolls";
 import { ClosedPolls } from "@/components/polls/ClosedPolls";
 import { UnpublishedPolls } from "@/components/polls/UnpublishedPolls";
 import Image from "next/image";
 import YappyWitch from "../../../public/graphics/yappy-witch.svg";
+import { determineIsUserAdmin } from "@/utils/HelperFunctions";
+import PollTemplatesSection from "@/components/polls/all-polls/PollTemplatesSection";
 
 
 /** 
@@ -16,17 +17,17 @@ export const metadata = {
 };
 
 
-export default function PollsPage() {
-    //TODO: We need to perform an API call or check context to determine what role the user is in. This tells us what blocks to render.
-
+export default async function PollsPage() {
+    //Determine if the user is an admin to know which blocks to render
+    const isUserAdmin = await determineIsUserAdmin()
 
     return (
         <div className="px-6 md:px-12 font-afacad mt-32">
             <div className="flex flex-col space-y-12">
                 <OngoingPolls />
-                <CitizenPastPolls />
                 <ClosedPolls />
-                <UnpublishedPolls />
+                { isUserAdmin ? <UnpublishedPolls /> : null}
+                { isUserAdmin ? <PollTemplatesSection /> : null}
             </div>
 
             {/* Duck image */}

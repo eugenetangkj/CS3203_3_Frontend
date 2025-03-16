@@ -26,6 +26,7 @@ const fetchUnpublishedPolls = async () => {
 
 export function UnpublishedPolls() {
     return (
-        <PollsSection fetchPollsFromApi={ fetchUnpublishedPolls } pageTitle="Unpublished Polls" />
+        <p>Unpublished polls</p>
+        // <PollsSection fetchPollsFromApi={ fetchUnpublishedPolls } pageTitle="Unpublished Polls" />
     )
 }

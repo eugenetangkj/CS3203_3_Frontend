@@ -1,5 +1,12 @@
 import { Complaint } from "@/types/Complaint";
 import { Category } from "@/types/Category";
+import axios from "axios";
+import { CHECK_USER_AUTH_SERVER_ENDPOINT, API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+import { UserRoleEnum } from "@/types/User";
+import { Poll, PollTemplate } from "@/types/Poll";
+import { COOKIE_JWT_TOKEN, COOKIE_USER_OID } from "@/constants/Constants";
+import { cookies } from "next/headers";
+
 
 /**
     Helper functions that are used across different files
@@ -113,4 +120,55 @@ export const doesComplaintExistInList = (complaints: Complaint[], complaintToChe
 export const findCategoryObjectFromListGivenName = (categories: Category[], name: string): Category | null => {
     const foundCategory = categories.find(category => category.name === name);
     return foundCategory || null;
+}
+
+
+/**
+ * Determines if the user is an admin. Note that this is a server-side function.
+ * 
+ * @returns true if the user is an admin, else false.
+ */
+export const determineIsUserAdmin = async () => {
+    try {
+        const cookieStore = await cookies()
+        const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
+        
+        const userOid = (hasUserOidCookie)
+            ? cookieStore.get(COOKIE_USER_OID)?.value
+            : ''
+        
+        if (userOid === '') {
+            return false
+        }
+
+        // Fetch user profile
+        const userDataResponse = await fetch(`${API_BASE_URL_USER_MANAGEMENT}/${GET_PROFILE_BY_OID_ENDPOINT}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ oid: userOid })
+        })
+        if (!userDataResponse.ok) {
+            return false
+        } 
+        const userData = await userDataResponse.json()
+        return userData.profile.role === UserRoleEnum.Admin
+
+    } catch (error) {
+    console.error(error)
+    return false
+    }
+}
+
+
+
+/**
+ * Helper function to determine if a given poll is a Poll or PollTemplate
+ * 
+ * @param poll A Poll or PollTemplate object to check
+ * 
+ * @returns true if it is a poll, false if it is a poll template
+ */
+
+export const determineIsPollOrPollTemplate = (poll: Poll | PollTemplate): poll is Poll => {
+    return !("reasoning" in poll)
 }
