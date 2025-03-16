@@ -58,7 +58,7 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
             {/* Action Buttons */}
             <div className='self-end flex-row justify-center items-center'>
-                {/* Only show create poll button for new uncreated polls that are not saved in the database yrt */}
+                {/* Only show create poll button for new uncreated polls that are not saved in the database yet */}
                 {poll.id === -1 && <CreatePollButton currentPoll={ poll } />}
                 {/* {poll.id !== -1 && poll.status !== "closed" && <SaveChangesToPollButton currentPoll={ poll } />}
                 {poll.id !== -1 && poll.status == 'unpublished' && <PublishPollButton currentPoll={ poll } />}

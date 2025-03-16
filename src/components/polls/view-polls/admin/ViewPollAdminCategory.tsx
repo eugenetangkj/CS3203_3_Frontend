@@ -36,6 +36,7 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
   
     //Updates the category of a given poll
     const updateCategory = (newCategoryName: string)  =>  {
+        setOpen(false);
         setPoll((prevPoll) => ({
             ...prevPoll, 
             category: newCategoryName, //Only update the category field
