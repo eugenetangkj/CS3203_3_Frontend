@@ -1,6 +1,6 @@
 "use client"
 
-import { Poll } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
 import { useState, useEffect } from "react"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
 import { CreatePollButton } from "../../CreatePollButton"
@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { ViewPollAdminQuestion } from "./ViewPollAdminQuestion"
 import { ViewPollAdminCategory } from "./ViewPollAdminCategory"
 import { ViewPollAdminQuestionType } from "./ViewPollAdminQuestionType"
+import { ViewPollAdminOptions } from "./ViewPollAdminOptions"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -74,6 +75,12 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
                 {/* Question type */}
                 <ViewPollAdminQuestionType currentPoll={ poll } setPoll={ setPoll } />
+
+                {/* Options */}
+                {
+                    poll.question_type === PollQuestionTypeEnum.MCQ &&
+                    <ViewPollAdminOptions currentPoll={ poll } setPoll={ setPoll } />
+                }
             </div>
         </div>
     )
