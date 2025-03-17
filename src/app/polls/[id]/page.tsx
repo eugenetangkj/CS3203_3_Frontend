@@ -7,6 +7,9 @@ import { determineUserRole } from "@/utils/AuthChecker";
 import { redirect } from 'next/navigation'
 import { determineIfUserIsSignedIn } from "@/utils/AuthChecker";
 import { UserRoleEnum } from "@/types/User";
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
+import { convertPollDocumentToObject } from "@/utils/DatabaseHelperFunctions";
 
 
 /** 
@@ -34,24 +37,30 @@ export default async function ViewPoll({ params }: any) {
 
     //TODO: Fetch the given poll
     const fetchPoll = async() => {
-        // const apiData = apiFetcherPost('', {}) //TODO: Update the endpoint with appropriate arguments
-
-        // if (determineIsObjectEmpty(apiData)) {
-        //     //Cannot fetch API
-        //     return null
-        // }
-
-        //TODO: Process the API data. If got error, return null
-        return allPolls[id]
+        try {
+            const fetchPollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_BY_OID_ENDPOINT
+            const response = await axios.post(fetchPollByOidEndpoint, {
+                "oid": id
+                }
+            )
+            const pollData = response.data.document
+            if (pollData === null) {
+                return null
+            } else {
+                return convertPollDocumentToObject(pollData)
+            }
+        } catch (error) {
+            console.error(error)
+            return null
+        }
     }
 
     const poll = await fetchPoll()
 
     //Prevent unauthorised access to unpublished polls
-    if (!isUserAdmin && poll.status == PollStatusEnum.Unpublished) {
+    if (!isUserAdmin && poll !== null && poll.status == PollStatusEnum.Unpublished) {
         redirect('/polls')
     }
-
 
     return (
         <div className="px-6 md:px-12 font-afacad mt-32 mb-8">

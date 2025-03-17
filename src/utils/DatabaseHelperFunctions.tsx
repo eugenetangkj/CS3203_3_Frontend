@@ -104,6 +104,24 @@ export const convertPollTemplateDocumentsToObjects = (pollTemplates: any[]) : Po
 
 
 /** 
+Converts a  MongoDB Poll document into a Poll object.
+*/
+export const convertPollDocumentToObject = (poll: any) : Poll => {
+    return {
+        id: poll._id.$oid,
+        category: poll.category,
+        question: poll.question,
+        question_type: poll.question_type,
+        options: poll.options,
+        date_created: poll.date_created,
+        date_published: poll.date_published,
+        date_closed: poll.date_closed,
+        status: poll.status
+    }
+}
+
+
+/** 
 Converts a list of MongoDB Poll documents into a list of Poll objects
 */
 export const convertPollDocumentsToObjects = (polls: any[]) : Poll[] => {

@@ -5,16 +5,17 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { PollQuestionTypeEnum } from "@/types/Poll"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
 
 /**
 Represents a save changes to poll button that saves the latest information for the poll
 */
 interface SaveChangesToPollButtonInterface {
     currentPoll: Poll,
-    setPoll: React.Dispatch<React.SetStateAction<Poll>>,
 }
 
-export function SaveChangesToPollButton({ currentPoll, setPoll }: SaveChangesToPollButtonInterface) {
+export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButtonInterface) {
     //State management
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -48,22 +49,26 @@ export function SaveChangesToPollButton({ currentPoll, setPoll }: SaveChangesToP
 
         //Fields all OK. Proceed to save changes to the poll via API call
         try {
-            //For open-ended, reset all fields
-            if (currentPoll.question_type === PollQuestionTypeEnum.OpenEnded) {
-                setPoll((prevPoll) => ({
-                    ...prevPoll,
-                    options: []
-                }));
-            }
-
-            //Call API to save changes
+            //Call API to save changes. Only 3 possible things that the admin can change.
+            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
+            const response = await axios.post(createPollEndpoint, {
+                "oid": currentPoll.id,
+                "update_document": {
+                    "$set": {
+                        "question": currentPoll.question,
+                        "category": currentPoll.category,
+                        "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
+                    }
+                }
+            })
 
             //Show successful toast
             toast({
                 variant: "success",
-                description: "Changes successfully saved.",
+                description: "Changes are successfully saved.",
                 duration: 3000,
             })
+            window.location.reload()
         } catch (error) {
           console.log(error)
 
