@@ -50,6 +50,7 @@ export default function Navbar() {
                 setUsername(userData.data.profile.name)
             }
         } catch (error) {
+            console.error(error)
             setIsUserAdmin(false)
         } finally {
             setIsNavbarLoading(false)
@@ -91,7 +92,7 @@ export default function Navbar() {
                         ? (<Skeleton className="w-[50px] h-[20px]" />)
                         : (isAuthenticated)
                         ? <ProfileIconNavbar setIsUserAdmin={ setIsUserAdmin } />
-                        : <a href='sign-in'>
+                        : <a href='/sign-in'>
                             <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
                           </a>
                     }

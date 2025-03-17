@@ -38,12 +38,11 @@ export default function CategoryAnalyticsBody() {
             id: rawData._id.$oid,
             name: rawData.name,
             suggestions: rawData.suggestions,
-            keywords_per_category: rawData.keywords_per_category,
+            keywords: rawData.keywords,
             summary: rawData.summary,
-            forecasted_score: parseFloat(rawData.forecasted_score),
-            current_score: parseFloat(rawData.current_score),
-            key_concerns: rawData.key_concerns,
-            forecasted_label: rawData.forecasted_label,
+            forecasted_sentiment: parseFloat(rawData.forecasted_sentiment),
+            sentiment: parseFloat(rawData.sentiment),
+            concerns: rawData.concerns,
             absa_result: rawData.absa_result
         };
     };
@@ -96,7 +95,7 @@ export default function CategoryAnalyticsBody() {
                 <CategoryAnalyticsSummary summary={ currentCategoryAnalytics.summary } />
 
                 {/* Trending keywords */}
-                <CategoryAnalyticsTrendingKeywords keywords={ currentCategoryAnalytics.keywords_per_category } />
+                <CategoryAnalyticsTrendingKeywords keywords={ currentCategoryAnalytics.keywords } />
 
                 {/* ABSA Result */}
                 <CategoryAnalyticsAbsaResults absaResults={ currentCategoryAnalytics.absa_result } />
@@ -105,7 +104,7 @@ export default function CategoryAnalyticsBody() {
                 <div className='grid grid-row-1 grid-cols-2 gap-12'>
                     <CategoryAnalyticsTwoColumnText
                         title="Concerns"
-                        content={ currentCategoryAnalytics.key_concerns }
+                        content={ currentCategoryAnalytics.concerns }
                         aiMessage="The concerns are AI-generated."
                         emptyMessage="No concerns can be generated."
                     />
@@ -122,7 +121,7 @@ export default function CategoryAnalyticsBody() {
 
 
                 {/* Statistics */}
-                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } forecastedSentiment={ currentCategoryAnalytics.forecasted_score }/>
+                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } forecastedSentiment={ currentCategoryAnalytics.forecasted_sentiment }/>
 
                 {/* Graphs */}
                 <CategoryAnalyticsGraphsContainer categoryName={currentCategoryAnalytics.name } />

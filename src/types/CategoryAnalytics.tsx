@@ -2,12 +2,11 @@ export interface CategoryAnalytics {
     id: string,
     name: string,
     suggestions: string[],
-    keywords_per_category: string[],
+    keywords: string[],
     summary: string,
-    forecasted_score: number,
-    current_score: number,
-    key_concerns: string[],
-    forecasted_label: string
+    forecasted_sentiment: number,
+    sentiment: number,
+    concerns: string[],
     absa_result:  AbsaResult[]
 }
 

@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
+import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
   
 
 /**
@@ -30,6 +31,8 @@ export function ClassicTable({ headers, data }: ClassicTableProps) {
                             ? <a href={row['url'] as string} className='underline line-clamp-2' target='_blank'>{row[header.toLowerCase()]}</a>
                             : (header == "Description")
                             ? <p className='line-clamp-2'>{row[header.toLowerCase()] === '' ? '[No description]' : row[header.toLowerCase()] }</p>
+                            : (header == "Source")
+                            ? <p>{capitaliseFirstLetter(row[header.toLowerCase()] as string)}</p>
                             : <p>{row[header.toLowerCase()]}</p>
                         } 
                         </TableCell>

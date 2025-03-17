@@ -1,5 +1,7 @@
 import { Complaint } from "@/types/Complaint";
 import { Category } from "@/types/Category";
+import { Poll, PollTemplate } from "@/types/Poll";
+
 
 /**
     Helper functions that are used across different files
@@ -90,7 +92,8 @@ export const getDateTimeOneMonthAgoAndSetToEnd = (): string => {
 //Capitalises the first character of every word in a given string
 //Taken from https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
 export const capitaliseFirstLetter = (val: string) => {
-    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+    const trimmedVal = String(val).trim(); // Remove leading or trailing spaces
+    return trimmedVal.charAt(0).toUpperCase() + trimmedVal.slice(1);
 }
 
 
@@ -113,4 +116,29 @@ export const doesComplaintExistInList = (complaints: Complaint[], complaintToChe
 export const findCategoryObjectFromListGivenName = (categories: Category[], name: string): Category | null => {
     const foundCategory = categories.find(category => category.name === name);
     return foundCategory || null;
+}
+
+
+/**
+ * Helper function to determine if a given poll is a Poll or PollTemplate
+ * 
+ * @param poll A Poll or PollTemplate object to check
+ * 
+ * @returns true if it is a poll, false if it is a poll template
+ */
+
+export const determineIsPollOrPollTemplate = (poll: Poll | PollTemplate): poll is Poll => {
+    return !("reasoning" in poll)
+}
+
+
+/**
+ * Checks if a given input is an empty object, {}
+ * 
+ * @param inputObject The object to check
+ * 
+ * @returns true if the object is empty, else false
+ */
+export const determineIsObjectEmpty = (inputObject: any) => {
+    return  (Object.keys(inputObject).length === 0 && inputObject.constructor === Object)
 }

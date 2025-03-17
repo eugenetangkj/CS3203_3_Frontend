@@ -1,5 +1,6 @@
 import { Category } from "@/types/Category"
 import { Complaint } from "@/types/Complaint";
+import { Poll, PollTemplate } from "@/types/Poll";
 
 /**
 Helper functions to convert database documents into interfaces used in frontend
@@ -66,5 +67,73 @@ export const convertComplaintDocumentsToObjects = (complaints: any[]) : Complain
         source: complaint.source,
         sentiment: complaint.sentiment,
         url: complaint.url
+    }));
+}
+
+
+/** 
+Converts a MongoDB Poll Template document into a Poll Template object
+*/
+export const convertPollTemplateDocumentToObject = (pollTemplate : any) : PollTemplate => {
+    return  {
+        id: pollTemplate._id.$oid,
+        category: pollTemplate.category,
+        question: pollTemplate.question,
+        question_type: pollTemplate.question_type,
+        options: pollTemplate.options,
+        reasoning: pollTemplate.reasoning,
+        date_created: "2025-03-17" //TODO: Update this again
+
+    }
+}
+
+/** 
+Converts a list of MongoDB Poll Template documents into a list of Poll Template objects
+*/
+export const convertPollTemplateDocumentsToObjects = (pollTemplates: any[]) : PollTemplate[] => {
+    return pollTemplates.map(pollTemplate => ({
+        id: pollTemplate._id.$oid,
+        category: pollTemplate.category,
+        question: pollTemplate.question,
+        question_type: pollTemplate.question_type,
+        options: pollTemplate.options,
+        reasoning: pollTemplate.reasoning,
+        date_created: "2025-03-17" //TODO: Update this again
+    }));
+}
+
+
+/** 
+Converts a  MongoDB Poll document into a Poll object.
+*/
+export const convertPollDocumentToObject = (poll: any) : Poll => {
+    return {
+        id: poll._id.$oid,
+        category: poll.category,
+        question: poll.question,
+        question_type: poll.question_type,
+        options: poll.options,
+        date_created: poll.date_created,
+        date_published: poll.date_published,
+        date_closed: poll.date_closed,
+        status: poll.status
+    }
+}
+
+
+/** 
+Converts a list of MongoDB Poll documents into a list of Poll objects
+*/
+export const convertPollDocumentsToObjects = (polls: any[]) : Poll[] => {
+    return polls.map(poll => ({
+        id: poll._id.$oid,
+        category: poll.category,
+        question: poll.question,
+        question_type: poll.question_type,
+        options: poll.options,
+        date_created: poll.date_created,
+        date_published: poll.date_published,
+        date_closed: poll.date_closed,
+        status: poll.status
     }));
 }

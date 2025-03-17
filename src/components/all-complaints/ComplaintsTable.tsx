@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { CategoryDropdown } from "./actions/CategoryDropdown";
 import { Category } from "@/types/Category";
-import { doesComplaintExistInList, findCategoryObjectFromListGivenName } from "@/utils/HelperFunctions";
+import { capitaliseFirstLetter, doesComplaintExistInList, findCategoryObjectFromListGivenName } from "@/utils/HelperFunctions";
 
 
 /**
@@ -77,7 +77,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
 
                         {/* Source */}
                         <TableCell className="text-base text-yap-black-800 pl-0">
-                            <p className='line-clamp-1'>{ complaint.source }</p>
+                            <p className='line-clamp-1'>{ capitaliseFirstLetter(complaint.source) }</p>
                         </TableCell>
 
                         {/* Sentiment */}
