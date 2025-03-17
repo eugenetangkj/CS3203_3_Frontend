@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Poll } from "@/types/Poll";
+import { Poll, PollStatusEnum } from "@/types/Poll";
 import { useState } from "react";
 import axios from "axios";
 import { CHECK_USER_AUTH_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
@@ -86,6 +86,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex flex-col space-y-4"
+                        disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
                         >
                             {
                                 currentPoll.options.map((option) => (
@@ -106,7 +107,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                 )}
                 />
                 <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg sm:text-xl py-4 md:py-6 disabled:cursor-not-allowed'
-                    disabled={ !isUserSignedIn || isSubmitting }>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+                    disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
             </form>
             <CitizenRewardPanel isRewardPanelOpen={ isRewardPanelOpen } setIsRewardPanelOpen={ setIsRewardPanelOpen } collectiblePath={ collectible } />
         </Form>

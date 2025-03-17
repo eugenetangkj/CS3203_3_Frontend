@@ -16,15 +16,27 @@ interface ViewPollCitizenProps {
 }
 
 export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollCitizenProps) {
+    const isPollClosed = currentPoll.status == PollStatusEnum.Closed
 
     return (
         <div className='flex flex-col space-y-6'>
             {/* Navigate back to all polls */}
             <BackToPreviousButton text='Back to all polls' route='/polls' />
 
+            {/* Alert that the poll is closed */}
+            {
+                isPollClosed &&
+                <Alert className='bg-yap-brown-100 border-0'>
+                    <AlertTitle className='text-lg text-yap-brown-900'>The poll is closed. 🔒</AlertTitle>
+                    <AlertDescription className='text-base'>We thank you for participating.</AlertDescription>
+                </Alert>
+            }
+
+
+
             {/* Alert to inform user to sign in */}
             {
-                !isUserSignedIn &&
+                (!isUserSignedIn && !isPollClosed) &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>We noticed you are not signed in. ⚠️</AlertTitle>
                     <AlertDescription className='text-base'><a href='/sign-in' className='underline'>Sign in</a> to participate in the polls.</AlertDescription>

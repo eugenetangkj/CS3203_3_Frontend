@@ -13,6 +13,7 @@ import { CHECK_USER_AUTH_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { getRandomCollectible } from "@/constants/Constants";
 import { Textarea } from "@/components/ui/textarea";
+import { PollStatusEnum } from "@/types/Poll";
 
 
 /**
@@ -89,6 +90,7 @@ export function CitizenPollOpenEndedForm({ currentPoll, isUserSignedIn }: Citize
                                 {...field}
                                 className="w-full h-32 p-4 border rounded-lg resize-none text-lg text-yap-black-800"
                                 placeholder="Type your response here..."
+                                disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
                             />
                         </FormControl>
                         <FormMessage className='text-lg md:text-xl font-normal' />
@@ -98,7 +100,7 @@ export function CitizenPollOpenEndedForm({ currentPoll, isUserSignedIn }: Citize
                 name="response"
                 />
                 <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg sm:text-xl py-4 md:py-6 disabled:cursor-not-allowed'
-                    disabled={ !isUserSignedIn || isSubmitting }>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+                    disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
             </form>
             <CitizenRewardPanel isRewardPanelOpen={ isRewardPanelOpen } setIsRewardPanelOpen={ setIsRewardPanelOpen } collectiblePath={ collectible } />
         </Form>
