@@ -28,7 +28,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
             {
                 (absaResults.length === 0)
                 ? <p>No ABSA results are found.</p>
-                : <div className='flex flex-row gap-8 flex-wrap'>
+                : <div className='flex flex-row gap-2 flex-wrap'>
                     {
                         absaResults.map((result: AbsaResult, index) => (
 
@@ -38,7 +38,7 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                                     ? 'bg-yap-green-50'
                                     : result.sentiment === negative_sentiment
                                     ? 'bg-yap-orange-50'
-                                    : 'bg-yap-brown-100'
+                                    : 'bg-yap-yellow-50'
                                 }
                             `}>
                                 <p className={`text-sm font-bold ${ 
