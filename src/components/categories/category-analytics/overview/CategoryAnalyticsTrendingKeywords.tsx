@@ -25,8 +25,8 @@ export default function CategoryAnalyticsTrendingKeywords({ keywords }: Category
                 ? <p>No keywords are found.</p>
                 : <div className='flex flex-row gap-2 flex-wrap'>
                     {
-                        keywords.map((keyword: string) => (
-                            <div key={keyword} className='rounded-full bg-yap-green-900 px-4 py-1 w-fit text-white'>
+                        keywords.map((keyword: string, index) => (
+                            <div key={ index } className='rounded-full bg-yap-green-900 px-4 py-1 w-fit text-white'>
                                 <p>{ keyword }</p>
                             </div>
                         ))

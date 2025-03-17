@@ -13,8 +13,8 @@ interface CategoryAnalyticsAbsaResultsProps {
 
 
 export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAnalyticsAbsaResultsProps) {
-    const positive_sentiment = "positive"
-    const negative_sentiment = "negative"
+    const positive_sentiment = " positive"
+    const negative_sentiment = " negative"
 
 
     return (
@@ -30,9 +30,9 @@ export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAn
                 ? <p>No ABSA results are found.</p>
                 : <div className='flex flex-row gap-8 flex-wrap'>
                     {
-                        absaResults.map((result: AbsaResult) => (
+                        absaResults.map((result: AbsaResult, index) => (
 
-                            <div key={ result.theme } className={`border-none rounded-xl px-4 py-2 flex flex-col justify-start items-center w-fit space-y-2
+                            <div key={ index } className={`border-none rounded-xl px-4 py-2 flex flex-col justify-start items-center w-fit space-y-2
                                 ${
                                     result.sentiment === positive_sentiment
                                     ? 'bg-yap-green-50'
