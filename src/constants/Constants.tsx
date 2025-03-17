@@ -167,3 +167,21 @@ export const SENTIMENTS_RANGE = [-1, 1]
 The list of possible Poll question types
 */
 export const POSSIBLE_POLL_QUESTION_TYPES: string[] = ["MCQ", "Open-ended"]
+
+
+/**
+The list of paths for possible collectible images
+*/
+export const POSSIBLE_COLLECTIBLE_PATHS: string[] = [
+    '/graphics/collectibles/angry-yappy.svg',
+    '/graphics/collectibles/complain-king.svg'
+]
+
+
+/**
+Randomly get a path from the possible collectible paths
+*/
+export const getRandomCollectible = () => {
+    const randomIndex = Math.floor(Math.random() * POSSIBLE_COLLECTIBLE_PATHS.length);
+    return POSSIBLE_COLLECTIBLE_PATHS[randomIndex];
+};

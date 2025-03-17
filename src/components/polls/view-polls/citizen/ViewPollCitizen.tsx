@@ -35,6 +35,9 @@ export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollC
                 </Alert>
             }
 
+            {/* TODO: Alert to see if the user is a citizen and if he has a response for the given poll */}
+
+
             {/* Date information */}
             <p className='text-base text-yap-brown-900'>
                 {
