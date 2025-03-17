@@ -24,7 +24,7 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
                                 : (isPoll && pollToDisplay.status == PollStatusEnum.Published)
                                 ? "Date published: " + pollToDisplay.date_published 
                                 : (isPoll && pollToDisplay.status == PollStatusEnum.Closed)
-                                ? "Date closed: " + pollToDisplay.date_published
+                                ? "Date closed: " + pollToDisplay.date_closed
                                 : "Date created: " + pollToDisplay.date_created
 
 
