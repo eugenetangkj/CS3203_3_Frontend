@@ -50,8 +50,8 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
         //Fields all OK. Proceed to save changes to the poll via API call
         try {
             //Call API to save changes. Only 3 possible things that the admin can change.
-            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(createPollEndpoint, {
+            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
+            const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {
                     "$set": {
