@@ -1,4 +1,4 @@
-import { Poll, PollStatusEnum } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
 import { CitizenPollMcqForm } from "./CitizenPollMcqForm"
 import { determineIfUserIsSignedIn } from "@/utils/AuthChecker"
@@ -15,13 +15,11 @@ also whether the citizen has already participated in the poll.
 */
 interface ViewPollCitizenProps {
     currentPoll: Poll,
+    isUserSignedIn: boolean
 
 }
 
-export async function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
-
-    const isUserSignedIn = await determineIfUserIsSignedIn() 
-
+export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollCitizenProps) {
 
     return (
         <div className='flex flex-col space-y-6'>
@@ -33,7 +31,7 @@ export async function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
                 !isUserSignedIn &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>We noticed you are not signed in. ⚠️</AlertTitle>
-                    <AlertDescription className='text-base'>Sign in to participate in the polls.</AlertDescription>
+                    <AlertDescription className='text-base'><a href='/sign-in' className='underline'>Sign in</a> to participate in the polls.</AlertDescription>
                 </Alert>
             }
 
@@ -47,7 +45,12 @@ export async function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
             </p>
 
             {/* Question form */}
-            <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
+            {
+                currentPoll.question_type === PollQuestionTypeEnum.MCQ
+                ? <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
+                : <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
+            }
+            
 
 
 

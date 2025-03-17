@@ -4,8 +4,8 @@ import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/con
 import { UserRoleEnum } from "@/types/User";
 
 
-//Determines if the user is an admin. Note that this is a server-side function.
-export const determineIsUserAdmin = async () => {
+//Determines if the user is an admin, citizen or not signed in. Note that this is a server-side function.
+export const determineUserRole = async () => {
     try {
         const cookieStore = await cookies()
         const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
@@ -15,7 +15,7 @@ export const determineIsUserAdmin = async () => {
             : ''
         
         if (userOid === '') {
-            return false
+            return UserRoleEnum.None
         }
 
         // Fetch user profile
@@ -25,14 +25,14 @@ export const determineIsUserAdmin = async () => {
             body: JSON.stringify({ oid: userOid })
         })
         if (!userDataResponse.ok) {
-            return false
+            return UserRoleEnum.None
         } 
         const userData = await userDataResponse.json()
-        return userData.profile.role === UserRoleEnum.Admin
+        return (userData.profile.role === UserRoleEnum.Admin) ? UserRoleEnum.Admin : UserRoleEnum.Citizen 
 
     } catch (error) {
     console.error(error)
-    return false
+    return UserRoleEnum.None
     }
 }
 

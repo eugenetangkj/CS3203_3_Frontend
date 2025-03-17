@@ -3,8 +3,10 @@ import { ViewPollCitizen } from "@/components/polls/view-polls/citizen/ViewPollC
 import ViewPollComponent from "@/components/polls/ViewPollComponent";
 import { allPolls } from "@/constants/posts";
 import { Poll, PollStatusEnum } from "@/types/Poll";
-import { determineIsUserAdmin } from "@/utils/AuthChecker";
+import { determineUserRole } from "@/utils/AuthChecker";
 import { redirect } from 'next/navigation'
+import { determineIfUserIsSignedIn } from "@/utils/AuthChecker";
+import { UserRoleEnum } from "@/types/User";
 
 
 /** 
@@ -26,7 +28,8 @@ export default async function ViewPoll({ params }: any) {
     const { id } = await params
 
     //Determine if the user is an admin
-    const isUserAdmin = await determineIsUserAdmin()
+    const userRole = await determineUserRole()
+    const isUserAdmin = userRole === UserRoleEnum.Admin
 
 
     //TODO: Fetch the given poll
@@ -56,7 +59,7 @@ export default async function ViewPoll({ params }: any) {
                 poll == null
                 ? <div className='text-yap-black-800 text-base'>Something went wrong. We could not fetch the poll.</div>
                 : !isUserAdmin
-                ? <ViewPollCitizen currentPoll={ poll } />
+                ? <ViewPollCitizen currentPoll={ poll } isUserSignedIn={ userRole !== UserRoleEnum.None} />
                 : <ViewPollAdmin currentPoll={ poll } />
             }
          
