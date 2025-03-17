@@ -1,11 +1,8 @@
 import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
 import { ViewPollCitizen } from "@/components/polls/view-polls/citizen/ViewPollCitizen";
-import ViewPollComponent from "@/components/polls/ViewPollComponent";
-import { allPolls } from "@/constants/posts";
 import { Poll, PollStatusEnum } from "@/types/Poll";
 import { determineUserRole } from "@/utils/AuthChecker";
 import { redirect } from 'next/navigation'
-import { determineIfUserIsSignedIn } from "@/utils/AuthChecker";
 import { UserRoleEnum } from "@/types/User";
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";

@@ -1,11 +1,5 @@
-import ViewPollComponent from "@/components/polls/ViewPollComponent";
-import { allPolls } from "@/constants/posts";
-import { Poll, PollQuestionTypeEnum } from "@/types/Poll";
-import { apiFetcherPost } from "@/utils/ApiFetcher";
-import { determineIsObjectEmpty } from "@/utils/HelperFunctions";
-import { pollTemplatesHardCodedData } from "@/constants/posts";
+import {  PollQuestionTypeEnum } from "@/types/Poll";
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton";
-import { Button } from "@/components/ui/button";
 import PageSubtitle from "@/components/common/text/PageSubtitle";
 import AiTooltip from "@/components/common/others/AiTooltip";
 import { UsePollTemplateButton } from "@/components/polls/poll-templates/UseTemplateButton/UsePollTemplateButton";

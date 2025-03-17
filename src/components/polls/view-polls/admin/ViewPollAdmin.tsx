@@ -14,6 +14,7 @@ import { PublishPollButton } from "./buttons/PublishPollButton"
 import { ClosePollButton } from "./buttons/ClosePollButton"
 import { DeletePollButton } from "./buttons/DeletePollButton"
 import { RepublishPollButton } from "./buttons/RepublishPollButton"
+import { ViewPollAdminResponses } from "./ViewPollAdminResponses"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -74,6 +75,12 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
                 {/* Poll Information */}
                 <ViewPollAdminAboutPoll currentPoll={ poll } />
+
+                {/* Responses */}
+                {
+                    (poll.status === PollStatusEnum.Published || poll.status === PollStatusEnum.Closed)
+                    && <ViewPollAdminResponses currentPoll={ currentPoll } />
+                }
             </div>
         </div>
     )
