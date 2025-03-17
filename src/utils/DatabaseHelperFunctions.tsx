@@ -72,6 +72,22 @@ export const convertComplaintDocumentsToObjects = (complaints: any[]) : Complain
 
 
 /** 
+Converts a MongoDB Poll Template document into a Poll Template object
+*/
+export const convertPollTemplateDocumentToObject = (pollTemplate : any) : PollTemplate => {
+    return  {
+        id: pollTemplate._id.$oid,
+        category: pollTemplate.category,
+        question: pollTemplate.question,
+        question_type: pollTemplate.question_type,
+        options: pollTemplate.options,
+        reasoning: pollTemplate.reasoning,
+        date_created: "2025-03-17" //TODO: Update this again
+
+    }
+}
+
+/** 
 Converts a list of MongoDB Poll Template documents into a list of Poll Template objects
 */
 export const convertPollTemplateDocumentsToObjects = (pollTemplates: any[]) : PollTemplate[] => {

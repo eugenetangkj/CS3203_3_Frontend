@@ -9,7 +9,9 @@ import { Button } from "@/components/ui/button";
 import PageSubtitle from "@/components/common/text/PageSubtitle";
 import AiTooltip from "@/components/common/others/AiTooltip";
 import { UsePollTemplateButton } from "@/components/polls/poll-templates/UseTemplateButton/UsePollTemplateButton";
-
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_TEMPLATES_GET_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
+import { convertPollTemplateDocumentToObject } from "@/utils/DatabaseHelperFunctions";
 
 /** 
 Layout for the page where the admin can view a poll template
@@ -24,18 +26,16 @@ export const metadata = {
 export default async function ViewPollTemplate({ params }: any) {
     const { id } = await params
 
-
     //TODO: Update function that fetches the poll template via an API
     const fetchPollTemplate = async() => {
-        // const apiData = apiFetcherPost('', {}) //TODO: Update the endpoint with appropriate arguments
+        //Call API and process the data
+        const getPollTemplateEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_TEMPLATES_GET_BY_OID_ENDPOINT
+        const pollTemplateData = await axios.post(getPollTemplateEndpoint, {
+            "oid": id
+        })
+        const pollTemplate = convertPollTemplateDocumentToObject(pollTemplateData.data.document)
 
-        // if (determineIsObjectEmpty(apiData)) {
-        //     //Cannot fetch API
-        //     return null
-        // }
-
-        //TODO: Process the API data
-        return pollTemplatesHardCodedData[id]
+        return pollTemplate
     }
     const pollTemplate = await fetchPollTemplate()
 
