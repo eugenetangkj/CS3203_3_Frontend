@@ -29,6 +29,11 @@ export const COMPLAINTS_UPDATE_BY_OID_ENDPOINT = "complaints/update_by_oid"
 export const COMPLAINTS_GET_COUNT_ENDPOINT = "complaints/get_count"
 
 
+//Endpoints for admin management service (poll templates)
+export const POLL_TEMPLATES_GET_ALL_ENDPOINT = "poll_templates/get_all"
+export const POLL_TEMPLATES_GET_BY_OID_ENDPOINT = "poll_templates/get_by_oid"
+
+
 //Endpoints for analytics service (category analytics)
 export const GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT = "get_category_analytics_by_name"
 export const GET_COMPLAINTS_STATISTICS_ENDPOINT = "get_complaints_statistics"

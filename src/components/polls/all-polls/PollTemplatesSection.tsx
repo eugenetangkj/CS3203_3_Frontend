@@ -3,6 +3,9 @@ import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { PollTemplate } from "@/types/Poll"
 import { pollTemplatesHardCodedData } from "@/constants/posts"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_TEMPLATES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import { convertPollTemplateDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 
 /**
 Represents a section within the all polls page that displays the existing poll templates
@@ -11,15 +14,19 @@ export default async function PollTemplatesSection() {
     //Function to fetch all poll templates
     const fetchAllPollTemplates = async() : Promise<PollTemplate[]> => {
         try {
-            //TODO: Call the actual API
-            return pollTemplatesHardCodedData
+            //Call API and process the data
+            const getAllPollTemplatesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_TEMPLATES_GET_ALL_ENDPOINT
+            const pollTemplatesData = await axios.post(getAllPollTemplatesEndpoint)
+            const pollTemplates = convertPollTemplateDocumentsToObjects(pollTemplatesData.data.documents)
+            return pollTemplates
         } catch (error) {
+            console.error(error)
             return []
         }
     }
 
-    //TODO: Fetch all poll templates
-    let pollTemplates : PollTemplate[] = await fetchAllPollTemplates()
+    //Fetch all poll templates
+    const pollTemplates : PollTemplate[] = await fetchAllPollTemplates()
 
     return (
         <div className='flex flex-col space-y-6'>

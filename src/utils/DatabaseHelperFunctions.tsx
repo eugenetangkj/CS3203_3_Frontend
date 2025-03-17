@@ -1,5 +1,6 @@
 import { Category } from "@/types/Category"
 import { Complaint } from "@/types/Complaint";
+import { PollTemplate } from "@/types/Poll";
 
 /**
 Helper functions to convert database documents into interfaces used in frontend
@@ -66,5 +67,21 @@ export const convertComplaintDocumentsToObjects = (complaints: any[]) : Complain
         source: complaint.source,
         sentiment: complaint.sentiment,
         url: complaint.url
+    }));
+}
+
+
+/** 
+Converts a list of MongoDB Poll Template documents into a list of Poll Template objects
+*/
+export const convertPollTemplateDocumentsToObjects = (pollTemplates: any[]) : PollTemplate[] => {
+    return pollTemplates.map(pollTemplate => ({
+        id: pollTemplate._id.$oid,
+        category: pollTemplate.category,
+        question: pollTemplate.question,
+        question_type: pollTemplate.question_type,
+        options: pollTemplate.options,
+        reasoning: pollTemplate.reasoning,
+        date_created: "2025-03-17" //TODO: Update this again
     }));
 }
