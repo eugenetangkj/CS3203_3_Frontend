@@ -15,7 +15,7 @@ export function ViewPollAdminAboutPoll({ currentPoll }: ViewPollAdminAboutPollPr
             <PageSubtitle pageSubtitle="About Poll" />
             <div className='text-base text-yap-black-800 flex flex-col space-y-4'>
                 <p><span className='text-yap-brown-900 text-lg'>Status:</span><br/>{ currentPoll.status }</p>
-                <p><span className='text-yap-brown-900 text-lg'>Date created</span><br/>{ currentPoll.date_created }</p>
+                { currentPoll.date_created.length !== 0 && <p><span className='text-yap-brown-900 text-lg'>Date created</span><br/>{ currentPoll.date_created }</p> }
                 { currentPoll.date_published !== "" && <p><span className='text-yap-brown-900 text-lg'>Date published:</span><br/>{ currentPoll.date_published }</p>}
                 { currentPoll.date_closed !== "" && <p><span className='text-yap-brown-900 text-lg'>Date closed:</span><br/>{ currentPoll.date_closed }</p>}
             </div>

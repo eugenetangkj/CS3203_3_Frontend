@@ -1,9 +1,13 @@
 "use client"
 
-import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll"
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
+import axios from "axios";
+import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import { useRouter } from "next/navigation";
 
 
 /**
@@ -11,15 +15,17 @@ Represents a create poll button that creates a poll given a Poll object
 */
 interface CreatePollButtonInterface {
     currentPoll: Poll,
-    setPoll: React.Dispatch<React.SetStateAction<Poll>>,
 }
 
-export function CreatePollButton({ currentPoll, setPoll }: CreatePollButtonInterface) {
+export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
     //State managemenmt
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
     //Toast management
     const { toast } = useToast()
+
+    //Router management
+    const router = useRouter();
     
 
     //Creates the poll via API and redirects the user to the poll page
@@ -50,53 +56,36 @@ export function CreatePollButton({ currentPoll, setPoll }: CreatePollButtonInter
 
         // Fields all OK. Proceed to call API to create the poll.
         try {
-            //For open-ended, reset all fields
-            if (currentPoll.question_type === PollQuestionTypeEnum.OpenEnded) {
-                setPoll((prevPoll) => ({
-                    ...prevPoll,
-                    options: []
-                }));
-            }
+            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_INSERT_ONE_ENDPOINT
+            const response = await axios.post(createPollEndpoint, {
+                "document": {
+                    "question": currentPoll.question,
+                    "category": currentPoll.category,
+                    "question_type": currentPoll.question_type,
+                    "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
+                    "date_created": getCurrentDateTime(),
+                    "date_published": "",
+                    "date_closed": "",
+                    "status": PollStatusEnum.Unpublished
+                }
+            })
+            const pollOid = response.data.oid
 
-            //Call the API to create poll
-            // const deleteCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_DELETE_BY_OID_ENDPOINT
-            // const response = await axios.post(deleteCategoryApiEndpoint, 
-            //     {
-            //         "oid": category.id
-            //     } 
-            // )
-            // const wasCategoryDeletedSuccessfully = response.data.success
-            // const messageFromApi = response.data.message
 
-            // if (wasCategoryDeletedSuccessfully) {
-            //     //Show successful toast
-            //     toast({
-            //         variant: "success",
-            //         description: "Category is successfully deleted.",
-            //         duration: 3000,
-            //     })
-            //     fetchCategories()
-            // } else {
-            //     //Show unsuccessful toast
-            //     toast({
-            //         variant: "destructive",
-            //         description: messageFromApi,
-            //         duration: 3000,
-            //     })
-            // }
-
+            //Show successful toast
             toast({
                 variant: "success",
                 description: "Poll is successfully created.",
                 duration: 3000,
             })
-            window.location.reload();
 
+            //Navigate to the newly created poll
+            router.push(`/polls/${pollOid}`)
         } catch (error) {
             //Show error toast
             toast({
                 variant: "destructive",
-                description: "There was a problem deleting the category.",
+                description: "There was a problem creating the poll.",
                 duration: 3000,
             })
         } finally {

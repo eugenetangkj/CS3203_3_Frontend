@@ -40,7 +40,7 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
             {/* Action Buttons */}
             <div className='self-end flex-row justify-center items-center space-x-4'>
                 {/* Only show create poll button for new uncreated polls that are not saved in the database yet */}
-                {poll.id === '-1' && <CreatePollButton currentPoll={ poll } setPoll={ setPoll } />}
+                {poll.id === '-1' && <CreatePollButton currentPoll={ poll } />}
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <SaveChangesToPollButton currentPoll={ poll } setPoll={ setPoll } /> }
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <PublishPollButton currentPoll={ poll } /> }
 
