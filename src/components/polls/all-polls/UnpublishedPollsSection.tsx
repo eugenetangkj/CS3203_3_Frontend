@@ -1,6 +1,6 @@
 import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
-import { Poll } from "@/types/Poll"
+import { Poll, PollStatusEnum } from "@/types/Poll"
 import { unpublishedPolls } from "@/constants/posts"
 import Link from "next/link"
 import { Plus } from "lucide-react"
@@ -21,7 +21,7 @@ export default async function UnpublishedPollsSection() {
             const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_MANY_ENDPOINT
             const unpublishedPollsData = await axios.post(getPollsEndpoint, {
                 "filter": {
-                    "status": "Unpublished"
+                    "status": PollStatusEnum.Unpublished
                 },
                 "page_size": veryLargeNumber, //Fetch all
                 "page_number": 1

@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
+import { getCurrentDateTime } from "@/utils/HelperFunctions";
 
 /**
 Represents a publish poll button that publishes a poll by updating its status.
@@ -30,13 +31,14 @@ export function PublishPollButton({ currentPoll }: PublishPollButton) {
         setIsLoading(true)
 
         try {
-            //Call API to update poll status to published
+            //Call API to update poll status to published and set date published
             const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {
                     "$set": {
-                        "status": PollStatusEnum.Published
+                        "status": PollStatusEnum.Published,
+                        "date_published": getCurrentDateTime()
                     }
                 }
             })
