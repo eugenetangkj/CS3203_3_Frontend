@@ -38,12 +38,10 @@ export const HomeStatistics = ({ initialDisplayCount, apiEndpoint, maxValue, sta
             const apiEndPointToCall = API_BASE_URL_ADMIN_MANAGEMENT + '/' + apiEndpoint
             const data = await axios.post(apiEndPointToCall, 
                 {
-                    "filter": {},
-                    "page_size": 1,
-                    "page_number": 1
+                    "filter": {}
                 }
             )
-            const statisticsValue = data.data.total_count
+            const statisticsValue = data.data.count
             setCount(statisticsValue)
         } catch (error) {
             //Error in fetching number

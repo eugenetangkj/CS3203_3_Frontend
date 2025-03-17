@@ -7,7 +7,7 @@ import { Button } from "../ui/button"
 import DeleteComplaintsButton from "./actions/DeleteComplaintsButton"
 import ComplaintsTableSkeleton from "./ComplaintsTableSkeleton"
 import { Category } from "@/types/Category"
-import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { ALL_CATEGORIES_CATEGORY, ERROR_MESSAGE_API, ALL_CATEGORIES_ID } from  "@/constants/Constants"
@@ -15,7 +15,8 @@ import SearchBar from "./actions/SearchBar"
 import CategoryFilter from "./actions/CategoryFilter"
 
 //Endpoints
-const SEARCH_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_SEARCH_ENDPOINT
+const GET_MANY_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_GET_MANY_ENDPOINT
+const COMPLAINTS_GET_COUNT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_GET_COUNT_ENDPOINT
 const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
 
 //Constants
@@ -43,18 +44,23 @@ const AllComplaintsPageComponent = () => {
     //Initialisation
     const initialisation = async () => {
         //Fetch all complaints without any filter
-        const allComplaintsData = await axios.post(SEARCH_COMPLAINTS_API_ENDPOINT, 
+        const allComplaintsData = await axios.post(GET_MANY_COMPLAINTS_API_ENDPOINT, 
             {
                 "filter": {},
                 "page_size": PAGE_SIZE,
                 "page_number": 1 //Always fetch from first page for initialisation
             }
         )
+        const allComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
+            {
+                "filter": {},
+            }
+        )
         const allComplaints = convertComplaintDocumentsToObjects(allComplaintsData.data.documents)
         setComplaints(allComplaints)
 
         //Set pagination information
-        const totalNumberOfComplaints = allComplaintsData.data.total_count
+        const totalNumberOfComplaints = allComplaintsCountData.data.count
         setTotalResults(totalNumberOfComplaints)
         const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
         setTotalPages(totalNumberOfPages)
@@ -91,21 +97,25 @@ const AllComplaintsPageComponent = () => {
                 filter["$text"] = { "$search": searchQuery };
             }
             if (categorySelected.id !== ALL_CATEGORIES_ID ) {
-                filter["category"] = categorySelected.name;
+                filter["domain_category"] = categorySelected.name;
             }
 
             // Make the API request with the dynamically built filter
-            const filteredComplaintsData = await axios.post(SEARCH_COMPLAINTS_API_ENDPOINT, {
+            const filteredComplaintsData = await axios.post(GET_MANY_COMPLAINTS_API_ENDPOINT, {
                 filter,
                 page_size: PAGE_SIZE,
                 page_number: currentPage,
             });
-
+            const filteredComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
+                {
+                    "filter": filter
+                }
+            )
             const filteredComplaints = convertComplaintDocumentsToObjects(filteredComplaintsData.data.documents)
             setComplaints(filteredComplaints)
 
             //Set pagination information
-            const totalNumberOfComplaints = filteredComplaintsData.data.total_count
+            const totalNumberOfComplaints = filteredComplaintsCountData.data.count
             setTotalResults(totalNumberOfComplaints)
             const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
             setTotalPages(totalNumberOfPages)

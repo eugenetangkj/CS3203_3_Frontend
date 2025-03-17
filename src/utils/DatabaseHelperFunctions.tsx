@@ -62,7 +62,7 @@ export const convertComplaintDocumentsToObjects = (complaints: any[]) : Complain
         title: complaint.title,
         description: complaint.description,
         date: complaint.date,
-        category: complaint.category,
+        category: complaint.domain_category,
         source: complaint.source,
         sentiment: complaint.sentiment,
         url: complaint.url

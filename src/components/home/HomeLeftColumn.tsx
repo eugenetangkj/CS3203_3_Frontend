@@ -2,7 +2,7 @@ import { ABOUT_JUST_YAP } from "@/constants/Constants";
 import StrikethroughImage from '../../../public/graphics/strike-through.svg'
 import Image from "next/image";
 import { HomeStatistics } from "./HomeStatistics";
-import { COMPLAINTS_SEARCH_ENDPOINT } from "@/constants/ApiRoutes";
+import { COMPLAINTS_GET_COUNT_ENDPOINT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes";
 
 /** 
 Component for the left column in the home page. Displays:
@@ -36,8 +36,8 @@ export default function HomeLeftColumn() {
 
             {/* Statistics */}
             <div className='flex flex-row justify-start items-center space-x-12 sm:space-x-24'>
-                <HomeStatistics initialDisplayCount={ 8500 } apiEndpoint={ COMPLAINTS_SEARCH_ENDPOINT } maxValue={ 10000 } statsDescription={ 'complaints processed' } />
-                <HomeStatistics initialDisplayCount={ 120 } apiEndpoint={ COMPLAINTS_SEARCH_ENDPOINT } maxValue={ 1000 } statsDescription={ 'citizen responses collected' } />
+                <HomeStatistics initialDisplayCount={ 8500 } apiEndpoint={ COMPLAINTS_GET_COUNT_ENDPOINT } maxValue={ 10000 } statsDescription={ 'complaints processed' } />
+                <HomeStatistics initialDisplayCount={ 120 } apiEndpoint={ COMPLAINTS_GET_MANY_ENDPOINT } maxValue={ 1000 } statsDescription={ 'citizen responses collected' } />
             </div>
         </div>
   );

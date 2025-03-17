@@ -52,7 +52,7 @@ export function CategoryDropdown({ complaint, allCategories, initialCategory }: 
                     "oid": complaint.oid,
                     "update_document": {
                         "$set": {
-                            "category": newCategoryName,
+                            "domain_category": newCategoryName,
                         }
                     }
                 }
