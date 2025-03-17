@@ -1,7 +1,7 @@
 "use client"
 
 import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
@@ -11,9 +11,10 @@ Represents a create poll button that creates a poll given a Poll object
 */
 interface CreatePollButtonInterface {
     currentPoll: Poll,
+    setPoll: React.Dispatch<React.SetStateAction<Poll>>,
 }
 
-export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
+export function CreatePollButton({ currentPoll, setPoll }: CreatePollButtonInterface) {
     //State managemenmt
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
@@ -51,7 +52,10 @@ export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
         try {
             //For open-ended, reset all fields
             if (currentPoll.question_type === PollQuestionTypeEnum.OpenEnded) {
-                currentPoll.options = []
+                setPoll((prevPoll) => ({
+                    ...prevPoll,
+                    options: []
+                }));
             }
 
             //Call the API to create poll

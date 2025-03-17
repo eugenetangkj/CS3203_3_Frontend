@@ -1,14 +1,16 @@
 "use client"
 
-import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll"
 import { useState, useEffect } from "react"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
-import { CreatePollButton } from "../../CreatePollButton"
+import { CreatePollButton } from "./buttons/CreatePollButton"
 import { ViewPollAdminQuestion } from "./ViewPollAdminQuestion"
 import { ViewPollAdminCategory } from "./ViewPollAdminCategory"
 import { ViewPollAdminQuestionType } from "./ViewPollAdminQuestionType"
 import { ViewPollAdminOptions } from "./ViewPollAdminOptions"
 import { ViewPollAdminAboutPoll } from "./ViewPollAdminAboutPoll"
+import { SaveChangesToPollButton } from "./buttons/SaveChangesToPollButton"
+import { PublishPollButton } from "./buttons/PublishPollButton"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -23,7 +25,6 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
     //Poll that is maintained within the current page
     const [poll, setPoll] = useState<Poll>(currentPoll)
 
-
     //If the current poll object changes, update the state
     useEffect(() => {
         setPoll(currentPoll); 
@@ -37,12 +38,14 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
 
             {/* Action Buttons */}
-            <div className='self-end flex-row justify-center items-center'>
+            <div className='self-end flex-row justify-center items-center space-x-4'>
                 {/* Only show create poll button for new uncreated polls that are not saved in the database yet */}
-                {poll.id === -1 && <CreatePollButton currentPoll={ poll } />}
-                {/* {poll.id !== -1 && poll.status !== "closed" && <SaveChangesToPollButton currentPoll={ poll } />}
-                {poll.id !== -1 && poll.status == 'unpublished' && <PublishPollButton currentPoll={ poll } />}
-                {poll.id !== -1 && <DeletePollButton currentPoll={ poll } />} */}
+                {poll.id === '-1' && <CreatePollButton currentPoll={ poll } setPoll={ setPoll } />}
+                { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <SaveChangesToPollButton currentPoll={ poll } setPoll={ setPoll } /> }
+                { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <PublishPollButton currentPoll={ poll } /> }
+
+
+                {/* {poll.id !== -1 && <DeletePollButton currentPoll={ poll } />} */}
             </div>
 
 

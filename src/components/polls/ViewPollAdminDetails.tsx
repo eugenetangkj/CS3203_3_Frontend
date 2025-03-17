@@ -3,7 +3,7 @@
 import { Poll } from "@/types/Poll"
 import { Trash2Icon, PlusIcon } from "lucide-react"
 import { useState, useEffect } from "react"
-import { CreatePollButton } from "./CreatePollButton"
+import { CreatePollButton } from "./view-polls/admin/buttons/CreatePollButton"
 import PageSubtitle from "../common/text/PageSubtitle"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"

@@ -21,7 +21,7 @@ export default function AiTooltip({ message }: AiTooltipProps) {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                <p className='text-xl cursor-default'>🤖</p>
+                <p className='text-xl cursor-default cursor-help'>🤖</p>
                 {/* <Bot className='w-7 h-7  stroke-yap-orange-900 hover:stroke-yap-orange-800'/> */}
                 </TooltipTrigger>
                 <TooltipContent className='bg-yap-brown-200 rounded-full'>
