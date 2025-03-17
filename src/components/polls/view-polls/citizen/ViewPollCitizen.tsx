@@ -1,12 +1,8 @@
 import { Poll, PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
 import { CitizenPollMcqForm } from "./CitizenPollMcqForm"
-import { determineIfUserIsSignedIn } from "@/utils/AuthChecker"
-import {
-    Alert,
-    AlertDescription,
-    AlertTitle,
-  } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { CitizenPollOpenEndedForm } from "./CitizenPollOpenEndedForm"
 
 
 /**
@@ -51,7 +47,7 @@ export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollC
             {
                 currentPoll.question_type === PollQuestionTypeEnum.MCQ
                 ? <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
-                : <CitizenPollMcqForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
+                : <CitizenPollOpenEndedForm currentPoll={ currentPoll } isUserSignedIn={ isUserSignedIn } />
             }
             
 

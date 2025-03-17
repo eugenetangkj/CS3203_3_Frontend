@@ -17,14 +17,15 @@ interface CitizenRewardPanelProps {
 export function CitizenRewardPanel({ isRewardPanelOpen, setIsRewardPanelOpen, collectiblePath }: CitizenRewardPanelProps) {
     return (
         <AlertDialog open={ isRewardPanelOpen } onOpenChange={ setIsRewardPanelOpen }>
-            <AlertDialogContent className='font-afacad'>
+            <AlertDialogContent className='font-afacad' aria-describedby="collectible-description">
                 <AlertDialogHeader>
                     <AlertDialogTitle className='text-xl text-yap-black-800'>Thanks for participating! Here&apos;s a reward.</AlertDialogTitle>
                 </AlertDialogHeader>
-                <div className="flex justify-center">
-                <ScratchCard width={300} height={150} finishPercent={30} brushSize={10}>
-                    <Image src={ collectiblePath } alt="Collectible" className="w-full h-full" height={150} width={300} />
-                </ScratchCard>
+                <div className="flex justify-center flex-col items-center">
+                    <p id='collectible-description' className='sr-only'>Here&apos;s a reward.</p>
+                    <ScratchCard width={300} height={150} finishPercent={40} brushSize={15}>
+                        <Image src={ collectiblePath } alt="Collectible" className="w-full h-full" height={150} width={300} />
+                    </ScratchCard>
                 </div>
                 <AlertDialogFooter>
                     <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ () => { window.location.reload() }}>
