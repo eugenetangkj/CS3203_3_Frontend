@@ -4,16 +4,31 @@ import { Poll } from "@/types/Poll"
 import { unpublishedPolls } from "@/constants/posts"
 import Link from "next/link"
 import { Plus } from "lucide-react"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
 
 /**
 Represents a section within the all polls page that displays the unpublished polls, along with a button
 that allows the admin to create a new poll.
 */
 export default async function UnpublishedPollsSection() {
+    const veryLargeNumber = 1000000
+
     //Function to fetch all unpublished polls
     const fetchAllUnpublishedPolls = async() : Promise<Poll[]> => {
         try {
-            //TODO: Call the actual API
+            const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_MANY_ENDPOINT
+            const unpublishedPollsData = await axios.post(getPollsEndpoint, {
+                "filter": {
+                    "status": "Unpublished"
+                },
+                "page_size": veryLargeNumber, //Fetch all
+                "page_number": 1
+            })
+
+
+
+            const pollTemplatesData = await axios.post(getPollsEndpoint)
             return unpublishedPolls
         } catch (error) {
             return []

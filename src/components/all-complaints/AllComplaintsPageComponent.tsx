@@ -97,7 +97,7 @@ const AllComplaintsPageComponent = () => {
                 filter["$text"] = { "$search": searchQuery };
             }
             if (categorySelected.id !== ALL_CATEGORIES_ID ) {
-                filter["domain_category"] = categorySelected.name;
+                filter["category"] = categorySelected.name;
             }
 
             // Make the API request with the dynamically built filter

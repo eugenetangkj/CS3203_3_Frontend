@@ -34,6 +34,16 @@ export const POLL_TEMPLATES_GET_ALL_ENDPOINT = "poll_templates/get_all"
 export const POLL_TEMPLATES_GET_BY_OID_ENDPOINT = "poll_templates/get_by_oid"
 
 
+//Endpoints for admin management service (polls)
+export const POLLS_INSERT_ONE_ENDPOINT = "/polls/insert_one"
+export const POLLS_GET_BY_OID_ENDPOINT = "/polls/get_by_oid"
+export const POLLS_GET_MANY_ENDPOINT = "/polls/get_many"
+export const POLLS_GET_COUNT_ENDPOINT = "/polls/get_count"
+export const POLLS_DELETE_BY_OID_ENDPOINT = "/polls/delete_by_oid"
+export const POLLS_DELETE_MANY_BY_OIDS_ENDPOINT = "/polls/delete_many_by_oids"
+export const POLLS_UPDATE_BY_OID_ENDPOINT = "/polls/update_by_oid"
+
+
 //Endpoints for analytics service (category analytics)
 export const GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT = "get_category_analytics_by_name"
 export const GET_COMPLAINTS_STATISTICS_ENDPOINT = "get_complaints_statistics"
