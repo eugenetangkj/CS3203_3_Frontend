@@ -14,11 +14,11 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions";
 /**
 Represents a close poll button that closes a published poll by updating its status.
 */
-interface ClosedPollButtonProps {
+interface ClosePollButtonProps {
     currentPoll: Poll,
 }
 
-export function ClosedPollButton({ currentPoll }: ClosedPollButtonProps) {
+export function ClosePollButton({ currentPoll }: ClosePollButtonProps) {
     //State management
     const [isLoading, setIsLoading] = useState<boolean>(false)
 

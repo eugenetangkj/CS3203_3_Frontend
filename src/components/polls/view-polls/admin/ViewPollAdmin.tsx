@@ -11,7 +11,9 @@ import { ViewPollAdminOptions } from "./ViewPollAdminOptions"
 import { ViewPollAdminAboutPoll } from "./ViewPollAdminAboutPoll"
 import { SaveChangesToPollButton } from "./buttons/SaveChangesToPollButton"
 import { PublishPollButton } from "./buttons/PublishPollButton"
-import { ClosedPollButton } from "./buttons/ClosePollButton"
+import { ClosePollButton } from "./buttons/ClosePollButton"
+import { DeletePollButton } from "./buttons/DeletePollButton"
+import { RepublishPollButton } from "./buttons/RepublishPollButton"
 
 /**
 Represents a page where the admin can view a poll. Possible actions by the admin depends on the status of the poll.
@@ -44,7 +46,9 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
                 {poll.id === '-1' && <CreatePollButton currentPoll={ poll } />}
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <SaveChangesToPollButton currentPoll={ poll } /> }
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <PublishPollButton currentPoll={ poll } /> }
-                { poll.id !== '-1' && poll.status === PollStatusEnum.Published && <ClosedPollButton currentPoll={ poll } /> }
+                { poll.id !== '-1' && poll.status === PollStatusEnum.Published && <ClosePollButton currentPoll={ poll } /> }
+                { poll.id !== '-1' && poll.status === PollStatusEnum.Closed && <RepublishPollButton currentPoll={ poll } /> }
+                { poll.id !== '-1' && <DeletePollButton currentPoll={ poll } /> }
 
 
                 {/* {poll.id !== -1 && <DeletePollButton currentPoll={ poll } />} */}

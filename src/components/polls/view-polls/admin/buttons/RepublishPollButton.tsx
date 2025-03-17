@@ -1,6 +1,5 @@
 "use client"
 
-
 import { Poll, PollStatusEnum } from "@/types/Poll"
 import { Button } from "@/components/ui/button"
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
@@ -12,13 +11,13 @@ import axios from "axios";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
 
 /**
-Represents a publish poll button that publishes a poll by updating its status.
+Represents a republish poll button that republishes a closed poll by updating its status
 */
-interface PublishPollButtonProps {
+interface RepublishPollButtonProps {
     currentPoll: Poll,
 }
 
-export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
+export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
     //State management
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -26,19 +25,20 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
     const { toast } = useToast()
 
 
-    //Publishes a poll by updating its status to published via API
-    const handlePublishPoll = async () => {
+    //Republishes a poll by updating its status to published via API
+    const handleRepublishPoll = async () => {
         setIsLoading(true)
 
         try {
-            //Call API to update poll status to published and set date published
+            //Call API to update poll status to published and set date published and date closed
             const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {
                     "$set": {
                         "status": PollStatusEnum.Published,
-                        "date_published": getCurrentDateTime()
+                        "date_published": getCurrentDateTime(),
+                        "date_closed": ""
                     }
                 }
             })
@@ -46,7 +46,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
             //Show successful toast
             toast({
                 variant: "success",
-                description: "Poll is successfully published.",
+                description: "Poll is successfully republished.",
                 duration: 3000,
             })
             window.location.reload()
@@ -56,7 +56,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
             //Show error toast
             toast({
             variant: "destructive",
-            description: "There was a problem publishing the poll.",
+            description: "There was a problem republishing the poll.",
             duration: 3000,
             })
         } finally {
@@ -70,7 +70,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'>
-                    { isLoading ? 'Publishing...' : 'Publish Poll' }
+                    { isLoading ? 'Republishing...' : 'Republish Poll' }
                 </Button>
             </AlertDialogTrigger>
 
@@ -79,13 +79,13 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
                 <AlertDialogHeader>
                     <AlertDialogTitle className='text-xl text-yap-black-800'>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription className='text-yap-black-800 text-base'>
-                        Once the poll is published, it will be made public. Also, please ensure that you have saved your changes before publishing.
+                        If you republish the poll, the poll will be open to responses again.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className='text-yap-black-800 duration-200 rounded-full'>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handlePublishPoll }>
-                        Publish
+                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handleRepublishPoll }>
+                        Republish
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
