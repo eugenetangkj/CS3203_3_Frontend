@@ -17,7 +17,7 @@ export const metadata = {
 export default function CreatePollsPage() {
     //Always start with an empty current poll when the user manually creates a new poll
     const emptyPoll = {
-        id: -1,
+        id: "-1",
         question: "",
         category: "",
         question_type: PollQuestionTypeEnum.MCQ, //Default to MCQ

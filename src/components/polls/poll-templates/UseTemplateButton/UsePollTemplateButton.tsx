@@ -1,10 +1,13 @@
 "use client"
 
-import { PollTemplate } from "@/types/Poll";
+import { PollStatusEnum, PollTemplate } from "@/types/Poll";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
+import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import axios from "axios";
 
 
 /** 
@@ -29,44 +32,38 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
     const handleUseTemplate = async () => {
         setIsLoading(true)
         try {
-            // const deleteCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_DELETE_BY_OID_ENDPOINT
-            // const response = await axios.post(deleteCategoryApiEndpoint, 
-            //     {
-            //         "oid": category.id
-            //     } 
-            // )
-            // const wasCategoryDeletedSuccessfully = response.data.success
-            // const messageFromApi = response.data.message
-
-            // if (wasCategoryDeletedSuccessfully) {
-            //     //Show successful toast
-            //     toast({
-            //         variant: "success",
-            //         description: "Category is successfully deleted.",
-            //         duration: 3000,
-            //     })
-            //     fetchCategories()
-            // } else {
-            //     //Show unsuccessful toast
-            //     toast({
-            //         variant: "destructive",
-            //         description: messageFromApi,
-            //         duration: 3000,
-            //     })
-            // }
-
+            //Create a poll using this template
+            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_INSERT_ONE_ENDPOINT
+            const response = await axios.post(createPollEndpoint, {
+                "document": {
+                    "question": pollTemplate.question,
+                    "category": pollTemplate.category,
+                    "question_type": pollTemplate.question_type,
+                    "options": pollTemplate.options,
+                    "date_created": getCurrentDateTime(),
+                    "date_published": "",
+                    "date_closed": "",
+                    "status": PollStatusEnum.Unpublished
+                }
+            })
+            const pollOid = response.data.oid
+            
+            //Show successful toast
             toast({
                 variant: "success",
-                description: "Poll is successfully created from the template.",
+                description: "Poll is successfully created from the poll template.",
                 duration: 3000,
             })
-            router.push('/polls') //TODO: Update to path of the given poll, which is using the id of the newly created poll 
+
+            //Navigate to the newly created poll
+            router.push(`/polls/${pollOid}`)
 
         } catch (error) {
             //Show error toast
+            console.log(error)
             toast({
                 variant: "destructive",
-                description: "There was a problem deleting the category.",
+                description: "There was a problem creating a poll from the poll template.",
                 duration: 3000,
             })
         } finally {
@@ -79,4 +76,4 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
         <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base"
             onClick={ handleUseTemplate }>{isLoading ? 'Creating poll from template...' : 'Use Template'}</Button>
     );
-  }
+}

@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Plus } from "lucide-react"
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
+import { convertComplaintDocumentsToObjects, convertPollDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 
 /**
 Represents a section within the all polls page that displays the unpublished polls, along with a button
@@ -25,10 +26,7 @@ export default async function UnpublishedPollsSection() {
                 "page_size": veryLargeNumber, //Fetch all
                 "page_number": 1
             })
-
-
-
-            const pollTemplatesData = await axios.post(getPollsEndpoint)
+            const unpublishedPolls = convertPollDocumentsToObjects(unpublishedPollsData.data.documents)
             return unpublishedPolls
         } catch (error) {
             return []
