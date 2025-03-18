@@ -8,7 +8,7 @@ import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
-import { GraphDateRangePicker } from "../GraphDateRangePicker"
+import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
 import { DateRange } from "react-day-picker"
 import { format, addMonths } from "date-fns"
 
