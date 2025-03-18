@@ -39,7 +39,7 @@ export const ManageCategoriesTable = ({ categories, fetchCategories }: ManageCat
                     {/* Delete icon wrapped in an alert dialog*/}
                     <TableCell className="text-center flex flex-row justify-center space-x-4 sm:space-x-8">
                         <ViewCategoryAnalyticsButton category={ category } />
-                        <DeleteCategoryButton category={ category } fetchCategories={ fetchCategories } />  
+                        {/* <DeleteCategoryButton category={ category } fetchCategories={ fetchCategories } />   */}
                     </TableCell>  
                     </TableRow>
                 ))}

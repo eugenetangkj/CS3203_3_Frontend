@@ -13,8 +13,8 @@ interface CategoryAnalyticsAbsaResultsProps {
 
 
 export default function CategoryAnalyticsAbsaResults({ absaResults }: CategoryAnalyticsAbsaResultsProps) {
-    const positive_sentiment = " positive"
-    const negative_sentiment = " negative"
+    const positive_sentiment = "positive"
+    const negative_sentiment = "negative"
 
 
     return (
