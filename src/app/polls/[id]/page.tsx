@@ -32,13 +32,14 @@ export default async function ViewPoll({ params }: any) {
     const isUserAdmin = userRole === UserRoleEnum.Admin
 
 
-    //TODO: Fetch the given poll
+    //Fetch the given poll
     const fetchPoll = async() => {
         try {
             const fetchPollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_BY_OID_ENDPOINT
             const response = await axios.post(fetchPollByOidEndpoint, {
                 "oid": id
-                }
+                },
+                { timeout: 10000 }
             )
             const pollData = response.data.document
             if (pollData === null) {
