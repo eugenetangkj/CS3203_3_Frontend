@@ -27,6 +27,7 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
         from: addMonths(new Date(), -12), //12 months from today's date
         to: new Date(), //Default is today's date
     })
+    const [isDatePopoverOpen, setIsDatePopoverOpen] = useState<boolean>(false)
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
@@ -72,7 +73,7 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
     //Call the API on component mount
     useEffect(() => {
         fetchPostsByCategoryOverTime()
-    }, [date])
+    }, [])
 
 
     return (
@@ -84,7 +85,7 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
         ? <div></div>
         : (
             <div className='flex flex-col space-y-8'>
-                <GraphDateRangePicker date={ date } setDate={ setDate } />
+                <GraphDateRangePicker date={ date } setDate={ setDate } isPopoverOpen={ isDatePopoverOpen } setIsPopoverOpen={ setIsDatePopoverOpen } fetchData={ fetchPostsByCategoryOverTime }/>
                 <LineChartMultiple chartData={ dataPoints } colourMap={ colourMap } />  
             </div>
           )  

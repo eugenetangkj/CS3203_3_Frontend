@@ -15,18 +15,26 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 This component represents a date range picker, used for selecting the date range to be visualised in a graph.
 */
 interface GraphDataRangePickerProps extends React.HTMLAttributes<HTMLDivElement> {
-    date: DateRange | undefined;
-    setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+    date: DateRange | undefined,
+    setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>,
+    isPopoverOpen: boolean,
+    setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    fetchData: () => void
   }
 
 
 
-export function GraphDateRangePicker({ date, setDate, className }: GraphDataRangePickerProps) {
+export function GraphDateRangePicker({ date, setDate, isPopoverOpen, setIsPopoverOpen, fetchData, className }: GraphDataRangePickerProps) {
 
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover>
+      <Popover open={ isPopoverOpen } onOpenChange={(open) => { 
+        setIsPopoverOpen(open)
+        if (!open) {
+            fetchData()
+        }
+    }}>
         <PopoverTrigger asChild>
           <Button
             id="date"
