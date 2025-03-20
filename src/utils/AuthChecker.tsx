@@ -28,7 +28,7 @@ export const determineUserRole = async () => {
             return UserRoleEnum.None
         } 
         const userData = await userDataResponse.json()
-        return (userData.profile.role === UserRoleEnum.Admin) ? UserRoleEnum.Admin : UserRoleEnum.Citizen 
+        return (userData.role === UserRoleEnum.Admin) ? UserRoleEnum.Admin : UserRoleEnum.Citizen 
 
     } catch (error) {
     console.error(error)

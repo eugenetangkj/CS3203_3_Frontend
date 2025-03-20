@@ -32,7 +32,15 @@ const formSchema = z.object({
 });
 
 
-export default function SignUpForm() {
+interface SignUpFormProps {
+    role: string
+    successMessage: string,
+    buttonMessage: string,
+    buttonActionMessage: string
+}
+
+
+export default function SignUpForm({ role, successMessage, buttonMessage, buttonActionMessage }: SignUpFormProps) {
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
@@ -69,16 +77,20 @@ export default function SignUpForm() {
             const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + SIGNUP_ENDPOINT
             await axios.post(signupApiEndpoint,
                 {
-                    "name": name,
-                    "email": email,
-                    "password": password
+                    "document": {
+                        "name": name,
+                        "email": email,
+                        "password": password,
+                        "role": role,
+                        "collectibles": []
+                    }
                 }
             )
 
             //Successful, toast to inform the user that his account has been created, please login
             toast({
                 variant: "success",
-                description: "Sign up is successful. Please login now.",
+                description: successMessage,
                 duration: 3000,
             })
             form.reset()
@@ -187,7 +199,7 @@ export default function SignUpForm() {
                 type="submit"
                 disabled={ isSubmittingForm }
                 
-            >{isSubmittingForm ? "Signing up..." : "Sign Up" }</Button>
+            >{isSubmittingForm ? buttonActionMessage : buttonMessage }</Button>
           </form>
         </Form>
       )

@@ -46,8 +46,8 @@ export default function Navbar() {
                         "oid": userOid
                     }
                 )
-                setIsUserAdmin(userData.data.profile.role === UserRoleEnum.Admin)
-                setUsername(userData.data.profile.name)
+                setIsUserAdmin(userData.data.role === UserRoleEnum.Admin)
+                setUsername(userData.data.name)
             }
         } catch (error) {
             console.error(error)

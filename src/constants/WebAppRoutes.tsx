@@ -8,4 +8,5 @@ export const ADMIN_PROTECTED_ROUTES = [
     '/all-complaints',
     '/categories',
     '/analytics',
+    '/create-admin'
 ]

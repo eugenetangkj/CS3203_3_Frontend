@@ -185,3 +185,9 @@ export const getRandomCollectible = () => {
     const randomIndex = Math.floor(Math.random() * POSSIBLE_COLLECTIBLE_PATHS.length);
     return POSSIBLE_COLLECTIBLE_PATHS[randomIndex];
 };
+
+
+/**
+API error message for incorrect credentials
+*/
+export const LOGIN_INVALID_CREDENTIALS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
