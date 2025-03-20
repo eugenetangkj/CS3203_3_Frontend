@@ -4,6 +4,7 @@ import { User } from "@/types/User";
 import { getUserOidValue } from "@/utils/AuthChecker";
 import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
+import { determineIsObjectEmpty } from "@/utils/HelperFunctions";
 
 
 /** 
@@ -63,7 +64,7 @@ export default async function Profile() {
                 {/* Title */}
                 <PageTitle pageTitle="Profile" />
                 {
-                    (Object.keys(currentUser).length === 0)
+                    determineIsObjectEmpty(currentUser)
                     ? <div>Something went wrong. Please try again later.</div>
                     : <ProfileCards currentUser={ currentUser as User } />
                 }

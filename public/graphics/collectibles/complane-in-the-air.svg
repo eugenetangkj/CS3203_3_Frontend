@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #b4e3f8;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #feecc2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: #fff2ed;
+      }
+
+      .cls-6 {
+        fill: #ffc64a;
+      }
+
+      .cls-7 {
+        fill: #ffe0c2;
+      }
+
+      .cls-8 {
+        fill: #50ceff;
+      }
+
+      .cls-9 {
+        font-size: 16px;
+      }
+
+      .cls-10 {
+        fill: #0073ae;
+      }
+
+      .cls-11 {
+        font-size: 24px;
+      }
+
+      .cls-2 {
+        font-family: Kavoon-Regular, Kavoon;
+      }
+
+      .cls-12 {
+        fill: #ff814a;
+      }
+    </style>
+  </defs>
+  <g id="Badge_3">
+    <g>
+      <circle id="Badge" class="cls-10" cx="100" cy="100" r="100"/>
+      <path class="cls-5" d="M97.89,163l-76.41-.94c-2.15-2.46-4.32-5.43-6.44-8.4-2.75-4.4-5.09-9.01-6.88-13.55-2.02-4.38-3.91-9.5-4.87-14.14C.89,119.53.02,112.11,0,105.02l72.69.62,25.19,57.35Z"/>
+      <rect class="cls-8" x="80" y="116.82" width="28.52" height="13.96" rx="6.22" ry="6.22"/>
+      <path class="cls-8" d="M102.12,119.08l-16.21-9.36c-1.85-1.07-4.15.27-4.15,2.4v18.71c0,2.13,2.31,3.46,4.15,2.4l16.21-9.36c1.85-1.07,1.85-3.73,0-4.8Z"/>
+      <path id="Body" class="cls-6" d="M95.55,116.28s-4.85-18.89,9.01-17.07c0,0,9.72-.21,5.83,13.29-.03.09-.06.18-.09.27,0,.02-.01.03-.02.05-.87,2.36,1.04,4.82,3.54,4.57,1.91-.2,4.18-.11,6.16.83,1.44.68,3.06.84,4.58.37,1.99-.6,4.48-.55,4.62,3.44.04,1.25.46,2.44,1.2,3.45,1.99,2.71,4.27,12.75-4.87,21.8-.72.71-2.16,2.6-3.16,2.69-4.44.4-19.75-2.54-26.84-8.82,0,0-5.66-3.65-2.35-15.45.09-.31.2-.63.35-.92.26-.52,2.34-4.83,2.06-8.5Z"/>
+      <rect class="cls-8" x="128.14" y="115.71" width="3.84" height="11.19" rx="1.92" ry="1.92"/>
+      <ellipse class="cls-6" cx="100.64" cy="98.2" rx="1.63" ry="3.5" transform="translate(-39.35 111.41) rotate(-49.69)"/>
+      <ellipse class="cls-6" cx="103.18" cy="97.72" rx="1.72" ry="3.5" transform="translate(-15.7 19.86) rotate(-10.22)"/>
+      <ellipse id="Mouth_Top" class="cls-12" cx="110.94" cy="108.92" rx="4.3" ry="1.57" transform="translate(-35.93 57.93) rotate(-25.33)"/>
+      <ellipse id="Mouth_Bottom" class="cls-12" cx="111.28" cy="110.79" rx="1.57" ry="4.3" transform="translate(-7.91 213.03) rotate(-85.49)"/>
+      <ellipse id="Eye_Right" class="cls-4" cx="105.93" cy="103.82" rx="2.16" ry="2.3" transform="translate(-13.95 16.48) rotate(-8.35)"/>
+      <ellipse id="Eye_Right-2" data-name="Eye_Right" cx="106.94" cy="103.5" rx="1.11" ry="1.19" transform="translate(-13.89 16.62) rotate(-8.35)"/>
+      <ellipse id="Eye_Left" class="cls-4" cx="101.38" cy="104.98" rx="2.16" ry="2.3" transform="translate(-14.17 15.83) rotate(-8.35)"/>
+      <ellipse id="Eye_Left-2" data-name="Eye_Left" cx="102.39" cy="104.7" rx="1.11" ry="1.19" transform="translate(-14.12 15.97) rotate(-8.35)"/>
+      <path id="Wing" class="cls-3" d="M116.68,128.65s.13,3.82-3.2,3.08c0,0-1.05,8.21-8.61,1.37"/>
+      <rect id="Wheel_Leg" class="cls-12" x="113.58" y="154.27" width="3.51" height="21.84" transform="translate(-77.51 106.86) rotate(-38.25)"/>
+      <rect id="Wheel_Leg-2" data-name="Wheel_Leg" class="cls-12" x="124.3" y="154.12" width="3.51" height="21.84"/>
+      <circle id="Wheel_Outer" class="cls-8" cx="125.31" cy="175.71" r="7"/>
+      <circle id="Wheel_Inner" class="cls-1" cx="125.31" cy="176.03" r="4"/>
+      <path id="Plane_Body" class="cls-12" d="M88.39,123.56c-1.86-4.9-7.96-19.79-19.81-18.05-.57.08-2.15.32-2.55.74-.84.91-.96,3.87-.53,6.15.24,1.27.15,2.64.07,3.93-.35,5.7-.77,20.23,3.63,25.73,0,0,7.14,14.04,25.9,20.78.29.1.6.16.91.16h58.47c1.44,0,2.61-1.17,2.61-2.61v-32.73c0-1.45-1.18-2.62-2.62-2.61l-63.62.21c-1.09,0-2.07-.67-2.46-1.7Z"/>
+      <path id="Plane_Tip" class="cls-8" d="M162.16,133.84c6.52,0,11.81,4.7,11.81,10.49s-5.29,10.49-11.81,10.49"/>
+      <path id="Plane_Semi-circle" class="cls-5" d="M156,131.33h5.35c1.1,0,2,.9,2,2v21.85c0,1.1-.9,2-2,2h-5.35v-25.85h0Z"/>
+      <rect id="Plane_Strip" class="cls-5" x="139.38" y="125.08" width="3" height="37.92"/>
+      <path id="Plane_Strip-2" data-name="Plane_Strip" class="cls-5" d="M154.14,125.04h1c1.1,0,2,.9,2,2v33.94c0,1.1-.9,2-2,2h-1v-37.94h0Z"/>
+      <rect id="Plane_Spinner" class="cls-8" x="166.55" y="125.1" width="4.24" height="38.61" rx="1.75" ry="1.75"/>
+      <rect id="Wheel_Leg-3" data-name="Wheel_Leg" class="cls-12" x="71.04" y="142.6" width="2.4" height="14.93" transform="translate(109.26 -12.31) rotate(38.55)"/>
+      <circle id="Wheel_Outer-2" data-name="Wheel_Outer" class="cls-8" cx="67.54" cy="155.28" r="4.78"/>
+      <circle id="Wheel_Inner-2" data-name="Wheel_Inner" class="cls-1" cx="67.33" cy="155.35" r="2.73"/>
+      <circle id="Circle_3" class="cls-7" cx="148.28" cy="155.98" r="1.5"/>
+      <circle id="Circle_2" class="cls-7" cx="148.28" cy="131.98" r="1.5"/>
+      <circle id="Circle_1" class="cls-7" cx="148.28" cy="143.98" r="1.5"/>
+      <text class="cls-2" transform="translate(41.95 55.96)"><tspan class="cls-11"><tspan x="0" y="0">Complane</tspan></tspan><tspan class="cls-9"><tspan x="22.59" y="20">in the air</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

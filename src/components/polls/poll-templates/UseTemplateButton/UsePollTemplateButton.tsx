@@ -41,8 +41,8 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
                     "question_type": pollTemplate.question_type,
                     "options": pollTemplate.options,
                     "date_created": getCurrentDateTime(),
-                    "date_published": "",
-                    "date_closed": "",
+                    "date_published": null,
+                    "date_closed": null,
                     "status": PollStatusEnum.Unpublished
                 }
             })
@@ -74,6 +74,6 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
 
     return (
         <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base"
-            onClick={ handleUseTemplate }>{isLoading ? 'Creating poll from template...' : 'Use Template'}</Button>
+            onClick={ handleUseTemplate } disabled={ isLoading }>{isLoading ? 'Creating poll from template...' : 'Use Template'}</Button>
     );
 }

@@ -26,49 +26,6 @@ export const ALL_CATEGORIES_CATEGORY = { id: ALL_CATEGORIES_ID, name: "All Categ
 
 
 /**
-List that contains all possible collectibles
-*/
-export const ALL_COLLECTIBLES: Collectible[] = [
-    {
-        id: '1',
-        name: "Collectible 1",
-        path: ""
-    },
-    {
-        id: '2',
-        name: "Collectible 2",
-        path: ""
-    },
-    {
-        id: '3',
-        name: "Complain King",
-        path: "/graphics/collectibles/complain-king.svg"
-    },
-    {
-        id: '4',
-        name: "Angry Yappy",
-        path: "/graphics/collectibles/angry-yappy.svg"
-    },
-    {
-        id: '5',
-        name: "Collectible 5",
-        path: ""
-    },
-    {
-        id: '6',
-        name: "Collectible 6",
-        path: ""
-    },
-]
-
-
-/**
-Path for unknown collectible image
-*/
-export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.svg"
-
-
-/**
 Cookie name used to store the JWT token 
 */
 export const COOKIE_JWT_TOKEN = 'jwtToken'
@@ -173,9 +130,54 @@ export const POSSIBLE_POLL_QUESTION_TYPES: string[] = ["MCQ", "Open-ended"]
 The list of paths for possible collectible images
 */
 export const POSSIBLE_COLLECTIBLE_PATHS: string[] = [
-    '/graphics/collectibles/angry-yappy.svg',
-    '/graphics/collectibles/complain-king.svg'
+    '/graphics/collectibles/be-a-complain-king.svg',
+    '/graphics/collectibles/chewing-grumblegum.svg',
+    '/graphics/collectibles/complane-in-the-air.svg',
+    '/graphics/collectibles/do-you-love-du-rant.svg',
+    '/graphics/collectibles/its-yappy-hour.svg',
+    '/graphics/collectibles/whine-together.svg'
 ]
+/**
+List that contains all possible collectibles
+*/
+export const ALL_COLLECTIBLES: Collectible[] = [
+    {
+        id: '1',
+        name: "Be a Complain King",
+        path: POSSIBLE_COLLECTIBLE_PATHS[0]
+    },
+    {
+        id: '2',
+        name: "Chewing Grumblegum",
+        path: POSSIBLE_COLLECTIBLE_PATHS[1]
+    },
+    {
+        id: '3',
+        name: "Complane in the Air",
+        path: POSSIBLE_COLLECTIBLE_PATHS[2]
+    },
+    {
+        id: '4',
+        name: "Do you love du-rant?",
+        path: POSSIBLE_COLLECTIBLE_PATHS[3]
+    },
+    {
+        id: '5',
+        name: "It's Yappy Hour",
+        path: POSSIBLE_COLLECTIBLE_PATHS[4]
+    },
+    {
+        id: '6',
+        name: "Whine Together?",
+        path: POSSIBLE_COLLECTIBLE_PATHS[5]
+    },
+]
+
+
+/**
+Path for unknown collectible image
+*/
+export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.svg"
 
 
 /**
