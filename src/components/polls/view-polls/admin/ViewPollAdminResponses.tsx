@@ -14,7 +14,7 @@ export function ViewPollAdminResponses({ currentPoll }: ViewPollAdminResponsesPr
         <div className='flex flex-col space-y-4'>
             <PageSubtitle pageSubtitle="Poll Responses" />
             <div className='text-base text-yap-black-800 flex flex-col space-y-4'>
-                <p>Currenltly a work in progress... 🚧</p>
+                <p>Currently a work in progress... 🚧</p>
             </div>
            
         </div> 

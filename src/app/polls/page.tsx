@@ -33,7 +33,7 @@ export default async function PollsPage() {
             </div>
 
             {/* Duck image */}
-            <Image src={YappyWitch} alt="Yappy Witch creating data insights from complaints" className="self-center w-56 h-56 sm:w-64 sm:h-64 mx-auto mt-16" />
+            <Image src={YappyWitch} alt="Yappy Witch creating data insights from complaints" className="self-center w-56 h-56 2xl:w-64 2xl:h-64 mx-auto mt-16" />
         </div>
     );
 }

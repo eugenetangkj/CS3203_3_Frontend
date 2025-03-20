@@ -57,6 +57,7 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
                     "$set": {
                         "question": currentPoll.question,
                         "category": currentPoll.category,
+                        "question_type": currentPoll.question_type,
                         "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
                     }
                 }

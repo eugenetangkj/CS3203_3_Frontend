@@ -8,6 +8,9 @@ import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
+import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
+import { DateRange } from "react-day-picker"
+import { format, addMonths } from "date-fns"
 
 /**
 Represents the visualisation for the sentiments of categorises over time, used in analytics dashboard.
@@ -15,10 +18,16 @@ Represents the visualisation for the sentiments of categorises over time, used i
 export function SentimentsOfCategoriesOverTimeVisualisation() {
 
     //States
-    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<LineChartMultiplePoint[]>([])
     const [colourMap, setColourMap] = useState<Record<string, string>>({})
     const [isThereError, setIsThereError] = useState<boolean>(false)
+    const [date, setDate] = useState<DateRange | undefined>({
+            from: addMonths(new Date(), -12), //12 months from today's date
+            to: new Date(), //Default is today's date
+    })
+    const [isDatePopoverOpen, setIsDatePopoverOpen] = useState<boolean>(false)
+
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
@@ -32,13 +41,14 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
 
     //Fetches the API to process the number of complaints for each category over the past 1 year
     const fetchPostsByCategoryOverTime = async () => {
+        setIsLoading(true)
         try {
             //Process complaints data
             const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
-                    "start_date": getDateTimeOneYearAgoAndSetToStart(), //"01-01-2023 00:00:00",
-                    "end_date":  getDateTimeOneMonthAgoAndSetToEnd(), //"31-12-2023 23:59:59"
+                    "start_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
+                    "end_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
                     "group_by_field": "category"
                 }
             )
@@ -55,7 +65,7 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
         } catch (error) {
             setIsThereError(true)
         } finally {
-            setHasRanApi(true)
+            setIsLoading(false)
         }
     }
 
@@ -66,12 +76,17 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
 
 
     return (
-        !hasRanApi
+        isLoading
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>
-        : dataPoints.length === 0 || Object.keys(colourMap).length === 0
+        : Object.keys(colourMap).length === 0
         ? <div></div>
-        : (<LineChartMultiple chartData={ dataPoints } colourMap={ colourMap } />)      
+        : (
+            <div className='flex flex-col space-y-8'>
+                <GraphDateRangePicker date={ date } setDate={ setDate } isPopoverOpen={ isDatePopoverOpen } setIsPopoverOpen={ setIsDatePopoverOpen } fetchData={ fetchPostsByCategoryOverTime }/>
+                <LineChartMultiple chartData={ dataPoints } colourMap={ colourMap } />  
+            </div>
+          )
     )
 }

@@ -1,6 +1,6 @@
 import { Category } from "@/types/Category";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { ChartLine } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 
 /**
@@ -19,18 +19,9 @@ interface ViewCategoryAnalyticsButton {
 
 export default function ViewCategoryAnalyticsButton({ category }: ViewCategoryAnalyticsButton) {
     return (
-        <TooltipProvider>
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <a href={`/categories/${category.name}`}>
-                    <ChartLine className='text-yap-green-900 cursor-pointer hover:text-yap-green-800 duration-200' />
-                </a>
-            </TooltipTrigger>
-            <TooltipContent className='bg-yap-brown-200 rounded-full'>
-                <p className='font-afacad text-yap-black-800'>View category analytics</p>
-            </TooltipContent>
-        </Tooltip>
-        </TooltipProvider>
+        <a href={`/categories/${category.name}`} className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
+            View Analytics
+        </a>
     );
 };
 

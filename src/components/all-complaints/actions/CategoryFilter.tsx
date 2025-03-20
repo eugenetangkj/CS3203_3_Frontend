@@ -58,7 +58,7 @@ export default function CategoryFilter({ allCategories, categorySelected, setCat
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[125px] md:w-[150px] xl:w-[200px] justify-between bg-yap-brown-100 hover:bg-yap-brown-200 border-yap-brown-200 duration-200"
+                    className="w-[125px] md:w-[150px] xl:w-[200px] justify-between bg-white hover:bg-yap-brown-100 border-yap-brown-200 duration-200"
                 >
                     { categorySelected.name }
                     <Filter className="opacity-50 text-yap-brown-900 fill-yap-brown-900" />

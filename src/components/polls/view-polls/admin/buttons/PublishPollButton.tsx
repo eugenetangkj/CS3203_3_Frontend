@@ -1,7 +1,6 @@
 "use client"
 
-
-import { Poll, PollStatusEnum } from "@/types/Poll"
+import { Poll, PollStatusEnum, PollQuestionTypeEnum } from "@/types/Poll"
 import { Button } from "@/components/ui/button"
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
@@ -30,13 +29,38 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
     const handlePublishPoll = async () => {
         setIsLoading(true)
 
+        //Check if all fields are okay
+        let errorMessage = ''
+        if (currentPoll.question.trim() === '') {
+            errorMessage = "Please enter your poll question."
+        }
+        else if (currentPoll.category === '') {
+            errorMessage = 'Please select a category.'
+        } else if (currentPoll.question_type === PollQuestionTypeEnum.MCQ && currentPoll.options.length <= 1) {
+            errorMessage = 'Please input at least 2 options for a MCQ question.'
+        }
+        if (errorMessage !== '') {
+            toast({
+                variant: "destructive",
+                description: errorMessage,
+                duration: 3000,
+            })
+            setIsLoading(false)
+            return
+        }
+
+
         try {
-            //Call API to update poll status to published and set date published
+            //Call API to save changes and update poll status to published and set date published
             const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {
                     "$set": {
+                        "question": currentPoll.question,
+                        "category": currentPoll.category,
+                        "question_type": currentPoll.question_type,
+                        "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
                         "status": PollStatusEnum.Published,
                         "date_published": getCurrentDateTime()
                     }
@@ -79,7 +103,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
                 <AlertDialogHeader>
                     <AlertDialogTitle className='text-xl text-yap-black-800'>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription className='text-yap-black-800 text-base'>
-                        Once the poll is published, it will be made public. Also, please ensure that you have saved your changes before publishing.
+                        Once the poll is published, it will be made public.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

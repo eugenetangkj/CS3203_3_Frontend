@@ -47,10 +47,10 @@ export default function ManageCategoriesTableAndButtons() {
     return (
         <div className="flex flex-col space-y-4">
             {/* Buttons */}
-            <div className='flex flex-row sm:self-end space-x-4'>
+            {/* <div className='flex flex-row sm:self-end space-x-4'> */}
                 {/* Add category */}
-                <AddCategoryButton fetchCategories= { fetchCategories } />
-            </div>
+                {/* <AddCategoryButton fetchCategories= { fetchCategories } /> */}
+            {/* </div> */}
 
             {/* Table of categories */}
             {
