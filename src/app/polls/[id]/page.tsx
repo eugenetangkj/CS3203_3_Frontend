@@ -48,7 +48,6 @@ export default async function ViewPoll({ params }: any) {
                 return convertPollDocumentToObject(pollData)
             }
         } catch (error) {
-            console.error(error)
             return null
         }
     }

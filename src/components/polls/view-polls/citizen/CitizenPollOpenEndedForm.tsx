@@ -23,7 +23,8 @@ Represents the form for the citizen to submit his response to an open-ended ques
 */
 interface CitizenPollOpenEndedFormProps {
     currentPoll: Poll,
-    isUserSignedIn: boolean,
+    shouldDisable: boolean,
+    userResponse: string,
 }
 
 const OpenEndedFormSchema = z.object({
@@ -33,18 +34,18 @@ const OpenEndedFormSchema = z.object({
 });
 
 
-export function CitizenPollOpenEndedForm({ currentPoll, isUserSignedIn }: CitizenPollOpenEndedFormProps) {
+export function CitizenPollOpenEndedForm({ currentPoll, shouldDisable, userResponse }: CitizenPollOpenEndedFormProps) {
     //States
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState<boolean>(false)
     const [collectible, setCollectible] = useState<string>('')
     const { toast } = useToast()
-    
+
 
     const form = useForm<z.infer<typeof OpenEndedFormSchema>>({
         resolver: zodResolver(OpenEndedFormSchema),
         defaultValues: {
-            response: ""
+            response: userResponse
         }
     })
 
@@ -121,7 +122,7 @@ export function CitizenPollOpenEndedForm({ currentPoll, isUserSignedIn }: Citize
                                 {...field}
                                 className="w-full h-32 p-4 border rounded-lg resize-none text-lg text-yap-black-800"
                                 placeholder="Type your response here..."
-                                disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
+                                disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
                             />
                         </FormControl>
                         <FormMessage className='text-lg md:text-xl font-normal' />
@@ -130,8 +131,8 @@ export function CitizenPollOpenEndedForm({ currentPoll, isUserSignedIn }: Citize
                 control={form.control}
                 name="response"
                 />
-                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg sm:text-xl py-4 md:py-6 disabled:cursor-not-allowed'
-                    disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg py-4 md:py-6 disabled:cursor-not-allowed'
+                    disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed }>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
             </form>
             <CitizenRewardPanel isRewardPanelOpen={ isRewardPanelOpen } setIsRewardPanelOpen={ setIsRewardPanelOpen } collectiblePath={ collectible } />
         </Form>

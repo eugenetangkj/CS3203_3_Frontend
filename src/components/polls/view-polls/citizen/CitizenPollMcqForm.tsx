@@ -23,14 +23,15 @@ Represents the form for the citizen to submit his response to a MCQ poll
 */
 interface CitizenPollMcqFormProps {
     currentPoll: Poll,
-    isUserSignedIn: boolean,
+    shouldDisable: boolean,
+    userResponse: string,
 }
 
 const McqFormSchema = z.object({
     response: z.string().min(1, { message: "You must select at least one option." })
   });
 
-export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollMcqFormProps) {
+export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }: CitizenPollMcqFormProps) {
     //States
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState<boolean>(false)
@@ -41,7 +42,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
     const form = useForm<z.infer<typeof McqFormSchema>>({
         resolver: zodResolver(McqFormSchema),
         defaultValues: {
-            response: ""
+            response: userResponse
         }
     })
 
@@ -119,7 +120,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex flex-col space-y-4"
-                        disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
+                        disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
                         >
                             {
                                 currentPoll.options.map((option) => (
@@ -139,8 +140,8 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                     </FormItem>
                 )}
                 />
-                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg sm:text-xl py-4 md:py-6 disabled:cursor-not-allowed'
-                    disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg py-4 md:py-6 disabled:cursor-not-allowed'
+                    disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
             </form>
             <CitizenRewardPanel isRewardPanelOpen={ isRewardPanelOpen } setIsRewardPanelOpen={ setIsRewardPanelOpen } collectiblePath={ collectible } />
         </Form>

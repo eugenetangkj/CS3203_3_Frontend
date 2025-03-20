@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API, LOGIN_INVALID_CREDENTIALS_API_ERROR_MESSAGE } from "@/constants/Constants"
+import { ERROR_MESSAGE_API, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
 import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
@@ -68,7 +68,7 @@ export default function SignInForm() {
             )
 
             //Check if login is successful
-            if (apiResult.data.message === LOGIN_INVALID_CREDENTIALS_API_ERROR_MESSAGE) {
+            if (apiResult.data.message === NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE) {
                 toast({
                     variant: "destructive",
                     description: "Invalid credentials. Please check your email and/or password.",

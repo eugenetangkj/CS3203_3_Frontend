@@ -192,4 +192,4 @@ export const getRandomCollectible = () => {
 /**
 API error message for incorrect credentials
 */
-export const LOGIN_INVALID_CREDENTIALS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
+export const NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
