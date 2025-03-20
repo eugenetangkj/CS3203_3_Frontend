@@ -31,7 +31,5 @@ export default async function ProfileCards({ currentUser }: ProfileCardsProps) {
                 }
             </div>
         </div>
-        
-        
     )
 }
