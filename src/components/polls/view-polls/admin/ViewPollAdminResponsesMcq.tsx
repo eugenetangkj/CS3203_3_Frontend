@@ -49,8 +49,12 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
                     }
                 }
             )
-            const pollStatistics = getPollResponsesStatisticsResponse.data.statistics
-            const processedPollStatistics = generateDataPoints(pollStatistics)
+            let processedPollStatistics = []
+            if (getPollResponsesStatisticsResponse.data.statistics) {
+                processedPollStatistics = generateDataPoints(getPollResponsesStatisticsResponse.data.statistics)
+            } else {
+                processedPollStatistics = generateDataPoints({})
+            }
             setDataPoints(processedPollStatistics)
         } catch (error) {
             setIsThereError(true)

@@ -49,7 +49,7 @@ export function BarChartLabel({ chartData }: BarChartLabelProps) {
                     tickLine={false}
                     tickMargin={10}
                     axisLine={false}
-                    className='text-base text-yap-black-800'
+                    className='text-sm md:text-base text-yap-black-800'
                     
                     />
                     <ChartTooltip
