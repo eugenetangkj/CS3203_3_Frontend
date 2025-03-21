@@ -20,6 +20,7 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<BarChartLabelPoint[]>([])
+    const [totalNumberOfResponses, setTotalNumberOfResponses] = useState<number>()
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
@@ -50,14 +51,19 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
                 }
             )
             let processedPollStatistics = []
+            let totalNumberOfResponses = 0
             if (getPollResponsesStatisticsResponse.data.statistics) {
-                processedPollStatistics = generateDataPoints(getPollResponsesStatisticsResponse.data.statistics)
+                const statistics = getPollResponsesStatisticsResponse.data.statistics as Record<string, number>;
+                processedPollStatistics = generateDataPoints(statistics)
+                totalNumberOfResponses = Object.values(statistics).reduce((sum, count) => sum + count, 0);
             } else {
                 processedPollStatistics = generateDataPoints({})
             }
             setDataPoints(processedPollStatistics)
+            setTotalNumberOfResponses(totalNumberOfResponses)
         } catch (error) {
             setIsThereError(true)
+            setTotalNumberOfResponses(0)
         } finally {
             setIsLoading(false)
         }
@@ -70,10 +76,15 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
     }, [])
 
     return (
-            isLoading
+            isLoading || totalNumberOfResponses === undefined
             ? <Skeleton className="w-full h-[200px]" />
-            : isThereError || dataPoints.length === 0
+            : isThereError
             ? <div>Something went wrong. Please try again later.</div>
-            : <BarChartLabel chartData={ dataPoints } />
+            : totalNumberOfResponses === 0
+            ? <div>There is no response.</div>
+            : <div className='flex flex-col items-start space-y-8'>
+                <p>Total number of responses: { totalNumberOfResponses } </p>
+                <BarChartLabel chartData={ dataPoints } />
+            </div>  
     )
 }
