@@ -76,3 +76,12 @@ export interface ClassicTableInput {
     data: any[];
 }
 
+
+/**
+ * Interface for a data point used in a BarChartLabel chart.
+ * @param key Key of the data point
+*/
+export interface BarChartLabelPoint {
+    [key: string]: string | number;
+  }
+  

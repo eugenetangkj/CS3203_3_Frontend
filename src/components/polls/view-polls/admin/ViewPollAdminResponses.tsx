@@ -1,5 +1,11 @@
-import { Poll } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
+import { BarChartLabel } from "@/components/charts/BarChartLabel"
+import { useState } from "react"
+import { BarChartLabelPoint } from "@/types/ChartInterface"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
+import axios from "axios"
+import { ViewPollAdminResponsesMcq } from "./ViewPollAdminResponsesMcq"
 
 
 /**
@@ -13,10 +19,11 @@ export function ViewPollAdminResponses({ currentPoll }: ViewPollAdminResponsesPr
     return (
         <div className='flex flex-col space-y-4'>
             <PageSubtitle pageSubtitle="Poll Responses" />
-            <div className='text-base text-yap-black-800 flex flex-col space-y-4'>
-                <p>Currently a work in progress... 🚧</p>
-            </div>
-           
+            {
+                currentPoll.question_type === PollQuestionTypeEnum.MCQ
+                ? <ViewPollAdminResponsesMcq currentPoll={ currentPoll }/>
+                : <></>
+            }
         </div> 
     )
 }
