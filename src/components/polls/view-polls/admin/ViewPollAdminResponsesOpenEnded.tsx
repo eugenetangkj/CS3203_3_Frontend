@@ -2,7 +2,7 @@
 
 import { Poll } from "@/types/Poll"
 import { useState, useEffect } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT, POLL_RESPONSES_GET_MANY_ENDPOINT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT, POLL_RESPONSES_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { Skeleton } from "@/components/ui/skeleton"
 import { PollResponse } from "@/types/Poll"
@@ -22,7 +22,7 @@ const NUMBER_OF_RESPONSES_PER_PAGE = 50
 export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminResponsesOpenEndedProps) {
     //States
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [pollResponses, setPollResponses] = useState<PollResponse[]>([])
+    const [pollResponses, setPollResponses] = useState<PollResponse[]>()
     const [isThereError, setIsThereError] = useState<boolean>(false)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [totalNumberOfResponses, setTotalNumberOfResponses] = useState<number>()
@@ -91,18 +91,16 @@ export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminRe
 
 
     return (
-            isLoading || totalNumberOfResponses === undefined
+            isLoading || totalNumberOfResponses === undefined || pollResponses === undefined
             ? <Skeleton className="w-full h-[200px]" />
             : isThereError
             ? <div>Something went wrong. Please try again later.</div>
             : pollResponses.length === 0
             ? <div>There is no poll response.</div>
             : (
-                <div className='flex flex-col items-start space-y-8'>
+                <div className='flex flex-col items-start space-y-2'>
                     {/* Total number of responses */}
                     <p>Total number of responses: { totalNumberOfResponses }</p>
-
-
 
                     {/* Table of data */}
                     <Table>
