@@ -6,6 +6,7 @@ import { BarChartLabelPoint } from "@/types/ChartInterface"
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { ViewPollAdminResponsesMcq } from "./ViewPollAdminResponsesMcq"
+import { ViewPollAdminResponsesOpenEnded } from "./ViewPollAdminResponsesOpenEnded"
 
 
 /**
@@ -22,7 +23,7 @@ export function ViewPollAdminResponses({ currentPoll }: ViewPollAdminResponsesPr
             {
                 currentPoll.question_type === PollQuestionTypeEnum.MCQ
                 ? <ViewPollAdminResponsesMcq currentPoll={ currentPoll }/>
-                : <></>
+                : <ViewPollAdminResponsesOpenEnded currentPoll={ currentPoll } />
             }
         </div> 
     )

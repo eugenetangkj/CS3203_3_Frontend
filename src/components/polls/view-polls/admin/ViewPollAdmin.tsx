@@ -50,9 +50,6 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Published && <ClosePollButton currentPoll={ poll } /> }
                 { poll.id !== '-1' && poll.status === PollStatusEnum.Closed && <RepublishPollButton currentPoll={ poll } /> }
                 { poll.id !== '-1' && <DeletePollButton currentPoll={ poll } /> }
-
-
-                {/* {poll.id !== -1 && <DeletePollButton currentPoll={ poll } />} */}
             </div>
 
 
