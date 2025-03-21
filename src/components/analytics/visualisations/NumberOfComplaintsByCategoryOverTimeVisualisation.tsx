@@ -7,10 +7,11 @@ import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
-import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
+import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd, determineIsObjectEmpty } from "@/utils/HelperFunctions"
 import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
 import { DateRange } from "react-day-picker"
 import { format, addMonths } from "date-fns"
+import { COLOUR_MAP } from "@/constants/Constants"
 
 
 /**
@@ -81,7 +82,7 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
         ? (<Skeleton className="w-full h-[200px]" />)
         : isThereError
         ? <div>Something went wrong. Please try again later.</div>
-        : Object.keys(colourMap).length === 0
+        : determineIsObjectEmpty(COLOUR_MAP)
         ? <div></div>
         : (
             <div className='flex flex-col space-y-8'>

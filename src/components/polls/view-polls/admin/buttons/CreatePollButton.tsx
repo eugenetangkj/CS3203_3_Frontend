@@ -64,8 +64,8 @@ export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
                     "question_type": currentPoll.question_type,
                     "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
                     "date_created": getCurrentDateTime(),
-                    "date_published": "",
-                    "date_closed": "",
+                    "date_published": null,
+                    "date_closed": null,
                     "status": PollStatusEnum.Unpublished
                 }
             })
@@ -94,7 +94,7 @@ export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
     }
 
     return (
-        <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'  onClick={handleCreatePoll}>
+        <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'  onClick={handleCreatePoll} disabled={ isLoading }>
             { isLoading ? 'Creating...' : 'Create Poll' }
         </Button>
     )

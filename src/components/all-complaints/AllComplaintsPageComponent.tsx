@@ -199,10 +199,10 @@ const AllComplaintsPageComponent = () => {
                 
                 {/* Previous and next buttons */}
                 <div className='flex flex-row space-x-8 self-center'>
-                    <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1} className='cursor-pointer disabled:cursor-not-allowed text-yap-brown-900 bg-yap-gray-100 hover:bg-yap-brown-100 rounded-full px-6 py-1 duration-200'>
+                    <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1} className='table-page-button'>
                         Previous
                     </button>
-                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={ currentPage >= totalPages } className='cursor-pointer disabled:cursor-not-allowed text-yap-brown-900 bg-yap-gray-100 hover:bg-yap-brown-100 rounded-full px-6 py-1 duration-200'>
+                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={ currentPage >= totalPages } className='table-page-button'>
                         Next
                     </button>
                 </div>

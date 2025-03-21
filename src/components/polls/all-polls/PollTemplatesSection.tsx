@@ -1,7 +1,6 @@
 import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { PollTemplate } from "@/types/Poll"
-import { pollTemplatesHardCodedData } from "@/constants/posts"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_TEMPLATES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"

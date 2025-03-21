@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 202.15">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: #8d5f4a;
+      }
+
+      .cls-4 {
+        fill: #cad2b0;
+      }
+
+      .cls-5 {
+        fill: #92a062;
+      }
+
+      .cls-6 {
+        fill: none;
+        stroke: #cad2b0;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2.5px;
+      }
+
+      .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-8 {
+        fill: #ffc64a;
+      }
+
+      .cls-2 {
+        font-size: 14.78px;
+      }
+
+      .cls-2, .cls-3 {
+        font-family: Kavoon-Regular, Kavoon;
+      }
+
+      .cls-9 {
+        fill: #ff814a;
+      }
+
+      .cls-3 {
+        font-size: 20.98px;
+      }
+    </style>
+  </defs>
+  <g id="Badge_2">
+    <g>
+      <circle id="Badge" class="cls-4" cx="100" cy="100" r="100"/>
+      <path id="Durian_Shell" class="cls-5" d="M56.23,176.43s-18.19,4.23-14.27-3.08l5.97-10.46-9.6-.64s-4.64-1.97-2.08-5.83l8.56-9.46s-9.1-2.17-10.85-5.6c0,0-1.3-3.19,1.66-4.5l8.96-6.92.94-.74s-10.26-4.66-9.2-9.94c0,0,3.19-4.3,12.39-5.98l-5.63-11s-1.24-2.65,1.8-4.03l12.17-.67-3.33-13.4s.09-3.23,4.01-3.28l9.94,2.5.04-13.16s.58-4.52,5.3-2.55l8.03,4.83,2.89-13.08s2.02-3.49,5.57-1.16l6.27,7.17,5.23-11.4s4.02-3.43,6.15.32l3.93,8.41,6.41-9.37s4.14-2.35,5.82.85l1.94,11.05,6.61-2.52s3.33-.83,3.88,1.72l2.51,6.68,7.42-4.26s6.24-3.06,5.99,3.39l-3.29,10.76,9.36-1.9s4.39-.11,3.82,3.95l-6.01,11.84,9.06.78s4.69.05,2.96,4.54l-8.66,10.31,8.45,3.3s3.87,1.95,2.56,4.92l-11.31,8.47,7.2,6.81s3.93,2.57.23,5.85l-11.9,4.61,5.32,8.38s2.81,4.15-.95,6.67l-10.98,1.86s-10.57,34.26-91.3,14.94Z"/>
+      <path id="Spike" class="cls-6" d="M60.62,132.51l-6.28-10.13c-.21-.34.03-.77.43-.78l11.93-.17"/>
+      <path id="Spike-2" data-name="Spike" class="cls-6" d="M68.81,104.33l-2.71-11.61c-.09-.39.28-.72.65-.6l11.36,3.66"/>
+      <path id="Spike-3" data-name="Spike" class="cls-6" d="M125.56,89.2l10.8-5.04c.36-.17.77.12.72.52l-1.24,11.87"/>
+      <path id="Spike-4" data-name="Spike" class="cls-6" d="M135.45,117.02l11.84,1.34c.39.04.59.5.35.82l-7.25,9.48"/>
+      <path id="Durian_Stalk" class="cls-1" d="M129.12,60.42s12.76-18.61,7.82-30.8c-.61-1.5-.56-3.17.34-4.54,1.41-2.13,4.15-4.25,8.96-1.07,1.07.71,1.82,1.76,2.1,2.94,1.16,4.83,3.75,19.07-2.51,30.89l-4.21,8.07s-1.52-9.32-12.51-5.49Z"/>
+      <path id="Body" class="cls-8" d="M130.89,136.41c11.53,7.81,28.79,25.54,5.87,52.94-2.78,3.32-6.27,5.96-10.25,7.67-11.8,5.08-41.29,9.72-62.46-3.51-3.85-2.41-8.99-16.17-8.37-22.37,1.1-11.08,3.69-28.97,25.94-39.52,6.99-3.31,6.93-5.78,8.01-10.96,1.21-5.78.24-7.89-1.57-15.84-1.07-4.7.12-16.11,2.41-20.35,2.42-4.49,10.99-8.14,19.15-5.9,6.35,1.74,8.41,7.13,10.84,13.25,2.99,7.51,2.64,19.29,2.95,30.87.15,5.5,2.94,10.63,7.49,13.71Z"/>
+      <ellipse id="Eye_Right" class="cls-7" cx="113.7" cy="92.93" rx="4.47" ry="4.76"/>
+      <ellipse id="Eye_Right-2" data-name="Eye_Right" cx="115.9" cy="93.11" rx="2.3" ry="2.45"/>
+      <ellipse id="Eye_Left" class="cls-7" cx="96.58" cy="94.52" rx="4.47" ry="4.76"/>
+      <ellipse id="Eye_Left-2" data-name="Eye_Left" cx="98.75" cy="94.33" rx="2.3" ry="2.45"/>
+      <ellipse class="cls-8" cx="99.93" cy="77.15" rx="3.37" ry="7.23" transform="translate(-20.88 40.51) rotate(-20.8)"/>
+      <ellipse class="cls-8" cx="105.02" cy="78.84" rx="7.23" ry="3.55" transform="translate(-3.3 153.09) rotate(-71.33)"/>
+      <ellipse id="Mouth_Top" class="cls-9" cx="107.26" cy="106.8" rx="2.65" ry="7.25" transform="translate(-22.95 183.98) rotate(-75.54)"/>
+      <ellipse id="Mouth_Bottom" class="cls-9" cx="107.11" cy="103.19" rx="7.25" ry="2.65" transform="translate(-27.91 40.81) rotate(-19.13)"/>
+      <text class="cls-2" transform="translate(31 61.78) rotate(-50.41) scale(1.06 1)"><tspan x="0" y="0">D</tspan></text>
+      <text class="cls-2" transform="translate(37.36 54.11) rotate(-45.09) scale(1.06 1)"><tspan x="0" y="0">o</tspan></text>
+      <text class="cls-2" transform="translate(43.71 47.85) rotate(-41.61) scale(1.06 1)"><tspan x="0" y="0"> </tspan></text>
+      <text class="cls-2" transform="translate(46.1 45.61) rotate(-38.11) scale(1.06 1)"><tspan x="0" y="0">y</tspan></text>
+      <text class="cls-2" transform="translate(53.16 40.06) rotate(-33.09) scale(1.06 1)"><tspan x="0" y="0">o</tspan></text>
+      <text class="cls-2" transform="translate(60.6 35.19) rotate(-28.06) scale(1.06 1)"><tspan x="0" y="0">u</tspan></text>
+      <text class="cls-2" transform="translate(69.11 30.75) rotate(-24.7) scale(1.06 1)"><tspan x="0" y="0"> </tspan></text>
+      <text class="cls-2" transform="translate(72.15 29.33) rotate(-22.51) scale(1.06 1)"><tspan x="0" y="0">l</tspan></text>
+      <text class="cls-2" transform="translate(76.93 27.29) rotate(-19.08) scale(1.06 1)"><tspan x="0" y="0">o</tspan></text>
+      <text class="cls-2" transform="translate(85.36 24.37) rotate(-15.04) scale(1.06 1)"><tspan x="0" y="0">v</tspan></text>
+      <text class="cls-2" transform="translate(93.92 22.08) rotate(-11.38) scale(1.06 1)"><tspan x="0" y="0">e</tspan></text>
+      <text class="cls-3" transform="translate(43 79.66) rotate(-49.98) scale(1.06 1)"><tspan x="0" y="0">d</tspan></text>
+      <text class="cls-3" transform="translate(51.49 69.5) rotate(-42.43) scale(1.06 1)"><tspan x="0" y="0">u</tspan></text>
+      <text class="cls-3" transform="translate(61.62 60.49) rotate(-37.27) scale(1.06 1)"><tspan x="0" y="0"> </tspan></text>
+      <text class="cls-3" transform="translate(65.23 57.59) rotate(-33) scale(1.06 1)"><tspan x="0" y="0">r</tspan></text>
+      <text class="cls-3" transform="translate(74 51.82) rotate(-26.86) scale(1.06 1)"><tspan x="0" y="0">a</tspan></text>
+      <text class="cls-3" transform="translate(84.82 46.27) rotate(-20.24) scale(1.06 1)"><tspan x="0" y="0">n</tspan></text>
+      <text class="cls-3" transform="translate(98.12 41.5) rotate(-15.06) scale(1.06 1)"><tspan x="0" y="0">t</tspan></text>
+      <text class="cls-3" transform="translate(106.34 39.26) rotate(-11.25) scale(1.06 1)"><tspan x="0" y="0">?</tspan></text>
+    </g>
+  </g>
+</svg>

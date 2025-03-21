@@ -1,6 +1,6 @@
 import { Category } from "@/types/Category"
 import { Complaint } from "@/types/Complaint";
-import { Poll, PollTemplate } from "@/types/Poll";
+import { Poll, PollResponse, PollTemplate } from "@/types/Poll";
 
 /**
 Helper functions to convert database documents into interfaces used in frontend
@@ -136,4 +136,18 @@ export const convertPollDocumentsToObjects = (polls: any[]) : Poll[] => {
         date_closed: poll.date_closed,
         status: poll.status
     }));
+}
+
+
+/**
+Converts a list of MongoDB Poll Response documents into a list of PollResponse objects
+*/
+export const convertPollResponseDocumentsToObjects = (pollResponses: any[]) : PollResponse[] => {
+    return pollResponses.map(pollResponse => ({
+        id: pollResponse._id.$oid,
+        poll_id: pollResponse.poll_id,
+        response: pollResponse.response,
+        date_submitted: pollResponse.date_submitted,
+        user_id: pollResponse.user_id  
+    }))
 }

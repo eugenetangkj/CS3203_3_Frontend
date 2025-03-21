@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/constants/Constants"
+import { ERROR_MESSAGE_API, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation";
 import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
@@ -66,40 +66,37 @@ export default function SignInForm() {
                     "password": password
                 }
             )
-            const jwtToken = apiResult.data.jwt
-            const userOid = apiResult.data.oid
 
-
-            if (jwtToken) {
-                //Set cookie with JWT token
-                await axios.post(SIGNIN_SERVER_ENDPOINT, {
-                    "token": jwtToken,
-                    "userOid": userOid
+            //Check if login is successful
+            if (apiResult.data.message === NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE) {
+                toast({
+                    variant: "destructive",
+                    description: "Invalid credentials. Please check your email and/or password.",
+                    duration: 3000,
                 })
-
-                //Update global state
-                login()
-
-                //Successful, redirect to home page
-                router.push('/')
-            }
-
-        } catch (error) {
-            let message = ERROR_MESSAGE_API
-            
-            //Axios error
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 401) {
-                    message = error.response?.data?.message;
-                } else {
-                    message = ERROR_MESSAGE_API
+            } else {
+                const jwtToken = apiResult.data.jwt
+                const userOid = apiResult.data.oid
+    
+                if (jwtToken) {
+                    //Set cookie with JWT token
+                    await axios.post(SIGNIN_SERVER_ENDPOINT, {
+                        "token": jwtToken,
+                        "userOid": userOid
+                    })
+    
+                    //Update global state
+                    login()
+    
+                    //Successful, redirect to home page
+                    router.push('/')
                 }
             }
-
+        } catch (error) {
             //Display destructive toast
             toast({
                 variant: "destructive",
-                description: message,
+                description: ERROR_MESSAGE_API,
                 duration: 3000,
             })
         } finally {

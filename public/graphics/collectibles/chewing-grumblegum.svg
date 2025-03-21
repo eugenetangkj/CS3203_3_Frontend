@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #a92767;
+      }
+
+      .cls-2 {
+        font-size: 8px;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-5, .cls-6, .cls-7 {
+        font-family: Kavoon-Regular, Kavoon;
+      }
+
+      .cls-2, .cls-6 {
+        opacity: .2;
+      }
+
+      .cls-4 {
+        opacity: .5;
+      }
+
+      .cls-8 {
+        fill: #ffc64a;
+      }
+
+      .cls-5 {
+        font-size: 20px;
+      }
+
+      .cls-9 {
+        fill: #ff814a;
+      }
+
+      .cls-6 {
+        font-size: 6px;
+      }
+
+      .cls-7 {
+        font-size: 16px;
+      }
+
+      .cls-10 {
+        fill: #ed92bf;
+        opacity: .8;
+      }
+    </style>
+  </defs>
+  <g id="Badge_4">
+    <g>
+      <circle id="Badge" class="cls-1" cx="100" cy="100" r="100"/>
+      <g>
+        <path id="Body" class="cls-8" d="M74.79,196.95c.61.17.53-.59.63-1.21,2.9-17.53-8.04-26.39-8.04-26.39-2.93-2.48-5.06-6.12-6.44-9.08-1.12-2.41-2.4-5.28-2.99-9.26-3.46-23.34-4.86-24.46-8.84-28.07-4.68-4.25-6.48-5.16-9.58-5.75-16.35-3.12-24.41,5.72-23.5,14,.66,6.08,7.97,10.74,10.84,14.16,3.91,4.66-2.95,18.3-1.28,21.32,2.49,4.52,10.37,10.72,19.87,17.19,8.09,5.51,18.25,9.91,29.33,13.1Z"/>
+        <ellipse id="Eye_Right" class="cls-3" cx="41.47" cy="126.68" rx="4.1" ry="4.37" transform="translate(-7.91 2.87) rotate(-3.62)"/>
+        <ellipse id="Eye_Right-2" data-name="Eye_Right" cx="43.51" cy="126.41" rx="2.11" ry="2.25" transform="translate(-7.89 3) rotate(-3.62)"/>
+        <ellipse id="Eye_Left" class="cls-3" cx="29.87" cy="128.76" rx="4.1" ry="4.37" transform="translate(-8.06 2.14) rotate(-3.62)"/>
+        <ellipse id="Eye_Left-2" data-name="Eye_Left" cx="31.95" cy="128.41" rx="2.11" ry="2.25" transform="translate(-8.04 2.27) rotate(-3.62)"/>
+        <ellipse id="Mouth_Top" class="cls-9" cx="55.15" cy="132.39" rx="7.9" ry="2.89" transform="translate(-71.17 64.48) rotate(-39.12)"/>
+        <ellipse id="Mouth_Bottom" class="cls-9" cx="56.58" cy="135.59" rx="7.9" ry="2.89" transform="translate(-21.14 10.91) rotate(-9.29)"/>
+        <ellipse class="cls-8" cx="23.76" cy="114.36" rx="3.09" ry="6.63" transform="translate(-63.4 36.6) rotate(-36.53)"/>
+        <ellipse class="cls-8" cx="28.67" cy="114.58" rx="6.63" ry="3.26" transform="translate(-87.23 137.32) rotate(-87.05)"/>
+      </g>
+      <path id="Gum_bubble" class="cls-10" d="M58.77,123s1.46,4.53-.06,6.41c0,0-3.82,6.75,1.81,4.11,0,0,3.89-1.57,7.75,2.68,0,0,26.03,34.94,74.69,17.58,0,0,50.36-18.07,37.98-78.3,0,0-9.02-40.05-52.68-47.08-11.34-1.83-22.98-.54-33.7,3.58-22.17,8.54-56.92,31.79-35.79,91.01Z"/>
+      <g>
+        <text class="cls-5" transform="translate(60.09 109.12) rotate(-8.39) scale(.91 1)"><tspan x="0" y="0">G</tspan></text>
+        <text class="cls-5" transform="translate(71.29 107.5) rotate(-6.65) scale(.91 1)"><tspan x="0" y="0">r</tspan></text>
+        <text class="cls-5" transform="translate(79.98 106.47) rotate(-5.09) scale(.91 1)"><tspan x="0" y="0">u</tspan></text>
+        <text class="cls-5" transform="translate(91.15 105.41) rotate(-2.93) scale(.91 1)"><tspan x="0" y="0">m</tspan></text>
+        <text class="cls-5" transform="translate(107.89 104.61) rotate(-.69) scale(.91 1)"><tspan x="0" y="0">b</tspan></text>
+        <text class="cls-5" transform="translate(118.71 104.51) rotate(.79) scale(.91 1)"><tspan x="0" y="0">l</tspan></text>
+        <text class="cls-5" transform="translate(124.85 104.57) rotate(2.29) scale(.91 1)"><tspan x="0" y="0">e</tspan></text>
+        <text class="cls-5" transform="translate(134.79 104.96) rotate(4.31) scale(.91 1)"><tspan x="0" y="0">g</tspan></text>
+        <text class="cls-5" transform="translate(144.87 105.7) rotate(6.68) scale(.91 1)"><tspan x="0" y="0">u</tspan></text>
+        <text class="cls-5" transform="translate(155.94 106.89) rotate(10.22) scale(.91 1)"><tspan x="0" y="0">m</tspan></text>
+      </g>
+      <g>
+        <text class="cls-7" transform="translate(86.73 83.16) rotate(-4.32) scale(.91 1)"><tspan x="0" y="0">C</tspan></text>
+        <text class="cls-7" transform="translate(95.27 82.51) rotate(-2.95) scale(.91 1)"><tspan x="0" y="0">h</tspan></text>
+        <text class="cls-7" transform="translate(104.39 82.05) rotate(-1.58) scale(.91 1)"><tspan x="0" y="0">e</tspan></text>
+        <text class="cls-7" transform="translate(112.38 81.8) rotate(.12) scale(.91 1)"><tspan x="0" y="0">w</tspan></text>
+        <text class="cls-7" transform="translate(124.43 81.87) rotate(1.66) scale(.91 1)"><tspan x="0" y="0">i</tspan></text>
+        <text class="cls-7" transform="translate(129.44 81.98) rotate(3.04) scale(.91 1)"><tspan x="0" y="0">n</tspan></text>
+        <text class="cls-7" transform="translate(138.78 82.49) rotate(4.85) scale(.91 1)"><tspan x="0" y="0">g</tspan></text>
+      </g>
+      <path id="Bubble_Stripe_1" class="cls-4" d="M124.77,38.26s-2.36-2.36,1.34-2.79c.45-.05.91,0,1.33.15,3.27,1.14,18.92,6.93,24.7,14.82.42.58.63,1.3.53,2.01-.12.83-.71,1.53-2.74.53,0,0-7.73-5.52-13.13-9.1-1.76-1.16-4.86-2.55-6.87-3.2s-4.45-1.66-5.16-2.42Z"/>
+      <path id="Bubble_Stripe_2" class="cls-4" d="M156.59,56.83s-.75-1.29.82-1.32c0,0,7.97,2.16,9.16,7.07,0,0,.02,2.09-1.22,1.23,0,0-2.94-2.45-4.94-3.88-.77-.55-1.85-1.39-2.42-1.89s-1.14-.9-1.4-1.21Z"/>
+      <text class="cls-2" transform="translate(74.8 130.35) rotate(-8.46) scale(.91 1)"><tspan x="0" y="0">Why so hot?</tspan></text>
+      <text class="cls-6" transform="translate(127.07 124.14) rotate(5.57) scale(.91 1)"><tspan x="0" y="0">Things are so</tspan><tspan x="1.32" y="8">expensive...</tspan></text>
+      <text class="cls-2" transform="translate(85.49 48.68) rotate(-4.56) scale(.91 1)"><tspan x="0" y="0">Job so</tspan><tspan x="-6.35" y="8">stressful!</tspan></text>
+    </g>
+  </g>
+</svg>

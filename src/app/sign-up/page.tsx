@@ -1,9 +1,10 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import SignUpForm from "@/components/sign-up/SignUpForm";
+import { UserRoleEnum } from "@/types/User";
 
 
 /** 
-Layout for the sign up page for new users to create an account
+Layout for the sign up page for new users to create an account. The role of the account created is citizen.
 */
 
 export const metadata = {
@@ -20,8 +21,12 @@ export default function SignUpPage() {
 				<PageTitle pageTitle="New here? Join now!" />
 
 				{/* Sign up form */}
-				<SignUpForm />
-
+				<SignUpForm
+					role={ UserRoleEnum.Citizen }
+					successMessage='Sign up is successful. Please login now.'
+					buttonMessage="Sign Up"
+					buttonActionMessage="Signing up..."
+				/>
 
 				{/* Sign in instead */}
 				<h6>Already have an account? <span className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>

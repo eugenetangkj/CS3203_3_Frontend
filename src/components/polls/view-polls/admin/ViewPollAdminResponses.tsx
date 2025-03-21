@@ -1,6 +1,8 @@
-import { Poll } from "@/types/Poll"
+import { Poll, PollQuestionTypeEnum } from "@/types/Poll"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
-
+import { ViewPollAdminResponsesMcq } from "./ViewPollAdminResponsesMcq"
+import { ViewPollAdminResponsesOpenEnded } from "./ViewPollAdminResponsesOpenEnded"
+import { DownloadPollResponsesButton } from "./buttons/DownloadPollResponsesButton"
 
 /**
 Represents the responses for the polls that the admin views for each published or closed polls.
@@ -13,10 +15,19 @@ export function ViewPollAdminResponses({ currentPoll }: ViewPollAdminResponsesPr
     return (
         <div className='flex flex-col space-y-4'>
             <PageSubtitle pageSubtitle="Poll Responses" />
-            <div className='text-base text-yap-black-800 flex flex-col space-y-4'>
-                <p>Currently a work in progress... 🚧</p>
-            </div>
-           
+            {
+                currentPoll.question_type === PollQuestionTypeEnum.MCQ
+                ? <ViewPollAdminResponsesMcq currentPoll={ currentPoll }/>
+                : <div className="flex flex-col space-y-2">
+                    {/* Download poll responses button */}
+                    <DownloadPollResponsesButton currentPoll={ currentPoll } />
+                    <ViewPollAdminResponsesOpenEnded currentPoll={ currentPoll } />
+
+                </div>
+                
+                
+                
+            }
         </div> 
     )
 }

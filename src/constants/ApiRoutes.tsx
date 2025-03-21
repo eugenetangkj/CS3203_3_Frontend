@@ -28,11 +28,9 @@ export const COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT = "complaints/delete_many_b
 export const COMPLAINTS_UPDATE_BY_OID_ENDPOINT = "complaints/update_by_oid"
 export const COMPLAINTS_GET_COUNT_ENDPOINT = "complaints/get_count"
 
-
 //Endpoints for admin management service (poll templates)
 export const POLL_TEMPLATES_GET_ALL_ENDPOINT = "poll_templates/get_all"
 export const POLL_TEMPLATES_GET_BY_OID_ENDPOINT = "poll_templates/get_by_oid"
-
 
 //Endpoints for admin management service (polls)
 export const POLLS_INSERT_ONE_ENDPOINT = "polls/insert_one"
@@ -43,18 +41,23 @@ export const POLLS_DELETE_BY_OID_ENDPOINT = "polls/delete_by_oid"
 export const POLLS_DELETE_MANY_BY_OIDS_ENDPOINT = "polls/delete_many_by_oids"
 export const POLLS_UPDATE_BY_OID_ENDPOINT = "polls/update_by_oid"
 
+//Endpoints for admin management service (poll responses)
+export const POLL_RESPONSES_INSERT_ONE_ENDPOINT = "poll_responses/insert_one"
+export const POLL_RESPONSES_GET_ONE_ENDPOINT = "poll_responses/get_one"
+export const POLL_RESPONSES_GET_MANY_ENDPOINT = "poll_responses/get_many"
+export const POLL_RESPONSES_GET_STATISTICS_ENDPOINT = "poll_responses/get_statistics"
+export const POLL_RESPONSES_GET_COUNT_ENDPOINT = "poll_responses/get_count"
 
 //Endpoints for analytics service (category analytics)
 export const GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT = "get_category_analytics_by_name"
 export const GET_COMPLAINTS_STATISTICS_ENDPOINT = "get_complaints_statistics"
 export const GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT = "get_complaints_statistics_over_time"
 
-
 //Endpoints for user management
 export const SIGNUP_ENDPOINT = "signup"
 export const LOGIN_ENDPOINT = "login"
 export const GET_PROFILE_BY_OID_ENDPOINT = "get_profile_by_oid"
-
+export const UPDATE_PROFILE_BY_OID_ENDPOINT = "update_profile_by_oid"
 
 //Endpoints for cookie setting and accessing, on server side
 export const SIGNIN_SERVER_ENDPOINT = '/api/signin'

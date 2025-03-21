@@ -10,9 +10,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Poll, PollStatusEnum } from "@/types/Poll";
 import { useState } from "react";
 import axios from "axios";
-import { CHECK_USER_AUTH_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_ADMIN_MANAGEMENT, CHECK_USER_AUTH_SERVER_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT,
+    API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, 
+    UPDATE_PROFILE_BY_OID_ENDPOINT} from "@/constants/ApiRoutes";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { getRandomCollectible } from "@/constants/Constants";
+import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
 
 
 /**
@@ -20,14 +23,15 @@ Represents the form for the citizen to submit his response to a MCQ poll
 */
 interface CitizenPollMcqFormProps {
     currentPoll: Poll,
-    isUserSignedIn: boolean,
+    shouldDisable: boolean,
+    userResponse: string,
 }
 
 const McqFormSchema = z.object({
     response: z.string().min(1, { message: "You must select at least one option." })
   });
 
-export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollMcqFormProps) {
+export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }: CitizenPollMcqFormProps) {
     //States
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState<boolean>(false)
@@ -38,7 +42,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
     const form = useForm<z.infer<typeof McqFormSchema>>({
         resolver: zodResolver(McqFormSchema),
         defaultValues: {
-            response: ""
+            response: userResponse
         }
     })
 
@@ -46,22 +50,52 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
         const userResponse = data.response
         setIsSubmitting(true)
         try {
-            //Retrieve user name
+            //STEP 1: Retrieve user oid
             const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
             const userOid = response.data.userOid
 
-            //TODO: Make API call to create a poll response
+            //STEP 2: Create poll response
+            const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_INSERT_ONE_ENDPOINT
+            await axios.post(insertPollResponseEndpoint,
+                {
+                    "document": {
+                        "poll_id": currentPoll.id,
+                        "user_id": userOid,
+                        "response": userResponse,
+                        "date_submitted": getCurrentDateTime()
+                    }
+                }
+            )
 
+            //STEP 3: Create updated collectibles list for the user
+            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+            const userData = await axios.post(fetchUserProfileApiEndpoint,
+                {
+                    "oid": userOid
+                }
+            )
+            const userCollectibles = userData.data.collectibles
+            const collectibleGiven =  getRandomCollectible() //The collectible to give
+            const newUserCollectibles = addStringToListIfAbsent(userCollectibles, collectibleGiven)
 
-            //Give collectible to the user
-            //TODO: Create the API to update the user's collectible
-            const collectibleGiven =  getRandomCollectible()
+            //STEP 4: Update profile
+            const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + UPDATE_PROFILE_BY_OID_ENDPOINT
+            await axios.post(updateProfileApiEndpoint, {
+                "oid": userOid,
+                "update_document": {
+                    "$set": {
+                        "collectibles": newUserCollectibles
+                    }
+                }
+            })
+
+            //STEP 5: Update component state
             setCollectible(collectibleGiven)
 
-
-            //Create alert to inform the user
+            //STEP 6:Create alert to inform the user
             setIsRewardPanelOpen(true)
         } catch (error) {
+            console.log(error)
             toast({
                 variant: "destructive",
                 description: "We could not process your submission. Please try again.",
@@ -86,7 +120,7 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex flex-col space-y-4"
-                        disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
+                        disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed }
                         >
                             {
                                 currentPoll.options.map((option) => (
@@ -106,8 +140,8 @@ export function CitizenPollMcqForm({ currentPoll, isUserSignedIn }: CitizenPollM
                     </FormItem>
                 )}
                 />
-                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg sm:text-xl py-4 md:py-6 disabled:cursor-not-allowed'
-                    disabled={ !isUserSignedIn || isSubmitting || currentPoll.status == PollStatusEnum.Closed}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
+                <Button type="submit" className='self-center rounded-full w-1/2 text-white bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-lg py-4 md:py-6 disabled:cursor-not-allowed'
+                    disabled={ shouldDisable || isSubmitting || currentPoll.status == PollStatusEnum.Closed}>{isSubmitting ? 'Submitting...' : 'Submit'}</Button>
             </form>
             <CitizenRewardPanel isRewardPanelOpen={ isRewardPanelOpen } setIsRewardPanelOpen={ setIsRewardPanelOpen } collectiblePath={ collectible } />
         </Form>

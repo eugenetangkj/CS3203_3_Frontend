@@ -142,3 +142,18 @@ export const determineIsPollOrPollTemplate = (poll: Poll | PollTemplate): poll i
 export const determineIsObjectEmpty = (inputObject: any) => {
     return  (Object.keys(inputObject).length === 0 && inputObject.constructor === Object)
 }
+
+
+/**
+ * Adds a string into a list of strings if the string is absent.
+ * 
+ * @param stringToAdd The string to add
+ * 
+ * @return No return value
+ */
+export const addStringToListIfAbsent = (list: string[], item: string): string[] => {
+    if (!list.includes(item)) {
+        return [...list, item];
+    }
+    return list;
+}

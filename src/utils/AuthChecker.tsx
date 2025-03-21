@@ -28,10 +28,10 @@ export const determineUserRole = async () => {
             return UserRoleEnum.None
         } 
         const userData = await userDataResponse.json()
-        return (userData.profile.role === UserRoleEnum.Admin) ? UserRoleEnum.Admin : UserRoleEnum.Citizen 
+        return (userData.role === UserRoleEnum.Admin) ? UserRoleEnum.Admin : UserRoleEnum.Citizen 
 
     } catch (error) {
-    console.error(error)
+    // console.error(error)
     return UserRoleEnum.None
     }
 }
@@ -45,7 +45,23 @@ export const determineIfUserIsSignedIn = async () => {
         return hasUserOidCookie
 
     } catch (error) {
-        console.error(error)
+        // console.error(error)
         return false
+    }
+}
+
+//Get user's OID value
+export const getUserOidValue = async () => {
+    try {
+        const cookieStore = await cookies()
+        const oid = cookieStore.get(COOKIE_USER_OID)
+
+        return (!oid)
+               ? ''
+               : oid.value 
+
+    } catch (error) {
+        // console.error(error)
+        return ''
     }
 }
