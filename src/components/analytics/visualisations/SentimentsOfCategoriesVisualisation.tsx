@@ -40,10 +40,7 @@ export function SentimentsOfCategoriesVisualisation() {
             const apiData = await axios.post(apiEndPoint,
                 {
                     "group_by_field": "category",
-                    "filter": {
-                        "_from_date": START_DATE,
-                        "_to_date":  getCurrentDateTime()
-                    }
+                    "filter": {} //Empty filter as we want all the data
                 }
             )
             const sentimentsForEachCategory = convertToArray(apiData.data.statistics)

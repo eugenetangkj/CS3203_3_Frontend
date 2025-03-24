@@ -38,10 +38,7 @@ export function SentimentsOfSourcesVisualisation() {
             const apiData = await axios.post(apiEndPoint,
                 {
                     "group_by_field": "source",
-                    "filter": {
-                        "_from_date": START_DATE,
-                        "_to_date": getCurrentDateTime()
-                    }
+                    "filter": {} //Empty filter as we want all the data
                 }
             )
 

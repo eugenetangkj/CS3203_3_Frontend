@@ -45,10 +45,7 @@ export function NumberOfComplaintsByCategoryVisualisation() {
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
                     "group_by_field": "category",
-                    "filter": {
-                        "_from_date": START_DATE,
-                        "_to_date": getCurrentDateTime()
-                    }
+                    "filter": {} //Empty filter as we want all the data
                 }
             )
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + CATEGORIES_GET_ALL_ENDPOINT
