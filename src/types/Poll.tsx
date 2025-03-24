@@ -8,9 +8,9 @@ export interface Poll {
     category: string,
     question_type: string,
     options: string[],
-    date_created: string,
-    date_published: string,
-    date_closed: string,
+    date_created: string | null,
+    date_published: string | null,
+    date_closed: string | null,
     status: string  
 }
 

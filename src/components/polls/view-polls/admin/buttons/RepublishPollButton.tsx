@@ -32,13 +32,13 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
         try {
             //Call API to update poll status to published and set date published and date closed
             const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(updatePollByOidEndpoint, {
+            await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {
                     "$set": {
                         "status": PollStatusEnum.Published,
                         "date_published": getCurrentDateTime(),
-                        "date_closed": ""
+                        "date_closed": null
                     }
                 }
             })
@@ -84,7 +84,7 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className='text-yap-black-800 duration-200 rounded-full'>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handleRepublishPoll }>
+                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handleRepublishPoll } disabled={ isLoading }>
                         Republish
                     </AlertDialogAction>
                 </AlertDialogFooter>
