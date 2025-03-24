@@ -6,7 +6,7 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL_ADMIN_MANAGEMENT, API_BASE_URL_ANALYTICS, CATEGORIES_GET_ALL_ENDPOINT, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, API_BASE_URL_ANALYTICS, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT } from "@/constants/ApiRoutes"
 import { BarChartMixed } from "../../charts/BarChartMixed"
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Category } from "@/types/Category"
@@ -41,20 +41,19 @@ export function NumberOfComplaintsByCategoryVisualisation() {
     const fetchPostsByCategory = async () => {
         try {
             //Call API
-            const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
-                    "start_date": START_DATE,
-                    "end_date": getCurrentDateTime(),
-                    "group_by_field": "category"
+                    "group_by_field": "category",
+                    "filter": {} //Empty filter as we want all the data
                 }
             )
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
 
             //Process data
-            const complaintsGroupedByCategories = convertToArray(complaintsData.data.result, categories)
+            const complaintsGroupedByCategories = convertToArray(complaintsData.data.statistics, categories)
             setDataPoints(complaintsGroupedByCategories)
         } catch (error) {
             setIsThereError(true)

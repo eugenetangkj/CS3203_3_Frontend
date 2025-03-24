@@ -22,9 +22,9 @@ export default function CreatePollsPage() {
         category: "",
         question_type: PollQuestionTypeEnum.MCQ, //Default to MCQ
         options: [],
-        date_created: "",
-        date_published: "",
-        date_closed: "",
+        date_created: null,
+        date_published: null,
+        date_closed: null,
         status: PollStatusEnum.Unpublished //New polls are unpublished
     }
     

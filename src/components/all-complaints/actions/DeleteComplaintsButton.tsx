@@ -22,7 +22,7 @@ interface DeleteComplaintsButtonProps {
     fetchComplaints: () => void
 }
 
-const DELETE_COMPLAINT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT
+const DELETE_COMPLAINT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT
 
 export default function DeleteComplaintsButton({ complaintsToDelete, setSelectedComplaints, currentPage, setCurrentPage, fetchComplaints }: DeleteComplaintsButtonProps) {
 

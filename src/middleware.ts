@@ -32,7 +32,7 @@ export async function middleware(request: Request) {
     //Obtain user role
     let userRole = UserRoleEnum.Citizen
     try {
-        const getProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+        const getProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + GET_PROFILE_BY_OID_ENDPOINT
         const userData = await axios.post(getProfileApiEndpoint,
             {
                 "oid": userOid,
@@ -40,7 +40,7 @@ export async function middleware(request: Request) {
         )
         userRole = userData.data.role
     } catch (error) {
-        console.error(error)
+        // console.error(error)
         userRole = UserRoleEnum.Citizen
     }
 
@@ -59,5 +59,5 @@ export async function middleware(request: Request) {
 // Routes to be protected by the auth middleware
 export const config = {
     //Cannot use variables as properties must be statically parsed at compiled time
-    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin']
+    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin', '/polls/poll-template/:path*']
 };

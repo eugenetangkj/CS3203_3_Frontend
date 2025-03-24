@@ -15,9 +15,9 @@ import SearchBar from "./actions/SearchBar"
 import CategoryFilter from "./actions/CategoryFilter"
 
 //Endpoints
-const GET_MANY_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_GET_MANY_ENDPOINT
-const COMPLAINTS_GET_COUNT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_GET_COUNT_ENDPOINT
-const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+const GET_MANY_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_MANY_ENDPOINT
+const COMPLAINTS_GET_COUNT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_COUNT_ENDPOINT
+const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
 
 //Constants
 const PAGE_SIZE = 50
@@ -33,6 +33,8 @@ const AllComplaintsPageComponent = () => {
     const [allCategories, setAllCategories] = useState<Category[]>([])
     const [categorySelected, setCategorySelected] = useState<Category>(ALL_CATEGORIES_CATEGORY)
     const [searchQuery, setSearchQuery] = useState<string>("")
+    const [dateSort, setDateSort] = useState<number>(-1)
+    const [sentimentSort, setSentimentSort] = useState<number>(1)
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState<number>(0)
     const [totalResults, setTotalResults] = useState<number>()
@@ -48,7 +50,11 @@ const AllComplaintsPageComponent = () => {
             {
                 "filter": {},
                 "page_size": PAGE_SIZE,
-                "page_number": 1 //Always fetch from first page for initialisation
+                "page_number": 1, //Always fetch from first page for initialisation
+                "sort": {
+                    "date": dateSort,
+                    "sentiment": sentimentSort
+                }
             }
         )
         const allComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
@@ -105,6 +111,10 @@ const AllComplaintsPageComponent = () => {
                 filter,
                 page_size: PAGE_SIZE,
                 page_number: currentPage,
+                sort: {
+                    ...(dateSort !== 0 && { date: dateSort }),
+                    ...(sentimentSort !== 0 && { sentiment: sentimentSort })
+                }
             });
             const filteredComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
                 {
@@ -134,7 +144,7 @@ const AllComplaintsPageComponent = () => {
             return; // Skip the first execution
         }
         fetchComplaints();
-    }, [currentPage, searchQuery, categorySelected]);
+    }, [currentPage, searchQuery, categorySelected, dateSort, sentimentSort]);
 
 
     //Actual component
@@ -142,7 +152,7 @@ const AllComplaintsPageComponent = () => {
         (!hasRanApi)
         ? <ComplaintsTableSkeleton />
         : isThereError
-        ? <p className='text-base bg-yap-black-800'>{ ERROR_MESSAGE_API }</p>
+        ? <p className='text-base'>{ ERROR_MESSAGE_API }</p>
         : <div className='flex flex-col space-y-8'>
 
             {/* Search and filter */}
@@ -191,7 +201,9 @@ const AllComplaintsPageComponent = () => {
 
 
             {/* Complaints Table */}
-            <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories } />
+            <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories }
+                dateSort={ dateSort } setDateSort={ setDateSort } sentimentSort={ sentimentSort } setSentimentSort={ setSentimentSort }
+            />
             
 
             {/* Pagination Controls */}

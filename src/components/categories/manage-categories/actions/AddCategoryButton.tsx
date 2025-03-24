@@ -56,7 +56,7 @@ export function AddCategoryButton({ fetchCategories }: AddCategoryButtonProps ) 
         //Submit to API
         try {
             setIsSubmitting(true);
-            const addCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_INSERT_ONE_ENDPOINT
+            const addCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_INSERT_ONE_ENDPOINT
             const response = await axios.post(addCategoryApiEndpoint, 
                 {
                     "document": {

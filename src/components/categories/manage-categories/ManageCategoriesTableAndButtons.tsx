@@ -26,7 +26,7 @@ export default function ManageCategoriesTableAndButtons() {
     const fetchCategories = async () => {
         setHasRanApi(false)
         try {
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
             setCategories(categories);

@@ -34,7 +34,7 @@ export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminRe
         setIsLoading(true)
 
         try {
-            const getPollResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_MANY_ENDPOINT
+            const getPollResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_MANY_ENDPOINT
             const apiResponse = await axios.post(getPollResponsesEndpoint,
                 {
                     "filter": {
@@ -63,7 +63,7 @@ export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminRe
     const fetchTotalNumberOfResponses = async () => {
         setIsLoading(true)
         try {
-            const getPollResponsesCountEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_COUNT_ENDPOINT
+            const getPollResponsesCountEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_COUNT_ENDPOINT
             const apiResponse = await axios.post(getPollResponsesCountEndpoint,
                 {
                     "filter": {

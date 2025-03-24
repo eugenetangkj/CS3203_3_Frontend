@@ -36,7 +36,7 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
 
     return (
-        <div className='flex flex-col space-y-4'>
+        <div className='flex flex-col space-y-2'>
             {/* Navigate back to all polls */}
             <BackToPreviousButton text='Back to all polls' route='/polls' />
 

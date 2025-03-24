@@ -33,7 +33,7 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
         setIsLoading(true)
         try {
             //Create a poll using this template
-            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_INSERT_ONE_ENDPOINT
+            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_INSERT_ONE_ENDPOINT
             const response = await axios.post(createPollEndpoint, {
                 "document": {
                     "question": pollTemplate.question,

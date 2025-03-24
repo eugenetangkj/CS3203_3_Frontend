@@ -52,7 +52,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
 
         try {
             //Call API to save changes and update poll status to published and set date published
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
+            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {

@@ -14,12 +14,13 @@ export const determineUserRole = async () => {
             ? cookieStore.get(COOKIE_USER_OID)?.value
             : ''
         
+
         if (userOid === '') {
             return UserRoleEnum.None
         }
 
         // Fetch user profile
-        const userDataResponse = await fetch(`${API_BASE_URL_USER_MANAGEMENT}/${GET_PROFILE_BY_OID_ENDPOINT}`, {
+        const userDataResponse = await fetch(`${API_BASE_URL_USER_MANAGEMENT}${GET_PROFILE_BY_OID_ENDPOINT}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ oid: userOid })

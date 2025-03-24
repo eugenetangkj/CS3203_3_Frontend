@@ -40,7 +40,7 @@ export default function Navbar() {
                 setIsUserAdmin(false)
             } else {
                 //User is signed in
-                const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+                const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + GET_PROFILE_BY_OID_ENDPOINT
                 const userData = await axios.post(fetchUserProfileApiEndpoint,
                     {
                         "oid": userOid
@@ -50,7 +50,7 @@ export default function Navbar() {
                 setUsername(userData.data.name)
             }
         } catch (error) {
-            console.error(error)
+            // console.error(error)
             setIsUserAdmin(false)
         } finally {
             setIsNavbarLoading(false)

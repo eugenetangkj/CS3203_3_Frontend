@@ -33,7 +33,8 @@ export function DownloadPollResponsesButton({ currentPoll }: DownloadPollRespons
     //Adapted from https://stackoverflow.com/questions/71349819/how-to-create-downloadable-csv-file-from-a-javascript-object-consisting-of-array and with help from ChatGPT
     const convertToCsv = (pollResponses: any[]) => {
         if (!pollResponses || !pollResponses.length) {
-            return; // No items to download
+            // No items to download
+            return
         }
 
         //Extract headers from the first item and add the headers as the first row
@@ -79,14 +80,14 @@ export function DownloadPollResponsesButton({ currentPoll }: DownloadPollRespons
             //STEP 1: Fetch poll responses
             let currentPage = 1
             while (true) {
-                const fetchAllResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_MANY_ENDPOINT
+                const fetchAllResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_MANY_ENDPOINT
                 const pollResponsesApiData = await axios.post(fetchAllResponsesEndpoint,
                     {
                         "filter": {
                             "poll_id": currentPoll.id
                         },
                         "page_size": NUMBER_OF_RESPONSES_TO_FETCH_PER_CALL,
-                        "page_number": currentPage
+                        "page_number": currentPage //TODO: Fetch by date
                     }
                 )
                 if (pollResponsesApiData.data.documents.length === 0) {
@@ -99,6 +100,14 @@ export function DownloadPollResponsesButton({ currentPoll }: DownloadPollRespons
             }
 
             //STEP 2: Convert poll responses to CSV
+            if (allPollResponses.length === 0) {
+                toast({
+                    variant: "destructive",
+                    description: "There is no poll response.",
+                    duration: 3000,
+                });
+                return
+            }
             convertToCsv(allPollResponses)
 
             //STEP 3: Show success toast

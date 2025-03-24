@@ -34,7 +34,7 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
 
         try {
             //Call API to delete poll
-            const deletePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_DELETE_BY_OID_ENDPOINT
+            const deletePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_DELETE_BY_OID_ENDPOINT
             const response = await axios.post(deletePollByOidEndpoint, {
                 "oid": currentPoll.id,
             })

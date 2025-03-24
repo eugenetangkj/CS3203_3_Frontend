@@ -5,7 +5,7 @@ import { START_DATE } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../../charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
@@ -34,16 +34,15 @@ export function SentimentsOfSourcesVisualisation() {
     const fetchSentimentsOfSources = async () => {
         try {
             //Call API to fetch complaints grouped according to sources
-            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ANALYTICS + COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
-                    "start_date": START_DATE,
-                    "end_date": getCurrentDateTime(),
-                    "group_by_field": "source"
+                    "group_by_field": "source",
+                    "filter": {} //Empty filter as we want all the data
                 }
             )
 
-            const tableData = convertToArray(apiData.data.result)
+            const tableData = convertToArray(apiData.data.statistics)
             const tableHeaders = ["Source", "Sentiment"]
             setTableDataObject({
                 headers: tableHeaders,

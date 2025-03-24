@@ -35,7 +35,7 @@ export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollC
             }
 
             //Step 2: Fetch response by oid
-            const fetchOnePollApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_ONE_ENDPOINT
+            const fetchOnePollApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_ONE_ENDPOINT
             const response = await axios.post(fetchOnePollApiEndpoint,
                 {
                     "filter": {

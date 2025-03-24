@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { LineChartMultiple } from "@/components/charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 import { COLOUR_MAP } from "@/constants/Constants"
 import axios from "axios"
@@ -54,17 +54,17 @@ export default function CategoryAnalyticsNumberOfComplaintsOverTime({ categoryNa
         setIsLoading(true)
         try {
             //Process graph data
-            const getComplaintStatisticsEndpoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_STATISTICS_OVER_TIME_ENDPOINT
+            const getComplaintStatisticsEndpoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT
             const graphData = await axios.post(getComplaintStatisticsEndpoint,
                 {
-                    "start_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
-                    "end_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
                     "filter": {
-                        "category": categoryName
+                        "category": categoryName,
+                        "_from_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
+                        "_to_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
                     } 
                 }
             )
-            const countData = transformIntoLineChartDataPoints(graphData.data.result)
+            const countData = transformIntoLineChartDataPoints(graphData.data.statistics)
 
             //Update state
             setNumberOfComplaintsDataPoints(countData)

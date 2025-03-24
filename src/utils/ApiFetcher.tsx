@@ -16,7 +16,7 @@ export const apiFetcherPost = async (apiEndpoint: string, requestBody: object): 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error making POST request:', error);
+        // console.error('Error making POST request:', error);
         return {};
     }
 };

@@ -23,7 +23,7 @@ export default async function ViewPollTemplate({ params }: any) {
     //TODO: Update function that fetches the poll template via an API
     const fetchPollTemplate = async() => {
         //Call API and process the data
-        const getPollTemplateEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_TEMPLATES_GET_BY_OID_ENDPOINT
+        const getPollTemplateEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_TEMPLATES_GET_BY_OID_ENDPOINT
         const pollTemplateData = await axios.post(getPollTemplateEndpoint, {
             "oid": id
         })

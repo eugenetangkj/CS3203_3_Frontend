@@ -59,7 +59,7 @@ export default function SignInForm() {
 
         try {
             //Make API call to login
-            const loginApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + LOGIN_ENDPOINT
+            const loginApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + LOGIN_ENDPOINT
             const apiResult = await axios.post(loginApiEndpoint,
                 {
                     "email": email,

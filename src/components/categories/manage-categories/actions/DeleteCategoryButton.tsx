@@ -34,7 +34,7 @@ export function DeleteCategoryButton({ category, fetchCategories }: DeleteCatego
 
     const handleDeleteCategory = async () => {
         try {
-            const deleteCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_DELETE_BY_OID_ENDPOINT
+            const deleteCategoryApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_DELETE_BY_OID_ENDPOINT
             const response = await axios.post(deleteCategoryApiEndpoint, 
                 {
                     "oid": category.id

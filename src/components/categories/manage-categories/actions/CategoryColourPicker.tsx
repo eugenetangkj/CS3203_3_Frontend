@@ -33,7 +33,7 @@ export function CategoryColourPicker({ category } : CategoryColourPicker)  {
 
         //Colour did change from previous selection
         try {
-            const updateCategoryEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_UPDATE_BY_OID_ENDPOINT
+            const updateCategoryEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updateCategoryEndpoint, 
                 {
                     "oid": category.id,

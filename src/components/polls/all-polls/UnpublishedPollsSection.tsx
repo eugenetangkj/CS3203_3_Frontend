@@ -18,7 +18,7 @@ export default async function UnpublishedPollsSection() {
     //Function to fetch all unpublished polls
     const fetchAllUnpublishedPolls = async() : Promise<Poll[]> => {
         try {
-            const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_MANY_ENDPOINT
+            const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_MANY_ENDPOINT
             const unpublishedPollsData = await axios.post(getPollsEndpoint, {
                 "filter": {
                     "status": PollStatusEnum.Unpublished

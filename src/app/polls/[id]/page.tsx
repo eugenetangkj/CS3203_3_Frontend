@@ -35,7 +35,7 @@ export default async function ViewPoll({ params }: any) {
     //Fetch the given poll
     const fetchPoll = async() => {
         try {
-            const fetchPollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_BY_OID_ENDPOINT
+            const fetchPollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_BY_OID_ENDPOINT
             const response = await axios.post(fetchPollByOidEndpoint, {
                 "oid": id
                 },

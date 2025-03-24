@@ -24,7 +24,7 @@ export default async function PollsPage() {
     const isUserAdmin = userRole === UserRoleEnum.Admin
 
     return (
-        <div className="px-6 md:px-12 font-afacad mt-32">
+        <div className="px-6 md:px-12 font-afacad mt-32 flex flex-col flex-grow justify-between">
             <div className="flex flex-col space-y-12">
                 <OngoingPollsSection />
                 <ClosedPollsSection />
@@ -33,7 +33,8 @@ export default async function PollsPage() {
             </div>
 
             {/* Duck image */}
-            <Image src={YappyWitch} alt="Yappy Witch creating data insights from complaints" className="self-center w-56 h-56 2xl:w-64 2xl:h-64 mx-auto mt-16" />
+            <Image src={YappyWitch} alt="Yappy Witch creating data insights from complaints" className="self-end w-56 h-56 2xl:w-64 2xl:h-64 mx-auto mt-16" />
+          
         </div>
     );
 }
