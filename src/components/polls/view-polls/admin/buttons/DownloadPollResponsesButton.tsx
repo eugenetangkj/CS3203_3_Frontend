@@ -79,14 +79,14 @@ export function DownloadPollResponsesButton({ currentPoll }: DownloadPollRespons
             //STEP 1: Fetch poll responses
             let currentPage = 1
             while (true) {
-                const fetchAllResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_MANY_ENDPOINT
+                const fetchAllResponsesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_MANY_ENDPOINT
                 const pollResponsesApiData = await axios.post(fetchAllResponsesEndpoint,
                     {
                         "filter": {
                             "poll_id": currentPoll.id
                         },
                         "page_size": NUMBER_OF_RESPONSES_TO_FETCH_PER_CALL,
-                        "page_number": currentPage
+                        "page_number": currentPage //TODO: Fetch by date
                     }
                 )
                 if (pollResponsesApiData.data.documents.length === 0) {

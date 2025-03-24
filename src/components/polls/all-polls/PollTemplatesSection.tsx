@@ -14,7 +14,7 @@ export default async function PollTemplatesSection() {
     const fetchAllPollTemplates = async() : Promise<PollTemplate[]> => {
         try {
             //Call API and process the data
-            const getAllPollTemplatesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_TEMPLATES_GET_ALL_ENDPOINT
+            const getAllPollTemplatesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_TEMPLATES_GET_ALL_ENDPOINT
             const pollTemplatesData = await axios.post(getAllPollTemplatesEndpoint)
             const pollTemplates = convertPollTemplateDocumentsToObjects(pollTemplatesData.data.documents)
             return pollTemplates

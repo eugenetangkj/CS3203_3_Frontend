@@ -42,7 +42,7 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
 
         try {
             //Process complaints data
-            const getPollResponsesStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
+            const getPollResponsesStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
             const getPollResponsesStatisticsResponse = await axios.post(getPollResponsesStatisticsEndpoint,
                 {
                     "filter": {

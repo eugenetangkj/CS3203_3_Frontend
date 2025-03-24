@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT as GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "@/components/charts/ClassicTable"
 import { ClassicTableInput } from "@/types/ChartInterface"
 
@@ -50,14 +50,16 @@ export function CategoryAnalyticsMostNegativePostsVisualisation({ categoryName }
     const fetchMostNegativeComplaints = async () => {
         try {
             //Call API to fetch top 5 most negative complaints
-            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_SORTED_BY_FIELDS_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_MANY_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
-                    "keys": ["sentiment"],
-                    "ascending_orders": [true],
-                    "limit": numberOfComplaintsToFetch,
                     "filter": {
                         "category": categoryName
+                    },
+                    "page_size": numberOfComplaintsToFetch,
+                    "page_number": 1,
+                    "sort": {
+                        "sentiment": 1
                     }
                 }
             )

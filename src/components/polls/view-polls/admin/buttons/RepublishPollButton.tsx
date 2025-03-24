@@ -31,7 +31,7 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
 
         try {
             //Call API to update poll status to published and set date published and date closed
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_UPDATE_BY_OID_ENDPOINT
+            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
             const response = await axios.post(updatePollByOidEndpoint, {
                 "oid": currentPoll.id,
                 "update_document": {

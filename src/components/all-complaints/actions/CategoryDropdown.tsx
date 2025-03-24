@@ -22,7 +22,7 @@ interface CategoryDropdownProps {
 }
 
 const EMPTY_CATEGORY = {id: "", name: "", colour: ""}
-const UPDATE_COMPLAINT_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT + '/' + COMPLAINTS_UPDATE_BY_OID_ENDPOINT
+const UPDATE_COMPLAINT_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_UPDATE_BY_OID_ENDPOINT
 
 
 export function CategoryDropdown({ complaint, allCategories, initialCategory }: CategoryDropdownProps) {

@@ -2,7 +2,7 @@ import { ABOUT_JUST_YAP } from "@/constants/Constants";
 import StrikethroughImage from '../../../public/graphics/strike-through.svg'
 import Image from "next/image";
 import { HomeStatistics } from "./HomeStatistics";
-import { COMPLAINTS_GET_COUNT_ENDPOINT, COMPLAINTS_GET_MANY_ENDPOINT, POLL_RESPONSES_GET_COUNT_ENDPOINT } from "@/constants/ApiRoutes";
+import { COMPLAINTS_GET_COUNT_ENDPOINT, POLL_RESPONSES_GET_COUNT_ENDPOINT } from "@/constants/ApiRoutes";
 
 /** 
 Component for the left column in the home page. Displays:

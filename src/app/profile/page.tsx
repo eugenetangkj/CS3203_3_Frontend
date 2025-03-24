@@ -39,7 +39,7 @@ export default async function Profile() {
             }
 
             //Fetch user data using oid value
-            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + GET_PROFILE_BY_OID_ENDPOINT
             const userData = await axios.post(fetchUserProfileApiEndpoint,
                 {
                     "oid": userOid

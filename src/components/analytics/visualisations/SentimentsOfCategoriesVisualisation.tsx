@@ -6,7 +6,7 @@ import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
 import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT as GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT } from "@/constants/ApiRoutes"
 import { BarChartNegative } from "../../charts/BarChartNegative"
 
 
@@ -36,15 +36,17 @@ export function SentimentsOfCategoriesVisualisation() {
     const fetchComplaintsByCategory = async () => {
         try {
             //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ANALYTICS + COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
-                    "start_date": START_DATE,
-                    "end_date": getCurrentDateTime(),
-                    "group_by_field": "category"
+                    "group_by_field": "category",
+                    "filter": {
+                        "_from_date": START_DATE,
+                        "_to_date":  getCurrentDateTime()
+                    }
                 }
             )
-            const sentimentsForEachCategory = convertToArray(apiData.data.result)
+            const sentimentsForEachCategory = convertToArray(apiData.data.statistics)
             setDataPoints(sentimentsForEachCategory)
         } catch (error) {
             setIsThereError(true)

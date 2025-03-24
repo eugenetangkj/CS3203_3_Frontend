@@ -46,7 +46,7 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
     //Fetches all categories
     const fetchCategories = async () => {
         try {
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
             setAllCategories(categories);

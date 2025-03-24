@@ -56,7 +56,7 @@ export function CreatePollButton({ currentPoll }: CreatePollButtonInterface) {
 
         // Fields all OK. Proceed to call API to create the poll.
         try {
-            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_INSERT_ONE_ENDPOINT
+            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_INSERT_ONE_ENDPOINT
             const response = await axios.post(createPollEndpoint, {
                 "document": {
                     "question": currentPoll.question,

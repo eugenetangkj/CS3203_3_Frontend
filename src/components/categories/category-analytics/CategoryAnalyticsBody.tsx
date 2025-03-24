@@ -12,7 +12,7 @@ import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsM
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
 import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsContainer"
 import { CategoryAnalytics } from "@/types/CategoryAnalytics"
-import { API_BASE_URL_ANALYTICS, GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT, } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, CATEGORY_ANALYTICS_GET_BY_NAME, } from "@/constants/ApiRoutes"
 import axios from "axios"
 
 
@@ -51,7 +51,7 @@ export default function CategoryAnalyticsBody() {
     const fetchCategory = async () => {
         try {
             //Call API to fetch category analytics given the category name
-            const getCategoryAnalyticsEndpoint = API_BASE_URL_ANALYTICS + '/' + GET_CATEGORY_ANALYTICS_BY_NAME_ENDPOINT
+            const getCategoryAnalyticsEndpoint = API_BASE_URL_ANALYTICS + CATEGORY_ANALYTICS_GET_BY_NAME
 
             const categoryAnalyticsData = await axios.post(getCategoryAnalyticsEndpoint,
                 {

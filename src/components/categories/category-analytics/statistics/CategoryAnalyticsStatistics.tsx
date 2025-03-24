@@ -3,7 +3,7 @@
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
 
@@ -35,7 +35,7 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
     const fetchCategoryStatistics = async () => {
         try {
             //Call API to fetch category statistics given its name
-            const apiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_STATISTICS_ENDPOINT
+            const apiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_ENDPOINT
             const apiData = await axios.post(apiEndPoint,
                 {
                     "filter": {
@@ -45,8 +45,8 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
             )
 
             //Update states
-            setTotalNumberOfcomplaints(apiData.data.result['count'])
-            setCurrentSentiment(apiData.data.result['avg_sentiment'])
+            setTotalNumberOfcomplaints(apiData.data.statistics['count'])
+            setCurrentSentiment(apiData.data.statistics['avg_sentiment'])
         } catch (error) {
             setIsThereError(true)
         } finally {

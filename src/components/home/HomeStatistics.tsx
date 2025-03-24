@@ -35,7 +35,7 @@ export const HomeStatistics = ({ initialDisplayCount, apiEndpoint, maxValue, sta
         //Fetch API
         //TODO: Update again depending on the API design
         try {
-            const apiEndPointToCall = API_BASE_URL_ADMIN_MANAGEMENT + '/' + apiEndpoint
+            const apiEndPointToCall = API_BASE_URL_ADMIN_MANAGEMENT + apiEndpoint
             const data = await axios.post(apiEndPointToCall, 
                 {
                     "filter": {}

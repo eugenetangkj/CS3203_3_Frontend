@@ -74,7 +74,7 @@ export default function SignUpForm({ role, successMessage, buttonMessage, button
 
         try {
             //Make API call to sign up
-            const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + SIGNUP_ENDPOINT
+            const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + SIGNUP_ENDPOINT
             await axios.post(signupApiEndpoint,
                 {
                     "document": {

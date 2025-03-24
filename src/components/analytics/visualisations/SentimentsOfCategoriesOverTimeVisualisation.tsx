@@ -5,7 +5,7 @@ import { Skeleton } from "../../ui/skeleton"
 import { LineChartMultiple } from "../../charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
-import { API_BASE_URL_ANALYTICS, GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
 import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
@@ -31,12 +31,19 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertApiDataIntoLineChartMultipleData = (monthlyData: { date: string; data: Record<string, { avg_sentiment: number }> }[]): LineChartMultiplePoint[] => {
-        return monthlyData.map(({ date, data }) => ({
-            date: date,
-            ...Object.fromEntries(Object.entries(data).map(([category, values]) => [category, values.avg_sentiment]))
+    const convertApiDataIntoLineChartMultipleData = (apiData: Record<string, Record<string, { count: number; avg_sentiment: number }>>): LineChartMultiplePoint[] => {
+        return Object.entries(apiData).map(([date, data]) => ({
+            date,
+            ...Object.fromEntries(
+                Object.entries(data).map(([category, values]) => [category, values.avg_sentiment])
+            )
         }));
     };
+
+
+
+
+
 
 
     //Fetches the API to process the number of complaints for each category over the past 1 year
@@ -44,18 +51,20 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
         setIsLoading(true)
         try {
             //Process complaints data
-            const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + '/' + GET_COMPLAINTS_GROUPED_BY_FIELD_OVER_TIME_ENDPOINT
+            const complaintsApiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT
             const complaintsData = await axios.post(complaintsApiEndPoint,
                 {
-                    "start_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
-                    "end_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
-                    "group_by_field": "category"
+                    "group_by_field": "category",
+                    "filter": {
+                        "_from_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
+                        "_to_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
+                    }  
                 }
             )
-            const processedComplaintsData = convertApiDataIntoLineChartMultipleData(complaintsData.data.result)
+            const processedComplaintsData = convertApiDataIntoLineChartMultipleData(complaintsData.data.statistics)
 
             //Process category colours
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + CATEGORIES_GET_ALL_ENDPOINT
+            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
             const colourMapFromApi = convertCategoryDocumentsToColourMap(categoriesData.data.documents)
             

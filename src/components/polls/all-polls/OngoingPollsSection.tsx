@@ -14,7 +14,7 @@ export default async function OngoingPollsSection() {
     //Function to fetch all ongoing polls
     const fetchAllOngoingPolls = async() : Promise<Poll[]> => {
         try {
-            const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLLS_GET_MANY_ENDPOINT
+            const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_MANY_ENDPOINT
             const ongoingPollsData = await axios.post(getPollsEndpoint, {
                 "filter": {
                     "status": PollStatusEnum.Published

@@ -55,7 +55,7 @@ export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }:
             const userOid = response.data.userOid
 
             //STEP 2: Create poll response
-            const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + '/' + POLL_RESPONSES_INSERT_ONE_ENDPOINT
+            const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_INSERT_ONE_ENDPOINT
             await axios.post(insertPollResponseEndpoint,
                 {
                     "document": {
@@ -68,7 +68,7 @@ export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }:
             )
 
             //STEP 3: Create updated collectibles list for the user
-            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + GET_PROFILE_BY_OID_ENDPOINT
+            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + GET_PROFILE_BY_OID_ENDPOINT
             const userData = await axios.post(fetchUserProfileApiEndpoint,
                 {
                     "oid": userOid
@@ -79,7 +79,7 @@ export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }:
             const newUserCollectibles = addStringToListIfAbsent(userCollectibles, collectibleGiven)
 
             //STEP 4: Update profile
-            const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + '/' + UPDATE_PROFILE_BY_OID_ENDPOINT
+            const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + UPDATE_PROFILE_BY_OID_ENDPOINT
             await axios.post(updateProfileApiEndpoint, {
                 "oid": userOid,
                 "update_document": {
