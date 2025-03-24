@@ -51,7 +51,7 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
             setAllCategories(categories);
         } catch (error) {
-            console.error(error)
+            // console.error(error)
         }
     };
 

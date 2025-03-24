@@ -19,7 +19,7 @@ export default async function PollTemplatesSection() {
             const pollTemplates = convertPollTemplateDocumentsToObjects(pollTemplatesData.data.documents)
             return pollTemplates
         } catch (error) {
-            console.error(error)
+            // console.error(error)
             return []
         }
     }

@@ -50,7 +50,7 @@ export default function Navbar() {
                 setUsername(userData.data.name)
             }
         } catch (error) {
-            console.error(error)
+            // console.error(error)
             setIsUserAdmin(false)
         } finally {
             setIsNavbarLoading(false)
