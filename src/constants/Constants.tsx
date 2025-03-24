@@ -193,3 +193,9 @@ export const getRandomCollectible = () => {
 API error message for incorrect credentials
 */
 export const NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
+
+
+/**
+A very large number
+*/
+export const VERY_LARGE_NUMBER = 100000
