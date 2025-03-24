@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { PollResponse } from "@/types/Poll"
 import { convertPollResponseDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { DownloadPollResponsesButton } from "./buttons/DownloadPollResponsesButton"
 
 
 /**
@@ -101,6 +102,9 @@ export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminRe
                 <div className='flex flex-col items-start space-y-2'>
                     {/* Total number of responses */}
                     <p>Total number of responses: { totalNumberOfResponses }</p>
+
+                    {/* Download responses button */}
+                    <DownloadPollResponsesButton currentPoll={ currentPoll } />
 
                     {/* Table of data */}
                     <Table>

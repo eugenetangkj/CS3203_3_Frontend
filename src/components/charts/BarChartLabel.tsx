@@ -78,9 +78,11 @@ export function BarChartLabel({ chartData }: BarChartLabelProps) {
                     tickLine={false}
                     tickMargin={10}
                     axisLine={false}
-                    className='text-sm md:text-base text-yap-black-800'
+                    className='text-sm text-yap-black-800'
                     tickFormatter={(value) =>
-                        numberOfCharactersToShow !== -1  ? `${value.slice(0, numberOfCharactersToShow)}...` : value
+                        numberOfCharactersToShow !== -1 && value.length > numberOfCharactersToShow
+                            ? `${value.slice(0, numberOfCharactersToShow)}...`
+                            : value
                     }
                     />
                     <ChartTooltip
