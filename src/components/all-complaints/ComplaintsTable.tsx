@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { CategoryDropdown } from "./actions/CategoryDropdown";
 import { Category } from "@/types/Category";
 import { capitaliseFirstLetter, doesComplaintExistInList, findCategoryObjectFromListGivenName } from "@/utils/HelperFunctions";
+import { MoveUp, MoveDown } from "lucide-react";
 
 
 /**
@@ -15,10 +16,15 @@ interface ComplaintsTableProps {
     complaints: Complaint[],
     selectedComplaints: Complaint[],
     setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
-    allCategories: Category[]
+    allCategories: Category[],
+    dateSort: number,
+    setDateSort: React.Dispatch<React.SetStateAction<number>>,
+    sentimentSort: number,
+    setSentimentSort: React.Dispatch<React.SetStateAction<number>>,
+
 }
 
-export default function ComplaintsTable({ complaints, selectedComplaints, setSelectedComplaints, allCategories }: ComplaintsTableProps) {
+export default function ComplaintsTable({ complaints, selectedComplaints, setSelectedComplaints, allCategories, dateSort, setDateSort, sentimentSort, setSentimentSort, }: ComplaintsTableProps) {
 
     //Updates the state in parent component that a specific complaint has been selected or not
     const handleCheckboxToggle = (checked: boolean, complaintChecked: Complaint) => {
@@ -37,10 +43,26 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
                 <TableHead className="table-header min-w-16 2xl:min-w-8"></TableHead>
                 <TableHead className="table-header min-w-40">Title</TableHead>
                 <TableHead className="table-header min-w-40 max-w-60">Description</TableHead>
-                <TableHead className="table-header min-w-40">Posted</TableHead>
+                <TableHead className="table-header min-w-40">
+                    <div className='flex flex-row justify-start items-center space-x-3'>
+                        <p>Posted</p>
+                        <div className='flex flex-row space-x-1 justify-center items-center'>
+                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setDateSort((prev) => (prev === 1) ? 0 : 1)} />
+                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setDateSort((prev) => (prev === -1) ? 0 : -1)} />
+                        </div>
+                    </div>
+                </TableHead>
                 <TableHead className="table-header min-w-40">Category</TableHead>
                 <TableHead className="table-header min-w-20">Source</TableHead>
-                <TableHead className="table-header min-w-20">Sentiment</TableHead>
+                <TableHead className="table-header min-w-20">
+                    <div className='flex flex-row justify-start items-center space-x-3'>
+                        <p>Sentiment</p>
+                        <div className='flex flex-row space-x-1 justify-center items-center'>
+                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setSentimentSort((prev) => (prev === 1) ? 0 : 1)} />
+                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setSentimentSort((prev) => (prev === -1) ? 0 : -1)} />
+                        </div>
+                    </div>
+                </TableHead>
             </TableRow>
             </TableHeader>
 
