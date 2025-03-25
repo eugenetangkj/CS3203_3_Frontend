@@ -1,7 +1,8 @@
 "use server"
-
-import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_COUNT_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_COUNT_ENDPOINT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes";
+import { Complaint } from "@/types/Complaint";
 import axios from "axios";
+import { convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 
 
 //Fetch count

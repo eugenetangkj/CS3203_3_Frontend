@@ -1,5 +1,5 @@
 import PageTitle from "@/components/common/text/PageTitle";
-import AllComplaintsPageComponent from "@/components/all-complaints/AllComplaintsPageComponent";
+import { AllComplaintsPageComponent } from "@/components/all-complaints/AllComplaintsPageComponent";
 
 
 /** 

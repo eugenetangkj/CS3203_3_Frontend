@@ -18,14 +18,11 @@ according to the selected category
 interface CategoryFilterProps {
     allCategories: Category[],
     categorySelected: Category,
-    setCategorySelected: React.Dispatch<React.SetStateAction<Category>>,
-    setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
-    currentPage: number,
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    handleCategoryChange: (category: Category) => void
 }
 
 
-export default function CategoryFilter({ allCategories, categorySelected, setCategorySelected, setSelectedComplaints, currentPage, setCurrentPage }: CategoryFilterProps) {
+export default function CategoryFilter({ allCategories, categorySelected, handleCategoryChange }: CategoryFilterProps) {
     //States
     const [open, setOpen] = useState(false)
 
@@ -34,20 +31,20 @@ export default function CategoryFilter({ allCategories, categorySelected, setCat
     const filterByCategory = async (newCategoryName: string)  =>  {
         //Set the new category
         if (newCategoryName === ALL_CATEGORIES_NAME) {
-            setCategorySelected(ALL_CATEGORIES_CATEGORY)
+            handleCategoryChange(ALL_CATEGORIES_CATEGORY)
         } else {
             const newCategory = allCategories.find(category => category.name === newCategoryName) || ALL_CATEGORIES_CATEGORY
-            setCategorySelected(newCategory)
+            handleCategoryChange(newCategory)
         }
 
         //Should deselect all complaints
-        setSelectedComplaints([])
+        // setSelectedComplaints([])
 
         //Should always reset to first page when changing a new filter
-        if (currentPage != 1) {
-            //Reset page to 1, automatically trigger fetching of complaints
-            setCurrentPage(1)
-        }
+        // if (currentPage != 1) {
+        //     //Reset page to 1, automatically trigger fetching of complaints
+        //     setCurrentPage(1)
+        // }
     };
 
 

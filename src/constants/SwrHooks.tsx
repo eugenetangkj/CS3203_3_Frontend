@@ -1,5 +1,9 @@
 //COMPLAINTS
 export const COMPLAINTS_GET_COUNT_SWR_HOOK = 'complaints-get-count'
+export const COMPLAINTS_GET_MANY_SWR_HOOK = 'complaints-get-many'
+
+//CATEGORIES
+export const CATEGORIES_GET_ALL_SWR_HOOK = 'categories-get-all'
 
 
 //POLLS
