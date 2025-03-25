@@ -3,47 +3,39 @@
 import Profile from "../../../../public/profile.svg";
 import Image from "next/image";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/context/AuthContext";
-import { SIGNOUT_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants";
+import { setCookiesForSigningOut } from "@/controllers/UsersController";
+import { mutate } from "swr";
+import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
+import { UserRoleEnum } from "@/types/User";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from 'react';
 
 /**
 This component represents the profile icon that appears in the navbar if the user is signed in, allowing for viewing profile and signing out
 */
-
-interface ProfileIconNavbarProps {
-   setIsUserAdmin: Dispatch<SetStateAction<boolean>>;
-}
-
-
-export default function ProfileIconNavbar({ setIsUserAdmin }: ProfileIconNavbarProps) {
-    //States
-    const { logout } = useAuth();
-
+export default function ProfileIconNavbar() {
     //Toast management
     const { toast } = useToast()
+    const router = useRouter()
 
-    //Router
-    const router = useRouter();
-
-
-    
     //Sign out by deleting the JWT token
     const handleSignOut = async () => {
         try {
-            await axios.post(SIGNOUT_SERVER_ENDPOINT);
-            logout();
+            setCookiesForSigningOut()
+            mutate(USERS_GET_PROFILE_SWR_HOOK, {
+                    id: '',
+                    email: '',
+                    name: '',
+                    role: UserRoleEnum.None,
+                    collectibles: []
+            })
             toast({
                 variant: "success",
                 description: "You have successfully signed out.",
                 duration: 3000,
             })
-            setIsUserAdmin(false)
-            router.push('/');
+            router.push('/')
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -53,7 +45,6 @@ export default function ProfileIconNavbar({ setIsUserAdmin }: ProfileIconNavbarP
         }
     };
   
-
     return (
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild className='font-afacad text-base text-yap-black-800'>

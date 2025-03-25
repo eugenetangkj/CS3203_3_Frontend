@@ -9,13 +9,12 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE, SUCCESS } from "@/constants/Constants"
+import { SUCCESS } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
-import { useRouter } from "next/navigation";
-import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios"
-import { useAuth } from "@/context/AuthContext"
-import { setCookiesForSigningIn, userLogin } from "@/controllers/UsersController"
+import { useRouter } from "next/navigation"
+import { getUserProfile, setCookiesForSigningIn, userLogin } from "@/controllers/UsersController"
+import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks"
+import { mutate } from "swr"
 
 /**
 This component represents the form for signing in an existing account
@@ -27,10 +26,8 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
-    //Access the authentication states
-    const { login } = useAuth();
+    //Router
     const router = useRouter();
-
 
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -78,14 +75,11 @@ export default function SignInForm() {
             //Set cookie with JWT token
             await setCookiesForSigningIn(jwtToken, userOid)
 
-            //Update global state
-            login()
-
             //Update form state
             setIsSubmittingForm(false)
 
             //Successful, redirect to home page
-            router.push('/')
+            window.location.href = '/';
         }
     }
 

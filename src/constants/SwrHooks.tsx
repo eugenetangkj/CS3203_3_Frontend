@@ -12,3 +12,7 @@ export const POLL_TEMPLATES_SWR_HOOK = 'fetch-poll-templates'
 //POLL RESPONSES
 export const POLL_RESPONSES_GET_COUNT_SWR_HOOK = 'poll-responses-get-count'
 
+
+//USERS
+export const USERS_GET_PROFILE_SWR_HOOK = 'users-get-profile-swr-hook'
+
