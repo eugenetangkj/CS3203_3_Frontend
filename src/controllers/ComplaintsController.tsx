@@ -6,12 +6,16 @@ import axios from "axios";
 
 //Fetch count
 export const complaintsGetCount = async (filter: object) => {
-    const complaintsGetCountEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + COMPLAINTS_GET_COUNT_ENDPOINT
-    const apiData = await axios.post(complaintsGetCountEndpoint, 
-        {
-            "filter": filter
-        }
-    )
-    const count = apiData.data.count
-    return count
+    try {
+        const complaintsGetCountEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + COMPLAINTS_GET_COUNT_ENDPOINT
+        const apiData = await axios.post(complaintsGetCountEndpoint, 
+            {
+                "filter": filter
+            }
+        )
+        const count = apiData.data.count
+        return count
+    } catch (error) {
+        throw error
+    }
 };
