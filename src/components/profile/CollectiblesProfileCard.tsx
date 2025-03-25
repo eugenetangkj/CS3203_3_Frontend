@@ -30,12 +30,5 @@ export default function CollectiblesProfileCard({ user }: CollectiblesProfileCar
 
             
         </div>
-
     )
-   
-
-
-
-
-
 }

@@ -2,6 +2,7 @@ import { User, UserRoleEnum } from "@/types/User"
 import BasicInformationProfileCard from "./BasicInformationProfileCard";
 import CollectiblesProfileCard from "./CollectiblesProfileCard";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 /** 
 This component represents the container for the profile cards to be displayed in the profile page.
@@ -16,9 +17,9 @@ export default async function ProfileCards({ currentUser }: ProfileCardsProps) {
             {/* Add admin account button */}
             {
                 currentUser.role === UserRoleEnum.Admin &&
-                <a className='self-end' href='/create-admin'>
+                <Link className='self-end' href='/create-admin'>
                     <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Create Admin Account</Button>
-                </a>
+                </Link>
             }
 
             {/* Profile cards */}
