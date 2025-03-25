@@ -9,10 +9,10 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { nameFieldValidation, emailFieldValidation, passwordFieldValidation, confirmPasswordFieldValidation } from "@/utils/FormValidation"
-import { API_BASE_URL_USER_MANAGEMENT, SIGNUP_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
+import { userSignUp } from "@/controllers/UsersController"
+import { SUCCESS } from "@/constants/Constants"
+
 /**
 This component represents the form for signing up a new account.
 */
@@ -72,21 +72,8 @@ export default function SignUpForm({ role, successMessage, buttonMessage, button
     async function onSubmit({ name, email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
-        try {
-            //Make API call to sign up
-            const signupApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + SIGNUP_ENDPOINT
-            await axios.post(signupApiEndpoint,
-                {
-                    "document": {
-                        "name": name,
-                        "email": email,
-                        "password": password,
-                        "role": role,
-                        "collectibles": []
-                    }
-                }
-            )
-
+        const responseMessage = await userSignUp(name, email, password, role, [])
+        if (responseMessage === SUCCESS) {
             //Successful, toast to inform the user that his account has been created, please login
             toast({
                 variant: "success",
@@ -94,28 +81,14 @@ export default function SignUpForm({ role, successMessage, buttonMessage, button
                 duration: 3000,
             })
             form.reset()
-        } catch (error) {
-            let message = ERROR_MESSAGE_API
-
-            //Axios error
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 409) {
-                    message = error.response?.data?.message;
-                } else {
-                    message = ERROR_MESSAGE_API
-                }
-            }
-
-            //Display error toast
+        } else {
             toast({
                 variant: "destructive",
-                description: message,
+                description: responseMessage,
                 duration: 3000,
             })
-        } finally {
-            // Clean up
-            setIsSubmittingForm(false)
         }
+        setIsSubmittingForm(false)    
     }
 
     return (
