@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { User, UserRoleEnum } from "@/types/User";
 import useSWR from 'swr';
 import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
-import { getUserProfile } from "@/controllers/UsersController";
+import { getUserProfile } from "@/controllers/UsersClientFunctions";
 
 /**
 This component represents the Navbar component that is used in the web application for

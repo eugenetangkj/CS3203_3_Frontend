@@ -5,7 +5,7 @@ import Image from "next/image";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast"
 import { ERROR_MESSAGE_API } from "@/constants/Constants";
-import { setCookiesForSigningOut } from "@/controllers/UsersController";
+import { setCookiesForSigningOut } from "@/controllers/UsersServerFunctions";
 import { mutate } from "swr";
 import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
 import { UserRoleEnum } from "@/types/User";

@@ -12,9 +12,10 @@ import { useToast } from "@/hooks/use-toast"
 import { SUCCESS } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
 import { useRouter } from "next/navigation"
-import { getUserProfile, setCookiesForSigningIn, userLogin } from "@/controllers/UsersController"
 import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks"
 import { mutate } from "swr"
+import { userLogin } from "@/controllers/UsersClientFunctions"
+import { setCookiesForSigningIn } from "@/controllers/UsersServerFunctions"
 
 /**
 This component represents the form for signing in an existing account

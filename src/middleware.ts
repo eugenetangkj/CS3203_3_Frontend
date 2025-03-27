@@ -38,7 +38,7 @@ export async function middleware(request: Request) {
                 "oid": userOid,
             }
         )
-        userRole = userData.data.role
+        userRole = userData.data.profile.role
     } catch (error) {
         // console.error(error)
         userRole = UserRoleEnum.Citizen
