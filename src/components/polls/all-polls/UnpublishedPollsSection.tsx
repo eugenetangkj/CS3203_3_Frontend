@@ -5,38 +5,21 @@ import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Poll, PollStatusEnum } from "@/types/Poll"
 import Link from "next/link"
 import { Plus } from "lucide-react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertPollDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
-import { VERY_LARGE_NUMBER } from "@/constants/Constants"
 import { UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks"
 import PollCardsSkeleton from "../PollCardsSkeleton"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import useSWR from "swr"
+import { pollsGetMany } from "@/controllers/PollsFunctions"
 
 /**
 Represents a section within the all polls page that displays the unpublished polls, along with a button
 that allows the admin to create a new poll.
 */
 
-//Function to fetch all unpublished polls
-const fetchAllUnpublishedPolls = async() : Promise<Poll[]> => {
-    const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_MANY_ENDPOINT
-    const unpublishedPollsData = await axios.post(getPollsEndpoint, {
-        "filter": {
-            "status": PollStatusEnum.Unpublished
-        },
-        "page_size": VERY_LARGE_NUMBER, //Fetch all
-        "page_number": 1
-    })
-    const unpublishedPolls = convertPollDocumentsToObjects(unpublishedPollsData.data.documents)
-    return unpublishedPolls 
-}
-
 //Component
 export default function UnpublishedPollsSection() {
-    const { data, error, isLoading } = useSWR<Poll[]>(UNPUBLISHED_POLLS_SWR_HOOK, fetchAllUnpublishedPolls);
- 
+    const { data, error, isLoading } = useSWR<Poll[]>(UNPUBLISHED_POLLS_SWR_HOOK, () => pollsGetMany(PollStatusEnum.Published));
+
     return (
         <div className='flex flex-col space-y-6'>
             <PageSubtitle pageSubtitle='Unpublished Polls' />

@@ -1,7 +1,7 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import ProfileCards from "@/components/profile/ProfileCards";
 import { User, UserRoleEnum } from "@/types/User";
-import { getUserProfile } from "@/controllers/UsersClientFunctions";
+import { getUserProfile } from "@/controllers/UsersFunctions";
 
 
 /** 

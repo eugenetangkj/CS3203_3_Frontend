@@ -3,36 +3,17 @@
 import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Poll, PollStatusEnum } from "@/types/Poll"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertPollDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import useSWR from 'swr'
 import PollCardsSkeleton from "../PollCardsSkeleton"
-import { ERROR_MESSAGE_API, VERY_LARGE_NUMBER } from "@/constants/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { CLOSED_POLLS_SWR_HOOK } from "@/constants/SwrHooks"
+import { pollsGetMany } from "@/controllers/PollsFunctions"
 
 /**
 Represents a section within the all polls page that displays the closed polls.
 */
-
-//Function to fetch all closed polls
-const fetchAllClosedPolls = async() : Promise<Poll[]> => {
-    const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_MANY_ENDPOINT
-    const closedPollsData = await axios.post(getPollsEndpoint, {
-        "filter": {
-            "status": PollStatusEnum.Closed
-        },
-        "page_size": VERY_LARGE_NUMBER, //Fetch all
-        "page_number": 1
-    })
-    const closedPolls = convertPollDocumentsToObjects(closedPollsData.data.documents)
-    return closedPolls
-}
-
-
-
 export default function ClosedPollsSection() {
-    const { data, error, isLoading } = useSWR<Poll[]>(CLOSED_POLLS_SWR_HOOK, fetchAllClosedPolls);
+    const { data, error, isLoading } = useSWR<Poll[]>(CLOSED_POLLS_SWR_HOOK, () => pollsGetMany(PollStatusEnum.Closed));
    
     return (
         <div className='flex flex-col space-y-6'>

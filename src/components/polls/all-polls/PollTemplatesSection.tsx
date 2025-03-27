@@ -1,31 +1,22 @@
 "use client"
+
 import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { PollTemplate } from "@/types/Poll"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_TEMPLATES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertPollTemplateDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import useSWR from 'swr'
 import PollCardsSkeleton from "../PollCardsSkeleton"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { POLL_TEMPLATES_SWR_HOOK } from "@/constants/SwrHooks"
-
+import { pollTemplatesGetAll } from "@/controllers/PollTemplatesFunctions"
 
 /**
 Represents a section within the all polls page that displays the existing poll templates
 */
 
 //Function to fetch all poll templates
-const fetchAllPollTemplates = async() : Promise<PollTemplate[]> => {
-    const getAllPollTemplatesEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_TEMPLATES_GET_ALL_ENDPOINT
-    const pollTemplatesData = await axios.post(getAllPollTemplatesEndpoint)
-    const pollTemplates = convertPollTemplateDocumentsToObjects(pollTemplatesData.data.documents)
-    return pollTemplates
-}
-
 export default function PollTemplatesSection() {
-    const { data, error, isLoading } = useSWR<PollTemplate[]>(POLL_TEMPLATES_SWR_HOOK, fetchAllPollTemplates);
+    const { data, error, isLoading } = useSWR<PollTemplate[]>(POLL_TEMPLATES_SWR_HOOK, pollTemplatesGetAll);
     
     return (
         <div className='flex flex-col space-y-6'>

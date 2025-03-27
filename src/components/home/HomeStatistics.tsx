@@ -1,7 +1,10 @@
 "use client"
 
+import { complaintsGetCount } from '@/controllers/ComplaintsFunctions';
+import { pollResponsesGetCount } from '@/controllers/PollResponsesFunctions';
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
+import { COMPLAINTS_GET_COUNT_SWR_HOOK } from '@/constants/SwrHooks';
 
 
 /**
@@ -17,18 +20,18 @@ interface HomeStatisticsProps {
     maxValue: number, //Max value for shuffling
     statsDescription: string,
     fetcherKey: string,
-    fetcherFunction: (filter: object) => Promise<any>,
-    fetcherArgument: any
 }
 
 
-export const HomeStatistics = ({ initialDisplayCount, maxValue, statsDescription, fetcherKey, fetcherFunction, fetcherArgument }: HomeStatisticsProps) => {
+export const HomeStatistics = ({ initialDisplayCount, maxValue, statsDescription, fetcherKey }: HomeStatisticsProps) => {
     const [displayCount, setDisplayCount] = useState<number>(initialDisplayCount);  //Used for shuffling display, start with a random number
+
+    const fetcherFunction = fetcherKey === COMPLAINTS_GET_COUNT_SWR_HOOK ? complaintsGetCount : pollResponsesGetCount
+
 
     const { data, error, isLoading } = useSWR<number>(
         fetcherKey,
-        () => fetcherFunction(fetcherArgument),
-        { revalidateOnFocus: false }
+        () => fetcherFunction({}),
     )
        
     // Handles the number shuffling animation

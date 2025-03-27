@@ -2,9 +2,6 @@ import { ABOUT_JUST_YAP } from "@/constants/Constants";
 import StrikethroughImage from '../../../public/graphics/strike-through.svg'
 import Image from "next/image";
 import { HomeStatistics } from "./HomeStatistics";
-import { COMPLAINTS_GET_COUNT_ENDPOINT, POLL_RESPONSES_GET_COUNT_ENDPOINT } from "@/constants/ApiRoutes";
-import { complaintsGetCount } from "@/controllers/ComplaintsController";
-import { pollResponsesGetCount } from "@/controllers/PollResponsesController";
 import { COMPLAINTS_GET_COUNT_SWR_HOOK, POLL_RESPONSES_GET_COUNT_SWR_HOOK } from "@/constants/SwrHooks";
 
 /** 
@@ -44,16 +41,12 @@ export default function HomeLeftColumn() {
                     maxValue={ 10000 }
                     statsDescription={ 'complaints processed' }
                     fetcherKey={ COMPLAINTS_GET_COUNT_SWR_HOOK }
-                    fetcherFunction={ complaintsGetCount }
-                    fetcherArgument={ {} }
                 />
                 <HomeStatistics 
                     initialDisplayCount={ 120 }
                     maxValue={ 1000 }
                     statsDescription={ 'citizen responses collected' } 
                     fetcherKey={ POLL_RESPONSES_GET_COUNT_SWR_HOOK }
-                    fetcherFunction= { pollResponsesGetCount }
-                    fetcherArgument={ {} }
                 />
             </div>
         </div>

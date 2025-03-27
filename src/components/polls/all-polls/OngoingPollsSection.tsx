@@ -3,35 +3,17 @@
 import PollCard from "../PollCard"
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Poll, PollStatusEnum } from "@/types/Poll"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertPollDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import useSWR from 'swr'
 import PollCardsSkeleton from "../PollCardsSkeleton"
-import { ERROR_MESSAGE_API, VERY_LARGE_NUMBER } from "@/constants/Constants"
+import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { ONGOING_POLLS_SWR_HOOK } from "@/constants/SwrHooks"
+import { pollsGetMany } from "@/controllers/PollsFunctions"
 
 /**
 Represents a section within the all polls page that displays the ongoing polls
 */
-
-//Function to fetch all ongoing polls
-const fetchAllOngoingPolls = async() : Promise<Poll[]> => {
-    const getPollsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_MANY_ENDPOINT
-    const ongoingPollsData = await axios.post(getPollsEndpoint, {
-        "filter": {
-            "status": PollStatusEnum.Published
-        },
-        "page_size": VERY_LARGE_NUMBER, //Fetch all
-        "page_number": 1
-    })
-    const ongoingPolls = convertPollDocumentsToObjects(ongoingPollsData.data.documents)
-    return ongoingPolls
-}
-
-//Component
 export default function OngoingPollsSection() {
-    const { data, error, isLoading } = useSWR<Poll[]>(ONGOING_POLLS_SWR_HOOK, fetchAllOngoingPolls);
+    const { data, error, isLoading } = useSWR<Poll[]>(ONGOING_POLLS_SWR_HOOK, () => pollsGetMany(PollStatusEnum.Published));
 
     return (
         <div className='flex flex-col space-y-6'>

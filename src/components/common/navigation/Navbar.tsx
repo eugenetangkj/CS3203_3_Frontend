@@ -9,10 +9,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ProfileIconNavbar from "./ProfileIconNavbar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { User, UserRoleEnum } from "@/types/User";
-import useSWR from 'swr';
-import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
-import { getUserProfile } from "@/controllers/UsersClientFunctions";
+import { UserRoleEnum } from "@/types/User";
+import { useUserProfile } from "@/hooks/use-user-profile";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -24,13 +22,9 @@ export default function Navbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const closeDrawer = () => setIsDrawerOpen(false);
 
-    const { data, error, isLoading } = useSWR<User>(
-        USERS_GET_PROFILE_SWR_HOOK,
-        getUserProfile,
-        { revalidateOnFocus: false,}
-    )
+    const { data, error, isLoading } = useUserProfile();
 
-
+ 
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">
             <div className="flex justify-between items-center px-6 md:px-12">

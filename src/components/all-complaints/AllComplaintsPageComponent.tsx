@@ -16,7 +16,7 @@ import CategoryFilter from "./actions/CategoryFilter"
 import useSWR, { mutate } from "swr"
 import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
 import { categoriesGetAll } from "@/controllers/CategoriesController"
-import { complaintsGetMany } from "@/controllers/ComplaintsControllerClient"
+import { complaintsGetMany } from "@/controllers/ComplaintsFunctions"
 
 //Endpoints
 const GET_MANY_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_MANY_ENDPOINT

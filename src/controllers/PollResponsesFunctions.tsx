@@ -1,5 +1,3 @@
-"use server"
-
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
 
