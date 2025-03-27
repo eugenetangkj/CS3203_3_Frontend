@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
-import axios from "axios";
+import { pollsInsertOne } from "@/controllers/PollsFunctions";
+import { mutate } from "swr";
+import { UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks";
 
 
 /** 
@@ -19,6 +20,7 @@ interface UsePollTemplateButtonProps {
 
 
 export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonProps) {
+
     //State managemenmt
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -30,46 +32,44 @@ export function UsePollTemplateButton({ pollTemplate }: UsePollTemplateButtonPro
 
     //Handle the logic where the admin decides to use this template
     const handleUseTemplate = async () => {
+        //Update loading state
         setIsLoading(true)
-        try {
-            //Create a poll using this template
-            const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_INSERT_ONE_ENDPOINT
-            const response = await axios.post(createPollEndpoint, {
-                "document": {
-                    "question": pollTemplate.question,
-                    "category": pollTemplate.category,
-                    "question_type": pollTemplate.question_type,
-                    "options": pollTemplate.options,
-                    "date_created": getCurrentDateTime(),
-                    "date_published": null,
-                    "date_closed": null,
-                    "status": PollStatusEnum.Unpublished
-                }
-            })
-            const pollOid = response.data.oid
-            
-            //Show successful toast
-            toast({
-                variant: "success",
-                description: "Poll is successfully created from the poll template.",
-                duration: 3000,
-            })
 
-            //Navigate to the newly created poll
-            router.push(`/polls/${pollOid}`)
+        //Insert poll
+        const pollOid = await pollsInsertOne({
+            "question": pollTemplate.question,
+            "category": pollTemplate.category,
+            "question_type": pollTemplate.question_type,
+            "options": pollTemplate.options,
+            "date_created": getCurrentDateTime(),
+            "date_published": null,
+            "date_closed": null,
+            "status": PollStatusEnum.Unpublished
+        })
 
-        } catch (error) {
-            //Show error toast
-            console.log(error)
+        if (pollOid.length === 0) {
+            //CASE 1: Unsuccessful in inserting poll
             toast({
                 variant: "destructive",
                 description: "There was a problem creating a poll from the poll template.",
                 duration: 3000,
             })
-        } finally {
-            setIsLoading(false)
+        } else {
+            //CASE 2: Successful in inserting poll
+            toast({
+                variant: "success",
+                description: "Poll is successfully created from the poll template.",
+                duration: 3000,
+            })
+            mutate(UNPUBLISHED_POLLS_SWR_HOOK)
+            router.push(`/polls/${pollOid}`)
         }
+
+    
+        //Update loading state
+        setIsLoading(false)
     }
+    
 
 
     return (
