@@ -3,6 +3,7 @@ import { COLOUR_MAP } from "@/constants/Constants";
 import AiTooltip from "../common/others/AiTooltip";
 import { determineIsPollOrPollTemplate } from "@/utils/HelperFunctions";
 import { PollStatusEnum } from "@/types/Poll";
+import Link from "next/link";
 
 
 /**
@@ -30,7 +31,7 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
 
     // Return component
     return (
-        <a href={isPoll ? `/polls/${pollToDisplay.id}` : `/polls/poll-template/${pollToDisplay.id}`}>
+        <Link href={isPoll ? `/polls/${pollToDisplay.id}` : `/polls/poll-template/${pollToDisplay.id}`}>
             <div className='flex flex-col space-y-8 justify-between rounded-xl bg-yap-gray-100 hover:bg-yap-brown-100 duration-200 p-4 h-full'>
                 <div className='flex flex-col space-y-4'>
                     <div className='space-y-2'>
@@ -65,7 +66,7 @@ export default function PollCard({ pollToDisplay }: PollCardProps) {
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
 
     );
 }
