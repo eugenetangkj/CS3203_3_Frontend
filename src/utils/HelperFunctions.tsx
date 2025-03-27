@@ -1,6 +1,7 @@
 import { Complaint } from "@/types/Complaint";
 import { Category } from "@/types/Category";
 import { Poll, PollTemplate } from "@/types/Poll";
+import { PollQuestionTypeEnum } from "@/types/Poll";
 
 
 /**
@@ -156,4 +157,55 @@ export const addStringToListIfAbsent = (list: string[], item: string): string[] 
         return [...list, item];
     }
     return list;
+}
+
+
+/**
+ * Checks if there are any duplicated strings in a list of strings
+ * 
+ * @param listOfStrings The list to check
+ * @returns true if there is a duplicate, else false
+ */
+function hasDuplicateStrings(listOfStrings: string[]): boolean {
+    const setOfStrings = new Set<string>();
+
+    for (const str of listOfStrings) {
+        if (setOfStrings.has(str)) {
+            // Found a duplicate
+            return true;
+        }
+        setOfStrings.add(str);
+    }
+
+    // No duplicates found
+    return false;
+}
+
+
+
+/**
+ * Checks if a given poll is ready to be updated. A poll is ready to be updated if it meets certain criteria.
+ * 
+ * @param poll The poll to check
+ * 
+ * @return An error message string which will be empty if there is no error
+ */
+export const validatePollBeforeUpdating = (poll: Poll): string => {
+    let errorMessage = ''
+
+    if (poll.question.trim() === '') {
+        //CHECK 1: Poll question cannot be empty
+        errorMessage = "Please enter your poll question."
+    }
+    else if (poll.category === '') {
+        //CHECK 2: Category cannot be empty
+        errorMessage = 'Please select a category.'
+    } else if (poll.question_type === PollQuestionTypeEnum.MCQ && poll.options.length <= 1) {
+        //CHECK 3: Must have at least 2 options if the question is a MCQ
+        errorMessage = 'Please input at least 2 options for a MCQ question.'
+    } else if (poll.question_type === PollQuestionTypeEnum.MCQ) {
+        //CHECK 4: Check if there are duplicate entries in the MCQ
+        errorMessage = (hasDuplicateStrings(poll.options)) ? 'There are duplicated options in the MCQ.' : ''
+    }
+    return errorMessage
 }

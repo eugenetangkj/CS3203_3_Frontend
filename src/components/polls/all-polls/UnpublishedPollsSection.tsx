@@ -18,7 +18,7 @@ that allows the admin to create a new poll.
 
 //Component
 export default function UnpublishedPollsSection() {
-    const { data, error, isLoading } = useSWR<Poll[]>(UNPUBLISHED_POLLS_SWR_HOOK, () => pollsGetMany(PollStatusEnum.Published));
+    const { data, error, isLoading } = useSWR<Poll[]>(UNPUBLISHED_POLLS_SWR_HOOK, () => pollsGetMany(PollStatusEnum.Unpublished));
 
     return (
         <div className='flex flex-col space-y-6'>
