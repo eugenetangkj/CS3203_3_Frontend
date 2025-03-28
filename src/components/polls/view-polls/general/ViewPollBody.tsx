@@ -1,6 +1,5 @@
 "use client"
 import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
-import { ViewPollCitizen } from "@/components/polls/view-polls/citizen/ViewPollCitizen";
 import { UserRoleEnum } from "@/types/User";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import useSWR from "swr";

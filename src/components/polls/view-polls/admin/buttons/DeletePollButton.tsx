@@ -6,9 +6,11 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_DELETE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { pollsDeleteByOid } from "@/controllers/PollsFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
+import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
+import { mutate } from "swr";
 
 /**
 Represents a delete poll button that deletes a published poll by updating its status.
@@ -32,40 +34,29 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
     const handleDeletePoll = async () => {
         setIsLoading(true)
 
-        try {
-            //Call API to delete poll
-            const deletePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_DELETE_BY_OID_ENDPOINT
-            const response = await axios.post(deletePollByOidEndpoint, {
-                "oid": currentPoll.id,
-            })
-
-            //Show successful toast
+        const result = await pollsDeleteByOid(currentPoll.id)
+        if (result === ApiResponseStatus.Success) {
             toast({
                 variant: "success",
                 description: "Poll is successfully deleted.",
                 duration: 3000,
             })
             router.push('/polls')
-        } catch (error) {
-            console.log(error)
-
-            //Show error toast
+        } else {
             toast({
-            variant: "destructive",
-            description: "There was a problem deleting the poll.",
-            duration: 3000,
-            })
-        } finally {
-            //Clean up
-            setIsLoading(false)
+                variant: "destructive",
+                description: "There was a problem deleting the poll.",
+                duration: 3000,
+                })
         }
+        setIsLoading(false)
     }
 
 
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className='bg-red-500 hover:bg-red-400 duration-200 rounded-full'>
+                <Button className='bg-red-500 hover:bg-red-400 duration-200 rounded-full' disabled={ isLoading }>
                     { isLoading ? 'Deleting...' : 'Delete Poll' }
                 </Button>
             </AlertDialogTrigger>
@@ -75,7 +66,7 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
                 <AlertDialogHeader>
                     <AlertDialogTitle className='text-xl text-yap-black-800'>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription className='text-yap-black-800 text-base'>
-                        Once the poll is deleted, all the citizen responses associated with the poll will also be deleted.
+                        You cannot undo the deletion of a poll.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

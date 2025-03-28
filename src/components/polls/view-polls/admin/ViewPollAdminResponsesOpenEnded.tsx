@@ -95,9 +95,9 @@ export function ViewPollAdminResponsesOpenEnded({ currentPoll }: ViewPollAdminRe
             isLoading || totalNumberOfResponses === undefined || pollResponses === undefined
             ? <Skeleton className="w-full h-[200px]" />
             : isThereError
-            ? <div>Something went wrong. Please try again later.</div>
+            ? <div className='text-yap-black-800'>Something went wrong. Please try again later.</div>
             : pollResponses.length === 0
-            ? <div>There is no poll response.</div>
+            ? <div className='text-yap-black-800'>There is no poll response.</div>
             : (
                 <div className='flex flex-col items-start space-y-2'>
                     {/* Total number of responses */}

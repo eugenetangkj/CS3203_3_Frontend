@@ -6,9 +6,12 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
+import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
+import { mutate } from "swr";
+import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a publish poll button that publishes a poll by updating its status.
@@ -29,17 +32,9 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
     const handlePublishPoll = async () => {
         setIsLoading(true)
 
-        //Check if all fields are okay
-        let errorMessage = ''
-        if (currentPoll.question.trim() === '') {
-            errorMessage = "Please enter your poll question."
-        }
-        else if (currentPoll.category === '') {
-            errorMessage = 'Please select a category.'
-        } else if (currentPoll.question_type === PollQuestionTypeEnum.MCQ && currentPoll.options.length <= 1) {
-            errorMessage = 'Please input at least 2 options for a MCQ question.'
-        }
-        if (errorMessage !== '') {
+        //Check fields
+        const errorMessage = validatePollBeforeUpdating(currentPoll)
+        if (errorMessage.length !== 0) {
             toast({
                 variant: "destructive",
                 description: errorMessage,
@@ -49,51 +44,43 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
             return
         }
 
+        //Fields all OK. Proceed to save changes to the poll via API call
+        const result = await pollsUpdateByOid(currentPoll.id,
+            {
+                "question": currentPoll.question,
+                "category": currentPoll.category,
+                "question_type": currentPoll.question_type,
+                "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
+                "status": PollStatusEnum.Published,
+                "date_published": getCurrentDateTime()
+            }
+        )
 
-        try {
-            //Call API to save changes and update poll status to published and set date published
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(updatePollByOidEndpoint, {
-                "oid": currentPoll.id,
-                "update_document": {
-                    "$set": {
-                        "question": currentPoll.question,
-                        "category": currentPoll.category,
-                        "question_type": currentPoll.question_type,
-                        "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
-                        "status": PollStatusEnum.Published,
-                        "date_published": getCurrentDateTime()
-                    }
-                }
-            })
-
-            //Show successful toast
+        //Show toast
+        if (result === ApiResponseStatus.Success) {
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Poll is successfully published.",
                 duration: 3000,
             })
-            window.location.reload()
-        } catch (error) {
-            console.log(error)
-
-            //Show error toast
+        } else {
             toast({
-            variant: "destructive",
-            description: "There was a problem publishing the poll.",
-            duration: 3000,
+                variant: "destructive",
+                description: "There was a problem publishing the poll.",
+                duration: 3000,
             })
-        } finally {
-            //Clean up
-            setIsLoading(false)
         }
+
+        //Clean up
+        setIsLoading(false)
     }
 
     
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'>
+                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full' disabled={ isLoading }>
                     { isLoading ? 'Publishing...' : 'Publish Poll' }
                 </Button>
             </AlertDialogTrigger>

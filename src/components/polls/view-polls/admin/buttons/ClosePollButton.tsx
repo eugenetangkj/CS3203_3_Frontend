@@ -1,15 +1,17 @@
 "use client"
 
-
 import { Poll, PollStatusEnum } from "@/types/Poll"
 import { Button } from "@/components/ui/button"
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
+import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
+import { mutate } from "swr";
+import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a close poll button that closes a published poll by updating its status.
@@ -25,51 +27,55 @@ export function ClosePollButton({ currentPoll }: ClosePollButtonProps) {
     //Toast management
     const { toast } = useToast()
 
-
     //Closes a poll by updating its status to closed via API
     const handleClosePoll = async () => {
         setIsLoading(true)
 
-        try {
-            //Call API to update poll status to closed and set date closed
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(updatePollByOidEndpoint, {
-                "oid": currentPoll.id,
-                "update_document": {
-                    "$set": {
-                        "status": PollStatusEnum.Closed,
-                        "date_closed": getCurrentDateTime()
-                    }
-                }
+        //Check fields
+        const errorMessage = validatePollBeforeUpdating(currentPoll)
+        if (errorMessage.length !== 0) {
+            toast({
+                variant: "destructive",
+                description: errorMessage,
+                duration: 3000,
             })
+            setIsLoading(false)
+            return
+        }
 
-            //Show successful toast
+        //Fields all OK. Proceed to save changes to the poll via API call
+        const result = await pollsUpdateByOid(currentPoll.id,
+            {
+               "status": PollStatusEnum.Closed,
+                "date_closed": getCurrentDateTime()
+            }
+        )
+
+        //Show toast
+        if (result === ApiResponseStatus.Success) {
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Poll is successfully closed.",
                 duration: 3000,
             })
-            window.location.reload()
-        } catch (error) {
-            console.log(error)
-
-            //Show error toast
+        } else {
             toast({
-            variant: "destructive",
-            description: "There was a problem closing the poll",
-            duration: 3000,
+                variant: "destructive",
+                description: "There was a problem closing the poll.",
+                duration: 3000,
             })
-        } finally {
-            //Clean up
-            setIsLoading(false)
         }
+
+        //Clean up
+        setIsLoading(false)
     }
 
     
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'>
+                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full' disabled={ isLoading }>
                     { isLoading ? 'Closing...' : 'Close Poll' }
                 </Button>
             </AlertDialogTrigger>
