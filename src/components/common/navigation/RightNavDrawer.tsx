@@ -32,6 +32,7 @@ export default function RightNavDrawer({isDrawerOpen, user, onClose}: RightNavDr
 
     //Sign out by deleting the JWT token
     const handleSignOut = async () => {
+        onClose()
         try {
             await axios.post(SIGNOUT_SERVER_ENDPOINT);
             toast({
@@ -75,7 +76,7 @@ export default function RightNavDrawer({isDrawerOpen, user, onClose}: RightNavDr
                     NAV_LINKS.map((link) => (
                         link.is_admin_only && user?.role !== UserRoleEnum.Admin
                         ? null
-                        : <Link key={link.id} href={link.route} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</Link>
+                        : <Link key={link.id} href={link.route} onClick={() => onClose()} className='text-yap-brown-900 text-lg hover:text-yap-brown-800 duration-200'>{link.label}</Link>
                     ))
                     }
                 </div>
@@ -86,11 +87,11 @@ export default function RightNavDrawer({isDrawerOpen, user, onClose}: RightNavDr
                 (user?.role !== UserRoleEnum.None)
                 ? <div className="ml-4 mt-12">
                     <hr className="my-4 border-t-2 border-yap-gray-100" />
-                    <Link href='/profile' className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 text-base'>Profile</Link>
+                    <Link href='/profile' onClick={ () => onClose() } className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 text-base'>Profile</Link>
                     <p onClick={ handleSignOut } className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 text-base mt-8 cursor-pointer'>Sign Out</p>
                   </div>
                 : <div className='ml-4 mt-12'>
-                    <Link href='sign-in'>
+                    <Link href='sign-in' onClick={ () => onClose() }>
                         <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base w-full">Sign In</Button>
                     </Link>
                   </div>

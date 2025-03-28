@@ -52,7 +52,7 @@ export const HomeStatistics = ({ initialDisplayCount, maxValue, statsDescription
             <p className="text-4xl sm:text-5xl 2xl:text-6xl font-bold text-yap-green-900">
             {isLoading || error ? displayCount : data}
             </p>
-            <p className="2xl:text-xl text-yap-brown-900">{ statsDescription }</p>
+            <p className="2xl:text-xl text-yap-brown-900 text-center">{ statsDescription }</p>
         </div>
     );
 };
