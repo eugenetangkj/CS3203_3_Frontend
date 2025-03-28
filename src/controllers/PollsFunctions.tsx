@@ -1,7 +1,7 @@
 import { Poll } from "@/types/Poll"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT, POLLS_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes"
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT, POLLS_INSERT_ONE_ENDPOINT, POLLS_GET_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
-import { convertPollDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
+import { convertPollDocumentsToObjects, convertPollDocumentToObject } from "@/utils/DatabaseHelperFunctions"
 import { VERY_LARGE_NUMBER } from "@/constants/Constants"
 
 
@@ -23,6 +23,7 @@ export const pollsGetMany = async (status: string) : Promise<Poll[]> => {
     }
 }
 
+
 //Function to create a poll
 export const pollsInsertOne = async (pollDocument: object): Promise<string> => {
     try {
@@ -34,5 +35,31 @@ export const pollsInsertOne = async (pollDocument: object): Promise<string> => {
         return pollOid
     } catch (error) {
         return ''
+    }
+}
+
+
+//Function to get a poll by its OID
+export const pollsGetByOid = async (oid: string): Promise<Poll> => {
+    try {
+        const fetchPollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_GET_BY_OID_ENDPOINT
+        const response = await axios.post(fetchPollByOidEndpoint, {
+            "oid": oid
+            },
+        )
+        const poll = convertPollDocumentToObject(response.data.document)
+        return poll
+    } catch (error) {
+        return {
+            id: '',
+            question: '',
+            category: '',
+            question_type: '',
+            options: [],
+            date_created: null,
+            date_published: null,
+            date_closed: null,
+            status: ''
+        }
     }
 }
