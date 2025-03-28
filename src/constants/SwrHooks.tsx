@@ -14,6 +14,7 @@ export const POLLS_GET_BY_OID_SWR_HOOK = 'polls-get-by-oid'
 
 //POLL RESPONSES
 export const POLL_RESPONSES_GET_COUNT_SWR_HOOK = 'poll-responses-get-count'
+export const POLL_RESPONSES_GET_ONE_SWR_HOOK = 'poll-responses-get-one'
 
 //POLL TEMPLATES
 export const POLL_TEMPLATES_GET_BY_OID_SWR_HOOK = 'poll-templates-get-by-oid'

@@ -151,3 +151,17 @@ export const convertPollResponseDocumentsToObjects = (pollResponses: any[]) : Po
         user_id: pollResponse.user_id  
     }))
 }
+
+
+/**
+Converts a MongoDB Poll Response document into a PollResponse object
+*/
+export const convertPollResponseDocumentToObject = (pollResponse: any) : PollResponse => {
+    return {
+        id: pollResponse._id.$oid,
+        poll_id: pollResponse.poll_id,
+        response: pollResponse.response,
+        date_submitted: pollResponse.date_submitted,
+        user_id: pollResponse.user_id  
+    }
+}

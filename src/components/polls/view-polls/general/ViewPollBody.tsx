@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 import { pollsGetByOid } from "@/controllers/PollsFunctions";
 import { Skeleton } from "@/components/ui/skeleton";
+import ViewPollCitizen from "../citizen/ViewPollCitizen";
 
 
 /** 
@@ -38,8 +39,7 @@ export default function ViewPollBody({ id }: ViewPollBodyProps) {
             {
                 userProfile?.role === UserRoleEnum.Admin
                 ? <ViewPollAdmin currentPoll={ poll } />
-                : <div>Hello</div>
-                // : <ViewPollCitizen currentPoll={ poll } isUserSignedIn={ userProfile?.role !== UserRoleEnum.None} />
+                : <ViewPollCitizen currentPoll={ poll } />
             }
           </div>
     );
