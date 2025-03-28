@@ -1,8 +1,9 @@
-import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import { ERROR_MESSAGE_API, SUCCESS, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import axios from "axios";
 import { UserRoleEnum } from "@/types/User";
 import { getUserAuthCookies } from "./UsersServerFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
 
 
 //Sign up for a new account
@@ -75,9 +76,8 @@ export const getUserProfile = async () => {
         //Step 1: Check for JWT cookie and user oid cookie
         const userCookies = await getUserAuthCookies()
         if (userCookies['jwtToken'] === '' || userCookies['userOid'] === '') {
-             //User is not logged in
+            //User is not logged in
             return nonExistentUser
-
         }
 
         //Step 2: Fetch the actual user
@@ -95,6 +95,22 @@ export const getUserProfile = async () => {
             collectibles: userData.data.profile.collectibles
         }
     } catch (error) {
-        throw error
+        return nonExistentUser
+    }
+}
+
+//Updates the user's profile information
+export const userUpdateProfileByOid = async(oid: string, setDocument: object): Promise<string> => {
+    try {
+        const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + UPDATE_PROFILE_BY_OID_ENDPOINT
+        await axios.post(updateProfileApiEndpoint, {
+            "oid": oid,
+            "update_document": {
+                "$set": setDocument
+            }
+        })
+        return ApiResponseStatus.Success
+    } catch (error) {
+        return ApiResponseStatus.Failure
     }
 }

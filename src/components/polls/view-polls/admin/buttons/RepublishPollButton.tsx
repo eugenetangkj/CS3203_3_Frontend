@@ -11,7 +11,7 @@ import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
 import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { mutate } from "swr";
-import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
+import { ONGOING_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a republish poll button that republishes a closed poll by updating its status
@@ -57,12 +57,13 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+             mutate(ONGOING_POLLS_SWR_HOOK)
             toast({
                 variant: "success",
                 description: "Poll is successfully republished.",
                 duration: 3000,
             })
+            window.location.reload()
         } else {
             toast({
                 variant: "destructive",

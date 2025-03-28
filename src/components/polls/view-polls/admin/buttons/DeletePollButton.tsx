@@ -9,7 +9,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation";
 import { pollsDeleteByOid } from "@/controllers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
-import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
+import { CLOSED_POLLS_SWR_HOOK, ONGOING_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK, UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks";
 import { mutate } from "swr";
 
 /**
@@ -41,6 +41,9 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
                 description: "Poll is successfully deleted.",
                 duration: 3000,
             })
+            mutate(ONGOING_POLLS_SWR_HOOK)
+            mutate(CLOSED_POLLS_SWR_HOOK)
+            mutate(UNPUBLISHED_POLLS_SWR_HOOK)
             router.push('/polls')
         } else {
             toast({

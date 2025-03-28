@@ -55,12 +55,12 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Changes are successfully saved.",
                 duration: 3000,
             })
+            window.location.reload()
         } else {
             toast({
                 variant: "destructive",

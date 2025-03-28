@@ -11,7 +11,7 @@ import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
 import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { mutate } from "swr";
-import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
+import { ONGOING_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a publish poll button that publishes a poll by updating its status.
@@ -58,12 +58,13 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Poll is successfully published.",
                 duration: 3000,
             })
+            mutate(ONGOING_POLLS_SWR_HOOK)
+            window.location.reload()
         } else {
             toast({
                 variant: "destructive",

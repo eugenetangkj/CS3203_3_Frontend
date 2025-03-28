@@ -11,6 +11,7 @@ import { POLL_RESPONSES_GET_ONE_SWR_HOOK } from "@/constants/SwrHooks"
 import { pollResponsesGetOne } from "@/controllers/PollResponsesFunctions"
 import { Skeleton } from "@/components/ui/skeleton"
 import { UserRoleEnum } from "@/types/User"
+import Link from "next/link"
 
 
 /**
@@ -28,7 +29,7 @@ export default function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
 
     //Fetch user response
     const { data: userResponse, error: getUserResponseError, isLoading: getUserResponseIsLoading } = useSWR(
-        () => userProfile?.id ? `${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}/${userProfile.id}` : null,
+        () => userProfile?.id ? `${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}/${userProfile.id}` : `${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}`,
         () => pollResponsesGetOne({
             poll_id: currentPoll.id,
             user_id: userProfile?.id
@@ -43,7 +44,7 @@ export default function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
             <Skeleton className='h-[50px] w-full' />
           </div>
         : (useUserProfileError || getUserResponseError || userProfile === undefined || userResponse === undefined)
-        ? <div className='text-yap-black-800'>Something went wrong. Please try again later.</div>
+        ? <div className='text-yap-black-800'>{userProfile?.id}</div>
         : <div className='flex flex-col space-y-6'>
             {/* Navigate back to all polls */}
             <BackToPreviousButton text='Back to all polls' route='/polls' />
@@ -62,7 +63,7 @@ export default function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
                 (userProfile.role === UserRoleEnum.None && currentPoll.status !== PollStatusEnum.Closed) &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>We noticed you are not signed in. ⚠️</AlertTitle>
-                    <AlertDescription className='text-base'><a href='/sign-in' className='underline'>Sign in</a> to participate in the polls.</AlertDescription>
+                    <AlertDescription className='text-base'><Link href='/sign-in' className='underline'>Sign in</Link> to participate in the polls.</AlertDescription>
                 </Alert>
             }
 

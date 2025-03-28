@@ -1,8 +1,9 @@
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT,POLL_RESPONSES_GET_ONE_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT,POLL_RESPONSES_GET_ONE_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
 import { PollResponse } from "@/types/Poll";
 import axios from "axios";
 import { NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import { convertPollResponseDocumentToObject } from "@/utils/DatabaseHelperFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
 
 
 //Fetch count
@@ -51,5 +52,21 @@ export const pollResponsesGetOne = async (filter: object): Promise<PollResponse>
             date_submitted: '',
             user_id: ''
         }
+    }
+}
+
+
+//Insert one poll response
+export const pollResponsesInsertOne = async(pollResponseDocument: object): Promise<string> => {
+    try {
+        const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_INSERT_ONE_ENDPOINT
+        await axios.post(insertPollResponseEndpoint,
+            {
+                "document": pollResponseDocument
+            }
+        )
+        return ApiResponseStatus.Success
+    } catch (error) {
+        return ApiResponseStatus.Failure
     }
 }

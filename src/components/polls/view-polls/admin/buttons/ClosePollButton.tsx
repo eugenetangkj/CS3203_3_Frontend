@@ -11,7 +11,7 @@ import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
 import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { mutate } from "swr";
-import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
+import { CLOSED_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a close poll button that closes a published poll by updating its status.
@@ -53,12 +53,14 @@ export function ClosePollButton({ currentPoll }: ClosePollButtonProps) {
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+            // mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+            mutate(CLOSED_POLLS_SWR_HOOK)
             toast({
                 variant: "success",
                 description: "Poll is successfully closed.",
                 duration: 3000,
             })
+            window.location.reload()
         } else {
             toast({
                 variant: "destructive",
