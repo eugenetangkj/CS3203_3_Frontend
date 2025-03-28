@@ -1,6 +1,7 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import SignUpForm from "@/components/sign-up/SignUpForm";
 import { UserRoleEnum } from "@/types/User";
+import Link from "next/link";
 
 
 /** 
@@ -30,7 +31,7 @@ export default function SignUpPage() {
 
 				{/* Sign in instead */}
 				<h6>Already have an account? <span className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
-					<a href='sign-in'>Sign in</a>
+					<Link href='sign-in'>Sign in</Link>
 				</span> here.</h6>
 
       		</div>
