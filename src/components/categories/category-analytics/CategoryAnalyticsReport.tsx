@@ -1,8 +1,8 @@
 import { CategoryAnalytics } from "@/types/CategoryAnalytics";
-import { Document, Page, Text, View, StyleSheet, Image, Font } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Image, Font, Link } from "@react-pdf/renderer";
 import { COLOUR_MAP } from "@/constants/Constants";
 import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
-import { ComplaintStatistics, MonthlyComplaintStatistics } from "@/types/Complaint";
+import { Complaint, ComplaintStatistics, MonthlyComplaintStatistics } from "@/types/Complaint";
 
 
 Font.register({ family: 'Afacad', src: '/fonts/Afacad-VariableFont_wght.ttf' });
@@ -118,6 +118,39 @@ const styles = StyleSheet.create({
         fontFamily: afacadFont,
         color: COLOUR_MAP['yap-black-800']
     },
+    complaintHeaderCell: {
+        flex: 1,
+        padding: 4,
+        fontSize: 10,
+        textAlign: 'left',
+        fontFamily: afacadFont,
+        color: 'white'
+    },
+    complaintHeaderWiderCell: {
+        flex: 2,
+        padding: 4,
+        fontSize: 10,
+        textAlign: 'left',
+        fontFamily: afacadFont,
+        color: 'white'
+    },
+
+    complaintCell: {
+        flex: 1,
+        padding: 4,
+        fontSize: 10,
+        textAlign: 'left',
+        fontFamily: afacadFont,
+        color: COLOUR_MAP['yap-black-800']
+    },
+    complaintWiderCell: {
+        flex: 2,
+        padding: 4,
+        fontSize: 10,
+        textAlign: 'left',
+        fontFamily: afacadFont,
+        color: COLOUR_MAP['yap-black-800']
+    }
 
   });
 
@@ -129,176 +162,245 @@ This component represents the report that will be generated for category analyti
 interface CategoryAnalyticsReportProps {
     categoryAnalytics: CategoryAnalytics,
     complaintStatistics: ComplaintStatistics,
-    monthlyComplaintStatistics: MonthlyComplaintStatistics[]
+    monthlyComplaintStatistics: MonthlyComplaintStatistics[],
+    relevantComplaints: Complaint[]
 }
 
-
-export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics, monthlyComplaintStatistics }: CategoryAnalyticsReportProps) => (
-    <Document>
-        {/* Page 1 */}
-        <Page size="A4" style={styles.page}>
-            {/* Header with image and category name */}
-            <View style={styles.header}>
-            {/* Insert your logo/image here */}
-            <Image src='/logo.png' style={styles.logo} />
-            <Text style={styles.headerText}>Category Analytics Report</Text>
-            </View>
-
-            {/* Main content of the document */}
-            <View style={styles.section}>
-            {/* Title */}
-            <Text style={styles.title}>{categoryAnalytics.name}</Text>
-
-            {/* Date */}
-            <View style={styles.subsection}>
-                <Text style={styles.subtitle}>Time Period for Analytics</Text>
-                <Text style={styles.subtext}>This refers to the time period during which the complaint's posted date falls, in order to generate analytics for this category.</Text>
-
-                <Text style={styles.text}>10-2024 to 03-2025</Text>
-            </View>
-
-            {/* Summary */}
-            <View style={styles.subsection}>
-                <Text style={styles.subtitle}>Summary (AI-generated)</Text>
-                <Text style={styles.text}>{ categoryAnalytics.summary }</Text>
-            </View>
-
-            {/* Trending Keywords */}
-            <View style={styles.subsection}>
-                    <Text style={styles.subtitle}>Trending Keywords (AI-generated)</Text>
-                    <Text style={styles.subtext}>These are the top keywords that appear in the complaints.</Text>
-                    <View style={styles.unorderedList}>
-                        {categoryAnalytics.keywords.slice(0, 8).map((keyword, index, array) => ( //For now, cap max keywords
-                            <View 
-                                style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                key={index}
-                            >
-                                {/* Bullet point */}
-                                <Text style={styles.bullet}>•</Text> 
-
-                                {/* Text container */}
-                                <Text style={styles.text}>{keyword}</Text>
-                            </View>
-                        ))}
-                    </View>
-            </View>
+const numberOfComplaintsPerPage = 14
+let startingPageNumber = 3
 
 
-            {/* ABSA Results */}
-            <View style={styles.subsection}>
-                    <Text style={styles.subtitle}>ABSA Results (AI-generated)</Text>
-                    <Text style={styles.subtext}>Aspect-based sentiment analysis (ABSA) shows the sentiments of themes that emerged within the category, based on the complaints.</Text>
-                    <View style={styles.unorderedList}>
-                        {categoryAnalytics.absa_result.slice(0, 8).map((absaResult, index, array) => (
-                            <View 
-                                style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                key={index}
-                            >
-                                {/* Bullet point */}
-                                <Text style={styles.bullet}>•</Text> 
+//Make into smaller arrays for displaying
+const chunkComplaintsArray = (array: any[], size: number) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+    }
+    return result;
+};
 
-                                {/* Text container */}
-                                <Text style={styles.text}>{absaResult.theme} ({capitaliseFirstLetter(absaResult.sentiment)})</Text>
-                            </View>
-                        ))}
-                    </View>
-            </View>
 
-            </View>
+export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics, monthlyComplaintStatistics, relevantComplaints }: CategoryAnalyticsReportProps) => {
+    const complaintChunks = chunkComplaintsArray(relevantComplaints, numberOfComplaintsPerPage)
 
-            {/* Footer */}
-            <Text style={styles.footer}>1</Text>
-        </Page>
-
-        {/* Page 2 */}
-        <Page size="A4" style={styles.page}>
-
-            {/* Header */}
-            <View style={styles.header}>
+    return (
+        <Document>
+            {/* Page 1 */}
+            <Page size="A4" style={styles.page}>
+                {/* Header */}
+                <View style={styles.header}>
+                {/* Insert your logo/image here */}
                 <Image src='/logo.png' style={styles.logo} />
                 <Text style={styles.headerText}>Category Analytics Report</Text>
-            </View>
+                </View>
 
-            {/* Body */}
-            <View style={styles.section}>
-                {/* Concerns */}
-                <View style={styles.subsection}>
-                    <Text style={styles.subtitle}>Concerns (AI-generated)</Text>
-                    <View style={styles.unorderedList}>
-                        {categoryAnalytics.concerns.slice(0, 8).map((concern, index, array) => (
-                            <View 
-                                style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                key={index}
-                            >
-                                {/* Bullet point */}
-                                <Text style={styles.bullet}>•</Text> 
+                {/* Body */}
+                <View style={styles.section}>
+                    {/* Title */}
+                    <Text style={styles.title}>{categoryAnalytics.name}</Text>
 
-                                {/* Text container */}
-                                <Text style={styles.text}>{concern}</Text>
+                    {/* Date */}
+                    <View style={styles.subsection}>
+                        <Text style={styles.subtitle}>Time Period for Analytics</Text>
+                        <Text style={styles.subtext}>This refers to the time period during which the complaint's posted date falls, in order to generate analytics for this category.</Text>
+
+                        <Text style={styles.text}>10-2024 to 03-2025</Text>
+                    </View>
+
+                    {/* Summary */}
+                    <View style={styles.subsection}>
+                        <Text style={styles.subtitle}>Summary (AI-generated)</Text>
+                        <Text style={styles.text}>{ categoryAnalytics.summary }</Text>
+                    </View>
+
+                    {/* Trending Keywords */}
+                    <View style={styles.subsection}>
+                            <Text style={styles.subtitle}>Trending Keywords (AI-generated)</Text>
+                            <Text style={styles.subtext}>These are the top keywords that appear in the complaints.</Text>
+                            <View style={styles.unorderedList}>
+                                {categoryAnalytics.keywords.slice(0, 8).map((keyword, index, array) => ( //For now, cap max keywords
+                                    <View 
+                                        style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
+                                        key={index}
+                                    >
+                                        {/* Bullet point */}
+                                        <Text style={styles.bullet}>•</Text> 
+
+                                        {/* Text container */}
+                                        <Text style={styles.text}>{keyword}</Text>
+                                    </View>
+                                ))}
                             </View>
-                        ))}
                     </View>
-                </View>
 
-                {/* Suggestions */}
-                <View style={styles.subsection}>
-                    <Text style={styles.subtitle}>Suggestions (AI-generated)</Text>
-                    <View style={styles.unorderedList}>
-                        {categoryAnalytics.suggestions.slice(0, 8).map((suggestion, index, array) => (
-                            <View 
-                                style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                key={index}
-                            >
-                                {/* Bullet point */}
-                                <Text style={styles.bullet}>•</Text> 
 
-                                {/* Text container */}
-                                <Text style={styles.text}>{suggestion}</Text>
+                    {/* ABSA Results */}
+                    <View style={styles.subsection}>
+                            <Text style={styles.subtitle}>ABSA Results (AI-generated)</Text>
+                            <Text style={styles.subtext}>Aspect-based sentiment analysis (ABSA) shows the sentiments of themes that emerged within the category, based on the complaints.</Text>
+                            <View style={styles.unorderedList}>
+                                {categoryAnalytics.absa_result.slice(0, 8).map((absaResult, index, array) => (
+                                    <View 
+                                        style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
+                                        key={index}
+                                    >
+                                        {/* Bullet point */}
+                                        <Text style={styles.bullet}>•</Text> 
+
+                                        {/* Text container */}
+                                        <Text style={styles.text}>{absaResult.theme} ({capitaliseFirstLetter(absaResult.sentiment)})</Text>
+                                    </View>
+                                ))}
                             </View>
-                        ))}
-                    </View>
-                </View>
-
-                {/* Statistics */}
-                <View style={styles.subsection}>
-                    <Text style={styles.subtitle}>Statistics</Text>
-                    <Text style={styles.subtext}>The forecasted sentiment is predicted for the month right after the time period used for this category analytics.</Text>
-                    <Text style={styles.text}>Number of complaints over time period: { complaintStatistics.count } </Text>
-                    <Text style={styles.text}>Average sentiment over time period: { complaintStatistics.avg_sentiment }</Text>
-                    <Text style={styles.text}>Forecasted sentiment: { categoryAnalytics.forecasted_sentiment }</Text>
-                </View>
-
-                {/* Number of complaints and sentiment over time */}
-                <View style={styles.tableContainer}>
-                    {/* Table Header */}
-                    <View style={[styles.row, styles.headerRow]}>
-                        <Text style={styles.headerCell}>Date</Text>
-                        <Text style={styles.headerCell}># Complaints</Text>
-                        <Text style={styles.headerCell}>Average Sentiment</Text>
                     </View>
 
-                    {/* Table Rows */}
-                    {monthlyComplaintStatistics.map((monthlyData, index) => (
-                        <View key={index} style={styles.row}>
-                            <Text style={styles.cell}>{monthlyData.date}</Text>
-                            <Text style={styles.cell}>{monthlyData.data.count}</Text>
-                            <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(5)}</Text>
+                </View>
+
+                {/* Footer */}
+                <Text style={styles.footer}>1</Text>
+            </Page>
+
+            {/* Page 2 */}
+            <Page size="A4" style={styles.page}>
+
+                {/* Header */}
+                <View style={styles.header}>
+                    <Image src='/logo.png' style={styles.logo} />
+                    <Text style={styles.headerText}>Category Analytics Report</Text>
+                </View>
+
+                {/* Body */}
+                <View style={styles.section}>
+                    {/* Concerns */}
+                    <View style={styles.subsection}>
+                        <Text style={styles.subtitle}>Concerns (AI-generated)</Text>
+                        <View style={styles.unorderedList}>
+                            {categoryAnalytics.concerns.slice(0, 8).map((concern, index, array) => (
+                                <View 
+                                    style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
+                                    key={index}
+                                >
+                                    {/* Bullet point */}
+                                    <Text style={styles.bullet}>•</Text> 
+
+                                    {/* Text container */}
+                                    <Text style={styles.text}>{concern}</Text>
+                                </View>
+                            ))}
                         </View>
-                    ))}
+                    </View>
+
+                    {/* Suggestions */}
+                    <View style={styles.subsection}>
+                        <Text style={styles.subtitle}>Suggestions (AI-generated)</Text>
+                        <View style={styles.unorderedList}>
+                            {categoryAnalytics.suggestions.slice(0, 8).map((suggestion, index, array) => (
+                                <View 
+                                    style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
+                                    key={index}
+                                >
+                                    {/* Bullet point */}
+                                    <Text style={styles.bullet}>•</Text> 
+
+                                    {/* Text container */}
+                                    <Text style={styles.text}>{suggestion}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+
+                    {/* Statistics */}
+                    <View style={styles.subsection}>
+                        <Text style={styles.subtitle}>Statistics</Text>
+                        <Text style={styles.subtext}>The forecasted sentiment is predicted for the month right after the time period used for this category analytics.</Text>
+                        <Text style={styles.text}>Number of complaints over time period: { complaintStatistics.count } </Text>
+                        <Text style={styles.text}>Average sentiment over time period: { complaintStatistics.avg_sentiment }</Text>
+                        <Text style={styles.text}>Forecasted sentiment: { categoryAnalytics.forecasted_sentiment }</Text>
+                    </View>
+
+                    {/* Number of complaints and sentiment over time */}
+                    <View style={styles.tableContainer}>
+                        {/* Table Header */}
+                        <View style={[styles.row, styles.headerRow]}>
+                            <Text style={styles.headerCell}>Date</Text>
+                            <Text style={styles.headerCell}># Complaints</Text>
+                            <Text style={styles.headerCell}>Average Sentiment</Text>
+                        </View>
+
+                        {/* Table Rows */}
+                        {monthlyComplaintStatistics.map((monthlyData, index) => (
+                            <View key={index} style={styles.row}>
+                                <Text style={styles.cell}>{monthlyData.date}</Text>
+                                <Text style={styles.cell}>{monthlyData.data.count}</Text>
+                                <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(5)}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
 
+                {/* Footer */}
+                <Text style={styles.footer}>2</Text>
+            </Page>
+
+
+            {/* Subsequent Pages */}
+            {complaintChunks.map((chunk, index) => (
+                 <Page size="A4" style={styles.page} key={index}>
+
+                 {/* Header */}
+                 <View style={styles.header}>
+                     <Image src='/logo.png' style={styles.logo} />
+                     <Text style={styles.headerText}>Category Analytics Report</Text>
+                 </View>
+ 
+                 {/* Body */}
+                 <View style={styles.section}>
+                    { index === 0 && <Text style={styles.subtitle}>List of Complaints</Text> }
+                     <View style={styles.tableContainer}>
+                         {/* Table Header */}
+                         <View style={[styles.row, styles.headerRow]}>
+                             <Text style={styles.complaintHeaderWiderCell}>Title</Text>
+                             <Text style={styles.complaintHeaderWiderCell}>Description</Text>
+                             <Text style={styles.complaintHeaderCell}>Date</Text>
+                             <Text style={styles.complaintHeaderCell}>Category</Text>
+                             <Text style={styles.complaintHeaderCell}>Source</Text>
+                             <Text style={styles.complaintHeaderCell}>Sentiment</Text>
+                         </View>
+ 
+                         {/* Table Rows */}
+                         {chunk.map((complaint, index) => (
+                             <View key={index} style={styles.row}>
+                                 <Link style={styles.complaintWiderCell} src={complaint.url}>
+                                     {complaint.title.length > 50
+                                     ? complaint.title.slice(0, 50) + '...'
+                                     : complaint.title
+                                     }
+                                 </Link>
+                                 <Text style={styles.complaintWiderCell}>{
+                                     complaint.description.length === 0 
+                                     ? '[No description]' 
+                                     : complaint.description.length > 50 
+                                     ? complaint.description.slice(0, 50) + '...' 
+                                     : complaint.description
+                                 }</Text>
+                                 <Text style={styles.complaintCell}>{complaint.date}</Text>
+                                 <Text style={styles.complaintCell}>{complaint.category}</Text>
+                                 <Text style={styles.complaintCell}>{complaint.source}</Text>
+                                 <Text style={styles.complaintCell}>{complaint.sentiment.toFixed(2)}</Text>
+                             </View>
+                         ))}
+                     </View>
+                 </View>
+ 
+                 {/* Footer */}
+                 <Text style={styles.footer}>{ index + startingPageNumber }</Text>
+             </Page>
+            
+        ))}
 
 
 
 
-
-            </View>
-
-            {/* Footer */}
-            <Text style={styles.footer}>2</Text>
-        </Page>
-
-
-
-    </Document>
-);
+        </Document>
+    )
+}

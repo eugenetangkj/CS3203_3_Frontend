@@ -209,3 +209,26 @@ export const validatePollBeforeUpdating = (poll: Poll): string => {
     }
     return errorMessage
 }
+
+
+/**
+ * Filters complaints with dates that fall within a given range 
+ * 
+ * @ param
+*/
+export const getComplaintsWithinRange = (startDate: string, endDate: string, complaints: Complaint[]): Complaint[] => {
+    // Convert the date strings into the format that can be parsed correctly
+    const parseDate = (dateStr: string) => {
+        const [day, month, year, hour, minute, second] = dateStr.split(/[-\s:]/);
+        return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}`);
+    };
+
+    const start = parseDate(startDate);
+    const end = parseDate(endDate);
+
+    return complaints.filter(complaint => {
+        const complaintDate = parseDate(complaint.date);
+        return complaintDate >= start && complaintDate <= end;
+    });
+};
+

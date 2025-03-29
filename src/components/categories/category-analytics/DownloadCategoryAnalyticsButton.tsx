@@ -5,7 +5,9 @@ import { pdf } from "@react-pdf/renderer";
 import { CategoryAnalyticsReport } from "./CategoryAnalyticsReport";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
-import { complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/controllers/ComplaintsFunctions";
+import { complaintsGetMany, complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/controllers/ComplaintsFunctions";
+import { VERY_LARGE_NUMBER } from "@/constants/Constants";
+import { getComplaintsWithinRange } from "@/utils/HelperFunctions";
 
 
 
@@ -71,10 +73,31 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
             return
         }
 
+        //Step 5: Get relevant complaints
+        const allCategoryComplaints = await complaintsGetMany(
+            { "category": categoryAnalytics.name },
+            VERY_LARGE_NUMBER,
+            1,
+            { "date": -1 }
+        )
+        if (allCategoryComplaints.length === 0) {
+            toast({
+                variant: "destructive",
+                description: "Download unsuccessful. Please try again later.",
+                duration: 3000,
+            });
+            setIsLoading(false)
+            return
+        }
+        const relevantComplaints = getComplaintsWithinRange("01-10-2024 00:00:00", "31-03-2025 23:59:00", allCategoryComplaints)
+
+
+        
+
 
 
         //Step 4: Generate the PDF document
-        const blob = await pdf(<CategoryAnalyticsReport categoryAnalytics={ categoryAnalytics } complaintStatistics= { complaintStatistics } monthlyComplaintStatistics= { monthlyComplaintStatistics }/>).toBlob();
+        const blob = await pdf(<CategoryAnalyticsReport categoryAnalytics={ categoryAnalytics } complaintStatistics={ complaintStatistics } monthlyComplaintStatistics={ monthlyComplaintStatistics } relevantComplaints={ relevantComplaints }/>).toBlob();
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
