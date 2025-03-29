@@ -17,6 +17,7 @@ import axios from "axios"
 import useSWR from "swr"
 import { CATEGORY_ANALYTICS_GET_BY_NAME_SWR_HOOK } from "@/constants/SwrHooks"
 import { categoryAnalyticsGetByName } from "@/controllers/CategoryAnalyticsFunctions"
+import DownloadCategoryAnalyticsButton from "./DownloadCategoryAnalyticsButton"
 
 
 /**
@@ -41,8 +42,11 @@ export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalytic
         : (
             <div className='flex flex-col space-y-12'>
                 {/* Page title */}
-                <PageTitle pageTitle={`Analytics on ${ currentCategoryAnalytics?.name}`} />
-
+                <div className='flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:justify-between sm:items-center'>
+                    <PageTitle pageTitle={`Analytics on ${ currentCategoryAnalytics.name}`} />
+                    <DownloadCategoryAnalyticsButton categoryAnalytics={ currentCategoryAnalytics }/>
+                </div>
+                
                 {/* Key summary */}
                 <CategoryAnalyticsSummary summary={ currentCategoryAnalytics.summary } />
 
