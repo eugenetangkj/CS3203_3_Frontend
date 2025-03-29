@@ -2,7 +2,7 @@ import { CategoryAnalytics } from "@/types/CategoryAnalytics";
 import { Document, Page, Text, View, StyleSheet, Image, Font } from "@react-pdf/renderer";
 import { COLOUR_MAP } from "@/constants/Constants";
 import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
-import { ComplaintStatistics } from "@/types/Complaint";
+import { ComplaintStatistics, MonthlyComplaintStatistics } from "@/types/Complaint";
 
 
 Font.register({ family: 'Afacad', src: '/fonts/Afacad-VariableFont_wght.ttf' });
@@ -85,6 +85,40 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
+
+    //Table
+    tableContainer: {
+        width: '100%',
+        marginVertical: 10,
+    },
+    row: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        borderBottomStyle: 'solid',
+        paddingVertical: 3,
+    },
+    headerRow: {
+        backgroundColor: COLOUR_MAP['yap-brown-900'],
+        fontWeight: 'bold',
+    },
+    headerCell: {
+        flex: 1,
+        padding: 4,
+        fontSize: 12,
+        textAlign: 'center',
+        fontFamily: afacadFont,
+        color: 'white'
+    },
+    cell: {
+        flex: 1,
+        padding: 4,
+        fontSize: 12,
+        textAlign: 'center',
+        fontFamily: afacadFont,
+        color: COLOUR_MAP['yap-black-800']
+    },
+
   });
 
 
@@ -94,11 +128,12 @@ This component represents the report that will be generated for category analyti
  */
 interface CategoryAnalyticsReportProps {
     categoryAnalytics: CategoryAnalytics,
-    complaintStatistics: ComplaintStatistics
+    complaintStatistics: ComplaintStatistics,
+    monthlyComplaintStatistics: MonthlyComplaintStatistics[]
 }
 
 
-export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics }: CategoryAnalyticsReportProps) => (
+export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics, monthlyComplaintStatistics }: CategoryAnalyticsReportProps) => (
     <Document>
         {/* Page 1 */}
         <Page size="A4" style={styles.page}>
@@ -133,7 +168,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                     <Text style={styles.subtitle}>Trending Keywords (AI-generated)</Text>
                     <Text style={styles.subtext}>These are the top keywords that appear in the complaints.</Text>
                     <View style={styles.unorderedList}>
-                        {categoryAnalytics.concerns.slice(0, 8).map((keyword, index, array) => ( //For now, cap max keywords
+                        {categoryAnalytics.keywords.slice(0, 8).map((keyword, index, array) => ( //For now, cap max keywords
                             <View 
                                 style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
                                 key={index}
@@ -228,9 +263,28 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                 <View style={styles.subsection}>
                     <Text style={styles.subtitle}>Statistics</Text>
                     <Text style={styles.subtext}>The forecasted sentiment is predicted for the month right after the time period used for this category analytics.</Text>
-                    <Text style={styles.text}>Number of complaints: { complaintStatistics.count } </Text>
-                    <Text style={styles.text}>Average sentiment: { complaintStatistics.avg_sentiment }</Text>
+                    <Text style={styles.text}>Number of complaints over time period: { complaintStatistics.count } </Text>
+                    <Text style={styles.text}>Average sentiment over time period: { complaintStatistics.avg_sentiment }</Text>
                     <Text style={styles.text}>Forecasted sentiment: { categoryAnalytics.forecasted_sentiment }</Text>
+                </View>
+
+                {/* Number of complaints and sentiment over time */}
+                <View style={styles.tableContainer}>
+                    {/* Table Header */}
+                    <View style={[styles.row, styles.headerRow]}>
+                        <Text style={styles.headerCell}>Date</Text>
+                        <Text style={styles.headerCell}># Complaints</Text>
+                        <Text style={styles.headerCell}>Average Sentiment</Text>
+                    </View>
+
+                    {/* Table Rows */}
+                    {monthlyComplaintStatistics.map((monthlyData, index) => (
+                        <View key={index} style={styles.row}>
+                            <Text style={styles.cell}>{monthlyData.date}</Text>
+                            <Text style={styles.cell}>{monthlyData.data.count}</Text>
+                            <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(5)}</Text>
+                        </View>
+                    ))}
                 </View>
 
 

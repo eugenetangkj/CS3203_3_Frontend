@@ -5,7 +5,7 @@ import { pdf } from "@react-pdf/renderer";
 import { CategoryAnalyticsReport } from "./CategoryAnalyticsReport";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
-import { complaintsGetStatistics } from "@/controllers/ComplaintsFunctions";
+import { complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/controllers/ComplaintsFunctions";
 
 
 
@@ -43,18 +43,38 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
             "_to_date":  "31-03-2025 23:59:00" //TODO: Update again
             }
         )
-        if (complaintStatistics.count < 0 || complaintStatistics.avg_sentiment < 0) {
+        if (complaintStatistics.count < 0 || complaintStatistics.avg_sentiment < -1) {
             toast({
                 variant: "destructive",
-                description: "There is no poll response.",
+                description: "Download unsuccessful. Please try again later.",
                 duration: 3000,
             });
+            setIsLoading(false)
+            return
+        }
+
+        //Step 4: Fetch number of complaints and sentiment for the category over time in the given time period
+        const monthlyComplaintStatistics = await complaintsGetStatisticsOverTime(
+            {
+                "category": categoryAnalytics.name,
+                "_from_date": "01-10-2024 00:00:00", //TODO: Update again
+                "_to_date":  "31-03-2025 23:59:00" //TODO: Update again
+            }
+        )
+        if (monthlyComplaintStatistics.length === 0) {
+            toast({
+                variant: "destructive",
+                description: "Download unsuccessful. Please try again later.",
+                duration: 3000,
+            });
+            setIsLoading(false)
             return
         }
 
 
+
         //Step 4: Generate the PDF document
-        const blob = await pdf(<CategoryAnalyticsReport categoryAnalytics={ categoryAnalytics } complaintStatistics= { complaintStatistics }/>).toBlob();
+        const blob = await pdf(<CategoryAnalyticsReport categoryAnalytics={ categoryAnalytics } complaintStatistics= { complaintStatistics } monthlyComplaintStatistics= { monthlyComplaintStatistics }/>).toBlob();
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;

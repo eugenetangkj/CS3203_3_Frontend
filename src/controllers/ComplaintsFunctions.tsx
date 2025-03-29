@@ -1,5 +1,5 @@
-import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes";
-import { Complaint, ComplaintStatistics } from "@/types/Complaint";
+import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT, COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes";
+import { Complaint, ComplaintStatistics, MonthlyComplaintStatistics } from "@/types/Complaint";
 import axios from "axios";
 import { convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { ALL_CATEGORIES_CATEGORY } from "@/constants/Constants";
@@ -69,7 +69,24 @@ export const complaintsGetStatistics = async (filter: object): Promise<Complaint
     } catch (error) {
         return {
             count: -1,
-            avg_sentiment: -1,
+            avg_sentiment: -2,
         }
+    }
+}
+
+
+//Get complaint statistics over time, which include number of complaints and average sentiment for each month
+export const complaintsGetStatisticsOverTime = async (filter: object): Promise<MonthlyComplaintStatistics[]> => {
+    try {
+        //Call API to fetch category statistics given its name
+        const apiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT
+        const apiResult = await axios.post(apiEndPoint,
+            {
+                "filter": filter 
+            }
+        )
+        return apiResult.data.statistics
+    } catch (error) {
+        return []
     }
 }

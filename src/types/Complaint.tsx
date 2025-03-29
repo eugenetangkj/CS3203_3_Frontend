@@ -10,8 +10,12 @@ export interface Complaint {
     url: string
 }
 
-
 export interface ComplaintStatistics {
     count: number,
     avg_sentiment: number
+}
+
+export interface MonthlyComplaintStatistics {
+    date: string,
+    data: ComplaintStatistics 
 }
