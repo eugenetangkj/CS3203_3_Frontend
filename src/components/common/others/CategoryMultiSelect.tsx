@@ -18,7 +18,7 @@ export function CategoryMultiSelect({ allLabels, selectedLabels, setSelectedLabe
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-            <Button variant="outline" className='font-normal bg-white hover:bg-yap-brown-100 border-yap-brown-200 duration-200'>Select Category</Button>
+            <Button variant="outline" className='font-normal bg-white hover:bg-yap-brown-100 border-yap-brown-200 duration-200 w-[150px]'>Select Category</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 {allLabels.map((label) => (

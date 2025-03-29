@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/constants/Constants"
-import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import { BarChartNegativePoint } from "@/types/ChartInterface"
 import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
@@ -18,6 +16,7 @@ export function SentimentsOfCategoriesVisualisation() {
     //States
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<BarChartNegativePoint[]>([])
+    const [sortedCategoryNames, setSortedCategoryNames] = useState<string[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
@@ -27,8 +26,8 @@ export function SentimentsOfCategoriesVisualisation() {
             return {
                 xLabel: category,
                 Sentiment: data[category].avg_sentiment,
-            };
-        });
+            }
+        }).sort((a, b) => a.xLabel.localeCompare(b.xLabel)); //Sort by label alphabetically
     };
 
 
@@ -44,6 +43,8 @@ export function SentimentsOfCategoriesVisualisation() {
                 }
             )
             const sentimentsForEachCategory = convertToArray(apiData.data.statistics)
+            const sortedCategoryNames = sentimentsForEachCategory.map(item => item.xLabel);
+            setSortedCategoryNames(sortedCategoryNames)
             setDataPoints(sentimentsForEachCategory)
         } catch (error) {
             setIsThereError(true)
@@ -65,6 +66,6 @@ export function SentimentsOfCategoriesVisualisation() {
         ? <div>Something went wrong. Please try again later.</div>
         : dataPoints.length === 0
         ? <div></div>
-        : <BarChartNegative chartData={ dataPoints } footerText={"* Sentiment score of 1.00 and -1.00 are the most positive and negative respectively."} />
+        : <BarChartNegative chartData={ dataPoints } allLabels={ sortedCategoryNames } footerText={"* Sentiment score of 1.00 and -1.00 are the most positive and negative respectively."} />
     )
 }
