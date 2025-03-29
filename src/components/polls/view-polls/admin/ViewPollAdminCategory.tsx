@@ -11,9 +11,10 @@ import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PollStatusEnum } from "@/types/Poll"
 import { Category } from "@/types/Category"
-import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
+import useSWR from "swr"
+import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks"
+import { categoriesGetAll } from "@/controllers/CategoriesFunctions"
+import { Skeleton } from "@/components/ui/skeleton"
 
 /**
 Represents the category input field that the admin views for each poll. It is only editable
@@ -27,15 +28,11 @@ interface ViewPollAdminCategoryProps {
 export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCategoryProps) {
     //States
     const [open, setOpen] = useState(false)
-    const [allCategories, setAllCategories] = useState<Category[]>([])
+    const { data, error, isLoading } = useSWR<Category[]>(CATEGORIES_GET_ALL_SWR_HOOK, categoriesGetAll);
 
     
-  
-
-    
-  
     //Updates the category of a given poll
-    const updateCategory = (newCategoryName: string)  =>  {
+    const updatePollCategory = (newCategoryName: string)  =>  {
         setOpen(false);
         setPoll((prevPoll) => ({
             ...prevPoll, 
@@ -43,29 +40,14 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
         }))
     };
 
-    //Fetches all categories
-    const fetchCategories = async () => {
-        try {
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
-            const categoriesData = await axios.post(categoriesApiEndPoint)
-            const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
-            setAllCategories(categories);
-        } catch (error) {
-            // console.error(error)
-        }
-    };
-
-    //Fetches all categories on mount
-    useEffect(() => {
-        fetchCategories()
-    }, [])
-
-
+    
     return (
         <div className='flex flex-col space-y-4'>
             <PageSubtitle pageSubtitle="Category" />
-            
-                    <Popover open={open} onOpenChange={setOpen}>
+                {
+                    isLoading || data === undefined
+                    ? <Skeleton className='w-[60px] h-[20px]' />
+                    : <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
@@ -78,19 +60,19 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
                                 <ChevronsUpDown className="opacity-50" />
                             </Button>
                         </PopoverTrigger>
-            
+        
                         <PopoverContent className="w-[125px] md:w-[150px] xl:w-[200px] p-0">
                             <Command>
                                 <CommandInput placeholder="Search category..." className="h-9 font-afacad" />
                                 <CommandList>
                                 <CommandEmpty>No category found.</CommandEmpty>
                                 <CommandGroup>
-                                    {allCategories.map((category) => (
+                                    {data.map((category) => (
                                     <CommandItem
                                         key={category.id}
                                         value={category.name}
                                         className='font-afacad text-yap-black-800'
-                                        onSelect={(newCategoryName) => { updateCategory(newCategoryName) }}>
+                                        onSelect={(newCategoryName) => { updatePollCategory(newCategoryName) }}>
                                         { category.name }
                                         <Check
                                         className={cn(
@@ -105,14 +87,7 @@ export function ViewPollAdminCategory({ currentPoll, setPoll }: ViewPollAdminCat
                             </Command>
                         </PopoverContent>
                     </Popover>
-            
+                }
         </div>
     )
-
-
-
-
-
-
-
 }
