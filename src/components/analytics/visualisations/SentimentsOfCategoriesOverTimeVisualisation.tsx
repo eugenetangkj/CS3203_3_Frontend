@@ -75,11 +75,16 @@ export function SentimentsOfCategoriesOverTimeVisualisation() {
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
             const sortedCategoryNames: string[] = categories.map(category => category.name).sort();
             setSortedCategoryNames(sortedCategoryNames)
+
+
             const colourMapFromApi = convertCategoryDocumentsToColourMap(categoriesData.data.documents)
+            const colourMapSorted = Object.fromEntries(
+                Object.entries(colourMapFromApi).sort(([a], [b]) => a.localeCompare(b))
+            );
             
             //Update states
             setDataPoints(processedComplaintsData)
-            setColourMap(colourMapFromApi)
+            setColourMap(colourMapSorted)
         } catch (error) {
             setIsThereError(true)
         } finally {

@@ -14,6 +14,11 @@ interface ManageCategoriesTableProps {
 
 
 export const ManageCategoriesTable = ({ categories }: ManageCategoriesTableProps) => {
+    //Sort categories
+    const sortedCategories = categories.sort((a, b) => a.name.localeCompare(b.name));
+
+
+
     return (
         <Table>
             <TableHeader>
@@ -25,7 +30,7 @@ export const ManageCategoriesTable = ({ categories }: ManageCategoriesTableProps
             </TableHeader>
 
             <TableBody>
-                {categories.map((category: Category) => (
+                {sortedCategories.map((category: Category) => (
                     <TableRow key={category.name}>
                     <TableCell className="text-base text-yap-black-800 pl-0">{category.name}</TableCell>
 

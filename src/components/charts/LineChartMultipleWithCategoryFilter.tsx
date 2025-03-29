@@ -29,20 +29,22 @@ export function LineChartMultipleWithCategoryFilter({ chartData, colourMap, allL
     useEffect(() => {
         setCurrentChartData(
             chartData.map(({ date, ...rest }) => {
-                // Create a new object with date and only the selected labels
-                const filteredData: LineChartMultiplePoint = { date };
+                // Keep only the selected labels and sort them
+                const filteredEntries = Object.entries(rest)
+                    .filter(([key]) => selectedLabels.includes(key))
+                    .sort(([a], [b]) => a.localeCompare(b)); // Sort alphabetically by key
     
-                // Keep only the selected labels
-                selectedLabels.forEach(label => {
-                    if (label in rest) {
-                        filteredData[label] = rest[label];
-                    }
+                // Reconstruct the object with sorted keys
+                const filteredData: LineChartMultiplePoint = { date };
+                filteredEntries.forEach(([key, value]) => {
+                    filteredData[key] = value;
                 });
     
                 return filteredData;
             })
         );
     }, [selectedLabels]);
+    
     
 
 
