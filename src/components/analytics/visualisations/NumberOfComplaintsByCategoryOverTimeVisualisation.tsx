@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { Skeleton } from "../../ui/skeleton"
-import { LineChartMultiple } from "../../charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
@@ -12,6 +11,8 @@ import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
 import { DateRange } from "react-day-picker"
 import { format, addMonths } from "date-fns"
 import { COLOUR_MAP } from "@/constants/Constants"
+import { LineChartMultipleWithCategoryFilter } from "@/components/charts/LineChartMultipleWithCategoryFilter"
+import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 
 
 /**
@@ -29,17 +30,29 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
         to: new Date(), //Default is today's date
     })
     const [isDatePopoverOpen, setIsDatePopoverOpen] = useState<boolean>(false)
+    const [sortedCategoryNames, setSortedCategoryNames] = useState<string[]>([])
 
 
     //Helper function to convert the API object into an array of the format required for the bar chart custom label
-    const convertApiDataIntoLineChartMultipleData = (apiData: Record<string, Record<string, { count: number; avg_sentiment: number }>>): LineChartMultiplePoint[] => {
-        return Object.entries(apiData).map(([date, data]) => ({
+    const convertApiDataIntoLineChartMultipleData = (
+        apiData: { date: string; data: Record<string, { count: number; avg_sentiment: number }> }[]
+      ): LineChartMultiplePoint[] => {
+        return apiData.map(({ date, data }) => {
+          // Sort the categories (keys) alphabetically
+          const sortedCategories = Object.keys(data).sort();
+
+          // Map the sorted categories to their count values
+          const sortedData = Object.fromEntries(
+            sortedCategories.map((category) => [category, data[category].count])
+          );
+      
+          return {
             date,
-            ...Object.fromEntries(
-                Object.entries(data).map(([category, values]) => [category, values.count])
-            )
-        }));
-    };
+            ...sortedData
+          };
+        });
+      };
+      
     
 
 
@@ -64,13 +77,16 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
             //Process category colours
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
+            const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
+            
+            const sortedCategoryNames: string[] = categories.map(category => category.name).sort();
+            setSortedCategoryNames(sortedCategoryNames)
             const colourMapFromApi = convertCategoryDocumentsToColourMap(categoriesData.data.documents)
             
             //Update states
             setDataPoints(processedComplaintsData)
             setColourMap(colourMapFromApi)
         } catch (error) {
-            console.log(error)
             setIsThereError(true)
         } finally {
             setIsLoading(false)
@@ -93,7 +109,7 @@ export function NumberOfComplaintsByCategoryOverTimeVisualisation() {
         : (
             <div className='flex flex-col space-y-8'>
                 <GraphDateRangePicker date={ date } setDate={ setDate } isPopoverOpen={ isDatePopoverOpen } setIsPopoverOpen={ setIsDatePopoverOpen } fetchData={ fetchPostsByCategoryOverTime }/>
-                <LineChartMultiple chartData={ dataPoints } colourMap={ colourMap } />  
+                <LineChartMultipleWithCategoryFilter chartData={ dataPoints } colourMap={ colourMap } allLabels={ sortedCategoryNames } />  
             </div>
           )  
     )
