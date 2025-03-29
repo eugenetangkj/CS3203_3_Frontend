@@ -38,7 +38,12 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
 
     return (
         getComplaintStatisticsIsLoading
-        ? (<Skeleton className='w-full h-[100px]' />)
+        ? (
+            <div className='paragraph-container'>
+                <PageSubtitle pageSubtitle="Statistics" />
+                <Skeleton className='w-full h-[100px]' />
+            </div>
+        )
         : getComplaintStatisticsError || statistics === undefined || statistics['count'] < 0
         ? <div className='paragraph-container'>
             <PageSubtitle pageSubtitle="Statistics" />
