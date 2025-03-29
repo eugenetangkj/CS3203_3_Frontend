@@ -14,77 +14,29 @@ import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsCo
 import { CategoryAnalytics } from "@/types/CategoryAnalytics"
 import { API_BASE_URL_ANALYTICS, CATEGORY_ANALYTICS_GET_BY_NAME, } from "@/constants/ApiRoutes"
 import axios from "axios"
+import useSWR from "swr"
+import { CATEGORY_ANALYTICS_GET_BY_NAME_SWR_HOOK } from "@/constants/SwrHooks"
+import { categoryAnalyticsGetByName } from "@/controllers/CategoryAnalyticsFunctions"
 
 
 /**
 This component represents the body for viewing the analytics of a particular category.
 It houses the other components that showcase different analytics for the given category.
 */
+interface CategoryAnalyticsBodyProps {
+    categoryName: string
+}
 
-export default function CategoryAnalyticsBody() {
+
+export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalyticsBodyProps) {
     //States
-    const [hasRanAPi, setHasRanApi] = useState<boolean>(false)
-    const [isThereError, setIsThereError] = useState<boolean>(false)
-    const [currentCategoryAnalytics, setCurrentCategoryAnalytics] = useState<CategoryAnalytics>()
-
-    // Parameter in URL string
-    const params = useParams<{ id: string}>()
-    const categoryName = decodeURIComponent(params['id'])
-
-
-    //Convert category analytics data into category analytics object helper function
-    const convertToCategoryAnalyticsObject = (rawData : any): CategoryAnalytics => {
-        return {
-            id: rawData._id.$oid,
-            name: rawData.name,
-            suggestions: rawData.suggestions,
-            keywords: rawData.keywords,
-            summary: rawData.summary,
-            forecasted_sentiment: parseFloat(rawData.forecasted_sentiment),
-            sentiment: parseFloat(rawData.sentiment),
-            concerns: rawData.concerns,
-            absa_result: rawData.absa_result
-        };
-    };
-
-
-    const fetchCategory = async () => {
-        try {
-            //Call API to fetch category analytics given the category name
-            const getCategoryAnalyticsEndpoint = API_BASE_URL_ANALYTICS + CATEGORY_ANALYTICS_GET_BY_NAME
-
-            const categoryAnalyticsData = await axios.post(getCategoryAnalyticsEndpoint,
-                {
-                    "name": categoryName,
-                }
-            )
-
-
-            //Convert category analytics data into category analytics object
-            const categoryAnalyticsObject = convertToCategoryAnalyticsObject(categoryAnalyticsData.data.document)
-
-            //Update state
-            setCurrentCategoryAnalytics(categoryAnalyticsObject)
-        } catch (error) {
-            setIsThereError(true)
-
-        } finally {
-            setHasRanApi(true)
-
-        }
-    }
-
-
-    //Fetch category on component mount
-    useEffect(() => {
-        fetchCategory()
-    }, [])
-
-
+    const { data: currentCategoryAnalytics, error, isLoading } = useSWR(`CATEGORY_ANALYTICS_GET_BY_NAME_SWR_HOOK/${ categoryName }`, () => categoryAnalyticsGetByName(categoryName))
+   
+  
     return (
-        !hasRanAPi
+        isLoading
         ? (<Skeleton className='w-full h-[100px]' />)
-        : isThereError || currentCategoryAnalytics == null
+        : error || currentCategoryAnalytics === undefined
         ? <div>Something went wrong in fetching the category analytics. Check if the analytics exist for the given category.</div>
         : (
             <div className='flex flex-col space-y-12'>

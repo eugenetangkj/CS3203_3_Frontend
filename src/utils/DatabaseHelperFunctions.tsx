@@ -1,4 +1,5 @@
 import { Category } from "@/types/Category"
+import { CategoryAnalytics } from "@/types/CategoryAnalytics";
 import { Complaint } from "@/types/Complaint";
 import { Poll, PollResponse, PollTemplate } from "@/types/Poll";
 
@@ -165,3 +166,22 @@ export const convertPollResponseDocumentToObject = (pollResponse: any) : PollRes
         user_id: pollResponse.user_id  
     }
 }
+
+
+
+/**
+Converts a MongoDB Category Analytics document into a CategoryAnalytics object
+*/
+export const convertCategoryAnalyticsDocumentToObject = (rawData : any): CategoryAnalytics => {
+    return {
+        id: rawData._id.$oid,
+        name: rawData.name,
+        suggestions: rawData.suggestions,
+        keywords: rawData.keywords,
+        summary: rawData.summary,
+        forecasted_sentiment: parseFloat(rawData.forecasted_sentiment),
+        sentiment: parseFloat(rawData.sentiment),
+        concerns: rawData.concerns,
+        absa_result: rawData.absa_result
+    };
+};

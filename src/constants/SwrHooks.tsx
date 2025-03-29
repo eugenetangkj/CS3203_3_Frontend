@@ -5,6 +5,10 @@ export const COMPLAINTS_GET_MANY_SWR_HOOK = 'complaints-get-many'
 //CATEGORIES
 export const CATEGORIES_GET_ALL_SWR_HOOK = 'categories-get-all'
 
+
+//CATEGORY ANALYTICS
+export const CATEGORY_ANALYTICS_GET_BY_NAME_SWR_HOOK = 'category_analytics/get_by_name'
+
 //POLLS
 export const ONGOING_POLLS_SWR_HOOK = 'fetch-ongoing-polls'
 export const CLOSED_POLLS_SWR_HOOK = 'fetch-closed-polls'

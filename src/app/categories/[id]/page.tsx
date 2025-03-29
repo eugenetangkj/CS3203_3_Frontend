@@ -11,7 +11,8 @@ export const metadata = {
 };
 
 
-export default function ViewCategory() {
+export default async function ViewCategory({ params }: any) {
+    const categoryName = decodeURIComponent((await params).id); 
     
 
     return (
@@ -21,7 +22,7 @@ export default function ViewCategory() {
                 <BackToPreviousButton text='Back to all categories' route='/categories' />
 
                 {/* Category analytics body */}
-                <CategoryAnalyticsBody />
+                <CategoryAnalyticsBody categoryName={ categoryName } />
             </div>
         </div>
     );
