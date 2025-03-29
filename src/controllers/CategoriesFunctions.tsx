@@ -1,9 +1,8 @@
-"use server"
-
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { Category } from "@/types/Category";
+import { CATEGORIES_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 
 
 //Get all categories
@@ -17,3 +16,21 @@ export const categoriesGetAll = async () : Promise<Category[]> => {
         return []
     }
 };
+
+//Update category by oid
+export const categoriesUpdateByOid = async (oid: string, setDocument: object): Promise<boolean> => {
+    try {
+        const updateCategoryEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_UPDATE_BY_OID_ENDPOINT
+        const response = await axios.post(updateCategoryEndpoint, 
+            {
+                "oid": oid,
+                "update_document": {
+                    "$set": setDocument
+                }
+            } 
+        )
+        return response.data.success
+    } catch (error) {
+        return false
+    }
+}

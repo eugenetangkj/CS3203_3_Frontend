@@ -15,7 +15,7 @@ import SearchBar from "./actions/SearchBar"
 import CategoryFilter from "./actions/CategoryFilter"
 import useSWR, { mutate } from "swr"
 import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
-import { categoriesGetAll } from "@/controllers/CategoriesController"
+import { categoriesGetAll } from "@/controllers/CategoriesFunctions"
 import { complaintsGetMany } from "@/controllers/ComplaintsFunctions"
 
 //Endpoints

@@ -1,5 +1,4 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import DeleteCategoryButton from "./actions/DeleteCategoryButton";
 import { Category } from "@/types/Category";
 import { CategoryColourPicker } from "./actions/CategoryColourPicker";
 import ViewCategoryAnalyticsButton from "./actions/ViewCategoryAnalyticsButton";
@@ -11,11 +10,10 @@ of categories, allowing the authority to change the colours and delete the categ
 */
 interface ManageCategoriesTableProps {
     categories: Category[],
-    fetchCategories: () => void
 }
 
 
-export const ManageCategoriesTable = ({ categories, fetchCategories }: ManageCategoriesTableProps) => {
+export const ManageCategoriesTable = ({ categories }: ManageCategoriesTableProps) => {
     return (
         <Table>
             <TableHeader>

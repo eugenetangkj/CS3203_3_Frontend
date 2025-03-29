@@ -1,7 +1,6 @@
 "use client"
 
 import { ManageCategoriesTable } from "@/components/categories/manage-categories/ManageCategoriesTable";
-import { AddCategoryButton } from "./actions/AddCategoryButton";
 import { useState, useEffect } from "react";
 import { Category } from "@/types/Category";
 import CategoriesTableSkeleton from "@/components/categories/manage-categories/CategoriesTableSkeleton";
@@ -10,6 +9,9 @@ import { CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
 import axios from "axios";
 import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
+import useSWR from "swr";
+import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks";
+import { categoriesGetAll } from "@/controllers/CategoriesFunctions";
 
 /** 
 Component that houses the manage categories table and its associated action buttons
@@ -17,31 +19,7 @@ Component that houses the manage categories table and its associated action butt
 export default function ManageCategoriesTableAndButtons() {
 
     //States
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [hasRanApi, setHasRanApi] = useState<boolean>(false);
-    const [isThereError, setIsThereError] = useState<boolean>(false)
-
-
-    //Triggers fetching of categories from backend
-    const fetchCategories = async () => {
-        setHasRanApi(false)
-        try {
-            const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
-            const categoriesData = await axios.post(categoriesApiEndPoint)
-            const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
-            setCategories(categories);
-        } catch (error) {
-            setIsThereError(true)
-        } finally {
-            setHasRanApi(true);
-        }
-    };
-
-
-    //Calls fetchCategories whenever it is first mounted
-    useEffect(() => {
-        fetchCategories()
-    }, [])
+    const { data, error, isLoading } = useSWR<Category[]>(CATEGORIES_GET_ALL_SWR_HOOK, categoriesGetAll);
 
 
     return (
@@ -54,15 +32,15 @@ export default function ManageCategoriesTableAndButtons() {
 
             {/* Table of categories */}
             {
-                !hasRanApi
+                isLoading
                 ? <div className='grid grid-cols-6 gap-4'>
                         {Array.from({ length: 5 }).map((_, index) => (
                         <CategoriesTableSkeleton key={ index } />
                     ))}
                   </div>
-                : isThereError
+                : error || data === undefined
                 ? <p className='text-base text-yap-black-800'>{ ERROR_MESSAGE_API }</p>
-                :  <ManageCategoriesTable categories={ categories } fetchCategories={ fetchCategories } />       
+                :  <ManageCategoriesTable categories={ data } />       
             }
     </div>
   );
