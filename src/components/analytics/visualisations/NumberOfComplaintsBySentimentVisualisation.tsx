@@ -32,7 +32,7 @@ export function NumberOfComplaintsBySentimentVisualisation() {
             "[1.00, 1.50)": "yap-blue-900"
         };
 
-        return data.map((item : any) => {
+        const output = data.map((item : any) => {
             //Fix to 2dp
             const label = `[${item.left_bound_inclusive.toFixed(2)}, ${item.right_bound_exclusive.toFixed(2)})`;
             const colour: string = coloursToAssign[label]
@@ -42,6 +42,16 @@ export function NumberOfComplaintsBySentimentVisualisation() {
                 fill: COLOUR_MAP[colour] ?? COLOUR_MAP['yap-green-900']
             };
         });
+
+        //Special processing as requested by team
+        const updatedOutput = output
+            .filter((item: any) => item.label !== "[1.00, 1.50)") // Remove the unwanted range
+            .map((item: any) => ({
+                ...item,
+                label: item.label === "[0.50, 1.00)" ? "[0.50, 1.00]" : item.label
+            }));
+     
+        return updatedOutput
     };
 
 
