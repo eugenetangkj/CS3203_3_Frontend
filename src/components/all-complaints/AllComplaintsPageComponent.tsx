@@ -51,7 +51,6 @@ export const AllComplaintsPageComponent = () => {
     const { data: allCategories, error: fetchAllCategoriesError, isLoading: fetchAllCategoriesIsLoading } = useSWR<Category[]>(
         CATEGORIES_GET_ALL_SWR_HOOK,
         categoriesGetAll,
-        { revalidateOnFocus: false }
     )
 
     const { data: allComplaints, error: fetchAllComplaintsError, isLoading: fetchAllComplaintsIsLoading } = useSWR(
@@ -64,7 +63,6 @@ export const AllComplaintsPageComponent = () => {
             PAGE_SIZE, currentPage,
             { "date": dateSort, "sentiment": sentimentSort }
         ),
-        { revalidateOnFocus: false }
     );
     
     // Mutate function for changing category
