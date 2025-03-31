@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { determineIsObjectEmpty } from "@/utils/HelperFunctions";
 
-describe('determineIsObjectEmpty method', () => {
+describe('determineIsObjectEmpty', () => {
     it('should return true if the argument is an empty object', () => {
         const isObjectEmpty: boolean = determineIsObjectEmpty({})
         expect(isObjectEmpty).toBe(true)

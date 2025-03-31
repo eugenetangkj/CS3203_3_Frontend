@@ -2,6 +2,7 @@ import { Complaint } from "@/types/Complaint";
 import { Category } from "@/types/Category";
 import { Poll, PollTemplate } from "@/types/Poll";
 import { PollQuestionTypeEnum } from "@/types/Poll";
+import { ERROR_MESSAGES_POLL_VALIDATION } from "@/constants/Constants";
 
 
 /**
@@ -67,11 +68,14 @@ day of that month.
 Taken from ChatGPT.
 */
 export const getDateTimeOneMonthAgoAndSetToEnd = (): string => {
-    // Subtract 1 month
+    // Get the current date
     const now = new Date();
+
+    // Reset to the 1st of the current month before changing the month
+    now.setDate(1);
     now.setMonth(now.getMonth() - 1);
 
-    // Set the date to the very end of the month
+    // Get the last day of the previous month
     const lastDayOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     lastDayOfPreviousMonth.setHours(23, 59, 59, 999);
 
@@ -85,8 +89,8 @@ export const getDateTimeOneMonthAgoAndSetToEnd = (): string => {
         hour12: false,
     })
     .format(lastDayOfPreviousMonth)
-    .replace(/\//g, "-")  // Replace slashes with hyphens
-    .replace(",", "");    // Remove the comma between date and time
+    .replace(/\//g, "-")  
+    .replace(",", "");    
 };
 
 
@@ -150,7 +154,7 @@ export const determineIsObjectEmpty = (inputObject: any) => {
  * 
  * @param stringToAdd The string to add
  * 
- * @return No return value
+ * @return The new list
  */
 export const addStringToListIfAbsent = (list: string[], item: string): string[] => {
     if (!list.includes(item)) {
@@ -166,7 +170,7 @@ export const addStringToListIfAbsent = (list: string[], item: string): string[] 
  * @param listOfStrings The list to check
  * @returns true if there is a duplicate, else false
  */
-function hasDuplicateStrings(listOfStrings: string[]): boolean {
+export function hasDuplicateStrings(listOfStrings: string[]): boolean {
     const setOfStrings = new Set<string>();
 
     for (const str of listOfStrings) {
@@ -195,17 +199,17 @@ export const validatePollBeforeUpdating = (poll: Poll): string => {
 
     if (poll.question.trim() === '') {
         //CHECK 1: Poll question cannot be empty
-        errorMessage = "Please enter your poll question."
+        errorMessage = ERROR_MESSAGES_POLL_VALIDATION.emptyQuestion
     }
-    else if (poll.category === '') {
+    else if (poll.category.trim() === '') {
         //CHECK 2: Category cannot be empty
-        errorMessage = 'Please select a category.'
+        errorMessage = ERROR_MESSAGES_POLL_VALIDATION.emptyCategory
     } else if (poll.question_type === PollQuestionTypeEnum.MCQ && poll.options.length <= 1) {
         //CHECK 3: Must have at least 2 options if the question is a MCQ
-        errorMessage = 'Please input at least 2 options for a MCQ question.'
+        errorMessage = ERROR_MESSAGES_POLL_VALIDATION.insufficientOptions
     } else if (poll.question_type === PollQuestionTypeEnum.MCQ) {
         //CHECK 4: Check if there are duplicate entries in the MCQ
-        errorMessage = (hasDuplicateStrings(poll.options)) ? 'There are duplicated options in the MCQ.' : ''
+        errorMessage = (hasDuplicateStrings(poll.options)) ? ERROR_MESSAGES_POLL_VALIDATION.duplicatedOptions : ''
     }
     return errorMessage
 }

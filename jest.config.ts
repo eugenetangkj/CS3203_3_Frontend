@@ -10,6 +10,9 @@ const createJestConfig = nextJest({
 const config: Config = {
   coverageProvider: 'babel',
   testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1", // Adjust this if your 'src' folder is different
+  },
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 }
