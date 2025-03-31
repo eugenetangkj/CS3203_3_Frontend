@@ -17,7 +17,7 @@ the user to select the name and colour code of a category to be added. Then, it 
 of the category to the database and refreshes the list of categories in the manage categories table.
 */
 interface AddCategoryButtonProps {
-    fetchCategories: () => void
+    readonly fetchCategories: () => void
 }
 
 export function AddCategoryButton({ fetchCategories }: AddCategoryButtonProps ) {

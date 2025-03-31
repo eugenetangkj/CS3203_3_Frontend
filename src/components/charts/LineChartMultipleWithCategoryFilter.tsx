@@ -66,7 +66,7 @@ export function LineChartMultipleWithCategoryFilter({ chartData, colourMap, allL
                 }}
             >
                 <CartesianGrid vertical={true} />
-                    <YAxis domain={['auto', (max: number) => max * 1.05]} />
+                    <YAxis domain={['auto', (max: number) => (max == 0) ? 1 : max * 1.05]} />
                     <XAxis
                         dataKey="date"
                         tickLine={false}

@@ -6,7 +6,7 @@ This component is used to display the most negative complaints of a given catego
 in the category analytics page.
 */
 interface CategoryAnalyticsMostNegativeComplaintsProps {
-    categoryName: string
+    readonly categoryName: string
 }
 
 

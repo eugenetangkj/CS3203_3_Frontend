@@ -42,7 +42,7 @@ export default async function Profile() {
                 {
                     currentUser.role === UserRoleEnum.None
                     ? <div>Something went wrong. Please try again later.</div>
-                    : <ProfileCards currentUser={ currentUser as User } />
+                    : <ProfileCards currentUser={ currentUser } />
                 }
             </div>
         </div>

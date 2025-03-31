@@ -5,14 +5,13 @@ import { Skeleton } from "../../ui/skeleton"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
 import axios from "axios"
 import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT, API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes"
-import { convertCategoryDocumentsToColourMap } from "@/utils/DatabaseHelperFunctions"
+import { convertCategoryDocumentsToColourMap, convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd, determineIsObjectEmpty } from "@/utils/HelperFunctions"
 import { GraphDateRangePicker } from "../../common/others/GraphDateRangePicker"
 import { DateRange } from "react-day-picker"
 import { format, addMonths } from "date-fns"
 import { COLOUR_MAP } from "@/constants/Constants"
 import { LineChartMultipleWithCategoryFilter } from "@/components/charts/LineChartMultipleWithCategoryFilter"
-import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 
 
 /**

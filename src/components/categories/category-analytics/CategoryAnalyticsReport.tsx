@@ -167,7 +167,7 @@ interface CategoryAnalyticsReportProps {
 }
 
 const numberOfComplaintsPerPage = 14
-let startingPageNumber = 3
+const startingPageNumber = 3
 
 
 //Make into smaller arrays for displaying
@@ -202,7 +202,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                     {/* Date */}
                     <View style={styles.subsection}>
                         <Text style={styles.subtitle}>Time Period for Analytics</Text>
-                        <Text style={styles.subtext}>This refers to the time period during which the complaint's posted date falls, in order to generate analytics for this category.</Text>
+                        <Text style={styles.subtext}>This refers to the time period during which the complaint&apos;s posted date falls, in order to generate analytics for this category.</Text>
 
                         <Text style={styles.text}>10-2024 to 03-2025</Text>
                     </View>
@@ -221,7 +221,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                                 {categoryAnalytics.keywords.slice(0, 8).map((keyword, index, array) => ( //For now, cap max keywords
                                     <View 
                                         style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                        key={index}
+                                        key={keyword}
                                     >
                                         {/* Bullet point */}
                                         <Text style={styles.bullet}>•</Text> 
@@ -242,7 +242,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                                 {categoryAnalytics.absa_result.slice(0, 8).map((absaResult, index, array) => (
                                     <View 
                                         style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                        key={index}
+                                        key={absaResult.theme}
                                     >
                                         {/* Bullet point */}
                                         <Text style={styles.bullet}>•</Text> 
@@ -278,7 +278,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             {categoryAnalytics.concerns.slice(0, 8).map((concern, index, array) => (
                                 <View 
                                     style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                    key={index}
+                                    key={ concern }
                                 >
                                     {/* Bullet point */}
                                     <Text style={styles.bullet}>•</Text> 
@@ -297,7 +297,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             {categoryAnalytics.suggestions.slice(0, 8).map((suggestion, index, array) => (
                                 <View 
                                     style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
-                                    key={index}
+                                    key={ suggestion }
                                 >
                                     {/* Bullet point */}
                                     <Text style={styles.bullet}>•</Text> 
@@ -329,7 +329,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
 
                         {/* Table Rows */}
                         {monthlyComplaintStatistics.map((monthlyData, index) => (
-                            <View key={index} style={styles.row}>
+                            <View key={ monthlyData.date } style={styles.row}>
                                 <Text style={styles.cell}>{monthlyData.date}</Text>
                                 <Text style={styles.cell}>{monthlyData.data.count}</Text>
                                 <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(5)}</Text>
@@ -369,7 +369,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
  
                          {/* Table Rows */}
                          {chunk.map((complaint, index) => (
-                             <View key={index} style={styles.row}>
+                             <View key={ index } style={styles.row}>
                                  <Link style={styles.complaintWiderCell} src={complaint.url}>
                                      {complaint.title.length > 50
                                      ? complaint.title.slice(0, 50) + '...'

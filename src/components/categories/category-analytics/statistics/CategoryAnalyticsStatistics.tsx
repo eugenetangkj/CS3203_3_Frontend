@@ -57,7 +57,7 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
                 <div className='flex flex-col justify-start items-center space-y-8 sm:space-y-0 sm:flex-row sm:justify-start sm:flex-wrap sm:space-x-16'>
                     {/* Total number of complaints */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className='text-5xl font-bold text-yap-green-900'>{ statistics['count'] as number }</p>
+                        <p className='text-5xl font-bold text-yap-green-900'>{ statistics['count'] }</p>
                         <p className='text-lg text-yap-brown-900'>Total no. of complaints</p>
                     </div>
 

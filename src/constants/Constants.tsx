@@ -209,3 +209,16 @@ export const VERY_LARGE_NUMBER = 100000
 An empty category
 */
 export const EMPTY_CATEGORY = {id: "", name: "", colour: ""}
+
+
+
+/**
+Error messages for poll validation
+*/
+export const ERROR_MESSAGES_POLL_VALIDATION = {
+    emptyQuestion: 'Please enter your poll question.',
+    emptyCategory: 'Please select a category.',
+    insufficientOptions: 'Please input at least 2 options for a MCQ question.',
+    duplicatedOptions: 'There are duplicated options in the MCQ.'
+
+}

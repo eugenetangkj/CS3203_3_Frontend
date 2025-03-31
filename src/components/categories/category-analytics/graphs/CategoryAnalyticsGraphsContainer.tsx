@@ -7,7 +7,7 @@ import CategoryAnalyticsSentimentOverTime from "./CategoryAnalyticsSentimentOver
 This component is used to house the graphs shown in the category analytics page.
 */
 interface CategoryAnalyticsGraphsContainerProps {
-    categoryName: string
+    readonly categoryName: string
 }
 
 

@@ -15,7 +15,7 @@ import { getComplaintsWithinRange } from "@/utils/HelperFunctions";
 This component represents a button that allows users to create and downloa
  */
 interface DownloadCategoryAnalyticsButtonProps {
-    categoryAnalytics: CategoryAnalytics
+    readonly categoryAnalytics: CategoryAnalytics
 }
 
 export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: DownloadCategoryAnalyticsButtonProps ) {

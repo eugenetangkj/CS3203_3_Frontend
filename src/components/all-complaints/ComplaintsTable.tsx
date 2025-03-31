@@ -13,14 +13,14 @@ import { MoveUp, MoveDown } from "lucide-react";
 This component represents the table used to display all complaints used in the all complaints page
 */
 interface ComplaintsTableProps {
-    complaints: Complaint[],
-    selectedComplaints: Complaint[],
-    setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
-    allCategories: Category[],
-    dateSort: number,
-    setDateSort: React.Dispatch<React.SetStateAction<number>>,
-    sentimentSort: number,
-    setSentimentSort: React.Dispatch<React.SetStateAction<number>>,
+    readonly complaints: Complaint[],
+    readonly selectedComplaints: Complaint[],
+    readonly setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
+    readonly allCategories: Category[],
+    readonly dateSort: number,
+    readonly setDateSort: React.Dispatch<React.SetStateAction<number>>,
+    readonly sentimentSort: number,
+    readonly setSentimentSort: React.Dispatch<React.SetStateAction<number>>,
 
 }
 

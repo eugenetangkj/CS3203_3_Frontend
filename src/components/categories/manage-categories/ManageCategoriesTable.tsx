@@ -9,13 +9,13 @@ This component represents the table used in managing categories. It displays a l
 of categories, allowing the authority to change the colours and delete the categories.
 */
 interface ManageCategoriesTableProps {
-    categories: Category[],
+    readonly categories: Category[],
 }
 
 
 export const ManageCategoriesTable = ({ categories }: ManageCategoriesTableProps) => {
     //Sort categories
-    const sortedCategories = categories.sort((a, b) => a.name.localeCompare(b.name));
+    const sortedCategories = categories.toSorted((a, b) => a.name.localeCompare(b.name));
 
 
 

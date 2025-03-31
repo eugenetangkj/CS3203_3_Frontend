@@ -18,9 +18,9 @@ import { EMPTY_CATEGORY } from "@/constants/Constants"
 This component represents a dropdown for user to select the category to assign to a complaint
 */
 interface CategoryDropdownProps {
-    complaint: Complaint,
-    allCategories: Category[],
-    initialCategory: Category | null
+    readonly complaint: Complaint,
+    readonly allCategories: Category[],
+    readonly initialCategory: Category | null
 }
 
 

@@ -6,7 +6,7 @@ This component is used to display the summary text of a given category
 in the category analytics page.
 */
 interface CategoryAnalyticsSummaryProps {
-    summary: string
+    readonly summary: string
 }
 
 

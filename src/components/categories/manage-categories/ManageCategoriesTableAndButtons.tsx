@@ -1,13 +1,8 @@
 "use client"
 
 import { ManageCategoriesTable } from "@/components/categories/manage-categories/ManageCategoriesTable";
-import { useState, useEffect } from "react";
 import { Category } from "@/types/Category";
 import CategoriesTableSkeleton from "@/components/categories/manage-categories/CategoriesTableSkeleton";
-import { API_BASE_URL_ADMIN_MANAGEMENT } from "@/constants/ApiRoutes";
-import { CATEGORIES_GET_ALL_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
-import { convertCategoryDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import useSWR from "swr";
 import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks";

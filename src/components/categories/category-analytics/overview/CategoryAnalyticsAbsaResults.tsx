@@ -8,7 +8,7 @@ import { capitaliseFirstLetter } from "@/utils/HelperFunctions"
 This component is used to display the ABSA results in the category analytics page.
 */
 interface CategoryAnalyticsAbsaResultsProps {
-    absaResults: AbsaResult[]
+    readonly absaResults: AbsaResult[]
 }
 
 

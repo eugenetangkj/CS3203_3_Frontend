@@ -6,10 +6,10 @@ This component is used to display the text that can be shown in 2 columns
 for the category analytics page. Namely, it is used for concerns and suggestions.
 */
 interface CategoryAnalyticsTwoColumnTextProps {
-    title: string,
-    content: string[],
-    aiMessage: string,
-    emptyMessage: string
+    readonly title: string,
+    readonly content: string[],
+    readonly aiMessage: string,
+    readonly emptyMessage: string
 }
 
 
@@ -25,8 +25,8 @@ export default function CategoryAnalyticsTwoColumnText({ title, content, aiMessa
                 ? <p className='text-yap-black-800'>{ emptyMessage }</p>
                 : <ul className='list-disc pl-5 space-y-4 text-yap-black-800'>
                     {
-                        content.map((content, index) => (
-                            <li key={ index }>{ content }</li>
+                        content.map((content) => (
+                            <li key={ content }>{ content }</li>
                         ))
                     }
                 </ul>
