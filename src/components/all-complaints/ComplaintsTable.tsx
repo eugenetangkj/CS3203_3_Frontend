@@ -47,8 +47,18 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
                     <div className='flex flex-row justify-start items-center space-x-3'>
                         <p>Posted</p>
                         <div className='flex flex-row space-x-1 justify-center items-center'>
-                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setDateSort((prev) => (prev === 1) ? 0 : 1)} />
-                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setDateSort((prev) => (prev === -1) ? 0 : -1)} />
+                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`}
+                                onClick={ () => {
+                                    setSelectedComplaints([])
+                                    setDateSort((prev) => (prev === 1) ? 0 : 1)
+                                }} 
+                            />
+                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ dateSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`}
+                                onClick={ () => {
+                                    setSelectedComplaints([])
+                                    setDateSort((prev) => (prev === -1) ? 0 : -1)
+                                }}
+                            />
                         </div>
                     </div>
                 </TableHead>
@@ -58,8 +68,18 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
                     <div className='flex flex-row justify-start items-center space-x-3'>
                         <p>Sentiment</p>
                         <div className='flex flex-row space-x-1 justify-center items-center'>
-                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setSentimentSort((prev) => (prev === 1) ? 0 : 1)} />
-                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`} onClick={() => setSentimentSort((prev) => (prev === -1) ? 0 : -1)} />
+                            <MoveUp className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === 1 ? 'text-yap-brown-900 hover:text-yap-brown-800' : 'text-yap-gray-900 hover:text-yap-gray-800'}`}
+                                onClick={ () => {
+                                    setSelectedComplaints([])
+                                    setSentimentSort((prev) => (prev === 1) ? 0 : 1)
+                                }}
+                            />
+                            <MoveDown className={`h-4 w-4 cursor-pointer duration-200 ${ sentimentSort === -1 ? 'text-yap-brown-900 hover:text-yap-brown-900' : 'text-yap-gray-900 hover:text-yap-gray-800'}`}
+                                onClick={ () => {
+                                    setSelectedComplaints([])
+                                    setSentimentSort((prev) => (prev === -1) ? 0 : -1)
+                                }}
+                            />
                         </div>
                     </div>
                 </TableHead>

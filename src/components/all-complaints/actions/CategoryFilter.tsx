@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Category } from "@/types/Category"
 import { cn } from "@/lib/utils"
 import { ALL_CATEGORIES_CATEGORY, ALL_CATEGORIES_NAME, ALL_CATEGORIES_ID } from "@/constants/Constants"
-import { Complaint } from "@/types/Complaint"
 
 
 /**
@@ -36,15 +35,6 @@ export default function CategoryFilter({ allCategories, categorySelected, handle
             const newCategory = allCategories.find(category => category.name === newCategoryName) || ALL_CATEGORIES_CATEGORY
             handleCategoryChange(newCategory)
         }
-
-        //Should deselect all complaints
-        // setSelectedComplaints([])
-
-        //Should always reset to first page when changing a new filter
-        // if (currentPage != 1) {
-        //     //Reset page to 1, automatically trigger fetching of complaints
-        //     setCurrentPage(1)
-        // }
     };
 
 

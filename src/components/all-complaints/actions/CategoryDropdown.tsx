@@ -8,9 +8,11 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import { Category } from "@/types/Category"
 import { useToast } from "@/hooks/use-toast"
-import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { Complaint } from "@/types/Complaint"
+import { complaintsUpdateByOid } from "@/controllers/ComplaintsFunctions"
+import { ApiResponseStatus } from "@/types/ApiResponse"
+import { useRefreshComplaints } from "@/hooks/use-refresh-complaints"
+import { EMPTY_CATEGORY } from "@/constants/Constants"
 
 /**
 This component represents a dropdown for user to select the category to assign to a complaint
@@ -21,9 +23,6 @@ interface CategoryDropdownProps {
     initialCategory: Category | null
 }
 
-const EMPTY_CATEGORY = {id: "", name: "", colour: ""}
-const UPDATE_COMPLAINT_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_UPDATE_BY_OID_ENDPOINT
-
 
 export function CategoryDropdown({ complaint, allCategories, initialCategory }: CategoryDropdownProps) {
     //States
@@ -31,61 +30,43 @@ export function CategoryDropdown({ complaint, allCategories, initialCategory }: 
     const [currentCategory, setCurrentCategory] = useState<Category>(initialCategory || EMPTY_CATEGORY)
     const [isSettingCategory, setIsSettingCategory] = useState<boolean>(false)
 
-    
     //Toast management
     const { toast } = useToast()
+
+    //Hooks
+    const refreshAllComplaints = useRefreshComplaints();
 
 
     //Updates the category of a given complaint
     const updateCategory = async (newCategoryName: string)  =>  {
         setIsSettingCategory(true)
-        try {
-            //Obtain and set the new category object for local state management
-            const newCategory : Category = allCategories.find(cat => cat.name === newCategoryName) || EMPTY_CATEGORY;
-            setCurrentCategory(newCategory);
-            setOpen(false);
 
+        //Obtain and set the new category object for local state management
+        const newCategory : Category = allCategories.find(cat => cat.name === newCategoryName) || EMPTY_CATEGORY;
+        setCurrentCategory(newCategory);
+        setOpen(false);
 
-            //Call API update the complaint's category using complaintId and newCategory
-            const updateComplaintResponse = await axios.post(UPDATE_COMPLAINT_ENDPOINT, 
-                {
-                    "oid": complaint.oid,
-                    "update_document": {
-                        "$set": {
-                            "category": newCategoryName,
-                        }
-                    }
-                }
-            )
-            const isApiSuccessful = updateComplaintResponse.data.success
-            const apiMessage = updateComplaintResponse.data.message
+        //Call API update the complaint's category using complaintId and newCategory
+        const apiResponse = await complaintsUpdateByOid(complaint.oid, { "category": newCategoryName })
 
-            if (isApiSuccessful) {
-                //Display successful toast
-                toast({
-                    variant: "success",
-                    description: "Category is successfully updated",
-                    duration: 3000
-                })
-            } else {
-                //Display error toast
-                toast({
-                    variant: "destructive",
-                    description: apiMessage,
-                    duration: 3000
-                })
-            }
-        } catch (error) {
-            //Display error toast
+        //Show toast
+        if (apiResponse === ApiResponseStatus.Success) {
+            toast({
+                variant: "success",
+                description: "Category is successfully updated",
+                duration: 3000
+            })
+        } else {
             toast({
                 variant: "destructive",
                 description: "There was a problem updating the category.",
                 duration: 3000
             })
-        } finally {
-            //Clean up code
-            setIsSettingCategory(false)
         }
+
+        //Clean up code
+        setIsSettingCategory(false)
+        refreshAllComplaints()
     };
 
 

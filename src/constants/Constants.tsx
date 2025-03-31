@@ -203,3 +203,9 @@ export const NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE = 'Server processed get req
 A very large number
 */
 export const VERY_LARGE_NUMBER = 100000
+
+
+/**
+An empty category
+*/
+export const EMPTY_CATEGORY = {id: "", name: "", colour: ""}
