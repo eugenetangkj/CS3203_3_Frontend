@@ -2,7 +2,7 @@
 
 import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Skeleton } from "@/components/ui/skeleton"
-import { COMPLAINTS_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
+import { COMPLAINTS_GET_STATISTICS_SWR_HOOK } from "@/constants/SwrHooks"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
 import { complaintsGetStatistics } from "@/controllers/ComplaintsFunctions"
 import useSWR from "swr"
@@ -28,7 +28,7 @@ interface CategoryAnalyticsStatisticsProps {
 export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment}: CategoryAnalyticsStatisticsProps) {
     //States
     const { data: statistics, error: getComplaintStatisticsError, isLoading: getComplaintStatisticsIsLoading } = useSWR(
-        [COMPLAINTS_GET_STATISTICS_ENDPOINT, categoryName],
+        [COMPLAINTS_GET_STATISTICS_SWR_HOOK, categoryName],
         () => complaintsGetStatistics(
             {
                 "category": categoryName
