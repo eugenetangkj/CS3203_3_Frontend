@@ -167,7 +167,7 @@ interface CategoryAnalyticsReportProps {
 }
 
 const numberOfComplaintsPerPage = 14
-let startingPageNumber = 3
+const startingPageNumber = 3
 
 
 //Make into smaller arrays for displaying
@@ -202,7 +202,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                     {/* Date */}
                     <View style={styles.subsection}>
                         <Text style={styles.subtitle}>Time Period for Analytics</Text>
-                        <Text style={styles.subtext}>This refers to the time period during which the complaint's posted date falls, in order to generate analytics for this category.</Text>
+                        <Text style={styles.subtext}>This refers to the time period during which the complaint&apos;s posted date falls, in order to generate analytics for this category.</Text>
 
                         <Text style={styles.text}>10-2024 to 03-2025</Text>
                     </View>
