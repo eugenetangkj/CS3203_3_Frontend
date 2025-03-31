@@ -1,5 +1,6 @@
 import PageTitle from "@/components/common/text/PageTitle";
 import SignInForm from "@/components/sign-in/SignInForm";
+import Link from "next/link";
 
 
 /** 
@@ -24,7 +25,7 @@ export default function SignInPage() {
 
                 {/* Link to sign up instead */}
                 <h6>Don&apos;t have an account? <span className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
-                    <a href='sign-up'>Sign up</a>
+                    <Link href='sign-up'>Sign up</Link>
                 </span> here.</h6>
             
             </div>

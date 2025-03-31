@@ -1,6 +1,5 @@
 import { Category } from "@/types/Category";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 /**
@@ -19,9 +18,9 @@ interface ViewCategoryAnalyticsButton {
 
 export default function ViewCategoryAnalyticsButton({ category }: ViewCategoryAnalyticsButton) {
     return (
-        <a href={`/categories/${category.name}`} className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
+        <Link href={`/categories/${category.name}`} className='text-yap-brown-900 hover:text-yap-brown-800 duration-200 underline'>
             View Analytics
-        </a>
+        </Link>
     );
 };
 

@@ -1,4 +1,5 @@
 import { Category } from "@/types/Category"
+import { CategoryAnalytics } from "@/types/CategoryAnalytics";
 import { Complaint } from "@/types/Complaint";
 import { Poll, PollResponse, PollTemplate } from "@/types/Poll";
 
@@ -151,3 +152,36 @@ export const convertPollResponseDocumentsToObjects = (pollResponses: any[]) : Po
         user_id: pollResponse.user_id  
     }))
 }
+
+
+/**
+Converts a MongoDB Poll Response document into a PollResponse object
+*/
+export const convertPollResponseDocumentToObject = (pollResponse: any) : PollResponse => {
+    return {
+        id: pollResponse._id.$oid,
+        poll_id: pollResponse.poll_id,
+        response: pollResponse.response,
+        date_submitted: pollResponse.date_submitted,
+        user_id: pollResponse.user_id  
+    }
+}
+
+
+
+/**
+Converts a MongoDB Category Analytics document into a CategoryAnalytics object
+*/
+export const convertCategoryAnalyticsDocumentToObject = (rawData : any): CategoryAnalytics => {
+    return {
+        id: rawData._id.$oid,
+        name: rawData.name,
+        suggestions: rawData.suggestions,
+        keywords: rawData.keywords,
+        summary: rawData.summary,
+        forecasted_sentiment: parseFloat(rawData.forecasted_sentiment),
+        sentiment: parseFloat(rawData.sentiment),
+        concerns: rawData.concerns,
+        absa_result: rawData.absa_result
+    };
+};

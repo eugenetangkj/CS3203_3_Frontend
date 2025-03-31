@@ -9,12 +9,11 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { ERROR_MESSAGE_API, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants"
+import { SUCCESS } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
-import { useRouter } from "next/navigation";
-import { API_BASE_URL_USER_MANAGEMENT, LOGIN_ENDPOINT, SIGNIN_SERVER_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios"
-import { useAuth } from "@/context/AuthContext"
+import { useRouter } from "next/navigation"
+import { userLogin } from "@/controllers/UsersFunctions"
+import { setCookiesForSigningIn } from "@/controllers/UsersServerFunctions"
 
 /**
 This component represents the form for signing in an existing account
@@ -26,10 +25,8 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
-    //Access the authentication states
-    const { login } = useAuth();
+    //Router
     const router = useRouter();
-
 
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -57,51 +54,31 @@ export default function SignInForm() {
     async function onSubmit({ email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
-        try {
-            //Make API call to login
-            const loginApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + LOGIN_ENDPOINT
-            const apiResult = await axios.post(loginApiEndpoint,
-                {
-                    "email": email,
-                    "password": password
-                }
-            )
+        //Make API call to login
+        const loginResult = await userLogin(email, password)
 
-            //Check if login is successful
-            if (apiResult.data.message === NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE) {
-                toast({
-                    variant: "destructive",
-                    description: "Invalid credentials. Please check your email and/or password.",
-                    duration: 3000,
-                })
-            } else {
-                const jwtToken = apiResult.data.jwt
-                const userOid = apiResult.data.oid
-    
-                if (jwtToken) {
-                    //Set cookie with JWT token
-                    await axios.post(SIGNIN_SERVER_ENDPOINT, {
-                        "token": jwtToken,
-                        "userOid": userOid
-                    })
-    
-                    //Update global state
-                    login()
-    
-                    //Successful, redirect to home page
-                    router.push('/')
-                }
-            }
-        } catch (error) {
-            //Display destructive toast
+        //Check successful or not
+        if (loginResult.message !== SUCCESS) {
+            //CASE 1: Login is not successful
             toast({
                 variant: "destructive",
-                description: ERROR_MESSAGE_API,
+                description: loginResult.message,
                 duration: 3000,
             })
-        } finally {
-            // Clean up
             setIsSubmittingForm(false)
+        } else {
+            //CASE 2: Login is successful
+            const jwtToken = loginResult.jwt
+            const userOid = loginResult.oid
+    
+            //Set cookie with JWT token
+            await setCookiesForSigningIn(jwtToken, userOid)
+
+            //Update form state
+            setIsSubmittingForm(false)
+
+            //Successful, redirect to home page
+            window.location.href = '/';
         }
     }
 

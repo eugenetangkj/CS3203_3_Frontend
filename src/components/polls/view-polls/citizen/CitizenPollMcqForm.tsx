@@ -9,13 +9,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Poll, PollStatusEnum } from "@/types/Poll";
 import { useState } from "react";
-import axios from "axios";
-import { API_BASE_URL_ADMIN_MANAGEMENT, CHECK_USER_AUTH_SERVER_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT,
-    API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, 
-    UPDATE_PROFILE_BY_OID_ENDPOINT} from "@/constants/ApiRoutes";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { getRandomCollectible } from "@/constants/Constants";
 import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
+import { pollResponsesInsertOne } from "@/controllers/PollResponsesFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
+import { useUserProfile } from "@/hooks/use-user-profile";
+import { userUpdateProfileByOid } from "@/controllers/UsersFunctions";
+import { mutate } from "swr";
+import { POLLS_GET_BY_OID_SWR_HOOK, POLL_RESPONSES_GET_ONE_SWR_HOOK } from "@/constants/SwrHooks";
 
 
 /**
@@ -37,7 +39,9 @@ export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }:
     const [isRewardPanelOpen, setIsRewardPanelOpen] = useState<boolean>(false)
     const [collectible, setCollectible] = useState<string>('')
     const { toast } = useToast()
-    
+    const { data: userProfile, error: useUserProfileError, isLoading: useUserProfileIsLoading  } = useUserProfile(); 
+
+
 
     const form = useForm<z.infer<typeof McqFormSchema>>({
         resolver: zodResolver(McqFormSchema),
@@ -46,64 +50,61 @@ export function CitizenPollMcqForm({ currentPoll, shouldDisable, userResponse }:
         }
     })
 
+
+    async function handleError() {
+        toast({
+            variant: "destructive",
+            description: "We could not process your submission. Please try again.",
+            duration: 3000,
+        })
+        setIsSubmitting(false)
+    }
+
     async function onSubmit(data: z.infer<typeof McqFormSchema>) {
         const userResponse = data.response
         setIsSubmitting(true)
-        try {
-            //STEP 1: Retrieve user oid
-            const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
-            const userOid = response.data.userOid
 
-            //STEP 2: Create poll response
-            const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_INSERT_ONE_ENDPOINT
-            await axios.post(insertPollResponseEndpoint,
-                {
-                    "document": {
-                        "poll_id": currentPoll.id,
-                        "user_id": userOid,
-                        "response": userResponse,
-                        "date_submitted": getCurrentDateTime()
-                    }
-                }
-            )
-
-            //STEP 3: Create updated collectibles list for the user
-            const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + GET_PROFILE_BY_OID_ENDPOINT
-            const userData = await axios.post(fetchUserProfileApiEndpoint,
-                {
-                    "oid": userOid
-                }
-            )
-            const userCollectibles = userData.data.collectibles
-            const collectibleGiven =  getRandomCollectible() //The collectible to give
-            const newUserCollectibles = addStringToListIfAbsent(userCollectibles, collectibleGiven)
-
-            //STEP 4: Update profile
-            const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + UPDATE_PROFILE_BY_OID_ENDPOINT
-            await axios.post(updateProfileApiEndpoint, {
-                "oid": userOid,
-                "update_document": {
-                    "$set": {
-                        "collectibles": newUserCollectibles
-                    }
-                }
-            })
-
-            //STEP 5: Update component state
-            setCollectible(collectibleGiven)
-
-            //STEP 6:Create alert to inform the user
-            setIsRewardPanelOpen(true)
-        } catch (error) {
-            console.log(error)
-            toast({
-                variant: "destructive",
-                description: "We could not process your submission. Please try again.",
-                duration: 3000,
-            })
-        } finally {
-            setIsSubmitting(false)
+        if (useUserProfileError || useUserProfileIsLoading || userProfile === undefined) {
+            handleError()
+            return
         }
+
+        //STEP 1: Create poll response
+        const resultOfInsertingPollResponse = await pollResponsesInsertOne({
+            "poll_id": currentPoll.id,
+            "user_id": userProfile?.id,
+            "response": userResponse,
+            "date_submitted": getCurrentDateTime()
+        })
+        if (resultOfInsertingPollResponse === ApiResponseStatus.Failure) {
+            handleError()
+            return
+        }
+
+        //STEP 2: Create updated collectibles list for the user
+        const userCollectibles = userProfile.collectibles
+        const collectibleGiven =  getRandomCollectible() //The collectible to give
+        const newUserCollectibles = addStringToListIfAbsent(userCollectibles, collectibleGiven)
+
+        //STEP 3: Update profile
+        const resultOfUpdatingProfile = await userUpdateProfileByOid(userProfile.id, {
+            "collectibles": newUserCollectibles
+        })
+        if (resultOfUpdatingProfile === ApiResponseStatus.Failure) {
+            handleError()
+            return
+        }
+
+        //STEP 4: Update component state
+        setCollectible(collectibleGiven)
+
+        //STEP 5: Create alert to inform the user
+        setIsRewardPanelOpen(true)
+        setIsSubmitting(false)
+
+        //STEP 6: Update swr
+        mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+        mutate(`${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}/${userProfile.id}`)
     }
 
     return (

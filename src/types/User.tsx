@@ -11,3 +11,8 @@ export enum UserRoleEnum {
     Citizen = 'Citizen',
     None = 'None'
 }
+
+export interface UserCookies {
+    jwtToken: string,
+    userOid: string
+}

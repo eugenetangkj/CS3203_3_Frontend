@@ -6,9 +6,12 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
+import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
+import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
+import { ApiResponseStatus } from "@/types/ApiResponse";
+import { mutate } from "swr";
+import { ONGOING_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 Represents a republish poll button that republishes a closed poll by updating its status
@@ -29,47 +32,55 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
     const handleRepublishPoll = async () => {
         setIsLoading(true)
 
-        try {
-            //Call API to update poll status to published and set date published and date closed
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-            await axios.post(updatePollByOidEndpoint, {
-                "oid": currentPoll.id,
-                "update_document": {
-                    "$set": {
-                        "status": PollStatusEnum.Published,
-                        "date_published": getCurrentDateTime(),
-                        "date_closed": null
-                    }
-                }
+         setIsLoading(true)
+        
+        //Check fields
+        const errorMessage = validatePollBeforeUpdating(currentPoll)
+        if (errorMessage.length !== 0) {
+            toast({
+                variant: "destructive",
+                description: errorMessage,
+                duration: 3000,
             })
+            setIsLoading(false)
+            return
+        }
 
-            //Show successful toast
+        //Fields all OK. Proceed to save changes to the poll via API call
+        const result = await pollsUpdateByOid(currentPoll.id,
+            {
+                "status": PollStatusEnum.Published,
+                "date_published": getCurrentDateTime(),
+                "date_closed": null
+            }
+        )
+
+        //Show toast
+        if (result === ApiResponseStatus.Success) {
+            mutate(ONGOING_POLLS_SWR_HOOK)
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Poll is successfully republished.",
                 duration: 3000,
             })
-            window.location.reload()
-        } catch (error) {
-            console.log(error)
-
-            //Show error toast
+        } else {
             toast({
-            variant: "destructive",
-            description: "There was a problem republishing the poll.",
-            duration: 3000,
+                variant: "destructive",
+                description: "There was a problem republishing the poll.",
+                duration: 3000,
             })
-        } finally {
-            //Clean up
-            setIsLoading(false)
         }
+
+        //Clean up
+        setIsLoading(false)
     }
 
     
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full'>
+                <Button className='bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 rounded-full' disabled={ isLoading }>
                     { isLoading ? 'Republishing...' : 'Republish Poll' }
                 </Button>
             </AlertDialogTrigger>

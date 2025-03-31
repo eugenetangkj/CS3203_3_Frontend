@@ -79,9 +79,9 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
             isLoading || totalNumberOfResponses === undefined
             ? <Skeleton className="w-full h-[200px]" />
             : isThereError
-            ? <div>Something went wrong. Please try again later.</div>
+            ? <div className='text-yap-black-800'>Something went wrong. Please try again later.</div>
             : totalNumberOfResponses === 0
-            ? <div>There is no response.</div>
+            ? <div className='text-yap-black-800'>There is no response.</div>
             : <div className='flex flex-col items-start space-y-8'>
                 <p>Total number of responses: { totalNumberOfResponses } </p>
                 <BarChartLabel chartData={ dataPoints } />

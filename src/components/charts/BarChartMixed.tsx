@@ -6,6 +6,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { BarChartMixedPoint } from "@/types/ChartInterface";
 import { useState, useEffect } from "react";
 import { BREAKPOINTS } from "@/constants/Constants";
+import { CategoryMultiSelect } from "../common/others/CategoryMultiSelect";
 
 
 
@@ -14,17 +15,21 @@ This component represents a bar chart mixed as defined in ShadCN charts.
 */
 interface BarChartMixedProps {
     chartData: BarChartMixedPoint[],
+    allPossibleLabels: string[]
 }
 
 
 
-export function BarChartMixed({ chartData }: BarChartMixedProps) {
+export function BarChartMixed({ chartData, allPossibleLabels }: BarChartMixedProps) {
     //States
-
-    // Track the screen width
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [scalingFactor, setScalingFactor] = useState<number>(2); 
+    const [selectedLabels, setSelectedLabels] = useState<string[]>(allPossibleLabels)
+    const [currentChartData, setCurrentChartData] = useState<BarChartMixedPoint[]>(chartData)
+
  
+
+
     // Adjust scaling factor based on screen size
     useEffect(() => {
         const handleResize = () => {
@@ -53,8 +58,15 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
         } else {
             setScalingFactor(2); 
         }
-     }, [screenWidth]);
- 
+    }, [screenWidth]);
+
+
+    //Set up a useEffect. When the selectedLabels change, update the chartData to be displayed
+    useEffect(() => {
+        setCurrentChartData(chartData.filter(item => selectedLabels.includes(item.label)));
+    }, [selectedLabels])
+
+
 
     //Chart config
     const chartConfig = {
@@ -65,53 +77,58 @@ export function BarChartMixed({ chartData }: BarChartMixedProps) {
 
 
     // Determine dynamic value key
-    const valueKey = Object.keys(chartData[0]).find((key) => key !== "label" && key !== "fill");
+    const valueKey = Object.keys(currentChartData[0]).find((key) => key !== "label" && key !== "fill");
 
     // Find out the max value for the scale
     let maxValue = 5000
     if (valueKey) {
-        maxValue = Math.max(...chartData.map(item => item[valueKey] as number))
+        maxValue = Math.max(...currentChartData.map(item => item[valueKey] as number))
     }
 
  
     // Generate the bar chart
     return (
-        <ChartContainer config={chartConfig} className='min-h-[400px] max-w-fit'>
-            <BarChart
-                accessibilityLayer
-                data={chartData}
-                layout="vertical"
-                margin={{
-                left: 20,
-                }}
-            >
-                <YAxis
-                dataKey="label"
-                type="category"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                interval={0}
-                width={120}
-                />
-                <XAxis dataKey={ valueKey } type="number" domain={[0, maxValue * scalingFactor]} hide />
-                <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-                />
-                <Bar dataKey={ valueKey as string } layout="vertical" radius={5}>
-                <LabelList
-                        dataKey={valueKey as string}
-                        position="right"
-                        offset={8}
-                        className="fill-foreground"
+        <div className='flex flex-col space-y-2'>
+            <CategoryMultiSelect allLabels={ allPossibleLabels } selectedLabels={ selectedLabels } setSelectedLabels={ setSelectedLabels } />
+
+        
+            <ChartContainer config={chartConfig} className='min-h-[400px] max-w-fit'>
+                <BarChart
+                    accessibilityLayer
+                    data={currentChartData}
+                    layout="vertical"
+                    margin={{
+                    left: 20,
+                    }}
+                >
+                    <YAxis
+                    dataKey="label"
+                    type="category"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    interval={0}
+                    width={120}
                     />
+                    <XAxis dataKey={ valueKey } type="number" domain={[0, maxValue * scalingFactor]} hide />
+                    <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                    />
+                    <Bar dataKey={ valueKey as string } layout="vertical" radius={5}>
+                    <LabelList
+                            dataKey={valueKey as string}
+                            position="right"
+                            offset={8}
+                            className="fill-foreground"
+                        />
 
 
 
-                </Bar>
-            </BarChart>
-        </ChartContainer>
+                    </Bar>
+                </BarChart>
+            </ChartContainer>
+        </div>
        
   )
 }

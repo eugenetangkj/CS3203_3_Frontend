@@ -1,157 +1,99 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useState } from "react"
 import ComplaintsTable from "./ComplaintsTable"
 import { Complaint } from "@/types/Complaint"
 import { Button } from "../ui/button"
 import DeleteComplaintsButton from "./actions/DeleteComplaintsButton"
 import ComplaintsTableSkeleton from "./ComplaintsTableSkeleton"
 import { Category } from "@/types/Category"
-import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_GET_ALL_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { convertCategoryDocumentsToObjects, convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { ALL_CATEGORIES_CATEGORY, ERROR_MESSAGE_API, ALL_CATEGORIES_ID } from  "@/constants/Constants"
 import SearchBar from "./actions/SearchBar"
 import CategoryFilter from "./actions/CategoryFilter"
+import useSWR from "swr"
+import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_COUNT_SWR_HOOK, COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
+import { categoriesGetAll } from "@/controllers/CategoriesFunctions"
+import { complaintsGetCount, complaintsGetMany } from "@/controllers/ComplaintsFunctions"
 
-//Endpoints
-const GET_MANY_COMPLAINTS_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_MANY_ENDPOINT
-const COMPLAINTS_GET_COUNT_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + COMPLAINTS_GET_COUNT_ENDPOINT
-const FETCH_ALL_CATEGORIES_API_ENDPOINT = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_GET_ALL_ENDPOINT
 
 //Constants
-const PAGE_SIZE = 50
-
+const PAGE_SIZE = 100
 
 /**
 This component represents the component to display all complaints. Includes table, search and filter functionality.
 */
-const AllComplaintsPageComponent = () => {
+export const AllComplaintsPageComponent = () => {
     //States
-    const [complaints, setComplaints] = useState<Complaint[]>([])
     const [selectedComplaints, setSelectedComplaints] = useState<Complaint[]>([])
-    const [allCategories, setAllCategories] = useState<Category[]>([])
     const [categorySelected, setCategorySelected] = useState<Category>(ALL_CATEGORIES_CATEGORY)
     const [searchQuery, setSearchQuery] = useState<string>("")
     const [dateSort, setDateSort] = useState<number>(-1)
     const [sentimentSort, setSentimentSort] = useState<number>(1)
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState<number>(0)
-    const [totalResults, setTotalResults] = useState<number>()
-    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
-    const [isThereError, setIsThereError] = useState<boolean>(false)
-    const isFirstRender = useRef(true);
 
 
-    //Initialisation
-    const initialisation = async () => {
-        //Fetch all complaints without any filter
-        const allComplaintsData = await axios.post(GET_MANY_COMPLAINTS_API_ENDPOINT, 
-            {
-                "filter": {},
-                "page_size": PAGE_SIZE,
-                "page_number": 1, //Always fetch from first page for initialisation
-                "sort": {
-                    "date": dateSort,
-                    "sentiment": sentimentSort
-                }
-            }
-        )
-        const allComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
-            {
-                "filter": {},
-            }
-        )
-        const allComplaints = convertComplaintDocumentsToObjects(allComplaintsData.data.documents)
-        setComplaints(allComplaints)
+    //Fetch all categories
+    const { data: allCategories, error: fetchAllCategoriesError, isLoading: fetchAllCategoriesIsLoading } = useSWR<Category[]>(
+        CATEGORIES_GET_ALL_SWR_HOOK,
+        categoriesGetAll,
+    )
 
-        //Set pagination information
-        const totalNumberOfComplaints = allComplaintsCountData.data.count
-        setTotalResults(totalNumberOfComplaints)
-        const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
-        setTotalPages(totalNumberOfPages)
-
-        //Fetch all categories available
-        const allCategoriesData = await axios.post(FETCH_ALL_CATEGORIES_API_ENDPOINT)
-        const allCategories = convertCategoryDocumentsToObjects(allCategoriesData.data.documents)
-        setAllCategories(allCategories)
-    }
-
-
-    //Initialise when the component first gets mounted
-    useEffect(() => {
-        const init = async () => {
-            try {
-                await initialisation()
-            } catch (error) {
-                setIsThereError(true)
-            } finally {
-                setHasRanApi(true)
-            }
-        };
-        init();
-    }, []);
-
-
-    //Fetch complaints based on current states
-    const fetchComplaints = async () => {
-        setHasRanApi(false)
-        try {
-            //Construct the filter based on the current state
-            const filter: any = {};
+    //Fetch complaints given the filters
+    const { data: allComplaints, error: fetchAllComplaintsError, isLoading: fetchAllComplaintsIsLoading } = useSWR(
+        [COMPLAINTS_GET_MANY_SWR_HOOK, categorySelected, searchQuery, dateSort, sentimentSort, currentPage],
+        () =>  {
+            const filter: any = {}
+    
             if (searchQuery.trim() !== "") {
                 filter["$text"] = { "$search": searchQuery };
             }
-            if (categorySelected.id !== ALL_CATEGORIES_ID ) {
+            if (categorySelected.id !== ALL_CATEGORIES_ID) {
                 filter["category"] = categorySelected.name;
             }
 
-            // Make the API request with the dynamically built filter
-            const filteredComplaintsData = await axios.post(GET_MANY_COMPLAINTS_API_ENDPOINT, {
-                filter,
-                page_size: PAGE_SIZE,
-                page_number: currentPage,
-                sort: {
-                    ...(dateSort !== 0 && { date: dateSort }),
-                    ...(sentimentSort !== 0 && { sentiment: sentimentSort })
-                }
-            });
-            const filteredComplaintsCountData = await axios.post(COMPLAINTS_GET_COUNT_API_ENDPOINT,
-                {
-                    "filter": filter
-                }
-            )
-            const filteredComplaints = convertComplaintDocumentsToObjects(filteredComplaintsData.data.documents)
-            setComplaints(filteredComplaints)
+            const sortFilter: any = {}
+            if (dateSort != 0) {
+                sortFilter['date'] = dateSort
+            }
+            if (sentimentSort != 0) {
+                sortFilter['sentiment'] = sentimentSort
+            }
 
-            //Set pagination information
-            const totalNumberOfComplaints = filteredComplaintsCountData.data.count
-            setTotalResults(totalNumberOfComplaints)
-            const totalNumberOfPages = Math.ceil(totalNumberOfComplaints / PAGE_SIZE)
-            setTotalPages(totalNumberOfPages)
-        } catch (error) {
-            setIsThereError(true)
-        } finally {
-            setHasRanApi(true)
+            return complaintsGetMany(filter, PAGE_SIZE, currentPage, sortFilter)
         }
-    }
+    )
 
 
-    //Fetch complaints whenever page changes, except the first mount
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false; // Mark the component as mounted
-            return; // Skip the first execution
+    //Fetch count of complaints
+    const { data: complaintsCount, error: fetchComplaintsCountError, isLoading: fetchComplaintsCountIsLoading } = useSWR(
+        [COMPLAINTS_GET_COUNT_SWR_HOOK, categorySelected, searchQuery],
+        () => {
+            const filter: any = {}
+    
+            if (searchQuery.trim() !== "") {
+                filter["$text"] = { "$search": searchQuery }
+            }
+            if (categorySelected.id !== ALL_CATEGORIES_ID) {
+                filter["category"] = categorySelected.name
+            }
+            return complaintsGetCount(filter);
         }
-        fetchComplaints();
-    }, [currentPage, searchQuery, categorySelected, dateSort, sentimentSort]);
+    )
+    
+    // Mutate function for changing category
+    const handleCategoryChange = (newCategory: Category) => {
+        setCategorySelected(newCategory);
+        setSelectedComplaints([]); // Deselect all complaints when category changes
+        setCurrentPage(1); // Go back to first page
+    };
+    
 
 
     //Actual component
     return (
-        (!hasRanApi)
+        (fetchAllComplaintsIsLoading || fetchAllCategoriesIsLoading || fetchComplaintsCountIsLoading)
         ? <ComplaintsTableSkeleton />
-        : isThereError
+        : fetchAllCategoriesError || fetchAllComplaintsError || fetchComplaintsCountError
         ? <p className='text-base'>{ ERROR_MESSAGE_API }</p>
         : <div className='flex flex-col space-y-8'>
 
@@ -168,13 +110,9 @@ const AllComplaintsPageComponent = () => {
                 {/* Filter, deselect and delete */}
                 <div className='flex flex-col space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:items-center'>
                     {/* Filter */}
-                    <CategoryFilter allCategories={ allCategories }
+                    <CategoryFilter allCategories={ allCategories ? allCategories : [] }
                         categorySelected={ categorySelected }
-                        setCategorySelected={ setCategorySelected }
-                        setSelectedComplaints={ setSelectedComplaints }
-                        currentPage={ currentPage }
-                        setCurrentPage= { setCurrentPage }
-                    
+                        handleCategoryChange={ handleCategoryChange }
                     />
 
                     {/* Deselect and delete */}
@@ -187,12 +125,7 @@ const AllComplaintsPageComponent = () => {
                         }
                         {
                             selectedComplaints.length !== 0 
-                            ? <DeleteComplaintsButton complaintsToDelete={ selectedComplaints }
-                                setSelectedComplaints={ setSelectedComplaints}
-                                currentPage={ currentPage }
-                                setCurrentPage={ setCurrentPage } 
-                                fetchComplaints={ fetchComplaints }
-                              />
+                            ? <DeleteComplaintsButton complaintsToDelete={ selectedComplaints } setSelectedComplaints= { setSelectedComplaints }/>
                             : <></>
                         }
                     </div>
@@ -201,7 +134,7 @@ const AllComplaintsPageComponent = () => {
 
 
             {/* Complaints Table */}
-            <ComplaintsTable complaints={ complaints } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories }
+            <ComplaintsTable complaints={ allComplaints ? allComplaints : [] } selectedComplaints= { selectedComplaints } setSelectedComplaints={ setSelectedComplaints } allCategories={ allCategories ? allCategories : [] }
                 dateSort={ dateSort } setDateSort={ setDateSort } sentimentSort={ sentimentSort } setSentimentSort={ setSentimentSort }
             />
             
@@ -214,19 +147,17 @@ const AllComplaintsPageComponent = () => {
                     <button onClick={() => setCurrentPage((prev) => prev - 1)} disabled={currentPage === 1} className='table-page-button'>
                         Previous
                     </button>
-                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={ currentPage >= totalPages } className='table-page-button'>
+                    <button onClick={() => setCurrentPage((prev) => prev + 1)} disabled={ currentPage >= Math.ceil(complaintsCount / PAGE_SIZE) } className='table-page-button'>
                         Next
                     </button>
                 </div>
 
                 <div className='flex flex-row justify-between w-full'>
                     {/* Page number */}
-                    <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { totalPages == 0 ? 1 : totalPages  }</h6>
-                    <h6 className=' text-yap-brown-900 py-1 self-end'>Total results: { totalResults }</h6>
+                    <h6 className=' text-yap-brown-900 py-1'>Page { currentPage } of { Math.ceil(complaintsCount / PAGE_SIZE) == 0 ? 1 : Math.ceil(complaintsCount / PAGE_SIZE)  }</h6>
+                    <h6 className=' text-yap-brown-900 py-1 self-end'>Total results: { complaintsCount }</h6>
                 </div>
             </div>  
     </div>
   )
 }
-
-export default AllComplaintsPageComponent

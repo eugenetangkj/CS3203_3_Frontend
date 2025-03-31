@@ -21,7 +21,6 @@ export const CATEGORIES_UPDATE_BY_OID_ENDPOINT = "/categories/update_by_oid"
 
 //Endpoints for admin management service (complaints)
 export const COMPLAINTS_GET_BY_OID_ENDPOINT = "/complaints/get_by_oid"
-export const COMPLAINTS_DELETE_BY_OID_ENDPOINT = "/complaints/delete_by_oid"
 export const COMPLAINTS_GET_MANY_ENDPOINT = "/complaints/get_many"
 export const COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT = "/complaints/delete_many_by_oids"
 export const COMPLAINTS_UPDATE_BY_OID_ENDPOINT = "/complaints/update_by_oid"

@@ -38,7 +38,7 @@ export async function middleware(request: Request) {
                 "oid": userOid,
             }
         )
-        userRole = userData.data.role
+        userRole = userData.data.profile.role
     } catch (error) {
         // console.error(error)
         userRole = UserRoleEnum.Citizen
@@ -59,5 +59,6 @@ export async function middleware(request: Request) {
 // Routes to be protected by the auth middleware
 export const config = {
     //Cannot use variables as properties must be statically parsed at compiled time
-    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin', '/polls/poll-template/:path*']
+    matcher: []
+    //matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin', '/polls/poll-template/:path*']
 };

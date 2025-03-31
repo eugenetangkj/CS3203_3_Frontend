@@ -5,6 +5,10 @@ Constant values used across files
 */
 export const START_DATE = "01-01-2000 00:00:00"
 
+/**
+Indicates success
+*/
+export const SUCCESS = "Success"
 
 /**
 Error message if API call is not successful
@@ -193,3 +197,15 @@ export const getRandomCollectible = () => {
 API error message for incorrect credentials
 */
 export const NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
+
+
+/**
+A very large number
+*/
+export const VERY_LARGE_NUMBER = 100000
+
+
+/**
+An empty category
+*/
+export const EMPTY_CATEGORY = {id: "", name: "", colour: ""}

@@ -18,6 +18,7 @@ interface LineChartMultipleProps {
 export function LineChartMultiple({ chartData, colourMap }: LineChartMultipleProps) {
     //Chart config
     const chartConfig = { } satisfies ChartConfig
+    
 
     return (
         <ChartContainer config={chartConfig} className='max-h-[400px] w-full'>

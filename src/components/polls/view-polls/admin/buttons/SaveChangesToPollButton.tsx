@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { PollQuestionTypeEnum } from "@/types/Poll"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
+import { validatePollBeforeUpdating } from "@/utils/HelperFunctions"
+import { pollsUpdateByOid } from "@/controllers/PollsFunctions"
+import { ApiResponseStatus } from "@/types/ApiResponse"
+import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks"
+import { mutate } from "swr"
 
 /**
 Represents a save changes to poll button that saves the latest information for the poll
@@ -25,19 +28,12 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
 
     //Updates the latest changes to the poll via API
     const handleSaveChangesToPoll = async () => {
+        //Set is loading
         setIsLoading(true)
 
-        // Check fields
-        let errorMessage = ''
-        if (currentPoll.question.trim() === '') {
-            errorMessage = "Please enter your poll question."
-        }
-        else if (currentPoll.category === '') {
-            errorMessage = 'Please select a category.'
-        } else if (currentPoll.question_type === PollQuestionTypeEnum.MCQ && currentPoll.options.length <= 1) {
-            errorMessage = 'Please input at least 2 options for a MCQ question.'
-        }
-        if (errorMessage !== '') {
+        //Check fields
+        const errorMessage = validatePollBeforeUpdating(currentPoll)
+        if (errorMessage.length !== 0) {
             toast({
                 variant: "destructive",
                 description: errorMessage,
@@ -48,46 +44,39 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
         }
 
         //Fields all OK. Proceed to save changes to the poll via API call
-        try {
-            //Call API to save changes. Only 3 possible things that the admin can change.
-            const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(updatePollByOidEndpoint, {
-                "oid": currentPoll.id,
-                "update_document": {
-                    "$set": {
-                        "question": currentPoll.question,
-                        "category": currentPoll.category,
-                        "question_type": currentPoll.question_type,
-                        "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
-                    }
-                }
-            })
+        const result = await pollsUpdateByOid(currentPoll.id,
+            {
+                "question": currentPoll.question,
+                "category": currentPoll.category,
+                "question_type": currentPoll.question_type,
+                "options": (currentPoll.question_type === PollQuestionTypeEnum.MCQ) ? currentPoll.options : [],
+            }
+        )
 
-            //Show successful toast
+        //Show toast
+        if (result === ApiResponseStatus.Success) {
             toast({
                 variant: "success",
                 description: "Changes are successfully saved.",
                 duration: 3000,
             })
-            window.location.reload()
-        } catch (error) {
-          console.log(error)
-
-          //Show error toast
-          toast({
-            variant: "destructive",
-            description: "There was a problem saving your changes.",
-            duration: 3000,
-          })
-        } finally {
-            //Clean up
-            setIsLoading(false)
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+        } else {
+            toast({
+                variant: "destructive",
+                description: "There was a problem saving your changes.",
+                duration: 3000,
+              })
         }
+
+        //Clean up
+        setIsLoading(false)
     }
 
     
     return (
-        <Button className='bg-yap-green-900 hover:bg-yap-green-800 duration-200 rounded-full'  onClick={ handleSaveChangesToPoll }>
+        <Button className='bg-yap-green-900 hover:bg-yap-green-800 duration-200 rounded-full' 
+        onClick={ handleSaveChangesToPoll } disabled={ isLoading }>
             { isLoading ? 'Saving...' : 'Save Changes' }
         </Button>
     )

@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { START_DATE } from "@/constants/Constants"
-import { getCurrentDateTime } from "@/utils/HelperFunctions"
 import {  BarChartMixedPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../../ui/skeleton"
 import axios from "axios"
@@ -21,20 +19,25 @@ export function NumberOfComplaintsByCategoryVisualisation() {
     //States
     const [hasRanApi, setHasRanApi] = useState<boolean>(false)
     const [dataPoints, setDataPoints] = useState<BarChartMixedPoint[]>([])
+    const [sortedCategoryNames, setSortedCategoryNames] = useState<string[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
 
 
     //Adapter function to convert the API object into an array of the format required for the bar chart custom label
     const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>, categories: Category[]) => {
-        return Object.entries(data).map(([key, value]) => {
-            const matchingCategory = categories.find(category => category.name === key);
-            return {
-                label: key,
-                "# Complaints": value.count,
-                fill: matchingCategory ? matchingCategory.colour : COLOUR_MAP["yap-green-900"]
-            };
-        });
+        // Convert data to array of objects and sort by 'label' (which is the key of data)
+        return Object.entries(data)
+            .map(([key, value]) => {
+                const matchingCategory = categories.find(category => category.name === key);
+                return {
+                    label: key,
+                    "# Complaints": value.count,
+                    fill: matchingCategory ? matchingCategory.colour : COLOUR_MAP["yap-green-900"]
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label)); //Sort by label alphabetically
     };
+    
 
 
     //Fetches the API to process the number of complaints for each category
@@ -51,6 +54,11 @@ export function NumberOfComplaintsByCategoryVisualisation() {
             const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + CATEGORIES_GET_ALL_ENDPOINT
             const categoriesData = await axios.post(categoriesApiEndPoint)
             const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
+
+            //Convert category to names in alphabetical order
+            const sortedCategoryNames: string[] = categories.map(category => category.name).sort();
+            setSortedCategoryNames(sortedCategoryNames)
+
 
             //Process data
             const complaintsGroupedByCategories = convertToArray(complaintsData.data.statistics, categories)
@@ -76,6 +84,6 @@ export function NumberOfComplaintsByCategoryVisualisation() {
         ? <div>Something went wrong. Please try again later.</div>
         : dataPoints.length === 0
         ? <p className='text-base text-yap-black-800'>There is no category to be displayed.</p>
-        : (<BarChartMixed chartData={ dataPoints } />)      
+        : (<BarChartMixed chartData={ dataPoints } allPossibleLabels={ sortedCategoryNames }/>)      
     )
 }

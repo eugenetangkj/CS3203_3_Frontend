@@ -36,49 +36,52 @@ export function ViewPollAdmin({ currentPoll }: ViewPollAdminProps) {
 
 
     return (
-        <div className='flex flex-col space-y-2'>
-            {/* Navigate back to all polls */}
-            <BackToPreviousButton text='Back to all polls' route='/polls' />
+            (currentPoll == null)
+            ? <></>
+            : <div className='flex flex-col space-y-2'>
+                {/* Navigate back to all polls */}
+                <BackToPreviousButton text='Back to all polls' route='/polls' />
 
 
-            {/* Action Buttons */}
-            <div className='self-end flex-row justify-center items-center flex-wrap space-x-2 sm:space-x-4'>
-                {/* Only show create poll button for new uncreated polls that are not saved in the database yet */}
-                {poll.id === '-1' && <CreatePollButton currentPoll={ poll } />}
-                { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <SaveChangesToPollButton currentPoll={ poll } /> }
-                { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <PublishPollButton currentPoll={ poll } /> }
-                { poll.id !== '-1' && poll.status === PollStatusEnum.Published && <ClosePollButton currentPoll={ poll } /> }
-                { poll.id !== '-1' && poll.status === PollStatusEnum.Closed && <RepublishPollButton currentPoll={ poll } /> }
-                { poll.id !== '-1' && <DeletePollButton currentPoll={ poll } /> }
+                {/* Action Buttons */}
+                <div className='self-end flex-row justify-center items-center flex-wrap space-x-2 sm:space-x-4'>
+                    {/* Only show create poll button for new uncreated polls that are not saved in the database yet */}
+                    {poll.id === '-1' && <CreatePollButton currentPoll={ poll } />}
+                    { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <SaveChangesToPollButton currentPoll={ poll } /> }
+                    { poll.id !== '-1' && poll.status === PollStatusEnum.Unpublished && <PublishPollButton currentPoll={ poll } /> }
+                    { poll.id !== '-1' && poll.status === PollStatusEnum.Published && <ClosePollButton currentPoll={ poll } /> }
+                    { poll.id !== '-1' && poll.status === PollStatusEnum.Closed && <RepublishPollButton currentPoll={ poll } /> }
+                    { poll.id !== '-1' && <DeletePollButton currentPoll={ poll } /> }
+                </div>
+
+
+                {/* Poll Data */}
+                <div className='flex flex-col space-y-12'>
+                    {/* Question */}
+                    <ViewPollAdminQuestion currentPoll={ poll } setPoll={ setPoll } />
+
+                    {/* Category */}
+                    <ViewPollAdminCategory currentPoll={ poll } setPoll={ setPoll } />
+
+                    {/* Question type */}
+                    <ViewPollAdminQuestionType currentPoll={ poll } setPoll={ setPoll } />
+
+                    {/* Options */}
+                    {
+                        poll.question_type === PollQuestionTypeEnum.MCQ &&
+                        <ViewPollAdminOptions currentPoll={ poll } setPoll={ setPoll } />
+                    }
+
+                    {/* Poll Information */}
+                    <ViewPollAdminAboutPoll currentPoll={ poll } />
+
+                    {/* Responses */}
+                    {
+                        (poll.status === PollStatusEnum.Published || poll.status === PollStatusEnum.Closed)
+                        && <ViewPollAdminResponses currentPoll={ currentPoll } />
+                    }
             </div>
-
-
-            {/* Poll Data */}
-            <div className='flex flex-col space-y-12'>
-                {/* Question */}
-                <ViewPollAdminQuestion currentPoll={ poll } setPoll={ setPoll } />
-
-                {/* Category */}
-                <ViewPollAdminCategory currentPoll={ poll } setPoll={ setPoll } />
-
-                {/* Question type */}
-                <ViewPollAdminQuestionType currentPoll={ poll } setPoll={ setPoll } />
-
-                {/* Options */}
-                {
-                    poll.question_type === PollQuestionTypeEnum.MCQ &&
-                    <ViewPollAdminOptions currentPoll={ poll } setPoll={ setPoll } />
-                }
-
-                {/* Poll Information */}
-                <ViewPollAdminAboutPoll currentPoll={ poll } />
-
-                {/* Responses */}
-                {
-                    (poll.status === PollStatusEnum.Published || poll.status === PollStatusEnum.Closed)
-                    && <ViewPollAdminResponses currentPoll={ currentPoll } />
-                }
             </div>
-        </div>
+        
     )
 }

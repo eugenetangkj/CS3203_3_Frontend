@@ -1,18 +1,14 @@
 import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
 import { PollQuestionTypeEnum } from "@/types/Poll";
-import { getCurrentDateTime } from "@/utils/HelperFunctions";
 import { PollStatusEnum } from "@/types/Poll";
-
 
 /** 
 Layout for the create polls page
 */
-
 export const metadata = {
     title: "Polls - Just Yap!",
     description: "Create a poll for citizens to share their perspectives on local issues.",
 };
-
 
 export default function CreatePollsPage() {
     //Always start with an empty current poll when the user manually creates a new poll

@@ -28,7 +28,7 @@ export function CitizenRewardPanel({ isRewardPanelOpen, setIsRewardPanelOpen, co
                     </ScratchCard>
                 </div>
                 <AlertDialogFooter>
-                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ () => { window.location.reload() }}>
+                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ () => { setIsRewardPanelOpen(false) }}>
                         Yay! ☺️
                     </AlertDialogAction>
                 </AlertDialogFooter>

@@ -1,11 +1,12 @@
 "use client"
 
 import PageSubtitle from "@/components/common/text/PageSubtitle"
-import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
+import { COMPLAINTS_GET_STATISTICS_SWR_HOOK } from "@/constants/SwrHooks"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
+import { complaintsGetStatistics } from "@/controllers/ComplaintsFunctions"
+import useSWR from "swr"
+
 
 /**
 This component is used to display the numerical statistics of a given category
@@ -24,49 +25,26 @@ interface CategoryAnalyticsStatisticsProps {
 
 
 
-export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment: predictedSentiment}: CategoryAnalyticsStatisticsProps) {
+export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment}: CategoryAnalyticsStatisticsProps) {
     //States
-    const [hasRanAPi, setHasRanApi] = useState<boolean>(false)
-    const [isThereError, setIsThereError] = useState<boolean>(false)
-    const [totalNumberOfComplaints, setTotalNumberOfcomplaints] = useState<number>(-1)
-    const [currentSentiment, setCurrentSentiment] = useState<number>(-1)
-
-
-    const fetchCategoryStatistics = async () => {
-        try {
-            //Call API to fetch category statistics given its name
-            const apiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_ENDPOINT
-            const apiData = await axios.post(apiEndPoint,
-                {
-                    "filter": {
-                        "category": categoryName
-                    }
-                }
-            )
-
-            //Update states
-            setTotalNumberOfcomplaints(apiData.data.statistics['count'])
-            setCurrentSentiment(apiData.data.statistics['avg_sentiment'])
-        } catch (error) {
-            setIsThereError(true)
-        } finally {
-            setHasRanApi(true)
-
-        }
-    }
-
-
-    //Fetch category statistics on component mount
-    useEffect(() => {
-        fetchCategoryStatistics()
-    }, [])
-
-
+    const { data: statistics, error: getComplaintStatisticsError, isLoading: getComplaintStatisticsIsLoading } = useSWR(
+        [COMPLAINTS_GET_STATISTICS_SWR_HOOK, categoryName],
+        () => complaintsGetStatistics(
+            {
+                "category": categoryName
+            }
+        )
+    );
 
     return (
-        !hasRanAPi
-        ? (<Skeleton className='w-full h-[100px]' />)
-        : isThereError
+        getComplaintStatisticsIsLoading
+        ? (
+            <div className='paragraph-container'>
+                <PageSubtitle pageSubtitle="Statistics" />
+                <Skeleton className='w-full h-[100px]' />
+            </div>
+        )
+        : getComplaintStatisticsError || statistics === undefined || statistics['count'] < 0
         ? <div className='paragraph-container'>
             <PageSubtitle pageSubtitle="Statistics" />
             <p className='text-yap-black-800'>Something went wrong with fetching the statistics.</p>
@@ -79,20 +57,20 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
                 <div className='flex flex-col justify-start items-center space-y-8 sm:space-y-0 sm:flex-row sm:justify-start sm:flex-wrap sm:space-x-16'>
                     {/* Total number of complaints */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className='text-5xl font-bold text-yap-green-900'>{ totalNumberOfComplaints }</p>
+                        <p className='text-5xl font-bold text-yap-green-900'>{ statistics['count'] as number }</p>
                         <p className='text-lg text-yap-brown-900'>Total no. of complaints</p>
                     </div>
 
 
                     {/* Current sentiment */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className={`text-5xl font-bold ${currentSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ currentSentiment }</p>
+                        <p className={`text-5xl font-bold ${ statistics['avg_sentiment'] < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ statistics['avg_sentiment'] }</p>
                         <p className='text-lg text-yap-brown-900'>Current sentiment</p>
                     </div>
 
                     {/* Forecasted sentiment */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className={`text-5xl font-bold ${predictedSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ predictedSentiment }</p>
+                        <p className={`text-5xl font-bold ${forecastedSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ forecastedSentiment }</p>
                         <div className='flex flex-row items-center space-x-2'>
                             <p className='text-lg text-yap-brown-900'>Forecasted sentiment</p>
                             <InfoTooltip message="The forecasted sentiment score for 1 month later." />

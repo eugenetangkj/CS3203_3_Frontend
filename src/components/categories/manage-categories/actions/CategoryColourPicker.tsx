@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { Category } from "@/types/Category"
-import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_UPDATE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
+import { categoriesUpdateByOid } from "@/controllers/CategoriesFunctions"
+import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks"
+import { mutate } from "swr"
 
 /**
 This component represents a colour picker input for changing the colour associated with a given category.
@@ -32,45 +33,24 @@ export function CategoryColourPicker({ category } : CategoryColourPicker)  {
         }
 
         //Colour did change from previous selection
-        try {
-            const updateCategoryEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + CATEGORIES_UPDATE_BY_OID_ENDPOINT
-            const response = await axios.post(updateCategoryEndpoint, 
-                {
-                    "oid": category.id,
-                    "update_document": {
-                        "$set": {
-                            "color": currentColourHexValue
-                        }
-                    }
-                } 
-            )
-            const wasColourUpdatedSuccessfully = response.data.success
-            const messageFromApi = response.data.message
-
-            if (wasColourUpdatedSuccessfully) {
-                setPreviousColourHexValue(currentColourHexValue)
-                category.colour = currentColourHexValue
-                toast({
-                    variant: "success",
-                    description: "The colour code of the category is successfully updated.",
-                    duration: 3000
-                })
-            } else {
-                toast({
-                    variant: "destructive",
-                    description: messageFromApi,
-                    duration: 3000
-                })
-            }
-        } catch (error) {
-            //Display error toast
+        const updateCategoryResult = await categoriesUpdateByOid(category.id, {
+            "color": currentColourHexValue
+        })
+        if (updateCategoryResult) {
+            setPreviousColourHexValue(currentColourHexValue)
+            category.colour = currentColourHexValue
+            mutate(CATEGORIES_GET_ALL_SWR_HOOK)
             toast({
-                variant: "destructive",
-                description:ERROR_MESSAGE_API ,
+                variant: "success",
+                description: "The colour code of the category is successfully updated.",
                 duration: 3000
             })
-        } finally {
-            //Clean up code
+        } else {
+            toast({
+                variant: "destructive",
+                description: ERROR_MESSAGE_API,
+                duration: 3000
+            })
         }
     };
 

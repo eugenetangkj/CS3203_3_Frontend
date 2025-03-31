@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Logo from "../../../../public/logo.svg";
 import { NAV_LINKS } from "@/constants/Constants";
@@ -8,11 +8,9 @@ import RightNavDrawer from "./RightNavDrawer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ProfileIconNavbar from "./ProfileIconNavbar";
-import { useAuth } from "@/context/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CHECK_USER_AUTH_SERVER_ENDPOINT, API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
-import axios from "axios";
 import { UserRoleEnum } from "@/types/User";
+import { useUserProfile } from "@/hooks/use-user-profile";
 
 /**
 This component represents the Navbar component that is used in the web application for
@@ -21,49 +19,12 @@ screen sizes.
 */
 export default function Navbar() {
     //States
-    const { isAuthenticated, isLoading } = useAuth();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isUserAdmin, setIsUserAdmin] = useState(false)
-    const [username, setUsername] = useState('')
     const closeDrawer = () => setIsDrawerOpen(false);
-    const [isNavbarLoading, setIsNavbarLoading] = useState<boolean>(true)
 
+    const { data, error, isLoading } = useUserProfile();
 
-    //Get user's role
-    const getUserRole = async() => {
-        setIsNavbarLoading(true)
-        try {
-            const response = await axios.post(CHECK_USER_AUTH_SERVER_ENDPOINT);
-            const userOid = response.data.userOid
-            if (userOid === '') {
-                //User is not signed in
-                setIsUserAdmin(false)
-            } else {
-                //User is signed in
-                const fetchUserProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + GET_PROFILE_BY_OID_ENDPOINT
-                const userData = await axios.post(fetchUserProfileApiEndpoint,
-                    {
-                        "oid": userOid
-                    }
-                )
-                setIsUserAdmin(userData.data.role === UserRoleEnum.Admin)
-                setUsername(userData.data.name)
-            }
-        } catch (error) {
-            // console.error(error)
-            setIsUserAdmin(false)
-        } finally {
-            setIsNavbarLoading(false)
-        }
-    }
-
-
-    //Call the API on component mount
-    useEffect(() => {
-        getUserRole()
-    }, [isAuthenticated])
-
-
+ 
     return (
         <nav className="fixed w-full top-0 start-0 z-20 bg-white font-afacad text-lg pt-4">
             <div className="flex justify-between items-center px-6 md:px-12">
@@ -75,28 +36,35 @@ export default function Navbar() {
 
                 {/* Desktop navigation which only appears for md and above*/}
                 <div className="hidden md:flex justify-center items-center space-x-8 lg:space-x-16">
-                    {/* Desktop links */}
-                    {
-                        isNavbarLoading
-                        ? (<Skeleton className="w-[50px] h-[20px]" />)
-                        : NAV_LINKS.map((link) => (
-                                link.is_admin_only && !isUserAdmin
-                                ? null
-                                : <a key={link.id} href={link.route} className='text-yap-brown-900 hover:text-yap-brown-800 duration-200'>{link.label}</a> 
-                        ))
-                    }
-                  
-                    {/* Sign in button or profile */}
-                    {
-                        (isLoading)
-                        ? (<Skeleton className="w-[50px] h-[20px]" />)
-                        : (isAuthenticated)
-                        ? <ProfileIconNavbar setIsUserAdmin={ setIsUserAdmin } />
-                        : <a href='/sign-in'>
-                            <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">Sign In</Button>
-                          </a>
-                    }
+                    {isLoading || error ? (
+                        <Skeleton className="w-[80px] h-[20px]" />
+                    ) : (
+                        <>
+                        {NAV_LINKS.map((link) =>
+                            link.is_admin_only && data?.role !== UserRoleEnum.Admin ? null : (
+                            <Link
+                                key={link.id}
+                                href={link.route}
+                                className="text-yap-brown-900 hover:text-yap-brown-800 duration-200"
+                            >
+                                {link.label}
+                            </Link>
+                            )
+                        )}
+
+                        {data?.role !== UserRoleEnum.None ? (
+                            <ProfileIconNavbar />
+                        ) : (
+                            <Link href="/sign-in">
+                            <Button className="rounded-full bg-yap-orange-900 hover:bg-yap-orange-800 duration-200 text-white text-base">
+                                Sign In
+                            </Button>
+                            </Link>
+                        )}
+                        </>
+                    )}
                 </div>
+
 
 
                 {/* Hamburger menu which only appears for below md */}
@@ -109,7 +77,7 @@ export default function Navbar() {
 
 
             {/* Right nav drawer for mobile navigation */}
-            <RightNavDrawer isDrawerOpen={isDrawerOpen} isUserAdmin={isUserAdmin} username={username} onClose={closeDrawer} />
+            <RightNavDrawer isDrawerOpen={isDrawerOpen} user={ data } onClose={closeDrawer} />
         </nav>
     );
 }

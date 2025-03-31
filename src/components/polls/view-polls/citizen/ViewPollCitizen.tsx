@@ -1,13 +1,17 @@
+"use client"
+
 import { Poll, PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll"
 import BackToPreviousButton from "@/components/common/navigation/BackToPreviousButton"
 import { CitizenPollMcqForm } from "./CitizenPollMcqForm"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { CitizenPollOpenEndedForm } from "./CitizenPollOpenEndedForm"
-import { getUserOidValue } from "@/utils/AuthChecker"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_ONE_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
-import { NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants"
-import http from 'http';
+import { useUserProfile } from "@/hooks/use-user-profile";
+import useSWR from "swr"
+import { POLL_RESPONSES_GET_ONE_SWR_HOOK } from "@/constants/SwrHooks"
+import { pollResponsesGetOne } from "@/controllers/PollResponsesFunctions"
+import { Skeleton } from "@/components/ui/skeleton"
+import { UserRoleEnum } from "@/types/User"
+import Link from "next/link"
 
 
 /**
@@ -16,91 +20,62 @@ also whether the citizen has already participated in the poll.
 */
 interface ViewPollCitizenProps {
     currentPoll: Poll,
-    isUserSignedIn: boolean
 }
 
-const agent = new http.Agent({ keepAlive: true });
 
-export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollCitizenProps) {
-    const isPollClosed = currentPoll.status == PollStatusEnum.Closed
+export default function ViewPollCitizen({ currentPoll }: ViewPollCitizenProps) {
+    //Fetch user data
+    const { data: userProfile, error: useUserProfileError, isLoading: useUserProfileIsLoading  } = useUserProfile(); 
 
-    //Helper function to get the user's response
-    const getUserResponse = async () => {
-        try {
-            //Step 1: Get user oid
-            const userOid = await getUserOidValue()
-            if (userOid.length === 0) {
-                //Something went wrong. Avoid multiple responses.
-                return ''
-            }
-
-            //Step 2: Fetch response by oid
-            const fetchOnePollApiEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_ONE_ENDPOINT
-            const response = await axios.post(fetchOnePollApiEndpoint,
-                {
-                    "filter": {
-                        "poll_id": currentPoll.id,
-                        "user_id": userOid
-                    }, 
-                },
-                {
-                    timeout: 10 * 60 * 1000,
-                    httpAgent: agent,
-                }
-            )
-
-
-            //Step 3: Check response
-            if (response.data.message === NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE) {
-                //Cannot find a response
-                return ''
-            } else {
-                return response.data.document.response
-            }
-        } catch (error) {
-            console.log(error)
-            return ''
-        }
-    }
-
-    const userResponse = await getUserResponse()
+    //Fetch user response
+    const { data: userResponse, error: getUserResponseError, isLoading: getUserResponseIsLoading } = useSWR(
+        () => userProfile?.id ? `${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}/${userProfile.id}` : `${POLL_RESPONSES_GET_ONE_SWR_HOOK}/${currentPoll.id}`,
+        () => pollResponsesGetOne({
+            poll_id: currentPoll.id,
+            user_id: userProfile?.id
+        })
+    );
 
 
     return (
-        <div className='flex flex-col space-y-6'>
+        useUserProfileIsLoading || getUserResponseIsLoading
+        ? <div className='flex flex-col space-y-4'> 
+            <Skeleton className='h-[30px] w-[240px]' />
+            <Skeleton className='h-[50px] w-full' />
+          </div>
+        : (useUserProfileError || getUserResponseError || userProfile === undefined || userResponse === undefined)
+        ? <div className='text-yap-black-800'>{userProfile?.id}</div>
+        : <div className='flex flex-col space-y-6'>
             {/* Navigate back to all polls */}
             <BackToPreviousButton text='Back to all polls' route='/polls' />
 
             {/* Alert that the poll is closed */}
             {
-                isPollClosed &&
+                currentPoll.status === PollStatusEnum.Closed &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>The poll is closed. 🔒</AlertTitle>
                     <AlertDescription className='text-base'>We thank you for participating.</AlertDescription>
                 </Alert>
             }
 
-
-
             {/* Alert to inform user to sign in */}
             {
-                (!isUserSignedIn && !isPollClosed) &&
+                (userProfile.role === UserRoleEnum.None && currentPoll.status !== PollStatusEnum.Closed) &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>We noticed you are not signed in. ⚠️</AlertTitle>
-                    <AlertDescription className='text-base'><a href='/sign-in' className='underline'>Sign in</a> to participate in the polls.</AlertDescription>
+                    <AlertDescription className='text-base'><Link href='/sign-in' className='underline'>Sign in</Link> to participate in the polls.</AlertDescription>
                 </Alert>
             }
 
-            {/* TODO: Alert to see if the user is a citizen and if he has a response for the given poll */}
+            {/* Alert to see if the user is a citizen and if he has a response for the given poll */}
             {
-                (userResponse.length !== 0) &&
+                (userResponse?.response.length !== 0) &&
                 <Alert className='bg-yap-brown-100 border-0'>
                     <AlertTitle className='text-lg text-yap-brown-900'>You have already submitted a response. 🫡</AlertTitle>
                     <AlertDescription className='text-base'>Thank you for participating.</AlertDescription>
                 </Alert>
 
             }
-
 
             {/* Date information */}
             <p className='text-base text-yap-brown-900'>
@@ -114,14 +89,9 @@ export async function ViewPollCitizen({ currentPoll, isUserSignedIn }: ViewPollC
             {/* Question form */}
             {
                 currentPoll.question_type === PollQuestionTypeEnum.MCQ
-                ? <CitizenPollMcqForm currentPoll={ currentPoll } shouldDisable={ !isUserSignedIn || userResponse.length !== 0 } userResponse={ userResponse }  />
-                : <CitizenPollOpenEndedForm currentPoll={ currentPoll } shouldDisable={ !isUserSignedIn || userResponse.length !== 0 } userResponse={ userResponse } />
+                ? <CitizenPollMcqForm currentPoll={ currentPoll } shouldDisable={ userProfile.role === UserRoleEnum.None  || userResponse.response.length !== 0 } userResponse={ userResponse.response }  />
+                : <CitizenPollOpenEndedForm currentPoll={ currentPoll } shouldDisable={ userProfile.role === UserRoleEnum.None || userResponse.response.length !== 0 } userResponse={ userResponse.response } />
             }
-            
-
-
-
-        
         </div>
     )
 }
