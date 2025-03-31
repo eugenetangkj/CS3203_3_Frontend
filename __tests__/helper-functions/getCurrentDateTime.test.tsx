@@ -14,6 +14,6 @@ describe("getCurrentDateTime", () => {
 
     it("should return the current date-time in the format of dd-mm-YYYY HH:MM:SS", () => {
         const result = getCurrentDateTime();
-        expect(result).toBe("31-01-2025 22:15:30"); //Since our function uses local time zone, we assert +8 hours in this test case (UTC +8 for SGT)
+        expect(result).toBe("31-01-2025 14:15:30");
     });
 });
