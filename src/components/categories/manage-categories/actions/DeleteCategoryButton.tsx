@@ -3,7 +3,6 @@
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
     AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { Trash2Icon } from 'lucide-react';
-import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
 import { Category } from "@/types/Category";
 import { API_BASE_URL_ADMIN_MANAGEMENT, CATEGORIES_DELETE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
@@ -24,9 +23,6 @@ interface DeleteCategoryButtonProps {
 
 
 export function DeleteCategoryButton({ category, fetchCategories }: DeleteCategoryButtonProps) {
-
-    //States
-    const [open, setOpen] = useState(false)
 
     //Toast management
     const { toast } = useToast()
@@ -67,7 +63,7 @@ export function DeleteCategoryButton({ category, fetchCategories }: DeleteCatego
                 duration: 3000,
             })
         } finally {
-            setOpen(false); //Close dialog
+            //Clean up if needed
         }
     }
 
@@ -89,7 +85,7 @@ export function DeleteCategoryButton({ category, fetchCategories }: DeleteCatego
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel onClick={() => setOpen(false)} className='text-yap-black-800 duration-200 rounded-full'>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel className='text-yap-black-800 duration-200 rounded-full'>Cancel</AlertDialogCancel>
                     <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handleDeleteCategory }>
                         Confirm
                     </AlertDialogAction>

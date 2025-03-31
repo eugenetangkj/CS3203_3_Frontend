@@ -13,7 +13,7 @@ This component represents a colour picker input for changing the colour associat
 It handles the logic for updating the colour of a category when user input changes.
 */
 interface CategoryColourPicker {
-    category: Category,
+    readonly category: Category,
 }
 
 export function CategoryColourPicker({ category } : CategoryColourPicker)  {

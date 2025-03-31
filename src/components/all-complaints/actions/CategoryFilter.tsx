@@ -15,9 +15,9 @@ This component represents the category filter that allows users to select a cate
 according to the selected category
 */
 interface CategoryFilterProps {
-    allCategories: Category[],
-    categorySelected: Category,
-    handleCategoryChange: (category: Category) => void
+    readonly allCategories: Category[],
+    readonly categorySelected: Category,
+    readonly handleCategoryChange: (category: Category) => void
 }
 
 

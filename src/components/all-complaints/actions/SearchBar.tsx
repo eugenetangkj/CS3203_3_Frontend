@@ -10,11 +10,11 @@ This component represents the search bar that allows users to search for a compl
 in its title and description.
 */
 interface SearchBarProps {
-    currentSearchQuery: string,
-    setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
-    currentPage: number,
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
-    setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
+    readonly currentSearchQuery: string,
+    readonly setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
+    readonly currentPage: number,
+    readonly setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    readonly setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
 }
 
 

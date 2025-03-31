@@ -7,7 +7,7 @@ This component is used to display the trending keywords of a given category
 in the category analytics page.
 */
 interface CategoryAnalyticsTrendingKeywordsProps {
-    keywords: string[]
+    readonly keywords: string[]
 }
 
 

@@ -2,16 +2,12 @@
 
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
-import { Category } from "@/types/Category";
-
-
 
 /**
 This component represents the save changes button used in category management.
 */
 export function CategoriesSaveChangesButton({ fetchCategories }: {
-  fetchCategories: () => void;
-  categories: Category[]
+    readonly fetchCategories: () => void,
 }) {
 
 
@@ -23,8 +19,6 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
     const handleSaveChanges = async () => {
       
         try {
-            //TODO: Make API call
-
             //Show successful toast
             toast({
                 variant: "success",
@@ -34,9 +28,6 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
 
             //Refetch categories
             fetchCategories()
-            
-
-
 
         } catch (error) {
           console.log(error)
@@ -53,10 +44,7 @@ export function CategoriesSaveChangesButton({ fetchCategories }: {
         }
     }
 
-  
-
   return (
     <Button className='rounded-full bg-yap-green-900 hover:bg-yap-green-800' onClick={ handleSaveChanges }>Save Changes</Button>
-    
   )
 }

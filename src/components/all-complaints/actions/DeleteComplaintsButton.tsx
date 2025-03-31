@@ -15,8 +15,8 @@ import { useRefreshComplaints } from "@/hooks/use-refresh-complaints";
 This component handles the functionality of deleting complaints
 */
 interface DeleteComplaintsButtonProps {
-    complaintsToDelete: Complaint[],
-    setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
+    readonly complaintsToDelete: Complaint[],
+    readonly setSelectedComplaints: React.Dispatch<React.SetStateAction<Complaint[]>>,
 }
 
 export default function DeleteComplaintsButton({ complaintsToDelete, setSelectedComplaints }: DeleteComplaintsButtonProps) {

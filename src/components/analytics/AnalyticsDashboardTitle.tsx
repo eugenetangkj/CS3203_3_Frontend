@@ -3,7 +3,7 @@
 This component represents the title used in each analytics dashboard component.
 */
 interface AnalyticsDashboardTitleProps {
-    title: string
+    readonly title: string
 }
 
 export default function AnalyticsDashboardTitle({ title }: AnalyticsDashboardTitleProps) {

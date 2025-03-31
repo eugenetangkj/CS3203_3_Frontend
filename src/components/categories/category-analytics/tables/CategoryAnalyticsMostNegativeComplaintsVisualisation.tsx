@@ -1,11 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import axios from "axios"
-import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "@/components/charts/ClassicTable"
-import { ClassicTableInput } from "@/types/ChartInterface"
 import useSWR from "swr"
 import { COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
 import { complaintsGetMany } from "@/controllers/ComplaintsFunctions"

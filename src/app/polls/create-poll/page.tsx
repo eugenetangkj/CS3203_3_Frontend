@@ -1,6 +1,5 @@
 import { ViewPollAdmin } from "@/components/polls/view-polls/admin/ViewPollAdmin";
-import { PollQuestionTypeEnum } from "@/types/Poll";
-import { PollStatusEnum } from "@/types/Poll";
+import { PollQuestionTypeEnum, PollStatusEnum } from "@/types/Poll";
 
 /** 
 Layout for the create polls page

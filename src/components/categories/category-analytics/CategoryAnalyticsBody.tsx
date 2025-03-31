@@ -1,7 +1,5 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams } from 'next/navigation'
 import PageTitle from "@/components/common/text/PageTitle"
 import { Skeleton } from "@/components/ui/skeleton"
 import CategoryAnalyticsSummary from "./overview/CategoryAnalyticsSummary"
@@ -11,11 +9,7 @@ import CategoryAnalyticsTwoColumnText from "./overview/CategoryAnalyticsTwoColum
 import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsMostNegativeComplaints"
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
 import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsContainer"
-import { CategoryAnalytics } from "@/types/CategoryAnalytics"
-import { API_BASE_URL_ANALYTICS, CATEGORY_ANALYTICS_GET_BY_NAME, } from "@/constants/ApiRoutes"
-import axios from "axios"
 import useSWR from "swr"
-import { CATEGORY_ANALYTICS_GET_BY_NAME_SWR_HOOK } from "@/constants/SwrHooks"
 import { categoryAnalyticsGetByName } from "@/controllers/CategoryAnalyticsFunctions"
 import DownloadCategoryAnalyticsButton from "./DownloadCategoryAnalyticsButton"
 
