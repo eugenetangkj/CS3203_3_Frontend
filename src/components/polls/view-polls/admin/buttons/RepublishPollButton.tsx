@@ -57,13 +57,13 @@ export function RepublishPollButton({ currentPoll }: RepublishPollButtonProps) {
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-             mutate(ONGOING_POLLS_SWR_HOOK)
+            mutate(ONGOING_POLLS_SWR_HOOK)
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             toast({
                 variant: "success",
                 description: "Poll is successfully republished.",
                 duration: 3000,
             })
-            window.location.reload()
         } else {
             toast({
                 variant: "destructive",

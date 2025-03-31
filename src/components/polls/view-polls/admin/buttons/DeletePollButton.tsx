@@ -41,9 +41,11 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
                 description: "Poll is successfully deleted.",
                 duration: 3000,
             })
+            
             mutate(ONGOING_POLLS_SWR_HOOK)
             mutate(CLOSED_POLLS_SWR_HOOK)
             mutate(UNPUBLISHED_POLLS_SWR_HOOK)
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`, null)
             router.push('/polls')
         } else {
             toast({
@@ -74,7 +76,7 @@ export function DeletePollButton({ currentPoll }: DeletePollButtonProps) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className='text-yap-black-800 duration-200 rounded-full'>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className='bg-yap-brown-900 hover:bg-yap-brown-800 duration-200 rounded-full' onClick={ handleDeletePoll }>
+                    <AlertDialogAction className='bg-red-500 hover:bg-red-400 duration-200 rounded-full' onClick={ handleDeletePoll }>
                         Delete
                     </AlertDialogAction>
                 </AlertDialogFooter>

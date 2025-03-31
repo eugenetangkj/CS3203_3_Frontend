@@ -64,7 +64,7 @@ export function PublishPollButton({ currentPoll }: PublishPollButtonProps) {
                 duration: 3000,
             })
             mutate(ONGOING_POLLS_SWR_HOOK)
-            window.location.reload()
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
         } else {
             toast({
                 variant: "destructive",

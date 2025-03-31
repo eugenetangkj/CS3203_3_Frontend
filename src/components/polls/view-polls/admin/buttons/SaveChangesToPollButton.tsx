@@ -60,7 +60,7 @@ export function SaveChangesToPollButton({ currentPoll }: SaveChangesToPollButton
                 description: "Changes are successfully saved.",
                 duration: 3000,
             })
-            window.location.reload()
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
         } else {
             toast({
                 variant: "destructive",

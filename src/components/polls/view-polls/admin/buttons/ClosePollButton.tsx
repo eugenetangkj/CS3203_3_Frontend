@@ -53,14 +53,13 @@ export function ClosePollButton({ currentPoll }: ClosePollButtonProps) {
 
         //Show toast
         if (result === ApiResponseStatus.Success) {
-            // mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
+            mutate(`${POLLS_GET_BY_OID_SWR_HOOK}/${currentPoll.id}`)
             mutate(CLOSED_POLLS_SWR_HOOK)
             toast({
                 variant: "success",
                 description: "Poll is successfully closed.",
                 duration: 3000,
             })
-            window.location.reload()
         } else {
             toast({
                 variant: "destructive",

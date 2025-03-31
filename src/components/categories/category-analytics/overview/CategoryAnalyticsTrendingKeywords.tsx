@@ -26,7 +26,7 @@ export default function CategoryAnalyticsTrendingKeywords({ keywords }: Category
                 : <div className='flex flex-row gap-2 flex-wrap'>
                     {
                         keywords.map((keyword: string, index) => (
-                            <div key={ index } className='rounded-full bg-yap-brown-200 px-4 py-1 w-fit text-yap-black-800'>
+                            <div key={ index } className='rounded-full bg-yap-brown-100 px-4 py-1 w-fit text-yap-black-800'>
                                 <p>{ keyword }</p>
                             </div>
                         ))
