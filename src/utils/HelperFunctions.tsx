@@ -218,7 +218,11 @@ export const validatePollBeforeUpdating = (poll: Poll): string => {
 /**
  * Filters complaints with dates that fall within a given range 
  * 
- * @ param
+ * @param startDate: Start date of the range in the form of a string dd-MM-YYYY HH:MM:SS
+ * @param endDate: End date of the range in the form of a string dd-MM-YYYY HH:MM:SS
+ * @param complaints: Array of complaints to check from
+ * 
+ * @return An array of complaints whose dates fall within the given range
 */
 export const getComplaintsWithinRange = (startDate: string, endDate: string, complaints: Complaint[]): Complaint[] => {
     // Convert the date strings into the format that can be parsed correctly
