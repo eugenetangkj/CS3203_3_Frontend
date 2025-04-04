@@ -32,8 +32,6 @@ describe('nameFieldValidation', () => {
         }
     });
     
-
-
     it("should throw error for names that are empty string", () => {
         expect(() => nameFieldValidation.parse("")).toThrow("Name must be a minimum of 2 characters long.");
     });
