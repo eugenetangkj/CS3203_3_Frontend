@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import deleteAllCitizens from "../../scripts/deleteAllCitizens.mjs"
+import deleteAllUsers from '../../scripts/users/deleteAllUsers.mjs'
 
 
 /**
@@ -19,7 +19,7 @@ const citizenCredentials = {
 
 //Clear the citizen user from the database after running the test
 test.afterEach(async () => {
-    await deleteAllCitizens();
+    await deleteAllUsers();
 });
 
 

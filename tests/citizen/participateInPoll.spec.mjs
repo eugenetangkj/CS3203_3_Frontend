@@ -1,10 +1,8 @@
 import { test, expect } from '@playwright/test'
-import deleteAllCitizens from "../../scripts/deleteAllCitizens.mjs"
-import createCitizenAccount from '../../scripts/users/createCitizenAccount.mjs'
+import deleteAllUsers from '../../scripts/users/deleteAllUsers.mjs'
+import createUserAccount from '../../scripts/users/createUserAccount.mjs'
 import createPolls from '../../scripts/polls/createPolls.mjs'
 import deleteAllPolls from '../../scripts/polls/deleteAllPolls.mjs'
-
-
 /**
 This UI test aims to test the E2E flow of a citizen participating in an ongoing poll.
 1. User signs in as a citizen.
@@ -51,7 +49,7 @@ const totalNumberOfCollectibles = 6
 //Set up citizen account and an ongoing poll
 test.beforeEach(async ({ page }) => {
     //Set up the database
-    await createCitizenAccount(citizenCredentials.name, citizenCredentials.email, citizenCredentials.password)
+    await createUserAccount(citizenCredentials.name, citizenCredentials.email, citizenCredentials.password, "Citizen")
     await createPolls(polls)
 
     //Sign in with the citizen account
@@ -68,7 +66,7 @@ test.beforeEach(async ({ page }) => {
 
 //Clear the citizen user from the database after running the test
 test.afterEach(async () => {
-    await deleteAllCitizens()
+    await deleteAllUsers()
     await deleteAllPolls()
 });
 

@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb"
-import constants from "../../src/constants/TestConstants.mjs";
+import constants from "../../src/constants/TestConstants.mjs"
 
 /**
 A function that will create polls into the polls collection of the database. Used for testing purposes.

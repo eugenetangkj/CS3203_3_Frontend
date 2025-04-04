@@ -1,11 +1,11 @@
 import { MongoClient } from "mongodb"
-import constants from "../../src/constants/TestConstants.mjs";
+import constants from "../../src/constants/TestConstants.mjs"
 
 /**
-A function that will create a citizen account into the users collection of the database. Used for testing purposes.
+A function that will create a user account into the users collection of the database. Used for testing purposes.
 */
 
-const createCitizenAccount = async (name, email, password) => {
+const createUserAccount = async (name, email, password, role) => {
     const client = new MongoClient(constants.MONGO_URI)
 
     try {
@@ -19,17 +19,17 @@ const createCitizenAccount = async (name, email, password) => {
             name: name,
             email: email,
             password: password,
-            role: "Citizen",
+            role: role,
             collectibles: []
         })
 
-        console.log("A citizen account has been successfully created.")
+        console.log("A user account has been successfully created.")
     } catch (error) {
-        console.error("Error creating a citizen:", error);
+        console.error("Error creating a user:", error);
     } finally {
         await client.close()
     }
 }
 
 
-export default createCitizenAccount
+export default createUserAccount
