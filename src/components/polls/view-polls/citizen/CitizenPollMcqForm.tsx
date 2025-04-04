@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Poll, PollStatusEnum } from "@/types/Poll";
 import { useState } from "react";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
-import { getRandomCollectible } from "@/constants/Constants";
+import { getRandomCollectible } from "@/utils/HelperFunctions";
 import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
 import { pollResponsesInsertOne } from "@/controllers/PollResponsesFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
