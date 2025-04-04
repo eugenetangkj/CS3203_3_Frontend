@@ -3,7 +3,7 @@ import { convertPollTemplateDocumentsToObjects } from '@/utils/DatabaseHelperFun
 
 describe('convertPollTemplateDocumentsToObjects', () => {
 
-    it("should return an empty array when given an empty array of poll temp[late documents", () => {
+    it("should return an empty array when given an empty array of poll template documents", () => {
         const pollTemplateObjects = convertPollTemplateDocumentsToObjects([])
         expect(pollTemplateObjects.length).toBe(0)
     })

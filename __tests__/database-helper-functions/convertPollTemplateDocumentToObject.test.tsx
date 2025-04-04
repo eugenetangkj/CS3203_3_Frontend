@@ -21,8 +21,7 @@ describe('convertPollTemplateDocumentToObject', () => {
         //Action
         const pollTemplateObject = convertPollTemplateDocumentToObject(pollTemplateDocument)
 
-        //Assert length and whether mapping is done correctly
-       
+        //Assert whether mapping is done correctly
         expect(pollTemplateObject.id).toBe("67eaa76bf62e7864f88abd10")
         expect(pollTemplateObject.question).toBe("Question 2")
         expect(pollTemplateObject.category).toBe("Environment")
