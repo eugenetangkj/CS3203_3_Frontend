@@ -15,7 +15,7 @@ const deleteAllCitizens = async () => {
         const usersCollection = db.collection(constants.COLLECTION_NAMES.users);
 
         //Delete all users where role == 'citizen'
-        await usersCollection.deleteMany({ role: "citizen" });
+        await usersCollection.deleteMany({ role: "Citizen" });
         console.log("All citizens have been deleted from the users collection.")
     } catch (error) {
         console.error("Error deleting all citizens:", error);
