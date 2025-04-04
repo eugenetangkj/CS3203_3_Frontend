@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         borderBottomStyle: 'solid',
-        paddingVertical: 3,
+        paddingVertical: 2,
     },
     headerRow: {
         backgroundColor: COLOUR_MAP['yap-brown-900'],
@@ -104,23 +104,23 @@ const styles = StyleSheet.create({
     },
     headerCell: {
         flex: 1,
-        padding: 4,
-        fontSize: 12,
+        padding: 2,
+        fontSize: 10,
         textAlign: 'center',
         fontFamily: afacadFont,
         color: 'white'
     },
     cell: {
         flex: 1,
-        padding: 4,
-        fontSize: 12,
+        padding: 2,
+        fontSize: 10,
         textAlign: 'center',
         fontFamily: afacadFont,
         color: COLOUR_MAP['yap-black-800']
     },
     complaintHeaderCell: {
         flex: 1,
-        padding: 4,
+        padding: 2,
         fontSize: 10,
         textAlign: 'left',
         fontFamily: afacadFont,
