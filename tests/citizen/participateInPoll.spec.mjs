@@ -3,6 +3,8 @@ import deleteAllUsers from '../../scripts/users/deleteAllUsers.mjs'
 import createUserAccount from '../../scripts/users/createUserAccount.mjs'
 import createPolls from '../../scripts/polls/createPolls.mjs'
 import deleteAllPolls from '../../scripts/polls/deleteAllPolls.mjs'
+import deleteAllPollResponses from '../../scripts/poll-responses/deleteAllPollResponses.mjs'
+
 /**
 This UI test aims to test the E2E flow of a citizen participating in an ongoing poll.
 1. User signs in as a citizen.
@@ -68,6 +70,7 @@ test.beforeEach(async ({ page }) => {
 test.afterEach(async () => {
     await deleteAllUsers()
     await deleteAllPolls()
+    await deleteAllPollResponses()
 });
 
 
