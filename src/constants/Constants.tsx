@@ -141,6 +141,8 @@ export const POSSIBLE_COLLECTIBLE_PATHS: string[] = [
     '/graphics/collectibles/its-yappy-hour.svg',
     '/graphics/collectibles/whine-together.svg'
 ]
+
+
 /**
 List that contains all possible collectibles
 */
@@ -185,15 +187,6 @@ export const PATH_UNKNOWN_COLLECTIBLE_IMAGE = "/graphics/collectibles/unknown.sv
 
 
 /**
-Randomly get a path from the possible collectible paths
-*/
-export const getRandomCollectible = () => {
-    const randomIndex = Math.floor(Math.random() * POSSIBLE_COLLECTIBLE_PATHS.length);
-    return POSSIBLE_COLLECTIBLE_PATHS[randomIndex];
-};
-
-
-/**
 API error message for incorrect credentials
 */
 export const NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE = 'Server processed get request successfully but no matching documents found'
@@ -220,5 +213,4 @@ export const ERROR_MESSAGES_POLL_VALIDATION = {
     emptyCategory: 'Please select a category.',
     insufficientOptions: 'Please input at least 2 options for a MCQ question.',
     duplicatedOptions: 'There are duplicated options in the MCQ.'
-
 }

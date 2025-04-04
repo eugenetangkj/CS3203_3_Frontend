@@ -3,6 +3,7 @@ import { Category } from "@/types/Category";
 import { Poll, PollTemplate } from "@/types/Poll";
 import { PollQuestionTypeEnum } from "@/types/Poll";
 import { ERROR_MESSAGES_POLL_VALIDATION } from "@/constants/Constants";
+import { POSSIBLE_COLLECTIBLE_PATHS } from "@/constants/Constants";
 
 
 /**
@@ -240,3 +241,11 @@ export const getComplaintsWithinRange = (startDate: string, endDate: string, com
     });
 };
 
+
+/**
+Randomly get a path from the possible collectible paths
+*/
+export const getRandomCollectible = () => {
+    const randomIndex = Math.floor(Math.random() * POSSIBLE_COLLECTIBLE_PATHS.length);
+    return POSSIBLE_COLLECTIBLE_PATHS[randomIndex];
+};

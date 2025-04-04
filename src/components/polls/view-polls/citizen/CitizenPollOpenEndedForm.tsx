@@ -10,7 +10,7 @@ import { Poll } from "@/types/Poll";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { PollStatusEnum } from "@/types/Poll";
-import { getRandomCollectible } from "@/constants/Constants";
+import { getRandomCollectible } from "@/utils/HelperFunctions";
 import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { useUserProfile } from "@/hooks/use-user-profile";
