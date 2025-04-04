@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test'
-import deleteAllCitizens from "../scripts/deleteAllCitizens.mjs"
+import deleteAllCitizens from "../../scripts/deleteAllCitizens.mjs"
 
 
 /**
 This UI test aims to test the E2E flow of a citizen viewing his profile.
-1. User reigsters as a citizen.
-2. User logins with his credentials.
+1. User registers as a citizen.
+2. User signs in with his credentials.
 3. User clicks on the profile icon and then clicks on profile.
 4. User views his profile information.
 5. User logs out.
@@ -40,7 +40,7 @@ test.describe('Citizen should be able to register, login and view his profile', 
         await page.getByRole('textbox', { name: 'Confirm your password' }).fill(citizenCredentials.password);
         await page.getByRole('button', { name: 'Sign Up' }).click();
 
-        //Step 2: Login with the citizen credentials and check that user is redirected to homepage after signing in
+        //Step 2: Sign in with the citizen credentials and check that user is redirected to homepage after signing in
         await page.getByRole('link', { name: 'Sign in', exact: true }).click();
         await page.waitForTimeout(10000); //Introduce some delay
         await page.getByRole('textbox', { name: 'Email' }).click();

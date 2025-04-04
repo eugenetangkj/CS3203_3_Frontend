@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb"
 import constants from "../src/constants/TestConstants.mjs";
 
 /**
-A function that will delete all citizens from the users collection of the database. Used for testing purposes
+A function that will delete all citizens from the users collection of the database. Used for testing purposes.
 */
 
 const deleteAllCitizens = async () => {
