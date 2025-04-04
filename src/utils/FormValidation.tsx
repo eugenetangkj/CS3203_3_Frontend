@@ -22,10 +22,8 @@ export const passwordFieldValidation = z.string({ message: 'Password must be a s
                                        .min(5, { message: 'Password must be a minimum of 5 characters long.'})
                                        .max(20, { message: 'Password must be a maximum of 20 characters long.'})
                                        .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter." })
-                                       .regex(/[a-z]/, { message: "Password must contain at least one lowercase letter." })
                                        .regex(/[0-9]/, { message: "Password must contain at least one number." })
-                                       .regex(/[^A-Za-z0-9]/, { message: "Password must contain at least one special character (!@#$%^&*)." })
 
 
 //Validate confirm password field
-export const confirmPasswordFieldValidation = z.string({ message: 'Password cannot be empty.'})
+export const confirmPasswordFieldValidation = z.string({ message: 'Password must be a string.'})
