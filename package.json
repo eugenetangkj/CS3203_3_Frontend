@@ -33,6 +33,7 @@
     "date-fns": "^3.6.0",
     "flowbite-react": "^0.10.2",
     "lucide-react": "^0.474.0",
+    "mongodb": "^6.15.0",
     "next": "15.1.6",
     "next-scratchcard": "^0.0.4",
     "react": "^18.3.1",

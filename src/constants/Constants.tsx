@@ -87,7 +87,7 @@ export const COLOUR_MAP: Record<string, string> = {
 /**
 About Just Yap! write-up found in the homepage
 */
-export const ABOUT_JUST_YAP = 'Just Yap! collects real-time complaints from the r/Singapore subreddit and uses machine learning to filter, categorize, and analyze them by sentiment. It then presents insights through visualizations to help authorities understand public concerns. Additionally, Just Yap! suggests AI-generated polls for authorities to engage citizens on trending issues.'
+export const ABOUT_JUST_YAP = 'Just Yap! collects real-time complaints from the r/Singapore subreddit and uses machine learning to filter, categorise, and analyse them by sentiment. It then presents insights through visualisations to help authorities understand public concerns. Additionally, Just Yap! suggests AI-generated polls for authorities to engage citizens on trending issues.'
 
 /**
 Default complaints shown in the home page
