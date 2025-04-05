@@ -13,7 +13,14 @@ Currently, our real-time data collection pipeline collects complaints from the r
 
 
 ## Core Features
-Explain core features here
+### View All Complaints
+As an admin, view the list of social media complaints collected from our real-time data collection pipeline. 
+
+Operations supported:
+- Search by keyword in title and description
+- Filter by category
+- Sort by date posted and sentiment (ascending, descending or none)
+- Browse up to 100 complaints per page
 
 
 ## Tech Stack
