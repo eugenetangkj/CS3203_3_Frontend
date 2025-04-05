@@ -13,7 +13,7 @@ Currently, our real-time data collection pipeline collects complaints from the r
 
 
 ## Core Features
-### View All Complaints
+### Feature 1: View All Complaints
 View the full list of social media complaints collected from our real-time data collection pipeline. 
 
 **Operations supported (Admin):**
@@ -23,7 +23,7 @@ View the full list of social media complaints collected from our real-time data 
 4. Browse up to 100 complaints per page
 
 
-### Polls
+### Feature 2: Polls
 As an admin, engage the citizens with polls. Just Yap! offers AI-recommended poll templates based on complaints from the past 6 months, allowing you to engage citizens on trending issues.
 
 As a citizen, have you voice heard by participating in polls and earn fun digital collectibles along the way.
