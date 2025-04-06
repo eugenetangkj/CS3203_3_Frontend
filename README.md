@@ -46,12 +46,6 @@ As a citizen, have you voice heard by participating in polls and earn fun digita
 6. Republish a poll (Reopen closed polls to get more responses from citizens)
 7. View poll responses + Export poll responses as CSV (Note: CSV export is supported for open-ended polls only)
 
-<div align="center">
-    <br />
-    <img src="public/github/polls-admin.png" width="full" />
-</div>
-
-
 
 **Operations supported (Citizen):**
 1. Participate in polls.
@@ -81,6 +75,12 @@ View category-specific analytics generated biannually, using complaint data from
 2. Download category analaytics as a PDF.
 
 
+<div align="center">
+    <br />
+    <img src="public/github/category-analytics.png" width="full" />
+</div>
+
+
 
 ### Feature 4: Analytics Dashboard
 View overall analytics of complaints across all categories, offering a bird’s-eye view of key statistics and trends from the social media complaints.
@@ -95,6 +95,13 @@ The admin can view all of the following in the analytics dashboard.
 5. Sentiments of sources
 6. Sentiments of categories over time (Multi-select option for category and date selector for time period)
 7. Most negative complaints
+
+
+<div align="center">
+    <br />
+    <img src="public/github/analytics-dashboard.png" width="full" />
+</div>
+
 
 
 
