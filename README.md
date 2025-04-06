@@ -46,10 +46,22 @@ As a citizen, have you voice heard by participating in polls and earn fun digita
 6. Republish a poll (Reopen closed polls to get more responses from citizens)
 7. View poll responses + Export poll responses as CSV (Note: CSV export is supported for open-ended polls only)
 
+<div align="center">
+    <br />
+    <img src="public/github/polls-admin.png" width="full" />
+</div>
+
+
 
 **Operations supported (Citizen):**
 1. Participate in polls.
 2. Earn unique digital collectibles (Ps... There are 6 different ones to collect! 😉)
+
+
+<div align="center">
+    <br />
+    <img src="public/github/polls.png" width="full" />
+</div>
 
 
 ### Feature 3: Category Analytics
