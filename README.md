@@ -12,7 +12,7 @@ Currently, our real-time data collection pipeline collects complaints from the r
 </div>
 
 
-## Core Features
+## Core Features (User-facing)
 ### Feature 1: View All Complaints
 View the full list of social media complaints collected from our real-time data collection pipeline. 
 
@@ -21,6 +21,14 @@ View the full list of social media complaints collected from our real-time data 
 2. Filter by category
 3. Sort by date posted and sentiment (ascending, descending or none)
 4. Browse up to 100 complaints per page
+
+
+<div align="center">
+    <br />
+    <img src="public/github/all-complaints.png" width="full" />
+</div>
+
+
 
 
 ### Feature 2: Polls
@@ -43,6 +51,38 @@ As a citizen, have you voice heard by participating in polls and earn fun digita
 1. Participate in polls.
 2. Earn unique digital collectibles (Ps... There are 6 different ones to collect! 😉)
 
+
+### Feature 3: Category Analytics
+View category-specific analytics generated biannually, using complaint data from the past six months. For each category, the category analytics include:
+- Summary
+- Trending keywords
+- ABSA results
+- Concerns
+- Suggestions
+- Most negative complaints
+- Statistics (Total number of complaints, sentiment score, forecasted sentiment)
+- Number of complaints over time (Graph visualisation)
+- Sentiment over time (Graph visualisation)
+
+**Operations supported (Admin):**
+1. View category analytics.
+2. Download category analaytics as a PDF.
+
+
+
+### Feature 4: Analytics Dashboard
+View overall analytics of complaints across all categories, offering a bird’s-eye view of key statistics and trends from the social media complaints.
+
+**Operations supported (Admin):**
+
+The admin can view all of the following in the analytics dashboard.
+1. Number of complaints by category (Multi-select option for category)
+2. Number of complaints by category over time (Multi-select option for category and date selector for time period)
+3. Sentiments of categories (Multi-select option for category)
+4. Number of complaints by sentiment
+5. Sentiments of sources
+6. Sentiments of categories over time (Multi-select option for category and date selector for time period)
+7. Most negative complaints
 
 
 
