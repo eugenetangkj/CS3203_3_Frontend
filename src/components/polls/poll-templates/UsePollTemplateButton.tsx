@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
-import { pollsInsertOne } from "@/controllers/PollsFunctions";
+import { pollsInsertOne } from "@/data-fetchers/PollsFunctions";
 import { mutate } from "swr";
 import { UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks";
 

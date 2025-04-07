@@ -4,7 +4,7 @@ import PageSubtitle from "@/components/common/text/PageSubtitle"
 import { Skeleton } from "@/components/ui/skeleton"
 import { COMPLAINTS_GET_STATISTICS_SWR_HOOK } from "@/constants/SwrHooks"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
-import { complaintsGetStatistics } from "@/controllers/ComplaintsFunctions"
+import { complaintsGetStatistics } from "@/data-fetchers/ComplaintsFunctions"
 import useSWR from "swr"
 
 

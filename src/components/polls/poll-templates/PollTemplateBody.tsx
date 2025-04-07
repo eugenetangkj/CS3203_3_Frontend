@@ -7,7 +7,7 @@ import AiTooltip from "@/components/common/others/AiTooltip";
 import { UsePollTemplateButton } from "@/components/polls/poll-templates/UsePollTemplateButton";
 import useSWR from "swr";
 import { POLL_TEMPLATES_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
-import { pollTemplateGetByOid } from "@/controllers/PollTemplatesFunctions";
+import { pollTemplateGetByOid } from "@/data-fetchers/PollTemplatesFunctions";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /** 

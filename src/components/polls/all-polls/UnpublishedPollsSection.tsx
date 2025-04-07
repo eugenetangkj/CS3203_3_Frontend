@@ -9,7 +9,7 @@ import { UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks"
 import PollCardsSkeleton from "../PollCardsSkeleton"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import useSWR from "swr"
-import { pollsGetMany } from "@/controllers/PollsFunctions"
+import { pollsGetMany } from "@/data-fetchers/PollsFunctions"
 
 /**
 Represents a section within the all polls page that displays the unpublished polls, along with a button

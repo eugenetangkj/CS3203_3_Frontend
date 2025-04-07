@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { ClassicTable } from "@/components/charts/ClassicTable"
 import useSWR from "swr"
 import { COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
-import { complaintsGetMany } from "@/controllers/ComplaintsFunctions"
+import { complaintsGetMany } from "@/data-fetchers/ComplaintsFunctions"
 import { Complaint } from "@/types/Complaint"
 
 

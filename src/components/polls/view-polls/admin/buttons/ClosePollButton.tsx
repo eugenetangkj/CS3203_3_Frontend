@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { getCurrentDateTime } from "@/utils/HelperFunctions";
 import { validatePollBeforeUpdating } from "@/utils/HelperFunctions";
-import { pollsUpdateByOid } from "@/controllers/PollsFunctions";
+import { pollsUpdateByOid } from "@/data-fetchers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { mutate } from "swr";
 import { CLOSED_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";

@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { User } from "@/types/User";
 import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
-import { getUserProfile } from "@/controllers/UsersFunctions";
+import { getUserProfile } from "@/data-fetchers/UsersFunctions";
 
 
 export function useUserProfile() {

@@ -8,7 +8,7 @@ import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_INSERT_ONE_ENDPOINT } from "@/cons
 import axios from "axios";
 import { getCurrentDateTime, validatePollBeforeUpdating } from "@/utils/HelperFunctions";
 import { useRouter } from "next/navigation";
-import { pollsInsertOne } from "@/controllers/PollsFunctions";
+import { pollsInsertOne } from "@/data-fetchers/PollsFunctions";
 import { mutate } from "swr";
 import { UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks";
 

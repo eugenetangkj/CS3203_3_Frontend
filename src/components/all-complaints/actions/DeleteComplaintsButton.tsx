@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button";
 import { Complaint } from "@/types/Complaint";
-import { complaintsDeleteManyByOids } from "@/controllers/ComplaintsFunctions";
+import { complaintsDeleteManyByOids } from "@/data-fetchers/ComplaintsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { useRefreshComplaints } from "@/hooks/use-refresh-complaints";
 

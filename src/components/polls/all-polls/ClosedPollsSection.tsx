@@ -7,7 +7,7 @@ import useSWR from 'swr'
 import PollCardsSkeleton from "../PollCardsSkeleton"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { CLOSED_POLLS_SWR_HOOK } from "@/constants/SwrHooks"
-import { pollsGetMany } from "@/controllers/PollsFunctions"
+import { pollsGetMany } from "@/data-fetchers/PollsFunctions"
 
 /**
 Represents a section within the all polls page that displays the closed polls.

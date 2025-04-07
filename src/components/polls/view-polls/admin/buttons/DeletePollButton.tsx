@@ -7,7 +7,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { useRouter } from "next/navigation";
-import { pollsDeleteByOid } from "@/controllers/PollsFunctions";
+import { pollsDeleteByOid } from "@/data-fetchers/PollsFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import { CLOSED_POLLS_SWR_HOOK, ONGOING_POLLS_SWR_HOOK, POLLS_GET_BY_OID_SWR_HOOK, UNPUBLISHED_POLLS_SWR_HOOK } from "@/constants/SwrHooks";
 import { mutate } from "swr";

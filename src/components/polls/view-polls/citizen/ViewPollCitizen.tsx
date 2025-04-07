@@ -8,7 +8,7 @@ import { CitizenPollOpenEndedForm } from "./CitizenPollOpenEndedForm"
 import { useUserProfile } from "@/hooks/use-user-profile";
 import useSWR from "swr"
 import { POLL_RESPONSES_GET_ONE_SWR_HOOK } from "@/constants/SwrHooks"
-import { pollResponsesGetOne } from "@/controllers/PollResponsesFunctions"
+import { pollResponsesGetOne } from "@/data-fetchers/PollResponsesFunctions"
 import { Skeleton } from "@/components/ui/skeleton"
 import { UserRoleEnum } from "@/types/User"
 import Link from "next/link"
