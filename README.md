@@ -108,6 +108,12 @@ The admin can view all of the following in the analytics dashboard.
 ## Tech Stack
 The following technologies are used to build the frontend web application of Just Yap!.
 
+- Next.JS
+- TailwindCSS
+- shadcn
+- Flowbite
+- SWR
+
 ## Development Setup
 Follow these steps to step up the frontend web application locally.
 
@@ -161,7 +167,7 @@ The UI tests test end-to-end user flows which involve the frontend interacting w
 
 To run the UI tests, follow these steps.
 
-1. Head to this [Google drive link]() and download the zipped folder called `data`. Unzip it and you should find five CSV files.
+1. Head to this [Google drive link](https://drive.google.com/file/d/1sbrbNVplz2klM286PENeHhf1xHvXS12_/view?usp=sharing) and download the zipped folder called `data`. Unzip it and you should find five CSV files.
 
 2. Create a folder called `data` within the [`scripts`](/scripts/) folder. Place all five CSV files into this `data` folder.
 
@@ -190,7 +196,7 @@ npx playwright test
 ```
 
 > [!NOTE]
-> The UI tests are configured to run using one worker only to avoid race conditions in the database. Thus, they are time-consuming to run. We advise running one UI test at a time instead of running all UI tests at once.
+> The UI tests are configured to run using one worker only to avoid race conditions in the database. Thus, they are time-consuming to run. We advise **running one UI test at a time** instead of running all UI tests at once.
 
 > [!TIP]
 > It is good practice to stop your local MongoDB server before running `docker compose up`. For Windows users, run `net stop mongodb` in a command prompt.
