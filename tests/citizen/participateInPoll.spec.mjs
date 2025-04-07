@@ -4,6 +4,7 @@ import createUserAccount from '../../scripts/users/createUserAccount.mjs'
 import createPolls from '../../scripts/polls/createPolls.mjs'
 import deleteAllPolls from '../../scripts/polls/deleteAllPolls.mjs'
 import deleteAllPollResponses from '../../scripts/poll-responses/deleteAllPollResponses.mjs'
+import runPythonScript from '../../scripts/initialiser.mjs'
 
 /**
 This UI test aims to test the E2E flow of a citizen participating in an ongoing poll.
@@ -50,6 +51,13 @@ const totalNumberOfCollectibles = 6
 
 //Set up citizen account and an ongoing poll
 test.beforeEach(async ({ page }) => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+    } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+
     //Set up the database
     await createUserAccount(citizenCredentials.name, citizenCredentials.email, citizenCredentials.password, "Citizen")
     await createPolls(polls)

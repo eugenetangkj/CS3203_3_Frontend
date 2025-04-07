@@ -106,10 +106,99 @@ The admin can view all of the following in the analytics dashboard.
 
 
 ## Tech Stack
-Explain
+The following technologies are used to build the frontend web application of Just Yap!.
 
 ## Development Setup
-Explain
+Follow these steps to step up the frontend web application locally.
+
+1. Clone the repository to a folder of your preference.
+```
+git clone https://github.com/nus-cs3203/CS3203_3_Frontend.git
+```
+
+2. Run the following command in the root folder to install the necessary dependencies. You will need to install [NodeJS](https://nodejs.org/en/download) for this.
+```
+npm install
+```
+3. Start the web application on your local server. By default, it runs on `http://localhost:3000`.
+```
+npm run dev
+```
+4. Run the backend API on your local server. To do so, follow the instructions mentioned in the [backend repository](https://github.com/nus-cs3203/CS3203_3_Backend). By default, the backend API will run on `http://localhost:8082`, `http://localhost:8083`, `http://localhost:8085`.
+
+```
+//After building the backend docker image using docker compose build
+docker compose up
+```
+5. Start interacting with Just Yap! in your browser by going to `http://localhost:3000`. 😊
+
 
 ## Testing
-Explain
+
+### Unit Tests
+Unit tests are found in the [`__tests__`](/__tests__/) folder. Run these commands in the root folder to execute the unit tests.
+
+```
+//To run all unit tests
+npm run test
+```
+
+```
+//To run all unit tests in a particular folder within __tests__
+//For example, <folder_name> could be helper_functions
+npm test -- __tests__/<folder_name>
+```
+
+```
+//To run one particular unit test
+//For example, <path> could be helper-functions/getRandomCollectible.test.tsx 
+
+npm test -- __tests__/<path>
+```
+
+### End-to-End UI Tests
+The UI tests test end-to-end user flows which involve the frontend interacting with the backend. UI tests are found in the [`tests`](/tests/) folder.
+
+To run the UI tests, follow these steps.
+
+1. Head to this [Google drive link]() and download the zipped folder called `data`. Unzip it and you should find five CSV files.
+
+2. Create a folder called `data` within the [`scripts`](/scripts/) folder. Place all five CSV files into this `data` folder.
+
+
+3. Run the frontend on the local server.
+```
+npm run dev
+```
+
+4. Run the backend on the local server.
+```
+docker compose up
+```
+
+5. Start running the UI tests.
+
+```
+//To run one particular UI test
+//For example, <path> could be admin/complaints/changeComplaintCategory.spec.mjs
+npx playwright test tests/<path> --ui
+```
+
+```
+//To run all UI tests at once
+npx playwright test
+```
+
+> [!NOTE]
+> The UI tests are configured to run using one worker only to avoid race conditions in the database. Thus, they are time-consuming to run. We advise running one UI test at a time instead of running all UI tests at once.
+
+> [!TIP]
+> It is good practice to stop your local MongoDB server before running `docker compose up`. For Windows users, run `net stop mongodb` in a command prompt.
+
+
+
+
+
+
+
+

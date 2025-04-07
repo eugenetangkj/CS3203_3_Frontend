@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import deleteAllUsers from '../../scripts/users/deleteAllUsers.mjs'
+import runPythonScript from '../../scripts/initialiser.mjs'
 
 
 /**
@@ -16,6 +17,15 @@ const citizenCredentials = {
     password: "Password1!",
 }
 
+
+test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+    } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+});
 
 //Clear the citizen user from the database after running the test
 test.afterEach(async () => {

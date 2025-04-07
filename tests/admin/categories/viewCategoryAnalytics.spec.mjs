@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import createUserAccount from "../../../scripts/users/createUserAccount.mjs";
 import deleteAllUsers from '../../../scripts/users/deleteAllUsers.mjs';
+import runPythonScript from '../../../scripts/initialiser.mjs';
 
 /**
 This UI test aims to test the E2E flow of an admin viewing the category analytics of a category.
@@ -19,6 +20,13 @@ const adminAccountCredentials = {
 
 //Create original admin account before test runs
 test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+      } catch (error) {
+        console.error('Error running the Python script:', error);
+      }
+
     await createUserAccount(
         adminAccountCredentials.name,
         adminAccountCredentials.email,
@@ -50,7 +58,7 @@ test.describe('Admin should be able to view the category analytics of a category
         //Step 2: Navigate to the the category analaytics page of the first category in the list
         await page.getByRole('link', { name: 'Categories' }).first().click();
         await page.waitForTimeout(10000);
-        await page.getByRole('row', { name: 'Economy #f39c12 View Analytics' }).getByRole('link').click();
+        await page.getByRole('row', { name: 'Economy #f39c12 View Analytics' }).getByRole('link').click()
         await page.waitForTimeout(15000);
 
         //Step 3: Check that the important fields of category analytics are present

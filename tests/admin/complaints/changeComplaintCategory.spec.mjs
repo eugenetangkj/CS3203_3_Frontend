@@ -21,6 +21,13 @@ const adminCredentials = {
 
 //Create admin account before test runs
 test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+    } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+      
     await createUserAccount(
         adminCredentials.name,
         adminCredentials.email,
@@ -58,7 +65,7 @@ test.describe('Admin should be able change the category of a complaint', () => {
         await page.waitForTimeout(10000);
 
         //Step 3: Change the category of a complaint
-        await page.getByRole('row', { name: 'A plan for a second east-west' }).getByRole('combobox').click();
+        await page.getByRole('row', { name: 'What is the economic argument' }).getByRole('combobox').click();
         await page.getByPlaceholder('Search category...').click();
         await page.getByPlaceholder('Search category...').fill('housing'); //Change to a random category that is different from the current category of this complaint
         await page.getByRole('option', { name: 'Housing' }).click();
@@ -69,7 +76,7 @@ test.describe('Admin should be able change the category of a complaint', () => {
         await page.waitForTimeout(20000);
         await page.getByRole('link', { name: 'All Complaints' }).first().click();
         await page.waitForTimeout(10000);
-        const comboBox = page.getByRole('row', { name: 'A plan for a second east-west' }).getByRole('combobox');
+        const comboBox = page.getByRole('row', { name: 'What is the economic argument' }).getByRole('combobox');
         await expect(comboBox).toHaveText('Housing');
 
         //Step 5: Sign out

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import createUserAccount from "../../../scripts/users/createUserAccount.mjs";
 import deleteAllUsers from '../../../scripts/users/deleteAllUsers.mjs';
+import runPythonScript from '../../../scripts/initialiser.mjs'
 
 /**
 This UI test aims to test the E2E flow of an admin downloading the category analytics of a category.
@@ -20,6 +21,13 @@ const adminAccountCredentials = {
 
 //Create original admin account before test runs
 test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+    } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+
     await createUserAccount(
         adminAccountCredentials.name,
         adminAccountCredentials.email,

@@ -22,6 +22,13 @@ const colourToChangeTo = '#c4a573';
 
 //Create original admin account before test runs
 test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+      } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+
     await createUserAccount(
         adminAccountCredentials.name,
         adminAccountCredentials.email,

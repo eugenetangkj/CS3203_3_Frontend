@@ -86,7 +86,7 @@ sources_collection.create_index([("name", 1)], unique=True)
 print("Collection: sources inserted successfully!")
 
 # 3. Collection: posts
-print("Current working directory:", os.getcwd())
+# print("Current working directory:", os.getcwd())
 raw_df = pd.read_csv("./scripts/data/historical_posts.csv")
 clean_df = fill_na_values(raw_df)
 clean_df["date"] = pd.to_datetime(clean_df["date"], unit='s')

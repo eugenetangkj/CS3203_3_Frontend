@@ -22,6 +22,13 @@ const adminCredentials = {
 
 //Create admin account before test runs
 test.beforeEach(async () => {
+    try {
+        const result = await runPythonScript();
+        console.log('Python script executed successfully:', result);
+      } catch (error) {
+        console.error('Error running the Python script:', error);
+    }
+    
     await createUserAccount(
         adminCredentials.name,
         adminCredentials.email,
@@ -59,22 +66,22 @@ test.describe('Admin should be able delete complaints', () => {
         await page.waitForTimeout(10000);
 
         //Step 3: Select complaints via multiselect and delete them
-        await page.getByRole('row', { name: 'A plan for a second east-west' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
-        await page.getByRole('row', { name: 'Erroneous Last Train Timings' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
+        await page.getByRole('row', { name: 'What is the economic argument' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
+        await page.getByRole('row', { name: 'Half of workers in Singapore' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
         await page.getByRole('button', { name: 'Delete' }).click();
         await page.getByRole('button', { name: 'Confirm' }).click();
         
         //Step 4: Assert that the complaints are no longer present
         await page.waitForTimeout(10000);
-        await expect(page.getByRole('link', { name: 'A plan for a second east-west' })).toBeHidden();
-        await expect(page.getByRole('link', { name: 'Erroneous Last Train Timings' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'What is the economic argument' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'Half of workers in Singapore' })).toBeHidden();
 
         //Step 5: Navigate to homepage and back to All Complaints to check again that the complaints are no longer present
         await page.getByRole('link', { name: 'Just Yap!' }).click();
         await page.getByRole('link', { name: 'All Complaints' }).first().click();
         await page.waitForTimeout(10000);
-        await expect(page.getByRole('link', { name: 'A plan for a second east-west' })).toBeHidden();
-        await expect(page.getByRole('link', { name: 'Erroneous Last Train Timings' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'What is the economic argument' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'Half of workers in Singapore' })).toBeHidden();
 
         //Step 6: Sign out
         await page.getByRole('img', { name: 'Profile image' }).first().click();
