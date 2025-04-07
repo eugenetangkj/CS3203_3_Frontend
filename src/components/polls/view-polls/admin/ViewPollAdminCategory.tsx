@@ -13,7 +13,7 @@ import { PollStatusEnum } from "@/types/Poll"
 import { Category } from "@/types/Category"
 import useSWR from "swr"
 import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks"
-import { categoriesGetAll } from "@/controllers/CategoriesFunctions"
+import { categoriesGetAll } from "@/data-fetchers/CategoriesFunctions"
 import { Skeleton } from "@/components/ui/skeleton"
 
 /**

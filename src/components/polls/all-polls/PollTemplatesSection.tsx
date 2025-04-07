@@ -8,7 +8,7 @@ import useSWR from 'swr'
 import PollCardsSkeleton from "../PollCardsSkeleton"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import { POLL_TEMPLATES_SWR_HOOK } from "@/constants/SwrHooks"
-import { pollTemplatesGetAll } from "@/controllers/PollTemplatesFunctions"
+import { pollTemplatesGetAll } from "@/data-fetchers/PollTemplatesFunctions"
 
 /**
 Represents a section within the all polls page that displays the existing poll templates

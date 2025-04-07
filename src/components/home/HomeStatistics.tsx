@@ -1,7 +1,7 @@
 "use client"
 
-import { complaintsGetCount } from '@/controllers/ComplaintsFunctions';
-import { pollResponsesGetCount } from '@/controllers/PollResponsesFunctions';
+import { complaintsGetCount } from '@/data-fetchers/ComplaintsFunctions';
+import { pollResponsesGetCount } from '@/data-fetchers/PollResponsesFunctions';
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { COMPLAINTS_GET_COUNT_SWR_HOOK } from '@/constants/SwrHooks';

@@ -10,7 +10,7 @@ import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsM
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
 import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsContainer"
 import useSWR from "swr"
-import { categoryAnalyticsGetByName } from "@/controllers/CategoryAnalyticsFunctions"
+import { categoryAnalyticsGetByName } from "@/data-fetchers/CategoryAnalyticsFunctions"
 import DownloadCategoryAnalyticsButton from "./DownloadCategoryAnalyticsButton"
 
 

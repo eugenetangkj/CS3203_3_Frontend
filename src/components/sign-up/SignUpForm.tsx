@@ -10,7 +10,7 @@ import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { nameFieldValidation, emailFieldValidation, passwordFieldValidation, confirmPasswordFieldValidation } from "@/utils/FormValidation"
-import { userSignUp } from "@/controllers/UsersFunctions"
+import { userSignUp } from "@/data-fetchers/UsersFunctions"
 import { SUCCESS } from "@/constants/Constants"
 
 /**

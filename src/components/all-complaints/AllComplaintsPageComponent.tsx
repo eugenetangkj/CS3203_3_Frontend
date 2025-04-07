@@ -12,8 +12,8 @@ import SearchBar from "./actions/SearchBar"
 import CategoryFilter from "./actions/CategoryFilter"
 import useSWR from "swr"
 import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_COUNT_SWR_HOOK, COMPLAINTS_GET_MANY_SWR_HOOK } from "@/constants/SwrHooks"
-import { categoriesGetAll } from "@/controllers/CategoriesFunctions"
-import { complaintsGetCount, complaintsGetMany } from "@/controllers/ComplaintsFunctions"
+import { categoriesGetAll } from "@/data-fetchers/CategoriesFunctions"
+import { complaintsGetCount, complaintsGetMany } from "@/data-fetchers/ComplaintsFunctions"
 
 
 //Constants

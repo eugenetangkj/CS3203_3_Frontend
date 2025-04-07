@@ -5,7 +5,7 @@ import { pdf } from "@react-pdf/renderer";
 import { CategoryAnalyticsReport } from "./CategoryAnalyticsReport";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast"
-import { complaintsGetMany, complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/controllers/ComplaintsFunctions";
+import { complaintsGetMany, complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/data-fetchers/ComplaintsFunctions";
 import { VERY_LARGE_NUMBER } from "@/constants/Constants";
 import { getComplaintsWithinRange } from "@/utils/HelperFunctions";
 

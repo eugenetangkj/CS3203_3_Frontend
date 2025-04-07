@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { Category } from "@/types/Category"
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
-import { categoriesUpdateByOid } from "@/controllers/CategoriesFunctions"
+import { categoriesUpdateByOid } from "@/data-fetchers/CategoriesFunctions"
 import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks"
 import { mutate } from "swr"
 

@@ -14,9 +14,9 @@ import { getRandomCollectible } from "@/utils/HelperFunctions";
 import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { pollResponsesInsertOne } from "@/controllers/PollResponsesFunctions";
+import { pollResponsesInsertOne } from "@/data-fetchers/PollResponsesFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
-import { userUpdateProfileByOid } from "@/controllers/UsersFunctions";
+import { userUpdateProfileByOid } from "@/data-fetchers/UsersFunctions";
 import { mutate } from "swr";
 import { POLLS_GET_BY_OID_SWR_HOOK, POLL_RESPONSES_GET_ONE_SWR_HOOK } from "@/constants/SwrHooks";
 

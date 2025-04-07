@@ -4,7 +4,7 @@ import { UserRoleEnum } from "@/types/User";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import useSWR from "swr";
 import { POLLS_GET_BY_OID_SWR_HOOK } from "@/constants/SwrHooks";
-import { pollsGetByOid } from "@/controllers/PollsFunctions";
+import { pollsGetByOid } from "@/data-fetchers/PollsFunctions";
 import { Skeleton } from "@/components/ui/skeleton";
 import ViewPollCitizen from "../citizen/ViewPollCitizen";
 

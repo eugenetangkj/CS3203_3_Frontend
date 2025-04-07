@@ -6,7 +6,7 @@ import CategoriesTableSkeleton from "@/components/categories/manage-categories/C
 import { ERROR_MESSAGE_API } from "@/constants/Constants"
 import useSWR from "swr";
 import { CATEGORIES_GET_ALL_SWR_HOOK } from "@/constants/SwrHooks";
-import { categoriesGetAll } from "@/controllers/CategoriesFunctions";
+import { categoriesGetAll } from "@/data-fetchers/CategoriesFunctions";
 
 /** 
 Component that houses the manage categories table and its associated action buttons
