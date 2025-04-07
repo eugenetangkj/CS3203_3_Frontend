@@ -142,7 +142,7 @@ docker compose up
 ## Testing
 
 ### Unit Tests
-Unit tests are found in the [`__tests__`](/__tests__/) folder. Run these commands in the root folder to execute the unit tests.
+Unit tests, implemented using Jest, are found in the [`__tests__`](/__tests__/) folder. Run these commands in the root folder to execute the unit tests.
 
 ```
 //To run all unit tests
@@ -163,7 +163,7 @@ npm test -- __tests__/<path>
 ```
 
 ### End-to-End UI Tests
-The UI tests test end-to-end user flows which involve the frontend interacting with the backend. UI tests are found in the [`tests`](/tests/) folder.
+The UI tests, implemented using Playwright, test end-to-end user flows which involve the frontend interacting with the backend. UI tests are found in the [`tests`](/tests/) folder.
 
 To run the UI tests, follow these steps.
 
