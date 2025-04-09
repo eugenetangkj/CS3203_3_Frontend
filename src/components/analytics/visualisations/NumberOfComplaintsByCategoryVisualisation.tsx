@@ -32,7 +32,6 @@ const convertToArray = (data: Record<string, { count: number; avg_sentiment: num
 };
 
 
-
 export function NumberOfComplaintsByCategoryVisualisation() {
     const filter = {}
     const groupByField = "category"
@@ -45,59 +44,16 @@ export function NumberOfComplaintsByCategoryVisualisation() {
     const { data: categories, error: categoriesError, isLoading: categoriesIsLoading } = useSWR<Category[]>(CATEGORIES_GET_ALL_SWR_HOOK, categoriesGetAll)
 
 
-
     //Process categories
     const sortedCategoryNames: string[] = categories
                                           ? categories.map(category => category.name).sort()
                                           : []
 
 
-
     //Process the bar chart mixed endpoint
     const dataPoints: BarChartMixedPoint[] = complaintStatistics && categories
                                            ? convertToArray(complaintStatistics, categories)
                                            : []
-
-
-    
-    
-
-    // //Fetches the API to process the number of complaints for each category
-    // const fetchPostsByCategory = async () => {
-    //     try {
-    //         //Call API
-    //         const complaintsApiEndPoint = API_BASE_URL_ANALYTICS + COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT
-    //         const complaintsData = await axios.post(complaintsApiEndPoint,
-    //             {
-    //                 "group_by_field": "category",
-    //                 "filter": {} //Empty filter as we want all the data
-    //             }
-    //         )
-    //         const categoriesApiEndPoint = API_BASE_URL_ADMIN_MANAGEMENT + CATEGORIES_GET_ALL_ENDPOINT
-    //         const categoriesData = await axios.post(categoriesApiEndPoint)
-    //         const categories = convertCategoryDocumentsToObjects(categoriesData.data.documents)
-
-    //         //Convert category to names in alphabetical order
-    //         const sortedCategoryNames: string[] = categories.map(category => category.name).sort();
-    //         setSortedCategoryNames(sortedCategoryNames)
-
-
-    //         //Process data
-    //         const complaintsGroupedByCategories = convertToArray(complaintsData.data.statistics, categories)
-    //         setDataPoints(complaintsGroupedByCategories)
-    //     } catch (error) {
-    //         setIsThereError(true)
-    //     } finally {
-    //         setHasRanApi(true)
-    //     }
-    // }
-
-
-    //Call the API on component mount
-    // useEffect(() => {
-    //     fetchPostsByCategory()
-    // }, [])
-
 
     return (
         complaintStatisticsIsLoading || categoriesIsLoading
