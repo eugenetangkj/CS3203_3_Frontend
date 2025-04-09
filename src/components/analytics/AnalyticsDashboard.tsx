@@ -44,19 +44,19 @@ export default function AnalyticsDashboard() {
             </div> */}
 
             {/* Sentiment by source */}
-            <div className='analytics-dashboard-card  col-span-1 xl:col-span-2 2xl:col-span-3'>
+            {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-2 2xl:col-span-3'>
                 <AnalyticsDashboardTitle title='Sentiments of Sources' />
                 <SentimentsOfSourcesVisualisation />
-            </div>
+            </div> */}
 
             {/* Sentiments of each category over time */}
-            {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-5 2xl:col-span-6'>
+            <div className='analytics-dashboard-card  col-span-1 xl:col-span-5 2xl:col-span-6'>
                 <div className='flex flex-row gap-2 items-center mb-6'>
                     <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900'>Sentiments of Categories Over Time</h3>     
                     <InfoTooltip message='Shows the breakdown per month for the months between start and end dates, inclusive.' />    
                 </div>
                 <SentimentsOfCategoriesOverTimeVisualisation />
-            </div> */}
+            </div>
 
             {/* Top 5 negative posts */}
             {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-6'>
