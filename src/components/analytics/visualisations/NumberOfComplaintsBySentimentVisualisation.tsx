@@ -59,7 +59,7 @@ export function NumberOfComplaintsBySentimentVisualisation() {
 
     //SWR hooks to fetch data
     const { data: complaintStatistics, error: complaintStatisticsError, isLoading: complaintStatisticsIsLoading } = useSWR<ComplaintStatisticsBucket[]>(
-        [COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_SWR_HOOK, bucketSize, filter],
+        [COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_SWR_HOOK],
         () => complaintsGetStatisticsGroupedBySentimentValue(bucketSize, filter)
     )
 

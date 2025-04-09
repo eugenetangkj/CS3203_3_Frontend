@@ -143,6 +143,7 @@ export const complaintsGetStatisticsGroupedBySentimentValue = async(bucketSize: 
         )
         return apiData.data.statistics
     } catch (error) {
+        console.log(error)
         throw error
     }
 }
