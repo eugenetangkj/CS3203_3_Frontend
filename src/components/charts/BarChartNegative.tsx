@@ -30,7 +30,6 @@ export function BarChartNegative({ chartData, allLabels, footerText }: BarChartN
     const [selectedLabels, setSelectedLabels] = useState<string[]>(allLabels)
     const [currentChartData, setCurrentChartData] = useState<BarChartNegativePoint[]>(chartData)
 
-
     //Dynamically determine the y-axis label by taking the key that is not called xLabel
     const valueKey = Object.keys(chartData[0]).find(key => key !== "xLabel") as string;
 
@@ -44,6 +43,7 @@ export function BarChartNegative({ chartData, allLabels, footerText }: BarChartN
         setCurrentChartData(chartData.filter(item => selectedLabels.includes(item.xLabel)));
     }, [selectedLabels])
 
+   
 
     return (
         <div className='flex flex-col space-y-4'>
@@ -60,7 +60,8 @@ export function BarChartNegative({ chartData, allLabels, footerText }: BarChartN
                     />
                     <Bar dataKey={ valueKey }>
                         <LabelList position="top" dataKey="xLabel" fillOpacity={1} fill={ COLOUR_MAP['yap-black-800'] } formatter={ breakLabel } />
-                        
+                        <LabelList position="bottom" dataKey={ valueKey } fillOpacity={1} fill={ COLOUR_MAP['yap-black-800'] } formatter={(value: number) => value.toFixed(3)} />
+
                         {currentChartData.map((item, index) => {
                             return (
                                 <Cell
