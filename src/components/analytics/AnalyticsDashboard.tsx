@@ -38,16 +38,16 @@ export default function AnalyticsDashboard() {
             </div> */}
 
             {/* Number of complaints by sentiments */}
-            <div className='analytics-dashboard-card  col-span-1 xl:col-span-3 2xl:col-span-3'>
+            {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-3 2xl:col-span-3'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Sentiment' />
                 <NumberOfComplaintsBySentimentVisualisation />
-            </div>
+            </div> */}
 
             {/* Sentiment by source */}
-            {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-2 2xl:col-span-3'>
+            <div className='analytics-dashboard-card  col-span-1 xl:col-span-2 2xl:col-span-3'>
                 <AnalyticsDashboardTitle title='Sentiments of Sources' />
                 <SentimentsOfSourcesVisualisation />
-            </div> */}
+            </div>
 
             {/* Sentiments of each category over time */}
             {/* <div className='analytics-dashboard-card  col-span-1 xl:col-span-5 2xl:col-span-6'>

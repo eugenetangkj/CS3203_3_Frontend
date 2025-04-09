@@ -1,72 +1,53 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Skeleton } from "../../ui/skeleton"
-import axios from "axios"
-import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT } from "@/constants/ApiRoutes"
 import { ClassicTable } from "../../charts/ClassicTable"
-import { ClassicTableInput } from "@/types/ChartInterface"
-
+import useSWR from "swr"
+import { ComplaintStatistics } from "@/types/Complaint"
+import { COMPLAINTS_GET_STATISTICS_GROUPED_SWR_HOOK } from "@/constants/SwrHooks"
+import { complaintsGetStatisticsGrouped } from "@/data-fetchers/ComplaintsFunctions"
+import { determineIsObjectEmpty } from "@/utils/HelperFunctions"
 
 /**
 Represents the visualisation for the overall sentiment of each source shown in the analytics dashboard
 */
+
+//Adapter function to convert the API object into an array of the format required for the data field of the table
+const convertApiDataToTableDataFormat = (original: { [key: string]: { count: number; avg_sentiment: number } }) => {
+    return Object.entries(original).map(([source, { avg_sentiment }]) => ({
+        source,
+        sentiment: avg_sentiment
+    }));
+};
+
+
 export function SentimentsOfSourcesVisualisation() {
 
-    //States
-    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
-    const [tableDataObject, setTableDataObject] = useState<ClassicTableInput>({headers:[], data:[]})
-    const [isThereError, setIsThereError] = useState<boolean>(false)
+    //Constants
+    const filter = {}
+    const groupByField = "source"
 
 
-    //Helper function to convert the API object into an array of the format required for the data field of the table
-    const convertToArray = (original: { [key: string]: { count: number; avg_sentiment: number } }) => {
-        return Object.entries(original).map(([source, { avg_sentiment }]) => ({
-            source,
-            sentiment: avg_sentiment
-        }));
-    };
-    
-   
-    //Fetches the API to process the number of complaints for each category
-    const fetchSentimentsOfSources = async () => {
-        try {
-            //Call API to fetch complaints grouped according to sources
-            const apiEndPoint = API_BASE_URL_ANALYTICS + COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT
-            const apiData = await axios.post(apiEndPoint,
-                {
-                    "group_by_field": "source",
-                    "filter": {} //Empty filter as we want all the data
-                }
-            )
 
-            const tableData = convertToArray(apiData.data.statistics)
-            const tableHeaders = ["Source", "Sentiment"]
-            setTableDataObject({
-                headers: tableHeaders,
-                data: tableData
-            })
-        } catch (error) {
-            console.log(error)
-            setIsThereError(true)
-        } finally {
-            setHasRanApi(true)
-        }
-    }
+    //SWR hooks to fetch data
+     const { data: sentimentsOfSources, error: sentimentsOfSourcesError, isLoading: sentimentsOfSourcesIsLoading } = useSWR<Record<string, ComplaintStatistics>>(
+        [COMPLAINTS_GET_STATISTICS_GROUPED_SWR_HOOK, filter, groupByField],
+        () => complaintsGetStatisticsGrouped(filter, groupByField)
+    )
 
-    //Call the API on component mount
-    useEffect(() => {
-        fetchSentimentsOfSources()
-    }, [])
-
-
+    //Process data
+    const tableDataObject = sentimentsOfSources
+                            ? {
+                                headers: ["Source", "Sentiment"],
+                                data: convertApiDataToTableDataFormat(sentimentsOfSources)
+                            }
+                            : {}
+  
     return (
-        !hasRanApi
+        sentimentsOfSourcesIsLoading
         ? (<Skeleton className="w-full h-[200px]" />)
-        : isThereError
+        : sentimentsOfSourcesError || sentimentsOfSources === undefined || determineIsObjectEmpty(tableDataObject)
         ? <div>Something went wrong. Please try again later.</div>
-        : tableDataObject['headers'].length === 0
-        ? <div></div>
-        : <ClassicTable headers={ tableDataObject['headers'] } data={ tableDataObject['data']} />
+        : <ClassicTable headers={ tableDataObject['headers'] as string[] } data={ tableDataObject['data'] as { [key: string]: string | number }[]} />
     )
 }
