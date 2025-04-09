@@ -24,3 +24,9 @@ export interface ComplaintStatisticsByDate {
     date: string;
     data: Record<string, ComplaintStatistics>;
 }
+
+export interface ComplaintStatisticsBucket {
+    right_bound_exclusive: number,
+    left_bound_inclusive: number,
+    count: number
+}

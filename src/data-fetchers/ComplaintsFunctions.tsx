@@ -1,7 +1,8 @@
 import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT,
     COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT, COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT, COMPLAINTS_UPDATE_BY_OID_ENDPOINT,
-    COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes";
-import { Complaint, ComplaintStatistics, ComplaintStatisticsByDate, MonthlyComplaintStatistics } from "@/types/Complaint";
+    COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT, 
+    COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT} from "@/constants/ApiRoutes";
+import { Complaint, ComplaintStatistics, ComplaintStatisticsBucket, ComplaintStatisticsByDate, MonthlyComplaintStatistics } from "@/types/Complaint";
 import axios from "axios";
 import { convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { ALL_CATEGORIES_CATEGORY } from "@/constants/Constants";
@@ -121,6 +122,22 @@ export const complaintsGetStatisticsGroupedOverTime = async(filter: object, grou
         const apiData = await axios.post(apiEndPoint,
             {
                 "group_by_field": groupByField,
+                "filter": filter
+            }
+        )
+        return apiData.data.statistics
+    } catch (error) {
+        throw error
+    }
+}
+
+//Get complaint statistics grouped by sentiment value
+export const complaintsGetStatisticsGroupedBySentimentValue = async(bucketSize: number, filter: object): Promise<ComplaintStatisticsBucket[]> => {
+    try {
+        const apiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT
+        const apiData = await axios.post(apiEndPoint,
+            {
+                "bucket_size": bucketSize,
                 "filter": filter
             }
         )
