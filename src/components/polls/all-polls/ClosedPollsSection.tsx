@@ -24,7 +24,7 @@ export default function ClosedPollsSection() {
                 : error
                 ? <div className='text-base text-yap-black-800'>{ ERROR_MESSAGE_API }</div>
                 : (data?.length === 0)
-                ? <div className='text-base text-yap-black-800'>There are no ongoing polls. Do check back later!</div>
+                ? <div className='text-base text-yap-black-800'>There are no closed polls. Do check back later!</div>
                 : <div className='grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-rows-1 gap-x-4 gap-y-4'>
                     {data?.map((poll) => (
                         <PollCard key={poll.id} pollToDisplay={poll} />

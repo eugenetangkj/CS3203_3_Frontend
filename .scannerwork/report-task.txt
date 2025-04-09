@@ -1,0 +1,6 @@
+projectKey=justyap
+serverUrl=http://localhost:9000
+serverVersion=10.7.0.96327
+dashboardUrl=http://localhost:9000/dashboard?id=justyap
+ceTaskId=88c61e9d-6e8c-4590-aa96-d2473016371a
+ceTaskUrl=http://localhost:9000/api/ce/task?id=88c61e9d-6e8c-4590-aa96-d2473016371a
