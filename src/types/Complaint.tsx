@@ -19,3 +19,8 @@ export interface MonthlyComplaintStatistics {
     date: string,
     data: ComplaintStatistics 
 }
+
+export interface ComplaintStatisticsByDate {
+    date: string;
+    data: Record<string, ComplaintStatistics>;
+}
