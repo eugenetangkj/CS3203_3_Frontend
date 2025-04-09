@@ -8,9 +8,6 @@ import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT } 
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 import { COLOUR_MAP } from "@/constants/Constants"
 import axios from "axios"
-import { GraphDateRangePicker } from "@/components/common/others/GraphDateRangePicker"
-import { DateRange } from "react-day-picker"
-import { format, addMonths } from "date-fns"
 
 /**
 This component is used to generate and visualise the sentiment over time graph shown in the category analytics page.
@@ -26,11 +23,6 @@ export default function CategoryAnalyticsSentimentOverTime({ categoryName }: Cat
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [sentimentDataPoints, setSentimentDataPoints] = useState<LineChartMultiplePoint[]>([])
     const [isThereError, setIsThereError] = useState<boolean>(false)
-    const [date, setDate] = useState<DateRange | undefined>({
-        from: addMonths(new Date(), -12), //12 months from today's date
-        to: new Date(), //Default is today's date
-    })
-    const [isDatePopoverOpen, setIsDatePopoverOpen] = useState<boolean>(false)
 
 
     //Fixed colour map
@@ -58,8 +50,8 @@ export default function CategoryAnalyticsSentimentOverTime({ categoryName }: Cat
                 {
                     "filter": {
                         "category": categoryName,
-                        "_from_date": date?.from ? format(date.from, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneYearAgoAndSetToStart(),
-                        "_to_date": date?.to ? format(date.to, 'dd-MM-yyyy HH:mm:ss') : getDateTimeOneMonthAgoAndSetToEnd(),
+                        "_from_date": getDateTimeOneYearAgoAndSetToStart(),
+                        "_to_date": getDateTimeOneMonthAgoAndSetToEnd(),
                     } 
                 }
             )
@@ -88,7 +80,6 @@ export default function CategoryAnalyticsSentimentOverTime({ categoryName }: Cat
         ? <div>Something went wrong. Please try again later.</div>
         : (
             <div className='flex flex-col space-y-8 w-full'>
-                <GraphDateRangePicker date={ date } setDate={ setDate } isPopoverOpen={ isDatePopoverOpen } setIsPopoverOpen={ setIsDatePopoverOpen } fetchData={ fetchGraphData} />
                 <LineChartMultiple chartData={ sentimentDataPoints } colourMap={ colourMap } />  
             </div>
           )
