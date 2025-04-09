@@ -60,7 +60,7 @@ export default function AnalyticsDashboard() {
 
             {/* Top 5 negative posts */}
             <div className='analytics-dashboard-card  col-span-1 xl:col-span-6'>
-                <AnalyticsDashboardTitle title='Most Negative Complaints' />
+                <AnalyticsDashboardTitle title='Top 10 Most Negative Complaints' />
                 <MostNegativePostsVisualisation />
             </div>
 

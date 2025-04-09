@@ -11,7 +11,9 @@ import { useRouter } from "next/navigation";
 import Profile from "../../../../public/profile.svg";
 import { User, UserRoleEnum } from "@/types/User";
 import Link from "next/link";
-
+import { setCookiesForSigningOut } from "@/data-fetchers/UsersServerFunctions";
+import { mutate } from "swr";
+import { USERS_GET_PROFILE_SWR_HOOK } from "@/constants/SwrHooks";
 
 /**
 This component represents the right drawer that is opened by the hamburger menu in the Navbar component.
@@ -34,13 +36,20 @@ export default function RightNavDrawer({isDrawerOpen, user, onClose}: RightNavDr
     const handleSignOut = async () => {
         onClose()
         try {
-            await axios.post(SIGNOUT_SERVER_ENDPOINT);
+            setCookiesForSigningOut()
+            mutate(USERS_GET_PROFILE_SWR_HOOK, {
+                    id: '',
+                    email: '',
+                    name: '',
+                    role: UserRoleEnum.None,
+                    collectibles: []
+            })
             toast({
                 variant: "success",
                 description: "You have successfully signed out.",
                 duration: 3000,
             })
-            router.push('/');
+            router.push('/')
         } catch (error) {
             toast({
                 variant: "destructive",

@@ -1,96 +1,80 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { START_DATE, COLOUR_MAP } from "@/constants/Constants"
 import { getCurrentDateTime } from "@/utils/HelperFunctions"
-import {  PieChartLegendPoint } from "@/types/ChartInterface"
 import { Skeleton } from "../../ui/skeleton"
-import axios from "axios"
-import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT } from "@/constants/ApiRoutes"
 import { PieChartLegend } from "../../charts/PieChartLegend"
+import useSWR from "swr"
+import { ComplaintStatisticsBucket } from "@/types/Complaint"
+import { COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_SWR_HOOK } from "@/constants/SwrHooks"
+import { complaintsGetStatisticsGroupedBySentimentValue } from "@/data-fetchers/ComplaintsFunctions"
 
 
 /**
 Represents the visualisation for the breakdown of complaints according to the sentiment range in which they fall in
 */
-export function NumberOfComplaintsBySentimentVisualisation() {
 
-    //States
-    const [hasRanApi, setHasRanApi] = useState<boolean>(false)
-    const [dataPoints, setDataPoints] = useState<PieChartLegendPoint[]>([])
-    const [isThereError, setIsThereError] = useState<boolean>(false)
-
-
-    //Helper function to convert the API object into an array of the format required for the pie chart
-    const convertToArray = (data: any) => {
-        const coloursToAssign: Record<string, string> = {
-            "[-1.00, -0.50)": "yap-orange-900",
-            "[-0.50, 0.00)": "yap-yellow-900",
-            "[0.00, 0.50)": "yap-brown-900",
-            "[0.50, 1.00)": "yap-green-900",
-            "[1.00, 1.50)": "yap-blue-900"
-        };
-
-        const output = data.map((item : any) => {
-            //Fix to 2dp
-            const label = `[${item.left_bound_inclusive.toFixed(2)}, ${item.right_bound_exclusive.toFixed(2)})`;
-            const colour: string = coloursToAssign[label]
-            return {
-                label,
-                value: item.count,
-                fill: COLOUR_MAP[colour] ?? COLOUR_MAP['yap-green-900']
-            };
-        });
-
-        //Special processing as requested by team
-        const updatedOutput = output
-            .filter((item: any) => item.label !== "[1.00, 1.50)") // Remove the unwanted range
-            .map((item: any) => ({
-                ...item,
-                label: item.label === "[0.50, 1.00)" ? "[0.50, 1.00]" : item.label
-            }));
-     
-        return updatedOutput
+//Adapter function to convert the API object into an array of the format required for the pie chart
+const convertApiDataToPieChartLegendDataPoints = (data: any) => {
+    const coloursToAssign: Record<string, string> = {
+        "[-1.00, -0.50)": "yap-orange-900",
+        "[-0.50, 0.00)": "yap-yellow-900",
+        "[0.00, 0.50)": "yap-brown-900",
+        "[0.50, 1.00)": "yap-green-900",
+        "[1.00, 1.50)": "yap-blue-900"
     };
 
+    const output = data.map((item : any) => {
+        //Fix to 2dp
+        const label = `[${item.left_bound_inclusive.toFixed(2)}, ${item.right_bound_exclusive.toFixed(2)})`;
+        const colour: string = coloursToAssign[label]
+        return {
+            label,
+            value: item.count,
+            fill: COLOUR_MAP[colour] ?? COLOUR_MAP['yap-green-900']
+        };
+    });
 
-    //Fetches the API to process the number of complaints within each sentiment range
-    const fetchPostsBySentimentRange = async () => {
-        try {
-            //Call API to fetch complaints grouped according to categories
-            const apiEndPoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_ENDPOINT
-            const apiData = await axios.post(apiEndPoint,
-                {
-                    "bucket_size": 0.5,
-                    "filter": {
-                        "_from_date": START_DATE,
-                        "_to_date": getCurrentDateTime(),
-                    }
-                }
-            )
-            const sentimentsForEachCategory = convertToArray(apiData.data.statistics)
-            setDataPoints(sentimentsForEachCategory)
-        } catch (error) {
-            console.log(error)
-            setIsThereError(true)
-        } finally {
-            setHasRanApi(true)
-        }
+    //Special processing as requested by team
+    const updatedOutput = output
+        .filter((item: any) => item.label !== "[1.00, 1.50)") // Remove the unwanted range
+        .map((item: any) => ({
+            ...item,
+            label: item.label === "[0.50, 1.00)" ? "[0.50, 1.00]" : item.label
+        }));
+ 
+    return updatedOutput
+};
+
+
+export function NumberOfComplaintsBySentimentVisualisation() {
+
+    //Constants
+    const bucketSize = 0.5
+    const filter = {
+        "_from_date": START_DATE,
+        "_to_date": getCurrentDateTime(),
     }
 
-    //Call the API on component mount
-    useEffect(() => {
-        fetchPostsBySentimentRange()
-    }, [])
+
+    //SWR hooks to fetch data
+    const { data: complaintStatistics, error: complaintStatisticsError, isLoading: complaintStatisticsIsLoading } = useSWR<ComplaintStatisticsBucket[]>(
+        [COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_SWR_HOOK],
+        () => complaintsGetStatisticsGroupedBySentimentValue(bucketSize, filter)
+    )
+
+
+    //Process data
+    const sentimentsForEachCategory = complaintStatistics
+                                      ? convertApiDataToPieChartLegendDataPoints(complaintStatistics)
+                                      : []
 
 
     return (
-        !hasRanApi
+        complaintStatisticsIsLoading
         ? (<Skeleton className="w-full h-[200px]" />)
-        : isThereError
+        : complaintStatisticsError || complaintStatistics === undefined || complaintStatistics.length === 0
         ? <div>Something went wrong. Please try again later.</div>
-        : dataPoints.length === 0
-        ? <div></div>
-        : <PieChartLegend chartData={ dataPoints } />
+        : <PieChartLegend chartData={ sentimentsForEachCategory } />
     )
 }

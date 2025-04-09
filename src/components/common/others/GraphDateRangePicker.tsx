@@ -19,21 +19,18 @@ interface GraphDataRangePickerProps extends React.HTMLAttributes<HTMLDivElement>
     setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>,
     isPopoverOpen: boolean,
     setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    fetchData: () => void
   }
 
 
 
-export function GraphDateRangePicker({ date, setDate, isPopoverOpen, setIsPopoverOpen, fetchData, className }: GraphDataRangePickerProps) {
+export function GraphDateRangePicker({ date, setDate, isPopoverOpen, setIsPopoverOpen, className }: GraphDataRangePickerProps) {
 
 
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover open={ isPopoverOpen } onOpenChange={(open) => { 
         setIsPopoverOpen(open)
-        if (!open) {
-            fetchData()
-        }
+
     }}>
         <PopoverTrigger asChild>
           <Button
