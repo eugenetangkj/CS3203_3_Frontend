@@ -1,4 +1,4 @@
-import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+import { API_BASE_URL_USER_MANAGEMENT, CREATE_ADMIN_ACCOUNT_ENDPOINT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import { ERROR_MESSAGE_API, SUCCESS, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import axios from "axios";
 import { UserRoleEnum } from "@/types/User";
@@ -6,8 +6,8 @@ import { getUserAuthCookies } from "./UsersServerFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 
 
-//Sign up for a new account
-export const userSignUp = async (name: string, email: string, password: string, role: string, collectibles: string[]) => {
+//Sign up for a new account with the role as citizen
+export const userSignUp = async (name: string, email: string, password: string, collectibles: string[]) => {
     try {
         const signUpEndpoint = API_BASE_URL_USER_MANAGEMENT + SIGNUP_ENDPOINT
         await axios.post(signUpEndpoint, {
@@ -15,7 +15,30 @@ export const userSignUp = async (name: string, email: string, password: string, 
                 "name": name,
                 "email": email,
                 "password": password,
-                "role": role,
+                "collectibles": collectibles
+            },
+        })
+        return SUCCESS
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === 409) {
+                return 'Email already exists.'
+            } else {
+                return ERROR_MESSAGE_API
+            }
+        }
+    }
+};
+
+//Sign up for a new account with the role as admin
+export const adminSignUp = async (name: string, email: string, password: string, collectibles: string[]) => {
+    try {
+        const createAdminAccountEndpoint = API_BASE_URL_USER_MANAGEMENT + CREATE_ADMIN_ACCOUNT_ENDPOINT
+        await axios.post(createAdminAccountEndpoint, {
+            "document": {
+                "name": name,
+                "email": email,
+                "password": password,
                 "collectibles": collectibles
             },
         })

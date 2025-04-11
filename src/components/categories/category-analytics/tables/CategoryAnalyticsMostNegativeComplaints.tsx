@@ -13,7 +13,7 @@ interface CategoryAnalyticsMostNegativeComplaintsProps {
 export default function CategoryAnalyticsMostNegativeComplaints({ categoryName }: CategoryAnalyticsMostNegativeComplaintsProps) {
     return (
         <div className='paragraph-container'>
-            <PageSubtitle pageSubtitle="Most Negative Complaints" />
+            <PageSubtitle pageSubtitle="Top 5 Most Negative Complaints" />
 
             <CategoryAnalyticsMostNegativePostsVisualisation categoryName={ categoryName } />
         </div>

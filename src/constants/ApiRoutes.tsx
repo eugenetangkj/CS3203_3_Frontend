@@ -53,6 +53,7 @@ export const COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT = "/complaints/get_sta
 
 //Endpoints for user management
 export const SIGNUP_ENDPOINT = "/signup"
+export const CREATE_ADMIN_ACCOUNT_ENDPOINT = "/create_admin_account"
 export const LOGIN_ENDPOINT = "/login"
 export const GET_PROFILE_BY_OID_ENDPOINT = "/get_profile_by_oid"
 export const UPDATE_PROFILE_BY_OID_ENDPOINT = "/update_profile_by_oid"

@@ -17,7 +17,7 @@ Represents the visualisation for number of complaints by category visualisation 
 */
 
 //Adapter function to convert the API object into an array of the format required for the bar chart custom label
-const convertToArray = (data: Record<string, { count: number; avg_sentiment: number }>, categories: Category[]) => {
+const convertToBarChartCustomLabelPoints = (data: Record<string, { count: number; avg_sentiment: number }>, categories: Category[]) => {
     // Convert data to array of objects and sort by 'label' (which is the key of data)
     return Object.entries(data)
         .map(([key, value]) => {
@@ -50,9 +50,9 @@ export function NumberOfComplaintsByCategoryVisualisation() {
                                           : []
 
 
-    //Process the bar chart mixed endpoint
+    //Process the bar chart mixed points
     const dataPoints: BarChartMixedPoint[] = complaintStatistics && categories
-                                           ? convertToArray(complaintStatistics, categories)
+                                           ? convertToBarChartCustomLabelPoints(complaintStatistics, categories)
                                            : []
 
     return (

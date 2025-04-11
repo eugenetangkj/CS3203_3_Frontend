@@ -10,8 +10,9 @@ import { useState } from "react"
 import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { nameFieldValidation, emailFieldValidation, passwordFieldValidation, confirmPasswordFieldValidation } from "@/utils/FormValidation"
-import { userSignUp } from "@/data-fetchers/UsersFunctions"
+import { adminSignUp, userSignUp } from "@/data-fetchers/UsersFunctions"
 import { SUCCESS } from "@/constants/Constants"
+import { UserRoleEnum } from "@/types/User"
 
 /**
 This component represents the form for signing up a new account.
@@ -72,7 +73,11 @@ export default function SignUpForm({ role, successMessage, buttonMessage, button
     async function onSubmit({ name, email, password }: z.infer<typeof formSchema>) {
         setIsSubmittingForm(true)
 
-        const responseMessage = await userSignUp(name, email, password, role, [])
+        //Call the appropriate endpoint depending on the user's role
+        const responseMessage = (role === UserRoleEnum.Citizen)
+                                ? await userSignUp(name, email, password, [])
+                                : await adminSignUp(name, email, password, [])
+
         if (responseMessage === SUCCESS) {
             //Successful, toast to inform the user that his account has been created, please login
             toast({
