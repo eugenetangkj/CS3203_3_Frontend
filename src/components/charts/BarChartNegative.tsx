@@ -75,7 +75,7 @@ export function BarChartNegative({ chartData, allLabels, footerText }: BarChartN
                 </ChartContainer>
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-base">
-                <div className="leading-none text-muted-foreground text-yap-gray-900">
+                <div className="leading-normal text-muted-foreground text-yap-gray-900">
                     { footerText }
                 </div>
             </CardFooter>
