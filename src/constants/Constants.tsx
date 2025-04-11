@@ -39,6 +39,12 @@ Cookie name used to store the user oid
 */
 export const COOKIE_USER_OID = 'userOid'
 
+/**
+Cookie name used to store the user role
+*/
+export const COOKIE_USER_ROLE = 'userRole'
+
+
 
 /**
 Links to show in the navigation bar

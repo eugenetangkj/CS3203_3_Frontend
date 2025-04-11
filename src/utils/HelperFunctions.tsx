@@ -175,17 +175,17 @@ export function hasDuplicateStrings(listOfStrings: string[]): boolean {
     const setOfStrings = new Set<string>();
 
     for (const str of listOfStrings) {
-        if (setOfStrings.has(str)) {
+        const trimmedStr = str.trim();
+        if (setOfStrings.has(trimmedStr)) {
             // Found a duplicate
             return true;
         }
-        setOfStrings.add(str);
+        setOfStrings.add(trimmedStr);
     }
 
     // No duplicates found
     return false;
 }
-
 
 
 /**

@@ -1,9 +1,12 @@
+"use server"
+
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT,POLL_RESPONSES_GET_ONE_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
 import { PollResponse } from "@/types/Poll";
 import axios from "axios";
 import { NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import { convertPollResponseDocumentToObject } from "@/utils/DatabaseHelperFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
+import createServerAxiosInstance from "@/utils/AxiosServer"; 
 
 
 //Fetch count
@@ -59,8 +62,9 @@ export const pollResponsesGetOne = async (filter: object): Promise<PollResponse>
 //Insert one poll response
 export const pollResponsesInsertOne = async(pollResponseDocument: object): Promise<string> => {
     try {
+        const serverAxiosInstance = await createServerAxiosInstance()
         const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_INSERT_ONE_ENDPOINT
-        await axios.post(insertPollResponseEndpoint,
+        await serverAxiosInstance.post(insertPollResponseEndpoint,
             {
                 "document": pollResponseDocument
             }

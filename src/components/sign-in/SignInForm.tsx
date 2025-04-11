@@ -11,7 +11,6 @@ import { Eye, EyeClosed } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { SUCCESS } from "@/constants/Constants"
 import { confirmPasswordFieldValidation, emailFieldValidation } from "@/utils/FormValidation"
-import { useRouter } from "next/navigation"
 import { userLogin } from "@/data-fetchers/UsersFunctions"
 import { setCookiesForSigningIn } from "@/data-fetchers/UsersServerFunctions"
 
@@ -25,9 +24,6 @@ const formSchema = z.object({
 
 
 export default function SignInForm() {
-    //Router
-    const router = useRouter();
-
     //States
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isSubmittingForm, setIsSubmittingForm] = useState(false)
@@ -70,9 +66,10 @@ export default function SignInForm() {
             //CASE 2: Login is successful
             const jwtToken = loginResult.jwt
             const userOid = loginResult.oid
+            const userRole = loginResult.role
     
             //Set cookie with JWT token
-            await setCookiesForSigningIn(jwtToken, userOid)
+            await setCookiesForSigningIn(jwtToken, userOid, userRole)
 
             //Update form state
             setIsSubmittingForm(false)

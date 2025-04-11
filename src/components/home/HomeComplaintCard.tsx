@@ -1,13 +1,9 @@
-import { ABOUT_JUST_YAP } from "@/constants/Constants";
 import ProfileIconTwo from '../../../public/graphics/profile-icon-two.svg'
 import ProfileIconThree from '../../../public/graphics/profile-icon-three.svg'
-import Yappy from '../../../public/graphics/yappy.svg'
 import Image from "next/image";
 import { ThumbsUp } from "lucide-react";
 import { ThumbsDown } from "lucide-react";
 import { COMPLAINTS_IN_HOME_PAGE } from "@/constants/Constants";
-
-
 
 
 /** 
