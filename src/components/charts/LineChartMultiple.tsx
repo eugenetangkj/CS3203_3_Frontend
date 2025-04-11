@@ -31,7 +31,7 @@ export function LineChartMultiple({ chartData, colourMap }: LineChartMultiplePro
                 }}
             >
                 <CartesianGrid vertical={true} />
-                    <YAxis domain={['auto', (max: number) => max * 1.05]} />
+                    <YAxis domain={['auto', (max: number) => (max == 0) ? 1.05 : max * 1.05]} />
                     <XAxis
                         dataKey="date"
                         tickLine={false}

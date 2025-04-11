@@ -110,8 +110,10 @@ export const complaintsGetStatisticsOverTime = async (filter: object): Promise<M
                 "filter": filter 
             }
         )
+        
         return apiResult.data.statistics
     } catch (error) {
+        console.log(error)
         return []
     }
 }

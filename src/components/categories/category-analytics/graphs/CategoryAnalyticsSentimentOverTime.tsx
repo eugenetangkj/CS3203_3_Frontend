@@ -1,87 +1,73 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { LineChartMultiple } from "@/components/charts/LineChartMultiple"
 import { LineChartMultiplePoint } from "@/types/ChartInterface"
-import { API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT } from "@/constants/ApiRoutes"
 import { getDateTimeOneYearAgoAndSetToStart, getDateTimeOneMonthAgoAndSetToEnd } from "@/utils/HelperFunctions"
 import { COLOUR_MAP } from "@/constants/Constants"
-import axios from "axios"
+import useSWR from "swr"
+import { Category } from "@/types/Category"
+import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_STATISTICS_OVER_TIME_SWR_HOOK } from "@/constants/SwrHooks"
+import { categoriesGetAll } from "@/data-fetchers/CategoriesFunctions"
+import { MonthlyComplaintStatistics } from "@/types/Complaint"
+import { complaintsGetStatisticsOverTime } from "@/data-fetchers/ComplaintsFunctions"
 
 /**
 This component is used to generate and visualise the sentiment over time graph shown in the category analytics page.
 It is for per category.
 */
+
+//Adapter function that converts the raw API data into line chart multiple data points
+const transformIntoLineChartDataPoints = (input: any[], categoryName: string) => {
+    const sentimentData = input.map(({ date, data }) => ({
+        date,
+        [categoryName]: data.avg_sentiment,
+    }))
+
+    return sentimentData
+}
+
+
 interface CategoryAnalyticsGraphsProps {
     categoryName: string
 }
 
 
 export default function CategoryAnalyticsSentimentOverTime({ categoryName }: CategoryAnalyticsGraphsProps) {
-    //States
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [sentimentDataPoints, setSentimentDataPoints] = useState<LineChartMultiplePoint[]>([])
-    const [isThereError, setIsThereError] = useState<boolean>(false)
+    //Constants
+    const filter = {
+        "category": categoryName,
+        "_from_date": getDateTimeOneYearAgoAndSetToStart(),
+        "_to_date": getDateTimeOneMonthAgoAndSetToEnd(),
+    }
 
 
-    //Fixed colour map
-    const colourMap = {[categoryName]: COLOUR_MAP['yap-green-900']}
+    //SWR hooks to fetch data
+    const { data: complaintStatistics, error: complaintStatisticsError, isLoading: complaintStatisticsIsLoading } = useSWR<MonthlyComplaintStatistics[]>(
+        [COMPLAINTS_GET_STATISTICS_OVER_TIME_SWR_HOOK, filter],
+        () => complaintsGetStatisticsOverTime(filter)
+    )
+    const { data: categories, error: categoriesError, isLoading: categoriesIsLoading } = useSWR<Category[]>(CATEGORIES_GET_ALL_SWR_HOOK, categoriesGetAll)
 
 
-    //Adapter function that converts the raw API data into line chart multiple data points
-    const transformIntoLineChartDataPoints = (input: any[]) => {
-        const sentimentData = input.map(({ date, data }) => ({
-            date,
-            [categoryName]: data.avg_sentiment,
-        }))
+    //Process API data
+    const dataPoints: LineChartMultiplePoint[] = complaintStatistics && categories
+                                                 ? transformIntoLineChartDataPoints(complaintStatistics, categoryName)
+                                                 : []
+    const colourMap = categories
+                      ? { [categoryName]: categories.find(cat => cat.name === categoryName)?.colour ?? COLOUR_MAP['yap-green-900']}
+                      : {[categoryName]: COLOUR_MAP['yap-green-900']}
+                                                  
     
-        return sentimentData
-    }
-
-
-    //Fetch graph data
-    const fetchGraphData = async () => {
-        setIsLoading(true)
-        try {
-            //Process graph data
-            const getComplaintStatisticsEndpoint = API_BASE_URL_ANALYTICS  + COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT
-            const graphData = await axios.post(getComplaintStatisticsEndpoint,
-                {
-                    "filter": {
-                        "category": categoryName,
-                        "_from_date": getDateTimeOneYearAgoAndSetToStart(),
-                        "_to_date": getDateTimeOneMonthAgoAndSetToEnd(),
-                    } 
-                }
-            )
-            const sentimentData = transformIntoLineChartDataPoints(graphData.data.statistics)
-
-            //Update states
-            setSentimentDataPoints(sentimentData)
-        } catch (error) {
-            setIsThereError(true)
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
-
-    //Call the API on component mount
-    useEffect(() => {
-        fetchGraphData()
-    }, [])
-
-
     return (
-        isLoading
+        complaintStatisticsIsLoading || categoriesIsLoading
         ? (<Skeleton className="w-full h-[200px]" />)
-        : isThereError
+        : complaintStatisticsError || categoriesError || complaintStatistics === undefined || categories === undefined || categories.length === 0
         ? <div>Something went wrong. Please try again later.</div>
         : (
             <div className='flex flex-col space-y-8 w-full'>
-                <LineChartMultiple chartData={ sentimentDataPoints } colourMap={ colourMap } />  
+                <LineChartMultiple chartData={ dataPoints } colourMap={ colourMap } />     
             </div>
-          )
+        )
     )
 }

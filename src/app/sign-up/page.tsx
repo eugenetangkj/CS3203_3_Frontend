@@ -24,7 +24,7 @@ export default function SignUpPage() {
 				{/* Sign up form */}
 				<SignUpForm
 					role={ UserRoleEnum.Citizen }
-					successMessage='Sign up is successful. Please login now.'
+					successMessage='Sign up is successful. Please sign in now.'
 					buttonMessage="Sign Up"
 					buttonActionMessage="Signing up..."
 				/>

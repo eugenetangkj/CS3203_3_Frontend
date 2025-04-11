@@ -34,7 +34,8 @@ export const categoriesUpdateByOid = async (oid: string, setDocument: object): P
             } 
         )
         return response.data.success
-    } catch (error) {
+    } catch (error: any) {
+        console.log(error.response.data)
         return false
     }
 }
