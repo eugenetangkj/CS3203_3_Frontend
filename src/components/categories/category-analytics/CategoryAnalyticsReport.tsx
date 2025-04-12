@@ -3,6 +3,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Font, Link } from "@reac
 import { COLOUR_MAP } from "@/constants/Constants";
 import { capitaliseFirstLetter } from "@/utils/HelperFunctions";
 import { Complaint, ComplaintStatistics, MonthlyComplaintStatistics } from "@/types/Complaint";
+import { getDateRangeForCategoryAnalytics } from "@/utils/HelperFunctions";
 
 
 Font.register({ family: 'Afacad', src: '/fonts/Afacad-VariableFont_wght.ttf' });
@@ -167,7 +168,7 @@ interface CategoryAnalyticsReportProps {
 }
 
 const numberOfComplaintsPerPage = 14
-const startingPageNumber = 3
+const startingPageNumber = 4
 
 
 //Make into smaller arrays for displaying
@@ -182,6 +183,7 @@ const chunkComplaintsArray = (array: any[], size: number) => {
 
 export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics, monthlyComplaintStatistics, relevantComplaints }: CategoryAnalyticsReportProps) => {
     const complaintChunks = chunkComplaintsArray(relevantComplaints, numberOfComplaintsPerPage)
+    const datesForCategoryAnalytics = getDateRangeForCategoryAnalytics(categoryAnalytics.date_created)
 
     return (
         <Document>
@@ -204,7 +206,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                         <Text style={styles.subtitle}>Time Period for Analytics</Text>
                         <Text style={styles.subtext}>This refers to the time period during which the complaint&apos;s posted date falls, in order to generate analytics for this category.</Text>
 
-                        <Text style={styles.text}>10-2024 to 03-2025</Text>
+                        <Text style={styles.text}>{`${datesForCategoryAnalytics[0].slice(3, 10)} to ${datesForCategoryAnalytics[1].slice(3, 10)}`}</Text>
                     </View>
 
                     {/* Summary */}
@@ -214,7 +216,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                     </View>
 
                     {/* Trending Keywords */}
-                    <View style={styles.subsection}>
+                    {/* <View style={styles.subsection}>
                             <Text style={styles.subtitle}>Trending Keywords (AI-generated)</Text>
                             <Text style={styles.subtext}>These are the top keywords that appear in the complaints.</Text>
                             <View style={styles.unorderedList}>
@@ -223,15 +225,15 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                                         style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
                                         key={keyword}
                                     >
-                                        {/* Bullet point */}
+                                        
                                         <Text style={styles.bullet}>•</Text> 
 
-                                        {/* Text container */}
+                                        
                                         <Text style={styles.text}>{keyword}</Text>
                                     </View>
                                 ))}
                             </View>
-                    </View>
+                    </View> */}
 
 
                     {/* ABSA Results */}
@@ -239,7 +241,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             <Text style={styles.subtitle}>ABSA Results (AI-generated)</Text>
                             <Text style={styles.subtext}>Aspect-based sentiment analysis (ABSA) shows the sentiments of themes that emerged within the category, based on the complaints.</Text>
                             <View style={styles.unorderedList}>
-                                {categoryAnalytics.absa_result.slice(0, 8).map((absaResult, index, array) => (
+                                {categoryAnalytics.absa_result.slice(0, 10).map((absaResult, index, array) => (
                                     <View 
                                         style={index === array.length - 1 ? styles.listItemLast : styles.listItem} 
                                         key={absaResult.theme}
@@ -308,14 +310,29 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             ))}
                         </View>
                     </View>
+                </View>
 
+                {/* Footer */}
+                <Text style={styles.footer}>2</Text>
+            </Page>
+
+             {/* Page 3 */}
+            <Page size="A4" style={styles.page}>
+
+                {/* Header */}
+                <View style={styles.header}>
+                    <Image src='/logo.png' style={styles.logo} />
+                    <Text style={styles.headerText}>Category Analytics Report</Text>
+                </View>
+
+                {/* Body */}
+                <View style={styles.section}>
                     {/* Statistics */}
                     <View style={styles.subsection}>
                         <Text style={styles.subtitle}>Statistics</Text>
-                        <Text style={styles.subtext}>The forecasted sentiment is predicted for the month right after the time period used for this category analytics.</Text>
                         <Text style={styles.text}>Number of complaints over time period: { complaintStatistics.count } </Text>
-                        <Text style={styles.text}>Average sentiment over time period: { complaintStatistics.avg_sentiment }</Text>
-                        <Text style={styles.text}>Forecasted sentiment: { categoryAnalytics.forecasted_sentiment }</Text>
+                        <Text style={styles.text}>Average sentiment over time period: { complaintStatistics.avg_sentiment.toFixed(3) }</Text>
+                        <Text style={styles.text}>Forecasted sentiment for { categoryAnalytics.date_created.slice(3, 10) }: { categoryAnalytics.forecasted_sentiment.toFixed(3) }</Text>
                     </View>
 
                     {/* Number of complaints and sentiment over time */}
@@ -332,14 +349,14 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             <View key={ monthlyData.date } style={styles.row}>
                                 <Text style={styles.cell}>{monthlyData.date}</Text>
                                 <Text style={styles.cell}>{monthlyData.data.count}</Text>
-                                <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(5)}</Text>
+                                <Text style={styles.cell}>{monthlyData.data.avg_sentiment.toFixed(3)}</Text>
                             </View>
                         ))}
                     </View>
                 </View>
 
                 {/* Footer */}
-                <Text style={styles.footer}>2</Text>
+                <Text style={styles.footer}>3</Text>
             </Page>
 
 
@@ -386,7 +403,7 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                                  <Text style={styles.complaintCell}>{complaint.date}</Text>
                                  <Text style={styles.complaintCell}>{complaint.category}</Text>
                                  <Text style={styles.complaintCell}>{complaint.source}</Text>
-                                 <Text style={styles.complaintCell}>{complaint.sentiment.toFixed(2)}</Text>
+                                 <Text style={styles.complaintCell}>{complaint.sentiment.toFixed(3)}</Text>
                              </View>
                          ))}
                      </View>

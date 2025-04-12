@@ -33,6 +33,8 @@ export function ClassicTable({ headers, data }: ClassicTableProps) {
                             ? <p className='line-clamp-2'>{row[header.toLowerCase()] === '' ? '[No description]' : row[header.toLowerCase()] }</p>
                             : (header == "Source")
                             ? <p>{capitaliseFirstLetter(row[header.toLowerCase()] as string)}</p>
+                            : (header == "Sentiment")
+                            ? <p>{(row[header.toLowerCase()] as number).toFixed(3)}</p>
                             : <p>{row[header.toLowerCase()]}</p>
                         } 
                         </TableCell>

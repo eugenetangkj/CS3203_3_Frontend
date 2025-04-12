@@ -11,6 +11,8 @@ import { CATEGORIES_GET_ALL_SWR_HOOK, COMPLAINTS_GET_STATISTICS_OVER_TIME_SWR_HO
 import { categoriesGetAll } from "@/data-fetchers/CategoriesFunctions"
 import { MonthlyComplaintStatistics } from "@/types/Complaint"
 import { complaintsGetStatisticsOverTime } from "@/data-fetchers/ComplaintsFunctions"
+import { getDateRangeForCategoryAnalytics } from "@/utils/HelperFunctions"
+import { CategoryAnalytics } from "@/types/CategoryAnalytics"
 
 /**
 This component is used to generate and visualise the number of complaints over time graph shown in the category analytics page.
@@ -28,16 +30,17 @@ It is for per category.
 
 
 interface CategoryAnalyticsNumberOfComplaintsOverTimeProps {
-    categoryName: string
+    currentCategoryAnalytics: CategoryAnalytics
 }
 
 
-export default function CategoryAnalyticsNumberOfComplaintsOverTime({ categoryName }: CategoryAnalyticsNumberOfComplaintsOverTimeProps) {
+export default function CategoryAnalyticsNumberOfComplaintsOverTime({ currentCategoryAnalytics }: CategoryAnalyticsNumberOfComplaintsOverTimeProps) {
     //Constants
+    const datesForCategoryAnalytics = getDateRangeForCategoryAnalytics(currentCategoryAnalytics.date_created)
     const filter = {
-        "category": categoryName,
-        "_from_date": getDateTimeOneYearAgoAndSetToStart(),
-        "_to_date": getDateTimeOneMonthAgoAndSetToEnd(),
+        "category": currentCategoryAnalytics.name,
+        "_from_date": datesForCategoryAnalytics[0],
+        "_to_date": datesForCategoryAnalytics[1]
     } 
 
     //SWR hooks to fetch data
@@ -50,11 +53,11 @@ export default function CategoryAnalyticsNumberOfComplaintsOverTime({ categoryNa
 
     //Process complaint data into line chart data points
     const dataPoints: LineChartMultiplePoint[] = complaintStatistics && categories
-                                               ? transformIntoLineChartDataPoints(complaintStatistics, categoryName)
+                                               ? transformIntoLineChartDataPoints(complaintStatistics, currentCategoryAnalytics.name)
                                                : []
     const colourMap = categories
-                      ? { [categoryName]: categories.find(cat => cat.name === categoryName)?.colour ?? COLOUR_MAP['yap-green-900']}
-                      : {[categoryName]: COLOUR_MAP['yap-green-900']}
+                      ? { [currentCategoryAnalytics.name]: categories.find(cat => cat.name === currentCategoryAnalytics.name)?.colour ?? COLOUR_MAP['yap-green-900']}
+                      : {[currentCategoryAnalytics.name]: COLOUR_MAP['yap-green-900']}
                                               
 
     return (

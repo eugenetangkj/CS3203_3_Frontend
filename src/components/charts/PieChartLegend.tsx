@@ -36,7 +36,7 @@ export function PieChartLegend({ chartData, footerText }: PieChartLegendProps) {
                 >
                     <PieChart>
                     <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                    <Pie data={ chartData } dataKey="value" label nameKey="label" paddingAngle={3}/>
+                    <Pie data={ chartData } dataKey="value" label nameKey="label"/>
                     <ChartLegend
                         content={<ChartLegendContent nameKey="label" />}
                         className="flex flex-wrap gap-2 [&>*]:w-1/3 sm:[&>*]:w-1/6 [&>*]:flex [&>*]:justify-center text-sm mt-8"

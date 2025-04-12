@@ -7,7 +7,8 @@ export interface CategoryAnalytics {
     forecasted_sentiment: number,
     sentiment: number,
     concerns: string[],
-    absa_result:  AbsaResult[]
+    absa_result:  AbsaResult[],
+    date_created: string
 }
 
 

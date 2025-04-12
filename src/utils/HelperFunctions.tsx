@@ -249,3 +249,44 @@ export const getRandomCollectible = () => {
     const randomIndex = Math.floor(Math.random() * POSSIBLE_COLLECTIBLE_PATHS.length);
     return POSSIBLE_COLLECTIBLE_PATHS[randomIndex];
 };
+
+
+/**
+Gets the datetime for start and end date of category analytics, by considering 6 months back
+
+For example, 12-04-2025 14:20:00 should return:
+- 01-09-2025 00:00:00
+- 31-03-2025 23:59:59
+
+Taken from ChatGPT.
+*/
+export const getDateRangeForCategoryAnalytics = (dateStr: string): [string, string] => {
+
+    const [day, month, yearAndTime] = dateStr.split("-");
+    const [year, time] = yearAndTime.split(" ");
+    const inputDate = new Date(`${year}-${month}-${day}T${time}`);
+
+    // First date: 6 full months before the current month, start of the month
+    const firstDate = new Date(inputDate);
+    firstDate.setDate(1); // Ensure we're at the start of a month before month math
+    firstDate.setMonth(firstDate.getMonth() - 7); // 6 months back, exclude current month
+    firstDate.setHours(0, 0, 0, 0);
+
+    // Last date: end of the previous month
+    const lastDate = new Date(inputDate);
+    lastDate.setDate(0); // Last day of the previous month
+    lastDate.setHours(23, 59, 59, 999);
+
+    const formatDate = (date: Date): string => {
+        const dd = String(date.getDate()).padStart(2, "0");
+        const mm = String(date.getMonth() + 1).padStart(2, "0");
+        const yyyy = date.getFullYear();
+        const hh = String(date.getHours()).padStart(2, "0");
+        const min = String(date.getMinutes()).padStart(2, "0");
+        const ss = String(date.getSeconds()).padStart(2, "0");
+        return `${dd}-${mm}-${yyyy} ${hh}:${min}:${ss}`;
+    };
+
+    return [formatDate(firstDate), formatDate(lastDate)];
+}
+      
