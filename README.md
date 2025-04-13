@@ -65,8 +65,8 @@ View category-specific analytics generated biannually, using complaint data from
 - Complaints for the given time period and category
 
 **Operations supported (Admin):**
-1. View category analytics.
-2. Download category analaytics as a PDF.
+1. View category analytics
+2. Download category analaytics as a PDF
 
 
 <div align="center">
