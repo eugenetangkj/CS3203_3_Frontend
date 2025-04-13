@@ -6,12 +6,13 @@ import CategoryAnalyticsSummary from "./overview/CategoryAnalyticsSummary"
 import CategoryAnalyticsTrendingKeywords from "./overview/CategoryAnalyticsTrendingKeywords"
 import CategoryAnalyticsAbsaResults from "./overview/CategoryAnalyticsAbsaResults"
 import CategoryAnalyticsTwoColumnText from "./overview/CategoryAnalyticsTwoColumnText"
-import CategoryAnalyticsMostNegativeComplaints from "./tables/CategoryAnalyticsMostNegativeComplaints"
+import CategoryAnalyticsComplaints from "./tables/CategoryAnalyticsComplaints"
 import CategoryAnalyticsStatistics from "./statistics/CategoryAnalyticsStatistics"
 import CategoryAnalyticsGraphsContainer from "./graphs/CategoryAnalyticsGraphsContainer"
 import useSWR from "swr"
 import { categoryAnalyticsGetByName } from "@/data-fetchers/CategoryAnalyticsFunctions"
 import DownloadCategoryAnalyticsButton from "./DownloadCategoryAnalyticsButton"
+import CategoryAnalyticsTimePeriod from "./overview/CategoryAnalyticsTimePeriod"
 
 
 /**
@@ -31,8 +32,13 @@ export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalytic
     return (
         isLoading
         ? (<Skeleton className='w-full h-[100px]' />)
-        : error || currentCategoryAnalytics === undefined
+        : error || currentCategoryAnalytics === undefined || currentCategoryAnalytics.id.length === 0
         ? <div>Something went wrong in fetching the category analytics. Check if the analytics exist for the given category.</div>
+        : currentCategoryAnalytics.name == 'Others'
+        ? <div className='flex flex-col space-y-12'>
+                <PageTitle pageTitle={`Analytics on ${ currentCategoryAnalytics.name}`} />
+                <div className='text-yap-black-800'>There is insufficient data to generate category analytics for this category.</div>
+            </div>
         : (
             <div className='flex flex-col space-y-12'>
                 {/* Page title */}
@@ -40,12 +46,15 @@ export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalytic
                     <PageTitle pageTitle={`Analytics on ${ currentCategoryAnalytics.name}`} />
                     <DownloadCategoryAnalyticsButton categoryAnalytics={ currentCategoryAnalytics }/>
                 </div>
+
+                {/* Time period */}
+                <CategoryAnalyticsTimePeriod currentCategoryAnalytics={ currentCategoryAnalytics } />
                 
                 {/* Key summary */}
                 <CategoryAnalyticsSummary summary={ currentCategoryAnalytics.summary } />
 
                 {/* Trending keywords */}
-                <CategoryAnalyticsTrendingKeywords keywords={ currentCategoryAnalytics.keywords } />
+                {/* <CategoryAnalyticsTrendingKeywords keywords={ currentCategoryAnalytics.keywords } /> */}
 
                 {/* ABSA Result */}
                 <CategoryAnalyticsAbsaResults absaResults={ currentCategoryAnalytics.absa_result } />
@@ -66,15 +75,15 @@ export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalytic
                     />
                 </div>
 
-                {/* Most negative complaints */}
-                <CategoryAnalyticsMostNegativeComplaints categoryName={ currentCategoryAnalytics.name } />
-
-
                 {/* Statistics */}
-                <CategoryAnalyticsStatistics categoryName={ currentCategoryAnalytics.name } forecastedSentiment={ currentCategoryAnalytics.forecasted_sentiment }/>
+                <CategoryAnalyticsStatistics currentCategoryAnalytics={ currentCategoryAnalytics } />
 
                 {/* Graphs */}
-                <CategoryAnalyticsGraphsContainer categoryName={currentCategoryAnalytics.name } />
+                <CategoryAnalyticsGraphsContainer currentCategoryAnalytics={ currentCategoryAnalytics } />
+
+                {/* List of complaints */}
+                <CategoryAnalyticsComplaints currentCategoryAnalytics={ currentCategoryAnalytics } />
+
                 
             </div>
 

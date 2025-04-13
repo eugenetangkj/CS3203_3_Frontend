@@ -27,7 +27,8 @@ export const categoryAnalyticsGetByName = async (categoryName: string) : Promise
             forecasted_sentiment: 0,
             sentiment: 0,
             concerns: [],
-            absa_result: []
+            absa_result: [],
+            date_created: ''
         }
     }
 };

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { COOKIE_JWT_TOKEN, COOKIE_USER_OID } from '@/constants/Constants';
+import { COOKIE_JWT_TOKEN, COOKIE_USER_OID, COOKIE_USER_ROLE } from '@/constants/Constants';
 import { SIGN_IN_WEB_APP_ROUTE, SIGN_UP_WEB_APP_ROUTE, PROFILE_WEB_APP_ROUTE, ADMIN_PROTECTED_ROUTES } from './constants/WebAppRoutes';
 import axios from 'axios';
 import { UserRoleEnum } from './types/User';
@@ -23,26 +23,31 @@ export async function middleware(request: Request) {
 
 
     // Get user oid cookie
-    const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
-    if (!hasUserOidCookie && hasJwtTokenCookie) {
-        return NextResponse.redirect(new URL('/', request.url));
-    }
-    const userOid = cookieStore.get(COOKIE_USER_OID)?.value
+    const userRole = cookieStore.has(COOKIE_USER_ROLE)
+                     ? cookieStore.get(COOKIE_USER_ROLE)?.value
+                     : UserRoleEnum.Citizen
 
-    //Obtain user role
-    let userRole = UserRoleEnum.Citizen
-    try {
-        const getProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + GET_PROFILE_BY_OID_ENDPOINT
-        const userData = await axios.post(getProfileApiEndpoint,
-            {
-                "oid": userOid,
-            }
-        )
-        userRole = userData.data.profile.role
-    } catch (error) {
-        // console.error(error)
-        userRole = UserRoleEnum.Citizen
-    }
+
+    // const hasUserOidCookie = cookieStore.has(COOKIE_USER_OID)
+    // if (!hasUserOidCookie && hasJwtTokenCookie) {
+    //     return NextResponse.redirect(new URL('/', request.url));
+    // }
+    // const userOid = cookieStore.get(COOKIE_USER_OID)?.value
+
+    // //Obtain user role
+    // let userRole = UserRoleEnum.Citizen
+    // try {
+    //     const getProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT + GET_PROFILE_BY_OID_ENDPOINT
+    //     const userData = await axios.post(getProfileApiEndpoint,
+    //         {
+    //             "oid": userOid,
+    //         }
+    //     )
+    //     userRole = userData.data.profile.role
+    // } catch (error) {
+    //     // console.error(error)
+    //     userRole = UserRoleEnum.Citizen
+    // }
 
 
     //Rule 3: Users not an admin cannot access an admin protected route
@@ -59,6 +64,6 @@ export async function middleware(request: Request) {
 // Routes to be protected by the auth middleware
 export const config = {
     //Cannot use variables as properties must be statically parsed at compiled time
-    matcher: []
-    //matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin', '/polls/poll-template/:path*']
+    // matcher: []
+    matcher: ['/sign-in', '/sign-up', '/profile', '/all-complaints', '/categories/:path*', '/analytics', '/create-admin', '/polls/poll-template/:path*']
 };

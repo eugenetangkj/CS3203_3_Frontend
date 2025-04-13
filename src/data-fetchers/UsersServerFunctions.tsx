@@ -1,12 +1,12 @@
 "use server"
 
-import { COOKIE_JWT_TOKEN, COOKIE_USER_OID } from "@/constants/Constants";
+import { COOKIE_JWT_TOKEN, COOKIE_USER_OID, COOKIE_USER_ROLE } from "@/constants/Constants";
 import { UserCookies } from "@/types/User";
 import { cookies } from "next/headers";
 
 
 //Set cookies after signing in
-export const setCookiesForSigningIn = async (jwtToken: string, userOid: string) => {
+export const setCookiesForSigningIn = async (jwtToken: string, userOid: string, userRole: string) => {
     const cookieStore = await cookies()
     cookieStore.set({
         name: COOKIE_JWT_TOKEN,
@@ -20,6 +20,13 @@ export const setCookiesForSigningIn = async (jwtToken: string, userOid: string) 
         httpOnly: true,
         path: '/',
     })
+    cookieStore.set({
+        name: COOKIE_USER_ROLE,
+        value: userRole,
+        httpOnly: true,
+        path: '/',
+    })
+
 }
 
 //Set cookies after signing out
@@ -27,6 +34,7 @@ export const setCookiesForSigningOut = async () => {
     const cookieStore = await cookies()
     cookieStore.delete(COOKIE_JWT_TOKEN)
     cookieStore.delete(COOKIE_USER_OID)
+    cookieStore.delete(COOKIE_USER_ROLE)
 }
 
 //Get the user's auth cookies

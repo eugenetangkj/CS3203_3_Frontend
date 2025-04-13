@@ -4,9 +4,8 @@ import { Poll } from "@/types/Poll"
 import { BarChartLabel } from "@/components/charts/BarChartLabel"
 import { useState, useEffect } from "react"
 import { BarChartLabelPoint } from "@/types/ChartInterface"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { Skeleton } from "@/components/ui/skeleton"
+import { pollResponsesGetStatistics } from "@/data-fetchers/PollResponsesFunctions"
 
 
 /**
@@ -41,32 +40,17 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
         setIsLoading(true)
 
         try {
-            //Process complaints data
-            const getPollResponsesStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
-            const getPollResponsesStatisticsResponse = await axios.post(getPollResponsesStatisticsEndpoint,
-                {
-                    "filter": {
-                        "poll_id": currentPoll.id
-                    }
-                }
-            )
-            let processedPollStatistics = []
-            let totalNumberOfResponses = 0
-            if (getPollResponsesStatisticsResponse.data.statistics) {
-                const statistics = getPollResponsesStatisticsResponse.data.statistics as Record<string, number>;
-                processedPollStatistics = generateDataPoints(statistics)
-                totalNumberOfResponses = Object.values(statistics).reduce((sum, count) => sum + count, 0);
-            } else {
-                processedPollStatistics = generateDataPoints({})
-            }
+            const statistics = await pollResponsesGetStatistics({ "poll_id": currentPoll.id })
+            const processedPollStatistics = generateDataPoints(statistics)
+            const totalNumberOfResponses = Object.values(statistics).reduce((sum, count) => sum + count, 0);
             setDataPoints(processedPollStatistics)
             setTotalNumberOfResponses(totalNumberOfResponses)
         } catch (error) {
             setIsThereError(true)
             setTotalNumberOfResponses(0)
-        } finally {
-            setIsLoading(false)
         }
+
+        setIsLoading(false)
     }
 
 

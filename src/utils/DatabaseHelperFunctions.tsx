@@ -83,8 +83,7 @@ export const convertPollTemplateDocumentToObject = (pollTemplate : any) : PollTe
         question_type: pollTemplate.question_type,
         options: pollTemplate.options,
         reasoning: pollTemplate.reasoning,
-        date_created: "2025-03-17" //TODO: Update this again
-
+        date_created: pollTemplate.date_created
     }
 }
 
@@ -99,7 +98,7 @@ export const convertPollTemplateDocumentsToObjects = (pollTemplates: any[]) : Po
         question_type: pollTemplate.question_type,
         options: pollTemplate.options,
         reasoning: pollTemplate.reasoning,
-        date_created: "2025-03-17" //TODO: Update this again
+        date_created: pollTemplate.date_created
     }));
 }
 
@@ -182,6 +181,7 @@ export const convertCategoryAnalyticsDocumentToObject = (rawData : any): Categor
         forecasted_sentiment: parseFloat(rawData.forecasted_sentiment),
         sentiment: parseFloat(rawData.sentiment),
         concerns: rawData.concerns,
-        absa_result: rawData.absa_result
+        absa_result: rawData.absa_result,
+        date_created: rawData.date_created
     };
 };

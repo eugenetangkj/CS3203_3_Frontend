@@ -22,7 +22,8 @@ describe('convertPollTemplateDocumentsToObjects', () => {
                     "Option 1",
                     "Option 2"
                 ],
-                "reasoning": "Reasoning 1"
+                "reasoning": "Reasoning 1",
+                "date_created": "14-04-2025 14:30:00"
             },
             {
                 "_id": {
@@ -32,7 +33,8 @@ describe('convertPollTemplateDocumentsToObjects', () => {
                 "question": "Question 2",
                 "question_type": "Open-ended",
                 "options": [],
-                "reasoning": "Reasoning 2"
+                "reasoning": "Reasoning 2",
+                "date_created": "14-04-2025 14:30:00"
             },  
         ]
 
@@ -50,6 +52,6 @@ describe('convertPollTemplateDocumentsToObjects', () => {
         expect(pollTemplateObjects[0].options.length).toBe(2)
         expect(pollTemplateObjects[0].options[0]).toBe("Option 1")
         expect(pollTemplateObjects[0].options[1]).toBe("Option 2")
-        expect(pollTemplateObjects[0].date_created).toBe("2025-03-17")
+        expect(pollTemplateObjects[0].date_created).toBe("14-04-2025 14:30:00")
     })
 })

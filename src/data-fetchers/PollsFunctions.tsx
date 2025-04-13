@@ -1,9 +1,13 @@
+"use server"
+
 import { Poll } from "@/types/Poll"
 import { API_BASE_URL_ADMIN_MANAGEMENT, POLLS_GET_MANY_ENDPOINT, POLLS_INSERT_ONE_ENDPOINT, POLLS_GET_BY_OID_ENDPOINT, POLLS_UPDATE_BY_OID_ENDPOINT, POLLS_DELETE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes"
 import axios from "axios"
 import { convertPollDocumentsToObjects, convertPollDocumentToObject } from "@/utils/DatabaseHelperFunctions"
 import { VERY_LARGE_NUMBER } from "@/constants/Constants"
 import { ApiResponseStatus } from "@/types/ApiResponse"
+import createServerAxiosInstance from "@/utils/AxiosServer"
+
 
 
 //Function to fetch many polls
@@ -28,8 +32,9 @@ export const pollsGetMany = async (status: string) : Promise<Poll[]> => {
 //Function to create a poll
 export const pollsInsertOne = async (pollDocument: object): Promise<string> => {
     try {
+        const serverAxiosInstance = await createServerAxiosInstance()
         const createPollEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_INSERT_ONE_ENDPOINT
-        const response = await axios.post(createPollEndpoint, {
+        const response = await serverAxiosInstance.post(createPollEndpoint, {
             "document": pollDocument
         })
         const pollOid = response.data.oid
@@ -69,8 +74,9 @@ export const pollsGetByOid = async (oid: string): Promise<Poll> => {
 //Function to update a poll by its oid
 export const pollsUpdateByOid = async (oid: string, setDocument: object): Promise<string> => {
     try {
+        const serverAxiosInstance = await createServerAxiosInstance()
         const updatePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_UPDATE_BY_OID_ENDPOINT
-        await axios.post(updatePollByOidEndpoint, {
+        await serverAxiosInstance.post(updatePollByOidEndpoint, {
             "oid": oid,
             "update_document": {
                 "$set": setDocument
@@ -86,8 +92,9 @@ export const pollsUpdateByOid = async (oid: string, setDocument: object): Promis
 //Function to delete a poll by its oid
 export const pollsDeleteByOid = async (oid: string): Promise<string> => {
     try {
+        const serverAxiosInstance = await createServerAxiosInstance()
         const deletePollByOidEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLLS_DELETE_BY_OID_ENDPOINT
-        await axios.post(deletePollByOidEndpoint, {
+        await serverAxiosInstance.post(deletePollByOidEndpoint, {
             "oid": oid
         })
         return ApiResponseStatus.Success

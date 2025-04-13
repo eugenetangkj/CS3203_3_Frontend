@@ -1,13 +1,16 @@
-import { API_BASE_URL_USER_MANAGEMENT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
+"use server"
+
+import { API_BASE_URL_USER_MANAGEMENT, CREATE_ADMIN_ACCOUNT_ENDPOINT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import { ERROR_MESSAGE_API, SUCCESS, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import axios from "axios";
 import { UserRoleEnum } from "@/types/User";
 import { getUserAuthCookies } from "./UsersServerFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
+import createServerAxiosInstance from "@/utils/AxiosServer";
 
 
-//Sign up for a new account
-export const userSignUp = async (name: string, email: string, password: string, role: string, collectibles: string[]) => {
+//Sign up for a new account with the role as citizen
+export const userSignUp = async (name: string, email: string, password: string, collectibles: string[]) => {
     try {
         const signUpEndpoint = API_BASE_URL_USER_MANAGEMENT + SIGNUP_ENDPOINT
         await axios.post(signUpEndpoint, {
@@ -15,7 +18,31 @@ export const userSignUp = async (name: string, email: string, password: string, 
                 "name": name,
                 "email": email,
                 "password": password,
-                "role": role,
+                "collectibles": collectibles
+            },
+        })
+        return SUCCESS
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === 409) {
+                return 'Email already exists.'
+            } else {
+                return ERROR_MESSAGE_API
+            }
+        }
+    }
+};
+
+//Sign up for a new account with the role as admin
+export const adminSignUp = async (name: string, email: string, password: string, collectibles: string[]) => {
+    try {
+        const axiosServerInstance = await createServerAxiosInstance()
+        const createAdminAccountEndpoint = API_BASE_URL_USER_MANAGEMENT + CREATE_ADMIN_ACCOUNT_ENDPOINT
+        await axiosServerInstance.post(createAdminAccountEndpoint, {
+            "document": {
+                "name": name,
+                "email": email,
+                "password": password,
                 "collectibles": collectibles
             },
         })
@@ -34,6 +61,7 @@ export const userSignUp = async (name: string, email: string, password: string, 
 //Sign up for a new account
 export const userLogin = async (email: string, password: string) => {
     try {
+        const axiosServerInstance = await createServerAxiosInstance()
         const loginEndpoint = API_BASE_URL_USER_MANAGEMENT + LOGIN_ENDPOINT
         const loginResult = await axios.post(loginEndpoint, {
                 "email": email,
@@ -44,12 +72,15 @@ export const userLogin = async (email: string, password: string) => {
                 "message": "Invalid credentials. Please check your email and/or password.",
                 "jwt": "",
                 "oid": "",
+                "role": ""
             }
         } else {
+            console.log(loginResult.data)
             return {
                 "message": SUCCESS,
                 "jwt": loginResult.data.jwt,
-                "oid": loginResult.data.oid
+                "oid": loginResult.data.oid,
+                "role": loginResult.data.role
             }
         }
     } catch (error) {
@@ -57,6 +88,7 @@ export const userLogin = async (email: string, password: string) => {
             "message": ERROR_MESSAGE_API,
             "jwt": "",
             "oid": "",
+            "role": ""
         }
     }
 };
@@ -102,8 +134,9 @@ export const getUserProfile = async () => {
 //Updates the user's profile information
 export const userUpdateProfileByOid = async(oid: string, setDocument: object): Promise<string> => {
     try {
+        const axiosServerInstance = await createServerAxiosInstance()
         const updateProfileApiEndpoint = API_BASE_URL_USER_MANAGEMENT  + UPDATE_PROFILE_BY_OID_ENDPOINT
-        await axios.post(updateProfileApiEndpoint, {
+        await axiosServerInstance.post(updateProfileApiEndpoint, {
             "oid": oid,
             "update_document": {
                 "$set": setDocument

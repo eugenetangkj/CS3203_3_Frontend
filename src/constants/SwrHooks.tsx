@@ -5,6 +5,8 @@ export const COMPLAINTS_GET_STATISTICS_SWR_HOOK = 'complaints/get_statistics'
 export const COMPLAINTS_GET_STATISTICS_GROUPED_SWR_HOOK = 'complaints/get_statistics_grouped'
 export const COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_SWR_HOOK = 'complaints/get_statistics_grouped_over_time'
 export const COMPLAINTS_GET_STATISTICS_GROUPED_BY_SENTIMENT_VALUE_SWR_HOOK = 'complaints/get_statistics_grouped_by_sentiment_value'
+export const COMPLAINTS_GET_STATISTICS_OVER_TIME_SWR_HOOK = 'complaints/get_statistics_over_time'
+
 
 //CATEGORIES
 export const CATEGORIES_GET_ALL_SWR_HOOK = 'categories-get-all'

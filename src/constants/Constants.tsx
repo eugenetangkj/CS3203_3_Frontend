@@ -39,6 +39,12 @@ Cookie name used to store the user oid
 */
 export const COOKIE_USER_OID = 'userOid'
 
+/**
+Cookie name used to store the user role
+*/
+export const COOKIE_USER_ROLE = 'userRole'
+
+
 
 /**
 Links to show in the navigation bar
@@ -164,7 +170,7 @@ export const ALL_COLLECTIBLES: Collectible[] = [
     },
     {
         id: '4',
-        name: "Do you love du-rant?",
+        name: "Do you love du rant?",
         path: POSSIBLE_COLLECTIBLE_PATHS[3]
     },
     {

@@ -1,3 +1,5 @@
+"use server"
+
 import { API_BASE_URL_ADMIN_MANAGEMENT, COMPLAINTS_GET_MANY_ENDPOINT, COMPLAINTS_GET_COUNT_ENDPOINT, API_BASE_URL_ANALYTICS, COMPLAINTS_GET_STATISTICS_ENDPOINT,
     COMPLAINTS_GET_STATISTICS_OVER_TIME_ENDPOINT, COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT, COMPLAINTS_UPDATE_BY_OID_ENDPOINT,
     COMPLAINTS_GET_STATISTICS_GROUPED_ENDPOINT, COMPLAINTS_GET_STATISTICS_GROUPED_OVER_TIME_ENDPOINT, 
@@ -7,6 +9,7 @@ import axios from "axios";
 import { convertComplaintDocumentsToObjects } from "@/utils/DatabaseHelperFunctions";
 import { ALL_CATEGORIES_CATEGORY } from "@/constants/Constants";
 import { ApiResponseStatus } from "@/types/ApiResponse";
+import createServerAxiosInstance from "@/utils/AxiosServer";
 
 
 //Fetch count
@@ -107,8 +110,10 @@ export const complaintsGetStatisticsOverTime = async (filter: object): Promise<M
                 "filter": filter 
             }
         )
+        
         return apiResult.data.statistics
     } catch (error) {
+        console.log(error)
         return []
     }
 }
@@ -153,8 +158,9 @@ export const complaintsGetStatisticsGroupedBySentimentValue = async(bucketSize: 
 export const complaintsDeleteManyByOids = async (oidsOfComplaintsToDelete: string[]): Promise<string> => {
     try {
         //Make API call to delete selected complaints
+        const serverAxiosInstance = await createServerAxiosInstance()
         const deleteComplaintsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + COMPLAINTS_DELETE_MANY_BY_OIDS_ENDPOINT
-        await axios.post(deleteComplaintsEndpoint, {
+        await serverAxiosInstance.post(deleteComplaintsEndpoint, {
             "oids": oidsOfComplaintsToDelete
         });
         return ApiResponseStatus.Success
@@ -167,8 +173,9 @@ export const complaintsDeleteManyByOids = async (oidsOfComplaintsToDelete: strin
 export const complaintsUpdateByOid = async (oidOfComplaint: string, setDocument: object): Promise<string> => {
     try {
         //Make API call to delete selected complaints
+        const serverAxiosInstance = await createServerAxiosInstance()
         const updateComplaintEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + COMPLAINTS_UPDATE_BY_OID_ENDPOINT
-        await axios.post(updateComplaintEndpoint, 
+        await serverAxiosInstance.post(updateComplaintEndpoint, 
             {
                 "oid": oidOfComplaint,
                 "update_document": {

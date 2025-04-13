@@ -198,6 +198,9 @@ npx playwright test
 > [!NOTE]
 > The UI tests are configured to run using one worker only to avoid race conditions in the database. Thus, they are time-consuming to run. We advise **running one UI test at a time** instead of running all UI tests at once.
 
+> [!NOTE]
+> The tests are configured to run a Python script to reset the database after each test. Thus, ensure that you have Python installed before running the tests.
+
 > [!TIP]
 > It is good practice to stop your local MongoDB server before running `docker compose up`. For Windows users, run `net stop mongodb` in a command prompt.
 

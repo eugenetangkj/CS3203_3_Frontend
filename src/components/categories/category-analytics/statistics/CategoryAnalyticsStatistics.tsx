@@ -6,6 +6,8 @@ import { COMPLAINTS_GET_STATISTICS_SWR_HOOK } from "@/constants/SwrHooks"
 import InfoTooltip from "@/components/common/others/InfoTooltip"
 import { complaintsGetStatistics } from "@/data-fetchers/ComplaintsFunctions"
 import useSWR from "swr"
+import { CategoryAnalytics } from "@/types/CategoryAnalytics"
+import { getDateRangeForCategoryAnalytics } from "@/utils/HelperFunctions"
 
 
 /**
@@ -19,19 +21,23 @@ It includes:
 - ABSA result
 */
 interface CategoryAnalyticsStatisticsProps {
-    categoryName: string,
-    forecastedSentiment: number
+    currentCategoryAnalytics: CategoryAnalytics
 }
 
 
 
-export default function CategoryAnalyticsStatistics({ categoryName, forecastedSentiment}: CategoryAnalyticsStatisticsProps) {
+export default function CategoryAnalyticsStatistics({ currentCategoryAnalytics }: CategoryAnalyticsStatisticsProps) {
+    //Constants
+    const datesForCategoryAnalytics = getDateRangeForCategoryAnalytics(currentCategoryAnalytics.date_created)
+
     //States
     const { data: statistics, error: getComplaintStatisticsError, isLoading: getComplaintStatisticsIsLoading } = useSWR(
-        [COMPLAINTS_GET_STATISTICS_SWR_HOOK, categoryName],
+        [COMPLAINTS_GET_STATISTICS_SWR_HOOK, currentCategoryAnalytics.name],
         () => complaintsGetStatistics(
             {
-                "category": categoryName
+                "category": currentCategoryAnalytics.name,
+                "_from_date": datesForCategoryAnalytics[0],
+                "_to_date": datesForCategoryAnalytics[1]
             }
         )
     );
@@ -62,18 +68,18 @@ export default function CategoryAnalyticsStatistics({ categoryName, forecastedSe
                     </div>
 
 
-                    {/* Current sentiment */}
+                    {/* Average sentiment */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className={`text-5xl font-bold ${ statistics['avg_sentiment'] < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ statistics['avg_sentiment'] }</p>
-                        <p className='text-lg text-yap-brown-900'>Current sentiment</p>
+                        <p className={`text-5xl font-bold ${ statistics['avg_sentiment'] < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ statistics['avg_sentiment'].toFixed(3) }</p>
+                        <p className='text-lg text-yap-brown-900'>Average sentiment</p>
                     </div>
 
                     {/* Forecasted sentiment */}
                     <div className='flex flex-col justify-center items-center space-y-2'>
-                        <p className={`text-5xl font-bold ${forecastedSentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ forecastedSentiment }</p>
+                        <p className={`text-5xl font-bold ${currentCategoryAnalytics.forecasted_sentiment < 0 ? 'text-yap-orange-900' : 'text-yap-green-900'}`}>{ currentCategoryAnalytics.forecasted_sentiment.toFixed(3) }</p>
                         <div className='flex flex-row items-center space-x-2'>
                             <p className='text-lg text-yap-brown-900'>Forecasted sentiment</p>
-                            <InfoTooltip message="The forecasted sentiment score for 1 month later." />
+                            <InfoTooltip message={`The forecasted sentiment score is for ${ currentCategoryAnalytics.date_created.slice(3, 10) }.`} />
                         </div>
                         
                     </div>

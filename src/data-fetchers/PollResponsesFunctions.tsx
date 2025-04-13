@@ -1,13 +1,16 @@
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT,POLL_RESPONSES_GET_ONE_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
+"use server"
+
+import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT,POLL_RESPONSES_GET_MANY_ENDPOINT,POLL_RESPONSES_GET_ONE_ENDPOINT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT, POLL_RESPONSES_INSERT_ONE_ENDPOINT } from "@/constants/ApiRoutes";
 import { PollResponse } from "@/types/Poll";
 import axios from "axios";
 import { NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
-import { convertPollResponseDocumentToObject } from "@/utils/DatabaseHelperFunctions";
+import { convertPollResponseDocumentsToObjects, convertPollResponseDocumentToObject } from "@/utils/DatabaseHelperFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
+import createServerAxiosInstance from "@/utils/AxiosServer"; 
 
 
 //Fetch count
-export const pollResponsesGetCount = async (filter: object) => {
+export const pollResponsesGetCount = async (filter: object): Promise<number> => {
     try {
         const pollResponsesGetCountEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + POLL_RESPONSES_GET_COUNT_ENDPOINT
         const apiData = await axios.post(pollResponsesGetCountEndpoint, 
@@ -59,8 +62,9 @@ export const pollResponsesGetOne = async (filter: object): Promise<PollResponse>
 //Insert one poll response
 export const pollResponsesInsertOne = async(pollResponseDocument: object): Promise<string> => {
     try {
+        const serverAxiosInstance = await createServerAxiosInstance()
         const insertPollResponseEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_INSERT_ONE_ENDPOINT
-        await axios.post(insertPollResponseEndpoint,
+        await serverAxiosInstance.post(insertPollResponseEndpoint,
             {
                 "document": pollResponseDocument
             }
@@ -68,5 +72,44 @@ export const pollResponsesInsertOne = async(pollResponseDocument: object): Promi
         return ApiResponseStatus.Success
     } catch (error) {
         return ApiResponseStatus.Failure
+    }
+}
+
+//Get poll responses statistics
+export const pollResponsesGetStatistics = async(filter: object): Promise<Record<string, number>> => {
+    try {
+        const pollResponsesGetStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
+        const apiData = await axios.post(pollResponsesGetStatisticsEndpoint,
+            {
+                "filter": filter
+            }
+        )
+        //Handle special case of no responses yet
+        if (apiData.data.statistics === undefined) {
+            apiData.data.statistics = {}
+        }
+        return apiData.data.statistics
+    } catch (error) {
+        throw error
+    }
+
+}
+
+//Get many poll responses
+export const pollResponsesGetMany = async(filter: object, page_size: number, page_number: number, sortFilter: object): Promise<PollResponse[]> => {
+    try {
+        const pollResponsesGetManyEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + POLL_RESPONSES_GET_MANY_ENDPOINT
+        const apiResponse = await axios.post(pollResponsesGetManyEndpoint,
+            {
+                "filter": filter,
+                "page_size": page_size,
+                "page_number": page_number,
+                ...(Object.keys(sortFilter).length > 0 && { sort: sortFilter })
+            }
+        )
+        const pollResponses = convertPollResponseDocumentsToObjects(apiResponse.data.documents)
+        return pollResponses
+    } catch (error) {
+        throw error
     }
 }

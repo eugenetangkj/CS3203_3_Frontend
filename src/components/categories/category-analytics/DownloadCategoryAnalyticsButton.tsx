@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast"
 import { complaintsGetMany, complaintsGetStatistics, complaintsGetStatisticsOverTime } from "@/data-fetchers/ComplaintsFunctions";
 import { VERY_LARGE_NUMBER } from "@/constants/Constants";
 import { getComplaintsWithinRange } from "@/utils/HelperFunctions";
+import { getDateRangeForCategoryAnalytics } from "@/utils/HelperFunctions";
 
 
 
@@ -19,8 +20,10 @@ interface DownloadCategoryAnalyticsButtonProps {
 }
 
 export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: DownloadCategoryAnalyticsButtonProps ) {
+    //Constants and states
     const [isLoading, setIsLoading] = useState<boolean>()
     const { toast } = useToast()
+    const datesForCategoryAnalytics = getDateRangeForCategoryAnalytics(categoryAnalytics.date_created)
 
 
 
@@ -41,8 +44,8 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
         const complaintStatistics = await complaintsGetStatistics(
             {
             "category": categoryAnalytics.name,
-            "_from_date": "01-10-2024 00:00:00", //TODO: Update again
-            "_to_date":  "31-03-2025 23:59:00" //TODO: Update again
+            "_from_date": datesForCategoryAnalytics[0],
+            "_to_date": datesForCategoryAnalytics[1]
             }
         )
         if (complaintStatistics.count < 0 || complaintStatistics.avg_sentiment < -1) {
@@ -59,8 +62,8 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
         const monthlyComplaintStatistics = await complaintsGetStatisticsOverTime(
             {
                 "category": categoryAnalytics.name,
-                "_from_date": "01-10-2024 00:00:00", //TODO: Update again
-                "_to_date":  "31-03-2025 23:59:00" //TODO: Update again
+                "_from_date": datesForCategoryAnalytics[0],
+                "_to_date":  datesForCategoryAnalytics[1],
             }
         )
         if (monthlyComplaintStatistics.length === 0) {
@@ -78,7 +81,10 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
             { "category": categoryAnalytics.name },
             VERY_LARGE_NUMBER,
             1,
-            { "date": -1 }
+            {
+                "date": -1,
+                "sentiment": 1
+            }
         )
         if (allCategoryComplaints.length === 0) {
             toast({
@@ -89,7 +95,7 @@ export default function DownloadCategoryAnalyticsButton({ categoryAnalytics }: D
             setIsLoading(false)
             return
         }
-        const relevantComplaints = getComplaintsWithinRange("01-10-2024 00:00:00", "31-03-2025 23:59:00", allCategoryComplaints)
+        const relevantComplaints = getComplaintsWithinRange(datesForCategoryAnalytics[0], datesForCategoryAnalytics[1], allCategoryComplaints)
 
 
         
