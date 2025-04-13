@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import createUserAccount from "../../../scripts/users/createUserAccount.mjs";
 import deleteAllUsers from '../../../scripts/users/deleteAllUsers.mjs';
 import runPythonScript from '../../../scripts/initialiser.mjs'
+import setAccountAsAdmin from "../../../scripts/users/setAccountAsAdmin.mjs";
 
 
 /**
@@ -29,7 +30,7 @@ const newAdminAccountCredentials = {
 
 
 //Create original admin account before test runs
-test.beforeEach(async () => {
+test.beforeEach(async ({ page }) => {
     try {
         const result = await runPythonScript();
         console.log('Python script executed successfully:', result);
@@ -37,12 +38,22 @@ test.beforeEach(async () => {
         console.error('Error running the Python script:', error);
     }
 
-    await createUserAccount(
-        originalAdminAccountCredentials.name,
-        originalAdminAccountCredentials.email,
-        originalAdminAccountCredentials.password,
-        "Admin"
-    )
+    //Set up admin account
+    await page.goto('http://localhost:3000/');
+    await page.getByRole('button', { name: 'Sign In' }).first().click();
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill(originalAdminAccountCredentials.name);
+    await page.getByRole('textbox', { name: 'Email' }).click();
+    await page.getByRole('textbox', { name: 'Email' }).fill(originalAdminAccountCredentials.email);
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).fill(originalAdminAccountCredentials.password);
+    await page.getByRole('textbox', { name: 'Confirm your password' }).click();
+    await page.getByRole('textbox', { name: 'Confirm your password' }).fill(originalAdminAccountCredentials.password);
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+    await page.waitForTimeout(10000);
+
+    await setAccountAsAdmin(originalAdminAccountCredentials.email)
 })
 
 

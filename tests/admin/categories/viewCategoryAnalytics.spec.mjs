@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
-import createUserAccount from "../../../scripts/users/createUserAccount.mjs";
 import deleteAllUsers from '../../../scripts/users/deleteAllUsers.mjs';
 import runPythonScript from '../../../scripts/initialiser.mjs';
+import setAccountAsAdmin from "../../../scripts/users/setAccountAsAdmin.mjs";
 
 /**
 This UI test aims to test the E2E flow of an admin viewing the category analytics of a category.
@@ -19,20 +19,31 @@ const adminAccountCredentials = {
 
 
 //Create original admin account before test runs
-test.beforeEach(async () => {
+test.beforeEach(async ({ page }) => {
+    //Reset database
     try {
         const result = await runPythonScript();
         console.log('Python script executed successfully:', result);
-      } catch (error) {
+    } catch (error) {
         console.error('Error running the Python script:', error);
-      }
+    }
 
-    await createUserAccount(
-        adminAccountCredentials.name,
-        adminAccountCredentials.email,
-        adminAccountCredentials.password,
-        "Admin"
-    )
+    //Create admin account
+    await page.goto('http://localhost:3000/');
+    await page.getByRole('button', { name: 'Sign In' }).first().click();
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill(adminAccountCredentials.name);
+    await page.getByRole('textbox', { name: 'Email' }).click();
+    await page.getByRole('textbox', { name: 'Email' }).fill(adminAccountCredentials.email);
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).fill(adminAccountCredentials.password);
+    await page.getByRole('textbox', { name: 'Confirm your password' }).click();
+    await page.getByRole('textbox', { name: 'Confirm your password' }).fill(adminAccountCredentials.password);
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+    await page.waitForTimeout(10000);
+
+    await setAccountAsAdmin(adminAccountCredentials.email)
 })
 
 
@@ -63,20 +74,29 @@ test.describe('Admin should be able to view the category analytics of a category
 
         //Step 3: Check that the important fields of category analytics are present
         //The field values are based on the current category analaytics data used for testing
+        await expect(page.getByRole('heading', { name: 'Time Period for Analytics' })).toBeVisible();
+        await expect(page.getByText('10-2024 to 03-2025')).toBeVisible();
+
         await expect(page.getByRole('heading', { name: 'Summary' })).toBeVisible();
-        await expect(page.getByText('Discussions center around')).toBeVisible();
-        await expect(page.getByRole('heading', { name: 'Trending Keywords' })).toBeVisible();
-        await expect(page.locator('div').filter({ hasText: /^Prices$/ })).toBeVisible();
-        await expect(page.locator('div').filter({ hasText: /^Costs$/ })).toBeVisible();
+        await expect(page.getByText('The Reddit posts reveal a')).toBeVisible();
+
         await expect(page.getByRole('heading', { name: 'ABSA Results' })).toBeVisible();
-        await expect(page.getByText('NegativeEconomic data')).toBeVisible();
-        await expect(page.getByText('NegativePrice hikes')).toBeVisible();
+        await expect(page.getByText('NegativeGovernment funding')).toBeVisible();
+        await expect(page.getByText('NegativeOperating costs')).toBeVisible();
+
         await expect(page.getByRole('heading', { name: 'Concerns' })).toBeVisible();
-        await expect(page.getByText('Rising costs of living due to')).toBeVisible();
+        await expect(page.getByText('Increasing costs of living,')).toBeVisible();
+
         await expect(page.getByRole('heading', { name: 'Suggestions' })).toBeVisible();
-        await expect(page.getByText('The government should re-')).toBeVisible();
-        await expect(page.getByRole('heading', { name: 'Most Negative Complaints' })).toBeVisible();
-        await expect(page.getByRole('link', { name: 'Temasek should immediately' })).toBeVisible();
+        await expect(page.getByText('Implement policies to curb')).toBeVisible();
+
+        await expect(page.getByRole('heading', { name: 'Statistics' })).toBeVisible();
+        await expect(page.getByText('14Total no. of complaints')).toBeVisible()
+        await expect(page.getByText('-0.384Average sentiment')).toBeVisible()
+        await expect(page.getByText('-0.548Forecasted sentiment')).toBeVisible()
+
+        await expect(page.getByRole('heading', { name: 'List of Complaints' })).toBeVisible();
+        await expect(page.getByRole('link', { name: 'What is the economic argument' })).toBeVisible();
 
         //Step 4: Sign out
         await page.getByRole('img', { name: 'Profile image' }).first().click();

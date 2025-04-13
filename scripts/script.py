@@ -9,8 +9,6 @@ import pandas as pd
 from pymongo import MongoClient, ASCENDING
 from datetime import datetime
 import ast
-import os
-
 
 def fill_na_values(raw_df, boolean_cols = []):
     string_cols = []
@@ -86,7 +84,7 @@ sources_collection.create_index([("name", 1)], unique=True)
 print("Collection: sources inserted successfully!")
 
 # 3. Collection: posts
-# print("Current working directory:", os.getcwd())
+
 raw_df = pd.read_csv("./scripts/data/historical_posts.csv")
 clean_df = fill_na_values(raw_df)
 clean_df["date"] = pd.to_datetime(clean_df["date"], unit='s')
@@ -108,11 +106,16 @@ print("Collection: posts inserted successfully!")
 categories = {i["name"] for i in categories_data}
 
 raw_df = pd.read_csv("./scripts/data/historical_complaints.csv")
-clean_df = fill_na_values(raw_df)
-clean_df["date"] = pd.to_datetime(clean_df["date"])
-clean_df["url"] = clean_df["id"].apply(lambda i: f"https://www.reddit.com/r/singapore/comments/{i}/")
-clean_df["source"] = clean_df["source"].apply(lambda i: i.title())
-clean_df = clean_df[clean_df["date"] < datetime.now()]
+imputed_df = fill_na_values(raw_df)
+clean_df = pd.DataFrame()
+clean_df["id"] = imputed_df["id"]
+clean_df["title"] = imputed_df["title"]
+clean_df["source"] = imputed_df["source"].apply(lambda i: i.title())
+clean_df["category"] = imputed_df["category"]
+clean_df["date"] = pd.to_datetime(imputed_df["date"], format="%d-%m-%Y %H:%M:%S")
+clean_df["sentiment"] = imputed_df["sentiment"]
+clean_df["description"] = imputed_df["description"]
+clean_df["url"] = imputed_df["id"].apply(lambda i: f"https://www.reddit.com/r/singapore/comments/{i}/")
 clean_df = clean_df.dropna()
 
 complaints_data = clean_df.to_dict(orient="records")
@@ -127,8 +130,9 @@ print("Collection: complaints inserted successfully!")
 
 # 5. Collection: category_analytics
 
-raw_df = pd.read_csv("./scripts/data/sample_category_analytics.csv")
+raw_df = pd.read_csv("./scripts/data/historical_category_analytics.csv")
 clean_df = raw_df
+clean_df["date_created"] = pd.to_datetime(clean_df["date_created"], format="%d-%m-%Y %H:%M:%S")
 clean_df["keywords"] = clean_df["keywords"].apply(ast.literal_eval)
 clean_df["concerns"] = clean_df["concerns"].apply(ast.literal_eval)
 clean_df["suggestions"] = clean_df["suggestions"].apply(ast.literal_eval)
@@ -151,8 +155,9 @@ users_collection.create_index([("email", 1)], unique=True)
 print("Collection: users initialized successfully!")
 
 # 7. Collection: poll_templates
-raw_df = pd.read_csv("./scripts/data/sample_poll_templates.csv")
+raw_df = pd.read_csv("./scripts/data/historical_poll_templates.csv")
 clean_df = raw_df
+clean_df["date_created"] = pd.to_datetime(clean_df["date_created"], format="%d-%m-%Y %H:%M:%S")
 clean_df["options"] = clean_df["options"].apply(ast.literal_eval)
 poll_templates_data = clean_df.to_dict(orient="records")
 
@@ -172,7 +177,6 @@ print("Collection: poll_responses reset successfully!")
 polls_collection = db[COLLECTION_POLLS]
 polls_collection.drop()
 print("Collection: polls reset successfully!")
-
 
 
 # %%

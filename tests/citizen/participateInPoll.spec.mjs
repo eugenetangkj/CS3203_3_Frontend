@@ -51,6 +51,7 @@ const totalNumberOfCollectibles = 6
 
 //Set up citizen account and an ongoing poll
 test.beforeEach(async ({ page }) => {
+    //Reset database
     try {
         const result = await runPythonScript();
         console.log('Python script executed successfully:', result);
@@ -58,19 +59,33 @@ test.beforeEach(async ({ page }) => {
         console.error('Error running the Python script:', error);
     }
 
-    //Set up the database
-    await createUserAccount(citizenCredentials.name, citizenCredentials.email, citizenCredentials.password, "Citizen")
+    //Create poll
     await createPolls(polls)
 
-    //Sign in with the citizen account
+    //Create citizen account
     await page.goto('http://localhost:3000/');
     await page.getByRole('button', { name: 'Sign In' }).first().click();
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill(citizenCredentials.name);
+    await page.getByRole('textbox', { name: 'Email' }).click();
+    await page.getByRole('textbox', { name: 'Email' }).fill(citizenCredentials.email);
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).fill(citizenCredentials.password);
+    await page.getByRole('textbox', { name: 'Confirm your password' }).click();
+    await page.getByRole('textbox', { name: 'Confirm your password' }).fill(citizenCredentials.password);
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+    await page.waitForTimeout(10000);
+
+    //Sign in with the citizen account
+    await page.getByRole('link', { name: 'Sign in', exact: true }).click();
+    await page.waitForTimeout(5000);
     await page.getByRole('textbox', { name: 'Email' }).click();
     await page.getByRole('textbox', { name: 'Email' }).fill(citizenCredentials.email);
     await page.getByRole('textbox', { name: 'Your password' }).click();
     await page.getByRole('textbox', { name: 'Your password' }).fill(citizenCredentials.password);
     await page.locator('form').getByRole('button', { name: 'Sign In' }).click();
-    await page.waitForTimeout(10000); //Introduce some delay
+    await page.waitForTimeout(10000);
 })
 
 

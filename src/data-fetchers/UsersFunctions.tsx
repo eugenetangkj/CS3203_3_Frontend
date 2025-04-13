@@ -61,7 +61,6 @@ export const adminSignUp = async (name: string, email: string, password: string,
 //Sign up for a new account
 export const userLogin = async (email: string, password: string) => {
     try {
-        const axiosServerInstance = await createServerAxiosInstance()
         const loginEndpoint = API_BASE_URL_USER_MANAGEMENT + LOGIN_ENDPOINT
         const loginResult = await axios.post(loginEndpoint, {
                 "email": email,
@@ -75,7 +74,6 @@ export const userLogin = async (email: string, password: string) => {
                 "role": ""
             }
         } else {
-            console.log(loginResult.data)
             return {
                 "message": SUCCESS,
                 "jwt": loginResult.data.jwt,
@@ -84,6 +82,7 @@ export const userLogin = async (email: string, password: string) => {
             }
         }
     } catch (error) {
+        console.log(error)
         return {
             "message": ERROR_MESSAGE_API,
             "jwt": "",

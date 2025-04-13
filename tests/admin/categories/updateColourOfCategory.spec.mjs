@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import createUserAccount from "../../../scripts/users/createUserAccount.mjs";
 import runPythonScript from '../../../scripts/initialiser.mjs'
+import setAccountAsAdmin from "../../../scripts/users/setAccountAsAdmin.mjs";
 
 /**
 This UI test aims to test the E2E flow of an admin viewing the list of categories and updating the colour of a category.
@@ -21,7 +21,8 @@ const originalColour = '#f39c12'
 const colourToChangeTo = '#c4a573';
 
 //Create original admin account before test runs
-test.beforeEach(async () => {
+test.beforeEach(async ({ page }) => {
+    //Reset
     try {
         const result = await runPythonScript();
         console.log('Python script executed successfully:', result);
@@ -29,12 +30,23 @@ test.beforeEach(async () => {
         console.error('Error running the Python script:', error);
     }
 
-    await createUserAccount(
-        adminAccountCredentials.name,
-        adminAccountCredentials.email,
-        adminAccountCredentials.password,
-        "Admin"
-    )
+    //Create admin account
+    await page.goto('http://localhost:3000/');
+    await page.getByRole('button', { name: 'Sign In' }).first().click();
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill(adminAccountCredentials.name);
+    await page.getByRole('textbox', { name: 'Email' }).click();
+    await page.getByRole('textbox', { name: 'Email' }).fill(adminAccountCredentials.email);
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).fill(adminAccountCredentials.password);
+    await page.getByRole('textbox', { name: 'Confirm your password' }).click();
+    await page.getByRole('textbox', { name: 'Confirm your password' }).fill(adminAccountCredentials.password);
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+    await page.waitForTimeout(10000);
+
+    //Manually set to an admin
+    await setAccountAsAdmin(adminAccountCredentials.email)
 })
 
 
