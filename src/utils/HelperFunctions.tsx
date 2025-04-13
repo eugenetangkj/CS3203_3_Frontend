@@ -252,11 +252,16 @@ export const getRandomCollectible = () => {
 
 
 /**
-Gets the datetime for start and end date of category analytics, by considering 6 months back
+Gets the datetime for start and end date of category analytics, by considering 6 months back from the date_created
+of the analytics
 
 For example, 12-04-2025 14:20:00 should return:
-- 01-09-2025 00:00:00
-- 31-03-2025 23:59:59
+- 01-09-2025 00:00:00 (Start of the month that is 6 months away from the date_created, excluding the current month of date_created)
+- 31-03-2025 23:59:59 (End of the month that is just the month away from the date_created)
+
+@param dateStr: Date string representing date_created for category analytics
+
+@return an array of size 2, with start date and end date of the category analytics time period respectively
 
 Taken from ChatGPT.
 */
@@ -269,7 +274,7 @@ export const getDateRangeForCategoryAnalytics = (dateStr: string): [string, stri
     // First date: 6 full months before the current month, start of the month
     const firstDate = new Date(inputDate);
     firstDate.setDate(1); // Ensure we're at the start of a month before month math
-    firstDate.setMonth(firstDate.getMonth() - 7); // 6 months back, exclude current month
+    firstDate.setMonth(firstDate.getMonth() - 6); // 6 months back
     firstDate.setHours(0, 0, 0, 0);
 
     // Last date: end of the previous month
