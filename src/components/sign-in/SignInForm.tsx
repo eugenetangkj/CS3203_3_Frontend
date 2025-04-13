@@ -64,6 +64,7 @@ export default function SignInForm() {
             setIsSubmittingForm(false)
         } else {
             //CASE 2: Login is successful
+            console.log(loginResult)
             const jwtToken = loginResult.jwt
             const userOid = loginResult.oid
             const userRole = loginResult.role

@@ -4,11 +4,8 @@ import { Poll } from "@/types/Poll"
 import { BarChartLabel } from "@/components/charts/BarChartLabel"
 import { useState, useEffect } from "react"
 import { BarChartLabelPoint } from "@/types/ChartInterface"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_STATISTICS_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { Skeleton } from "@/components/ui/skeleton"
 import { pollResponsesGetStatistics } from "@/data-fetchers/PollResponsesFunctions"
-import { determineIsObjectEmpty } from "@/utils/HelperFunctions"
 
 
 /**
@@ -40,18 +37,17 @@ export function ViewPollAdminResponsesMcq({ currentPoll }: ViewPollAdminResponse
 
     //Helper function to fetch the data
     const fetchData = async () => {
-        
         setIsLoading(true)
 
-        const statistics = await pollResponsesGetStatistics({ "poll_id": currentPoll.id })
-        if (determineIsObjectEmpty(statistics)) {
-            setIsThereError(true)
-            setTotalNumberOfResponses(0)
-        } else {
+        try {
+            const statistics = await pollResponsesGetStatistics({ "poll_id": currentPoll.id })
             const processedPollStatistics = generateDataPoints(statistics)
             const totalNumberOfResponses = Object.values(statistics).reduce((sum, count) => sum + count, 0);
             setDataPoints(processedPollStatistics)
             setTotalNumberOfResponses(totalNumberOfResponses)
+        } catch (error) {
+            setIsThereError(true)
+            setTotalNumberOfResponses(0)
         }
 
         setIsLoading(false)

@@ -14,7 +14,8 @@ describe('convertPollTemplateDocumentToObject', () => {
                 "question": "Question 2",
                 "question_type": "Open-ended",
                 "options": [],
-                "reasoning": "Reasoning 2"
+                "reasoning": "Reasoning 2",
+                "date_created": "14-04-2025 14:30:00"
             }  
         
 
@@ -28,6 +29,6 @@ describe('convertPollTemplateDocumentToObject', () => {
         expect(pollTemplateObject.reasoning).toBe("Reasoning 2")
         expect(pollTemplateObject.question_type).toBe("Open-ended")
         expect(pollTemplateObject.options.length).toBe(0)
-        expect(pollTemplateObject.date_created).toBe("2025-03-17")
+        expect(pollTemplateObject.date_created).toBe("14-04-2025 14:30:00")
     })
 })

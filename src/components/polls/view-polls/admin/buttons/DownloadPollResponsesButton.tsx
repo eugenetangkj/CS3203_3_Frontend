@@ -1,10 +1,7 @@
 "use client"
 
 import { Poll } from "@/types/Poll"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { PollResponse } from "@/types/Poll"
-import { convertPollResponseDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
@@ -84,8 +81,8 @@ export function DownloadPollResponsesButton({ currentPoll }: DownloadPollRespons
                 const pollResponses = await pollResponsesGetMany(
                     { "poll_id": currentPoll.id },
                     NUMBER_OF_RESPONSES_TO_FETCH_PER_CALL,
-                    currentPage, //TODO: Fetch by date
-                    {}
+                    currentPage, 
+                    { "date_submitted": -1 }
                 )
                 if (pollResponses.length === 0) {
                     break

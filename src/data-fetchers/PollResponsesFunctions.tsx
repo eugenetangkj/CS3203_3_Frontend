@@ -78,15 +78,19 @@ export const pollResponsesInsertOne = async(pollResponseDocument: object): Promi
 //Get poll responses statistics
 export const pollResponsesGetStatistics = async(filter: object): Promise<Record<string, number>> => {
     try {
-        const pollResponsesGetStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
+        const pollResponsesGetStatisticsEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + POLL_RESPONSES_GET_STATISTICS_ENDPOINT
         const apiData = await axios.post(pollResponsesGetStatisticsEndpoint,
             {
                 "filter": filter
             }
         )
+        //Handle special case of no responses yet
+        if (apiData.data.statistics === undefined) {
+            apiData.data.statistics = {}
+        }
         return apiData.data.statistics
     } catch (error) {
-        return {}
+        throw error
     }
 
 }
@@ -94,7 +98,7 @@ export const pollResponsesGetStatistics = async(filter: object): Promise<Record<
 //Get many poll responses
 export const pollResponsesGetMany = async(filter: object, page_size: number, page_number: number, sortFilter: object): Promise<PollResponse[]> => {
     try {
-        const pollResponsesGetManyEndpoint = API_BASE_URL_ADMIN_MANAGEMENT  + POLL_RESPONSES_GET_MANY_ENDPOINT
+        const pollResponsesGetManyEndpoint = API_BASE_URL_ADMIN_MANAGEMENT + POLL_RESPONSES_GET_MANY_ENDPOINT
         const apiResponse = await axios.post(pollResponsesGetManyEndpoint,
             {
                 "filter": filter,

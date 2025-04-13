@@ -72,8 +72,10 @@ export const userLogin = async (email: string, password: string) => {
                 "message": "Invalid credentials. Please check your email and/or password.",
                 "jwt": "",
                 "oid": "",
+                "role": ""
             }
         } else {
+            console.log(loginResult.data)
             return {
                 "message": SUCCESS,
                 "jwt": loginResult.data.jwt,

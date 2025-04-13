@@ -32,8 +32,13 @@ export default function CategoryAnalyticsBody({ categoryName }: CategoryAnalytic
     return (
         isLoading
         ? (<Skeleton className='w-full h-[100px]' />)
-        : error || currentCategoryAnalytics === undefined
+        : error || currentCategoryAnalytics === undefined || currentCategoryAnalytics.id.length === 0
         ? <div>Something went wrong in fetching the category analytics. Check if the analytics exist for the given category.</div>
+        : currentCategoryAnalytics.name == 'Others'
+        ? <div className='flex flex-col space-y-12'>
+                <PageTitle pageTitle={`Analytics on ${ currentCategoryAnalytics.name}`} />
+                <div className='text-yap-black-800'>There is insufficient data to generate category analytics for this category.</div>
+            </div>
         : (
             <div className='flex flex-col space-y-12'>
                 {/* Page title */}

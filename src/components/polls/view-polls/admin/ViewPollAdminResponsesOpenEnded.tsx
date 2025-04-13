@@ -2,11 +2,8 @@
 
 import { Poll } from "@/types/Poll"
 import { useState, useEffect } from "react"
-import { API_BASE_URL_ADMIN_MANAGEMENT, POLL_RESPONSES_GET_COUNT_ENDPOINT, POLL_RESPONSES_GET_MANY_ENDPOINT } from "@/constants/ApiRoutes"
-import axios from "axios"
 import { Skeleton } from "@/components/ui/skeleton"
 import { PollResponse } from "@/types/Poll"
-import { convertPollResponseDocumentsToObjects } from "@/utils/DatabaseHelperFunctions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DownloadPollResponsesButton } from "./buttons/DownloadPollResponsesButton"
 import { pollResponsesGetCount, pollResponsesGetMany } from "@/data-fetchers/PollResponsesFunctions"
