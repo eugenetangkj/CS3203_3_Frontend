@@ -30,8 +30,53 @@ View the full list of social media complaints collected from our real-time data 
 
 
 
+### Feature 2: Analytics Dashboard
+View overall analytics of complaints across all categories, offering a bird’s-eye view of key statistics and trends from the social media complaints.
 
-### Feature 2: Polls
+**Operations supported (Admin):**
+
+The admin can view all of the following in the analytics dashboard.
+1. Number of complaints by category (Multi-select option for category)
+2. Number of complaints by category over time (Multi-select option for category and date selector for time period)
+3. Sentiments of categories (Multi-select option for category)
+4. Number of complaints by sentiment
+5. Sentiments of sources
+6. Sentiments of categories over time (Multi-select option for category and date selector for time period)
+7. Most negative complaints
+
+
+<div align="center">
+    <br />
+    <img src="public/github/analytics-dashboard.png" width="full" />
+</div>
+
+
+
+### Feature 3: Category Analytics
+View category-specific analytics generated biannually, using complaint data from the past six months. For each category, the category analytics include:
+- Time period
+- Summary
+- ABSA results
+- Concerns
+- Suggestions
+- Statistics (Total number of complaints, sentiment score, forecasted sentiment)
+- Number of complaints over time (Graph visualisation)
+- Sentiment over time (Graph visualisation)
+- Complaints for the given time period and category
+
+**Operations supported (Admin):**
+1. View category analytics.
+2. Download category analaytics as a PDF.
+
+
+<div align="center">
+    <br />
+    <img src="public/github/category-analytics.png" width="full" />
+</div>
+
+
+
+### Feature 4: Polls
 As an admin, engage the citizens with polls. Just Yap! offers AI-recommended poll templates based on complaints from the past 6 months, allowing you to engage citizens on trending issues.
 
 As a citizen, have you voice heard by participating in polls and earn fun digital collectibles along the way.
@@ -56,52 +101,6 @@ As a citizen, have you voice heard by participating in polls and earn fun digita
     <br />
     <img src="public/github/polls.png" width="full" />
 </div>
-
-
-### Feature 3: Category Analytics
-View category-specific analytics generated biannually, using complaint data from the past six months. For each category, the category analytics include:
-- Summary
-- Trending keywords
-- ABSA results
-- Concerns
-- Suggestions
-- Most negative complaints
-- Statistics (Total number of complaints, sentiment score, forecasted sentiment)
-- Number of complaints over time (Graph visualisation)
-- Sentiment over time (Graph visualisation)
-
-**Operations supported (Admin):**
-1. View category analytics.
-2. Download category analaytics as a PDF.
-
-
-<div align="center">
-    <br />
-    <img src="public/github/category-analytics.png" width="full" />
-</div>
-
-
-
-### Feature 4: Analytics Dashboard
-View overall analytics of complaints across all categories, offering a bird’s-eye view of key statistics and trends from the social media complaints.
-
-**Operations supported (Admin):**
-
-The admin can view all of the following in the analytics dashboard.
-1. Number of complaints by category (Multi-select option for category)
-2. Number of complaints by category over time (Multi-select option for category and date selector for time period)
-3. Sentiments of categories (Multi-select option for category)
-4. Number of complaints by sentiment
-5. Sentiments of sources
-6. Sentiments of categories over time (Multi-select option for category and date selector for time period)
-7. Most negative complaints
-
-
-<div align="center">
-    <br />
-    <img src="public/github/analytics-dashboard.png" width="full" />
-</div>
-
 
 
 
