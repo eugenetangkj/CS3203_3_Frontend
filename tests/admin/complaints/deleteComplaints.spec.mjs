@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import createUserAccount from "../../../scripts/users/createUserAccount.mjs"
 import runPythonScript from '../../../scripts/initialiser.mjs'
+import setAccountAsAdmin from "../../../scripts/users/setAccountAsAdmin.mjs";
 
 /**
 This UI test aims to test the E2E flow of an admin deleting complaints from the All Complaints table.
@@ -14,14 +14,14 @@ This UI test aims to test the E2E flow of an admin deleting complaints from the 
 7. Admin checks that the complaints are no longer present in the All Complaints table.
 8. Admin signs out.
 */
-const adminCredentials = {
+const adminAccountCredentials = {
     name: 'Admin 1',
     email: 'admin1@gmail.com',
     password: "Password1!",
 }
 
 //Create admin account before test runs
-test.beforeEach(async () => {
+test.beforeEach(async ({ page }) => {
     try {
         const result = await runPythonScript();
         console.log('Python script executed successfully:', result);
@@ -29,12 +29,22 @@ test.beforeEach(async () => {
         console.error('Error running the Python script:', error);
     }
     
-    await createUserAccount(
-        adminCredentials.name,
-        adminCredentials.email,
-        adminCredentials.password,
-        "Admin"
-    )
+    //Create admin account
+    await page.goto('http://localhost:3000/');
+    await page.getByRole('button', { name: 'Sign In' }).first().click();
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill(adminAccountCredentials.name);
+    await page.getByRole('textbox', { name: 'Email' }).click();
+    await page.getByRole('textbox', { name: 'Email' }).fill(adminAccountCredentials.email);
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Your password', exact: true }).fill(adminAccountCredentials.password);
+    await page.getByRole('textbox', { name: 'Confirm your password' }).click();
+    await page.getByRole('textbox', { name: 'Confirm your password' }).fill(adminAccountCredentials.password);
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+    await page.waitForTimeout(10000);
+
+    await setAccountAsAdmin(adminAccountCredentials.email) 
 })
 
 //Reset the database states
@@ -55,9 +65,9 @@ test.describe('Admin should be able delete complaints', () => {
         await page.goto('http://localhost:3000/');
         await page.getByRole('button', { name: 'Sign In' }).first().click();
         await page.getByRole('textbox', { name: 'Email' }).click();
-        await page.getByRole('textbox', { name: 'Email' }).fill(adminCredentials.email);
+        await page.getByRole('textbox', { name: 'Email' }).fill(adminAccountCredentials.email);
         await page.getByRole('textbox', { name: 'Your password' }).click();
-        await page.getByRole('textbox', { name: 'Your password' }).fill(adminCredentials.password);
+        await page.getByRole('textbox', { name: 'Your password' }).fill(adminAccountCredentials.password);
         await page.locator('form').getByRole('button', { name: 'Sign In' }).click();
         await page.waitForTimeout(10000);
 
@@ -65,23 +75,24 @@ test.describe('Admin should be able delete complaints', () => {
         await page.getByRole('link', { name: 'All Complaints' }).first().click();
         await page.waitForTimeout(10000);
 
+
         //Step 3: Select complaints via multiselect and delete them
-        await page.getByRole('row', { name: 'What is the economic argument' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
-        await page.getByRole('row', { name: 'Half of workers in Singapore' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
+        await page.getByRole('row', { name: 'Why do most people walk on' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
+        await page.getByRole('row', { name: 'HDB resale price : Stackhomes' }).getByRole('checkbox').click(); //Current top 2 complaints in the page
         await page.getByRole('button', { name: 'Delete' }).click();
         await page.getByRole('button', { name: 'Confirm' }).click();
         
         //Step 4: Assert that the complaints are no longer present
         await page.waitForTimeout(10000);
-        await expect(page.getByRole('link', { name: 'What is the economic argument' })).toBeHidden();
-        await expect(page.getByRole('link', { name: 'Half of workers in Singapore' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'Why do most people walk on' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'HDB resale price : Stackhomes' })).toBeHidden();
 
         //Step 5: Navigate to homepage and back to All Complaints to check again that the complaints are no longer present
         await page.getByRole('link', { name: 'Just Yap!' }).click();
         await page.getByRole('link', { name: 'All Complaints' }).first().click();
         await page.waitForTimeout(10000);
-        await expect(page.getByRole('link', { name: 'What is the economic argument' })).toBeHidden();
-        await expect(page.getByRole('link', { name: 'Half of workers in Singapore' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'Why do most people walk on' })).toBeHidden();
+        await expect(page.getByRole('link', { name: 'HDB resale price : Stackhomes' })).toBeHidden();
 
         //Step 6: Sign out
         await page.getByRole('img', { name: 'Profile image' }).first().click();

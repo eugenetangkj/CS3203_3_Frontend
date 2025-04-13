@@ -168,7 +168,7 @@ interface CategoryAnalyticsReportProps {
 }
 
 const numberOfComplaintsPerPage = 14
-const startingPageNumber = 4
+const startingPageNumber = 3
 
 
 //Make into smaller arrays for displaying
@@ -310,13 +310,14 @@ export const CategoryAnalyticsReport = ({ categoryAnalytics, complaintStatistics
                             ))}
                         </View>
                     </View>
+
                 </View>
 
                 {/* Footer */}
                 <Text style={styles.footer}>2</Text>
             </Page>
 
-             {/* Page 3 */}
+            {/* Page 3 */}
             <Page size="A4" style={styles.page}>
 
                 {/* Header */}

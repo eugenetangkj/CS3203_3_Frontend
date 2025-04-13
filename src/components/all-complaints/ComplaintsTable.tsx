@@ -124,7 +124,7 @@ export default function ComplaintsTable({ complaints, selectedComplaints, setSel
 
                         {/* Sentiment */}
                         <TableCell className="text-base text-yap-black-800 pl-0">
-                            <p className='line-clamp-1'>{ complaint.sentiment }</p>
+                            <p className='line-clamp-1'>{ complaint.sentiment.toFixed(3) }</p>
                         </TableCell>
 
                     </TableRow>

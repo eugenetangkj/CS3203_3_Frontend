@@ -167,9 +167,9 @@ The UI tests, implemented using Playwright, test end-to-end user flows which inv
 
 To run the UI tests, follow these steps.
 
-1. Head to this [Google drive link](https://drive.google.com/file/d/1sbrbNVplz2klM286PENeHhf1xHvXS12_/view?usp=sharing) and download the zipped folder called `data`. Unzip it and you should find five CSV files.
+1. Head to this [Google drive link](https://drive.google.com/file/d/1SVlfC1egF6OXmEA12TvEnLWMAUuU3ZN5/view?usp=sharing) and download the zipped folder called `data`. Unzip it and you should find four CSV files.
 
-2. Create a folder called `data` within the [`scripts`](/scripts/) folder. Place all five CSV files into this `data` folder.
+2. Create a folder called `data` within the [`scripts`](/scripts/) folder. Place all four CSV files into this `data` folder.
 
 
 3. Run the frontend on the local server.
