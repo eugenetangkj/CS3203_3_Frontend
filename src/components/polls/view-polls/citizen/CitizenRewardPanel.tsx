@@ -19,7 +19,7 @@ export function CitizenRewardPanel({ isRewardPanelOpen, setIsRewardPanelOpen, co
         <AlertDialog open={ isRewardPanelOpen } onOpenChange={ setIsRewardPanelOpen }>
             <AlertDialogContent className='font-afacad' aria-describedby="collectible-description">
                 <AlertDialogHeader>
-                    <AlertDialogTitle className='text-xl text-yap-black-800'>Thanks for participating! Here&apos;s a reward.</AlertDialogTitle>
+                    <AlertDialogTitle className='text-xl text-yap-black-800'>Thanks for participating! Scratch to reveal your reward.</AlertDialogTitle>
                 </AlertDialogHeader>
                 <div className="flex justify-center flex-col items-center space-y-2">
                     <p id='collectible-description' className='sr-only'>Reward</p>
