@@ -32,7 +32,7 @@ export function PieChartLegend({ chartData, footerText }: PieChartLegendProps) {
             <CardContent>
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto aspect-square min-h-[350px] max-h-[400px] pb-0 [&_.recharts-pie-label-text]:fill-foreground w-full"
+                    className="mx-auto min-h-[350px] max-h-[400px] w-full pb-0 [&_.recharts-pie-label-text]:fill-foreground"
                 >
                     <PieChart>
                     <ChartTooltip content={<ChartTooltipContent hideLabel />} />
