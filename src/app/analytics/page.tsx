@@ -8,6 +8,7 @@ Layout for analytics dashboard which displays insights and trends from complaint
 export const metadata = {
     title: "Analytics Dashboard - Just Yap!",
     description: "View insights and trends from complaints obtained from social media.",
+    viewport: 'width=device-width, initial-scale=1',
   };
 
 

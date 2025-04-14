@@ -12,6 +12,7 @@ layout depends on:
 export const metadata = {
     title: "Polls - Just Yap!",
     description: "View a poll",
+    viewport: 'width=device-width, initial-scale=1',
 };
 
 

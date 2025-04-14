@@ -18,8 +18,9 @@ const kavoonFont = Kavoon({
 });
 
 export const metadata: Metadata = {
-  title: "Just Yap!",
-  description: "A platform that aggregates online complaints from social media platforms to inform the decision-making process of authorities.",
+    title: "Just Yap!",
+    description: "A platform that aggregates online complaints from social media platforms to inform the decision-making process of authorities.",
+    viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode}>) {
