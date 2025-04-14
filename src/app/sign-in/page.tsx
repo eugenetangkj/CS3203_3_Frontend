@@ -10,7 +10,7 @@ Layout for the sign in page for existing users to login
 export const metadata = {
     title: "Sign In - Just Yap!",
     description: "Sign in to your account in Just Yap!",
-    viewport: 'width=device-width, initial-scale=1',
+    
 };
 
 

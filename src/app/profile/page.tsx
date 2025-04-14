@@ -11,7 +11,7 @@ Layout for the view profile page. We perform server-side rendering because there
 export const metadata = {
     title: "Profile - Just Yap!",
     description: "View your profile information",
-    viewport: 'width=device-width, initial-scale=1',
+    
 };
 
 
