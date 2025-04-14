@@ -3,7 +3,7 @@
 import { API_BASE_URL_USER_MANAGEMENT, CREATE_ADMIN_ACCOUNT_ENDPOINT, GET_PROFILE_BY_OID_ENDPOINT, LOGIN_ENDPOINT, SIGNUP_ENDPOINT, UPDATE_PROFILE_BY_OID_ENDPOINT } from "@/constants/ApiRoutes";
 import { ERROR_MESSAGE_API, SUCCESS, NO_MATCHING_DOCUMENTS_API_ERROR_MESSAGE } from "@/constants/Constants";
 import axios from "axios";
-import { UserRoleEnum } from "@/types/User";
+import { User, UserRoleEnum } from "@/types/User";
 import { getUserAuthCookies } from "./UsersServerFunctions";
 import { ApiResponseStatus } from "@/types/ApiResponse";
 import createServerAxiosInstance from "@/utils/AxiosServer";
@@ -93,7 +93,7 @@ export const userLogin = async (email: string, password: string) => {
 };
 
 //Determines the user's profile information
-export const getUserProfile = async () => {
+export const getUserProfile = async (): Promise<User> => {
     //Step 0: Prepare helpful constants
     const nonExistentUser = {
         id: '',
