@@ -46,7 +46,7 @@ export function BarChartMixed({ chartData, allPossibleLabels }: BarChartMixedPro
         if (screenWidth <= BREAKPOINTS['xs']) {
             setScalingFactor(4.75);
         } else if (screenWidth <= BREAKPOINTS['sm']) {
-            setScalingFactor(3);
+            setScalingFactor(4);
         } else if (screenWidth <= BREAKPOINTS['md']) {
             setScalingFactor(2); 
         } else if (screenWidth <= BREAKPOINTS['lg']) {
