@@ -83,8 +83,6 @@ body {
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Kavoon&display=swap');
-
 @layer utilities {
   .sign-up-field {
     @apply w-[300px] sm:w-[400px] rounded-full text-base
