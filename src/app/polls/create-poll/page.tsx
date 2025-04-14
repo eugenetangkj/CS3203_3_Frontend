@@ -7,7 +7,7 @@ Layout for the create polls page
 export const metadata = {
     title: "Polls - Just Yap!",
     description: "Create a poll for citizens to share their perspectives on local issues.",
-    viewport: 'width=device-width, initial-scale=1',
+    
 };
 
 export default function CreatePollsPage() {

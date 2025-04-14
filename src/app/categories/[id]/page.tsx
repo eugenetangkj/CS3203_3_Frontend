@@ -8,7 +8,7 @@ Layout for the page where the admin can view the analytics for a given category.
 export const metadata = {
     title: "View Category - Just Yap!",
     description: "View the analytics for a given category.",
-    viewport: 'width=device-width, initial-scale=1',
+    
 };
 
 

@@ -9,7 +9,7 @@ Layout for the all complaints page that the authority can use to view all compla
 export const metadata = {
     title: "All Complaints - Just Yap!",
     description: "View the full list of complaints obtained from social media.",
-	viewport: 'width=device-width, initial-scale=1',
+	
 };
 
 

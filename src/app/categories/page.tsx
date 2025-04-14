@@ -8,7 +8,7 @@ Layout for viewing managing categories page where the authorities can view, add 
 export const metadata: Metadata = {
     title: "Categories - Just Yap!",
     description: "View and manage categories for complaints",
-    viewport: 'width=device-width, initial-scale=1',
+    
 };
 
 export default function ManageCategoriesPage() {

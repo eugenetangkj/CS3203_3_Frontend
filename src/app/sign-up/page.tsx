@@ -11,7 +11,7 @@ Layout for the sign up page for new users to create an account. The role of the 
 export const metadata = {
     title: "Sign Up - Just Yap!",
     description: "Sign up for a new account in Just Yap!",
-	viewport: 'width=device-width, initial-scale=1',
+	
 };
 
 

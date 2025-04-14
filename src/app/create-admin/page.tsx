@@ -11,7 +11,7 @@ Layout for the the admin to create new admin accounts.
 export const metadata = {
     title: "Create Admin Account - Just Yap!",
     description: "Create a new admin account.",
-	viewport: 'width=device-width, initial-scale=1',
+	
 };
 
 
