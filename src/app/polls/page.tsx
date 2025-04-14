@@ -9,6 +9,7 @@ Layout for the polls page which allows viewing, editing and participating in pol
 export const metadata = {
     title: "Polls - Just Yap!",
     description: "Participate in polls to share your perspectives on local issues",
+    viewport: 'width=device-width, initial-scale=1',
 };
 
 
