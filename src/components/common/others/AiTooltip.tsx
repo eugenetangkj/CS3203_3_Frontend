@@ -11,7 +11,7 @@ interface AiTooltipProps {
 
 export default function AiTooltip({ message }: AiTooltipProps) {
     return (
-        <TooltipProvider>
+        <TooltipProvider delayDuration={ 50 }>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <p className='text-xl cursor-help'>🤖</p>

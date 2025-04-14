@@ -17,13 +17,13 @@ export default function AnalyticsDashboard() {
     return (
         <div className='grid grid-cols-1 xl:grid-cols-5 2xl:grid-cols-6 gap-x-4 gap-y-4'>
             {/* Number of complaints by category */}
-            <div className='analytics-dashboard-card col-span-1 xl:col-span-2 overflow-x-hidden'>
+            <div className='analytics-dashboard-card col-span-1 xl:col-span-2 overflow-x-hidden h-[550px] xl:h-[600px]'>
                 <AnalyticsDashboardTitle title='Number of Complaints by Category' />
                 <NumberOfComplaintsByCategoryVisualisation />
             </div>
 
             {/* Number of complaints by category over time */}
-            <div className='analytics-dashboard-card col-span-1 xl:col-span-3 2xl:col-span-4'>
+            <div className='analytics-dashboard-card col-span-1 xl:col-span-3 2xl:col-span-4 h-[475px] sm:h-[600px]'>
                 <div className='flex flex-row gap-2 items-center mb-6'>
                     <h3 className='font-bold text-xl sm:text-2xl text-yap-brown-900'>Number of Complaints by Category Over Time</h3>     
                     <InfoTooltip message='Shows the breakdown per month for the months between start and end dates, inclusive.' />    
