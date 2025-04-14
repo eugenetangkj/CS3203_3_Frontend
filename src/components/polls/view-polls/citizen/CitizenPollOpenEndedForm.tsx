@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { PollStatusEnum } from "@/types/Poll";
 import { getRandomCollectible } from "@/utils/HelperFunctions";
-import { addStringToListIfAbsent, getCurrentDateTime } from "@/utils/HelperFunctions";
+import { getCurrentDateTime } from "@/utils/HelperFunctions";
 import { CitizenRewardPanel } from "./CitizenRewardPanel";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { pollResponsesInsertOne } from "@/data-fetchers/PollResponsesFunctions";
@@ -87,7 +87,9 @@ export function CitizenPollOpenEndedForm({ currentPoll, shouldDisable, userRespo
         //STEP 2: Create updated collectibles list for the user
         const userCollectibles = userProfile.collectibles
         const collectibleGiven =  getRandomCollectible() //The collectible to give
-        const newUserCollectibles = addStringToListIfAbsent(userCollectibles, collectibleGiven)
+        const newUserCollectibles = userCollectibles.includes(collectibleGiven)
+                                    ? userCollectibles
+                                    : [...userCollectibles, collectibleGiven];
 
         //STEP 3: Update profile
         const resultOfUpdatingProfile = await userUpdateProfileByOid(userProfile.id, {
