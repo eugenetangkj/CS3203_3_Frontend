@@ -19,13 +19,13 @@ export default function CategoryAnalyticsGraphsContainer({ currentCategoryAnalyt
 
             <div className='flex flex-col space-y-8'>
                 {/* Number of complaints over time for this category */}
-                <div className='flex flex-col justify-start items-start space-y-4 w-full min-h-fit'>
+                <div className='flex flex-col justify-start items-start space-y-4 w-full h-[450px]'>
                     <PageSubsectionTitle subsectionTitle="Number of Complaints Over Time" />
                     <CategoryAnalyticsNumberOfComplaintsOverTime currentCategoryAnalytics={ currentCategoryAnalytics } />
                 </div>
                         
                 {/* Sentiment over time for this category */}
-                <div className='flex flex-col justify-start items-start space-y-4 min-h-fit'>
+                <div className='flex flex-col justify-start items-start space-y-4 h-[450px]'>
                     <PageSubsectionTitle subsectionTitle="Sentiment Over Time" />
                     <CategoryAnalyticsSentimentOverTime currentCategoryAnalytics={ currentCategoryAnalytics } /> 
                 </div>
