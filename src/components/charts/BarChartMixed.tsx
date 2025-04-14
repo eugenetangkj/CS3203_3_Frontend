@@ -44,7 +44,7 @@ export function BarChartMixed({ chartData, allPossibleLabels }: BarChartMixedPro
     useEffect(() => {
         // Change maxValue based on screen size
         if (screenWidth <= BREAKPOINTS['xs']) {
-            setScalingFactor(4.25);
+            setScalingFactor(4.75);
         } else if (screenWidth <= BREAKPOINTS['sm']) {
             setScalingFactor(3);
         } else if (screenWidth <= BREAKPOINTS['md']) {
