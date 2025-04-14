@@ -168,7 +168,7 @@ interface CategoryAnalyticsReportProps {
 }
 
 const numberOfComplaintsPerPage = 14
-const startingPageNumber = 3
+const startingPageNumber = 4
 
 
 //Make into smaller arrays for displaying
