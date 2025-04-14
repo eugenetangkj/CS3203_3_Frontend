@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, LabelList, ResponsiveContainer, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart"
 import { COLOUR_MAP } from "@/constants/Constants"
 import { BarChartLabelPoint } from "@/types/ChartInterface"
@@ -64,44 +64,40 @@ export function BarChartLabel({ chartData }: BarChartLabelProps) {
 
         
     return (
-            <ChartContainer config={chartConfig} className='max-h-[200px] w-full'>
-                <div className="w-full h-[200px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
-                            accessibilityLayer
-                            data={chartData}
-                            margin={{
-                            top: 40,
-                            }}
-                        >
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                            dataKey={ xKey }
-                            tickLine={false}
-                            tickMargin={10}
-                            axisLine={false}
-                            className='text-sm text-yap-black-800'
-                            tickFormatter={(value) =>
-                                numberOfCharactersToShow !== -1 && value.length > numberOfCharactersToShow
-                                    ? `${value.slice(0, numberOfCharactersToShow)}...`
-                                    : value
-                            }
-                            />
-                            <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                            />
-                            <Bar dataKey={ yKey } fill={ COLOUR_MAP['yap-green-900']} radius={8}>
-                            <LabelList
-                                position="top"
-                                offset={12}
-                                className="fill-foreground"
-                                fontSize={12}
-                            />
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
+            <ChartContainer config={chartConfig} className='h-[200px] w-full'>
+                <BarChart
+                    accessibilityLayer
+                    data={chartData}
+                    margin={{
+                    top: 40,
+                    }}
+                >
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                    dataKey={ xKey }
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    className='text-sm text-yap-black-800'
+                    tickFormatter={(value) =>
+                        numberOfCharactersToShow !== -1 && value.length > numberOfCharactersToShow
+                            ? `${value.slice(0, numberOfCharactersToShow)}...`
+                            : value
+                    }
+                    />
+                    <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                    />
+                    <Bar dataKey={ yKey } fill={ COLOUR_MAP['yap-green-900']} radius={8}>
+                    <LabelList
+                        position="top"
+                        offset={12}
+                        className="fill-foreground"
+                        fontSize={12}
+                    />
+                    </Bar>
+                </BarChart>
             </ChartContainer> 
     )
 }

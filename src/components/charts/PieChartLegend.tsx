@@ -32,14 +32,14 @@ export function PieChartLegend({ chartData, footerText }: PieChartLegendProps) {
             <CardContent>
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto min-h-[350px] max-h-[400px] w-full pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+                    className="mx-auto h-[400px] w-full pb-0 [&_.recharts-pie-label-text]:fill-foreground"
                 >
                     <PieChart>
                     <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                    <Pie data={ chartData } dataKey="value" label nameKey="label"/>
+                    <Pie data={ chartData } dataKey="value" label nameKey="label" className='w-full'/>
                     <ChartLegend
                         content={<ChartLegendContent nameKey="label" />}
-                        className="flex flex-wrap gap-2 [&>*]:w-1/3 sm:[&>*]:w-1/6 [&>*]:flex [&>*]:justify-center text-sm mt-8"
+                        className="flex flex-wrap gap-1 [&>*]:w-1/3 sm:[&>*]:w-1/5 [&>*]:flex [&>*]:justify-center text-sm mt-8"
                     />
                     </PieChart>
                 </ChartContainer>
