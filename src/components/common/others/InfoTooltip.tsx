@@ -14,7 +14,7 @@ interface InfoTooltipProps {
 
 export default function InfoTooltip({ message }: InfoTooltipProps) {
     return (
-        <TooltipProvider>
+        <TooltipProvider delayDuration={ 50 }>
             <Tooltip>
                 <TooltipTrigger asChild>
                 <Info className='w-5 h-5 stroke-yap-gray-900 duration-200 cursor-help'/>
