@@ -92,7 +92,7 @@ export function BarChartMixed({ chartData, allPossibleLabels }: BarChartMixedPro
             <CategoryMultiSelect allLabels={ allPossibleLabels } selectedLabels={ selectedLabels } setSelectedLabels={ setSelectedLabels } />
 
         
-            <ChartContainer config={chartConfig} className='min-h-[400px] max-w-fit'>
+            <ChartContainer config={chartConfig} className='h-[480px] max-w-fit'>
                 <BarChart
                     accessibilityLayer
                     data={currentChartData}

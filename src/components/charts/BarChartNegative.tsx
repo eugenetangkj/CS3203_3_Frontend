@@ -49,7 +49,7 @@ export function BarChartNegative({ chartData, allLabels, footerText }: BarChartN
         <div className='flex flex-col space-y-4'>
             <CategoryMultiSelect allLabels={ allLabels } selectedLabels={ selectedLabels } setSelectedLabels={ setSelectedLabels } />
             <CardContent>
-                <ChartContainer config={chartConfig} className='max-h-[250px] lg:max-h-[350px] w-full'>
+                <ChartContainer config={chartConfig} className='h-[250px] lg:h-[350px] w-full'>
                     <BarChart accessibilityLayer data={currentChartData}>
                     <CartesianGrid vertical={false} />
 

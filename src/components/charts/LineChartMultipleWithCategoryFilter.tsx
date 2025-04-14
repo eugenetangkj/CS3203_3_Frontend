@@ -56,41 +56,41 @@ export function LineChartMultipleWithCategoryFilter({ chartData, colourMap, allL
     return (
         <div className='flex flex-col space-y-4'>
             <CategoryMultiSelect allLabels={ allLabels } selectedLabels={ selectedLabels } setSelectedLabels={ setSelectedLabels } />
-             <ChartContainer config={chartConfig} className='max-h-[400px] w-full'>
-            <LineChart
-                accessibilityLayer
-                data={currentChartData}
-                margin={{
-                left: 0,
-                right: 12,
-                }}
-            >
-                <CartesianGrid vertical={true} />
-                    <YAxis domain={['auto', (max: number) => (max == 0) ? 1 : max * 1.05]} />
-                    <XAxis
-                        dataKey="date"
-                        tickLine={false}
-                        axisLine={false}
-                        tickMargin={8} 
-                        padding={{left: 7}}
-                    />
-                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                <ChartContainer config={chartConfig} className='h-[300px] sm:h-[400px] w-full'>
+                    <LineChart
+                        accessibilityLayer
+                        data={currentChartData}
+                        margin={{
+                        left: 0,
+                        right: 12,
+                        }}
+                    >
+                        <CartesianGrid vertical={true} />
+                            <YAxis domain={['auto', (max: number) => (max == 0) ? 1 : max * 1.05]} />
+                            <XAxis
+                                dataKey="date"
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8} 
+                                padding={{left: 7}}
+                            />
+                            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
-                    {Object.entries(colourMap).map(([category, colour]) => (
-                        <Line
-                            key={category}
-                            dataKey={category}
-                            type="monotone"
-                            stroke={colour}
-                            strokeWidth={2}
-                            dot={false}
-                        />
-                    ))}
+                            {Object.entries(colourMap).map(([category, colour]) => (
+                                <Line
+                                    key={category}
+                                    dataKey={category}
+                                    type="monotone"
+                                    stroke={colour}
+                                    strokeWidth={2}
+                                    dot={false}
+                                />
+                            ))}
 
 
-                    
-            </LineChart>
-            </ChartContainer>
+                            
+                    </LineChart>
+                </ChartContainer>
 
 
 
